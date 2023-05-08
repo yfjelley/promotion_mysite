@@ -162,10 +162,12 @@
       gtag('js', new Date());
       gtag('config', 'AW-975458180');
     </script>
-
-    <!-- Event snippet for 联系人 conversion page -->
     <script>
-      gtag('event', 'conversion', {'send_to': 'AW-975458180/ZnGFCJvU_poYEISfkdED'});
+    window.addEventListener("load", function(){
+        if (window.location.href.includes("icojf.com")) {
+             gtag('event', 'conversion', {'send_to': 'AW-975458180/i_t6CKjS6pwYEISfkdED'});
+    }
+    })
     </script>
 </html>
 
