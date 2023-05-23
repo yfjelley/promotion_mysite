@@ -111,6 +111,13 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-390F8PHDES');
+       window.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('[href*="#contact"]').forEach(function(e){
+       e.addEventListener('click',function(){
+        gtag('event','contact_us');
+       });
+       });
+        });
     </script>
 
 </head>
