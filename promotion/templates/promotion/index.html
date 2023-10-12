@@ -148,6 +148,34 @@ input[type="submit"]:hover {
        });
        });
         });
+       document.getElementById('myForm').addEventListener('submit', function(e) {
+            // 阻止表单的默认提交行为
+            e.preventDefault();
+
+            // 创建一个新的FormData对象，它用来构建一组用于发送请求的键/值对
+            var formData = new FormData(this);
+
+            // 创建一个新的XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+
+            // 配置它：POST到你的表单的action URL
+            xhr.open('POST', this.action, true);
+
+            // 设置一个回调函数来处理服务器的响应
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    // 如果我们收到一个正常的服务器响应，处理这里的代码
+                    alert('提交成功');
+                } else {
+                    // 如果发生错误，处理这里的代码
+                    alert('提交发生错误，错误代码：' + xhr.status);
+                }
+            };
+
+            // 发送我们的请求
+            xhr.send(formData);
+        });
+
     </script>
 
 </head>
@@ -204,21 +232,22 @@ input[type="submit"]:hover {
                 <li>telegram：@yf16881，添加时注明来源于google！</li>
             </ul>
         </section>
-        <section id="contact-form">
-            <h2>联系我们</h2>
-            <form action="https://pddjf.com/submit_form" method="POST">
-                <label for="name">姓名：</label>
-                <input type="text" id="name" name="name" required><br>
+<section id="contact-form">
+    <h2>联系我们</h2>
+    <form id="myForm" action="https://pddjf.com/submit_form/" method="POST">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" required><br>
 
-                <label for="email">邮箱：</label>
-                <input type="email" id="email" name="email" required><br>
+        <label for="email">邮箱：</label>
+        <input type="email" id="email" name="email" required><br>
 
-                <label for="message">留言：</label>
-                <textarea id="message" name="message" rows="4" required></textarea><br>
+        <label for="message">留言：</label>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
 
-                <input type="submit" value="发送">
-            </form>
-        </section>
+        <input type="submit" value="发送">
+    </form>
+</section>
+
 
     </main>
     <footer>
