@@ -145,6 +145,23 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
     <script>
+        window.addEventListener("load", function () {
+            document.querySelectorAll('input[type="submit"]').forEach(function (e) {
+                e.addEventListener('click', function () {
+
+                    var mailformat = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+                    var name = document.querySelector('#name').value;
+                    var email = document.querySelector('#email').value;
+                    var message = document.querySelector('#message').value;
+
+                    if (name != "" && email != "" && message != "" && email.match(mailformat) != null) {
+                        gtag('set', 'user_data', {'email': email});
+                        gtag('event', 'conversion', {'send_to': 'AW-975458180/nb0cCNOI5-sYEISfkdED'});
+                    }
+                    ;
+                });
+            });
+        });
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -275,8 +292,8 @@
             <input type="submit" value="发送">
         </form>
     </section>
-<!--{% load static %}-->
-<!--<img src="{% static '1111.png' %}" >-->
+    <!--{% load static %}-->
+    <!--<img src="{% static '1111.png' %}" >-->
 
 
 </main>
