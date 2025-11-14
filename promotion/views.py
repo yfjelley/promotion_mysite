@@ -9,6 +9,11 @@ def index(request):
     return render(request, "promotion/index.html", context)
 
 
+def tidal(request):
+    context = {}
+    return render(request, "promotion/tidal.html", context)
+
+
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt

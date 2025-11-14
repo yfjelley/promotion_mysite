@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIDAL 策略信号与量化资源服务 - AlphaQuant Lab</title>
+    <meta name="description" content="TIDAL 是 A-Signals 团队打造的 4 小时周期多因子趋势策略，结合 GMMA、Supertrend、MACD、ADX、ATR 等过滤器，并提供信号服务、策略资源与定制化支持。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --bg: #040916;
+            --card: rgba(7, 16, 36, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --primary: #5c7cfa;
+            --accent: #3bd2b8;
+            --text: #e9edff;
+            --muted: #8a92ad;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Manrope', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 15% 20%, rgba(92, 124, 250, 0.25), transparent 55%),
+            radial-gradient(circle at 80% 0%, rgba(59, 210, 184, 0.25), transparent 50%), var(--bg);
+            padding: 32px 16px 48px;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(4, 8, 20, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 50px 80px rgba(4, 9, 22, 0.7);
+        }
+
+        header {
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(92, 124, 250, 0.25), rgba(5, 12, 26, 0.95));
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .brand {
+            font-size: 1.3rem;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 999px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, #6d86ff, #3bd2b8);
+            color: #041026;
+            box-shadow: 0 15px 25px rgba(92, 124, 250, 0.35);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+            margin: 0;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.9rem;
+        }
+
+        main {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .section-copy {
+            color: rgba(233, 237, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: rgba(233, 237, 255, 0.8);
+        }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        footer {
+            padding: 32px 48px;
+            background: rgba(4, 8, 20, 0.9);
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        @media (max-width: 720px) {
+            header, main {
+                padding: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <header>
+        <div class="brand-row">
+            <div class="brand">AlphaQuant Lab · TIDAL</div>
+            <div class="cta-row">
+                <a class="btn btn-secondary" href="/">返回首页</a>
+                <a class="btn btn-primary" href="#contact">联系咨询</a>
+            </div>
+        </div>
+        <p class="section-copy">TIDAL 是 A-Signals 团队在真实资金与回测环境中长期验证的多因子趋势策略，核心目标是在 4h 周期中捕捉顺势波段，并利用动态止损、尾随止盈与风险过滤有效控制最大回撤。</p>
+        <p class="section-copy">它把 GMMA、Supertrend、MACD、ADX、ATR、偏移分布与动量信号整合成一个决策引擎，并交由 DynamicStakeController 与实时风控面板执行，可无缝适配 Binance / OKX / Bybit 等主流合约撮合环境。</p>
+    </header>
+    <main>
+        <section>
+            <h2>一、策略亮点（可落地的多因子顺势框架）</h2>
+            <div class="card-grid">
+                <article class="card">
+                    <h3>GMMA 趋势结构</h3>
+                    <p>3–15 与 30–55 两组 EMA 构成的 GMMA 结构实时观察线束收敛/发散，做到“趋势方向 + 通道强度”一眼可见。</p>
+                </article>
+                <article class="card">
+                    <h3>趋势 + 动量双重过滤</h3>
+                    <p>Supertrend（长/短周期）、ADX+DI、多周期动量、偏移分布、TSMOM 协同判别，过滤震荡行情，减少无效开仓。</p>
+                </article>
+                <article class="card">
+                    <h3>波动与成交量控制</h3>
+                    <p>ATR 比例、波动率上限与 Volume Filter 组合，自动识别流动性陷阱和极端滑点场景。</p>
+                </article>
+                <article class="card">
+                    <h3>多层级入场逻辑</h3>
+                    <ul>
+                        <li>EL/ES: NEW-TREND（新趋势起爆）</li>
+                        <li>GMMA-CROSS（多均线成束穿越）</li>
+                        <li>TREND-RET（趋势回踩/回补二次进场）</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>实盘级出场与风控</h3>
+                    <ul>
+                        <li>ATR 动态止损，随 ADX 调整倍数</li>
+                        <li>ATR 尾随止盈，分别记录多空 peak/trough</li>
+                        <li>Supertrend 反转、布林极端 + ATR 双重反向信号</li>
+                        <li>持仓超时但仅中等盈利的“温和退出”策略</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>DynamicStakeController</h3>
+                    <p>根据行情状态、风险评分与交易所规则动态调整仓位、子账户权重与订单类型，控制同向暴露并支持多组合调度。</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>二、服务组合（信号 · 资源 · 定制）</h2>
+            <div class="card-grid">
+                <article class="card">
+                    <h3>TIDAL 策略信号服务</h3>
+                    <ul>
+                        <li>4h 周期 EL/GMMA/TREND-RET 多空信号</li>
+                        <li>ATR 止损、尾随止盈、趋势反转、极端回落提醒</li>
+                        <li>覆盖主流 USDT 永续合约并附带环境风险提示</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>策略结构与资源分享</h3>
+                    <ul>
+                        <li>模块化拆解：入场、过滤、风控、仓位</li>
+                        <li>GMMA × Supertrend × MACD × ADX 实战组合</li>
+                        <li>指标封装、回测调优、团队实战心得</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>高级定制 / 优化</h3>
+                    <ul>
+                        <li>针对账户规模与风格的 TIDAL 变体</li>
+                        <li>适配 Binance / OKX / Bybit 等不同撮合与费率模型</li>
+                        <li>一站式回测、参数优化与风控方案</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>三、Telegram 社群矩阵</h2>
+            <div class="group-grid">
+                <article class="card">
+                    <h3>1️⃣ A-Signals Quant Lab</h3>
+                    <p>量化学习与资源分享社区，提供低门槛入口，帮助交易者理解指标组合与策略理念。</p>
+                    <ul>
+                        <li>GMMA / Supertrend / MACD / ADX 指标解析</li>
+                        <li>TIDAL 等策略结构分享（删减版 / 思路级）</li>
+                        <li>量化开发代码片段、工具与经验</li>
+                        <li>不定期市场结构点评与图表示例</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>2️⃣ TrendX Signals Pro</h3>
+                    <p>面向实盘合约用户的订阅群，提供即时 TIDAL 信号与风险播报。</p>
+                    <ul>
+                        <li>BTC / ETH 及强趋势币种的 TIDAL 多空信号</li>
+                        <li>入场标签：EL:NEW-TREND、GMMA-CROSS、TREND-RET</li>
+                        <li>出场提示：ATR 止损、尾随止盈、趋势反转、布林极端</li>
+                        <li>风险播报：高波动、低流动性、ADX/ATR 状态</li>
+                        <li>策略运行状态、关键参数、注意事项</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>联系我们 · 获取 TIDAL 方案</h2>
+            <p class="section-copy">添加联系方式时请注明来自 TIDAL 页面，便于我们为你准备更精准的策略诊断与合作方案。</p>
+            <div class="group-grid">
+                <article class="card">
+                    <h3>即时沟通</h3>
+                    <ul>
+                        <li>微信：btc1688</li>
+                        <li>QQ：549636719</li>
+                        <li>Telegram：@yf16881</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>邮件咨询</h3>
+                    <ul>
+                        <li>邮箱：549636719@qq.com</li>
+                        <li>请附带需求描述、预算与交付期望</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 AlphaQuant Lab · TIDAL Strategy Desk</p>
+        <p>Binance / OKX / Bybit / TradingView / 自研执行引擎</p>
+    </footer>
+</div>
+</body>
+</html>

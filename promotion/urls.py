@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("tidal/", views.tidal, name="tidal"),
     path('submit_form/', views.save_message, name='save_message'),
 ]

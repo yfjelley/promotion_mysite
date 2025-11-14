@@ -4,143 +4,436 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords"
-          content="量化交易, 策略开发, 量化开发, 交易工具, 网站开发, binance, 币安, okx, gateio, VNPY，TradingView 策略, TradingView 指标">
+          content="量化交易, 策略开发, 量化开发, 交易工具, 网站开发, Binance, 币安, OKX, Gateio, VNPY, TradingView 策略, TradingView 指标, 资管系统, 交易机器人">
     <meta name="description"
-          content="专业的量化策略开发与优化服务，支持binance、币安、okx、gateio等主流交易所，提供交易工具和网站开发。同时提供 TradingView 策略和指标开发服务。">
-    <title>量化策略开发与优化服务 - TradingView 策略和指标</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+          content="AlphaQuant Lab 专注量化策略研发、自动化交易系统、TradingView 指标与金融网站开发，覆盖 Binance / OKX / Gateio 等主流交易所，提供交付闭环与长期运维。">
+    <title>AlphaQuant Lab | 量化策略开发 · 交易系统 · TradingView 指标</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
+          rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #040a16;
+            --bg-card: #0b1120;
+            --primary: #5c7cfa;
+            --primary-light: #8ba8ff;
+            --accent: #33d8b3;
+            --muted: #6b778c;
+            --border: rgba(255, 255, 255, 0.08);
+            --neutral: #f5f7fb;
+        }
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            margin: 0 auto;
+            margin: 0;
+            font-family: 'Manrope', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(92, 124, 250, 0.2), transparent 60%),
+            radial-gradient(circle at 80% 0%, rgba(51, 216, 179, 0.25), transparent 50%), #020510;
+            color: #e8ecff;
+            min-height: 100vh;
+            padding: 32px 16px 48px;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .site-shell {
             max-width: 1200px;
-            font-size: 18px;
+            margin: 0 auto;
+            background: rgba(4, 10, 22, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 32px;
+            box-shadow: 0 60px 80px rgba(2, 5, 16, 0.65);
+            overflow: hidden;
         }
 
-        header, footer {
-            background-color: #4CAF50;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-            border-style: solid;
-            border-color: #333;
-            border-width: 0 0 3px 0;
+        .hero {
+            padding: 48px 48px 32px;
+            background: linear-gradient(135deg, rgba(92, 124, 250, 0.2), rgba(9, 16, 40, 0.95));
         }
 
-        header h1, main h2 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 0.5rem;
-        }
-
-        nav ul {
+        .top-nav {
             display: flex;
-            justify-content: center;
-            list-style-type: none;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            padding-top: 1rem;
+            gap: 16px;
+            margin-bottom: 32px;
         }
 
-        nav ul li {
-            margin: 0 1rem;
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
         }
 
-        nav ul li a {
-            color: #fff;
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
             text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            color: #dfe5ff;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            transition: background 0.2s ease, border 0.2s ease;
         }
 
-        nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .nav-links a.is-active {
+            background: rgba(92, 124, 250, 0.25);
+            border-color: rgba(92, 124, 250, 0.6);
+            color: #ffffff;
+        }
+
+        .nav-links a:hover {
+            background: rgba(92, 124, 250, 0.15);
+            border-color: rgba(92, 124, 250, 0.4);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.85rem;
+            color: var(--primary-light);
+        }
+
+        h1 {
+            font-size: clamp(2.3rem, 4vw, 3.4rem);
+            margin: 16px 0;
+            line-height: 1.15;
+        }
+
+        .hero-copy p {
+            color: rgba(232, 236, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, #6c8dff, #7cfbda);
+            color: #051026;
+            box-shadow: 0 20px 35px rgba(92, 124, 250, 0.3);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #e8ecff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-highlights {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .hero-highlights li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: rgba(232, 236, 255, 0.75);
+        }
+
+        .hero-highlights span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        .hero-visual {
+            background: rgba(5, 16, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: inset 0 0 40px rgba(92, 124, 250, 0.15);
+        }
+
+        .hero-visual h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .chart-lines {
+            display: grid;
+            gap: 16px;
+        }
+
+        .chart-line {
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-line span {
+            position: absolute;
+            height: 100%;
+            border-radius: inherit;
+        }
+
+        .chart-line span:nth-child(1) {
+            width: 60%;
+            background: linear-gradient(90deg, #5c7cfa, transparent);
+        }
+
+        .chart-line span:nth-child(2) {
+            width: 90%;
+            background: linear-gradient(90deg, #33d8b3, transparent);
         }
 
         main {
-            padding: 2rem;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 1rem;
-            border-radius: 5px;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
         }
 
-        p, ul, ol {
-            font-size: 1.2rem;
-            line-height: 1.8;
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 40px;
         }
 
-        ul, ol {
-            list-style-type: none;
-            padding-left: 2rem;
+        .section.is-hidden {
+            display: none;
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .section h2 {
+            margin-top: 0;
+            font-size: 1.9rem;
         }
 
-        section {
-            margin-bottom: 2rem;
+        .section p {
+            color: rgba(232, 236, 255, 0.8);
         }
 
-        footer {
-            border-width: 3px 0 0 0;
-            font-size: 0.9rem;
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .metric {
+            padding: 20px 24px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            margin: 0 0 8px;
+        }
+
+        .metric-label {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .card {
+            padding: 24px;
+            border-radius: 20px;
+            background: rgba(5, 16, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card span {
+            font-size: 1.4rem;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            margin: 0;
+            color: rgba(232, 236, 255, 0.75);
+        }
+
+        .process-list {
+            display: grid;
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .process-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .step-index {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(92, 124, 250, 0.2);
+            border: 1px solid rgba(92, 124, 250, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .contact-card {
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(5, 16, 40, 0.7);
+        }
+
+        .contact-card li {
+            list-style: none;
+            margin-bottom: 12px;
         }
 
         form {
-            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-weight: 600;
+            color: rgba(232, 236, 255, 0.8);
         }
 
         input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(2, 5, 16, 0.4);
+            color: #e8ecff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(92, 124, 250, 0.2);
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
             border: none;
+            background: linear-gradient(120deg, #6c8dff, #7cfbda);
+            color: #051026;
+            font-weight: 700;
+            cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        .tidal-list {
+            list-style: disc;
+            padding-left: 1.2rem;
+            margin: 12px 0 0;
+            color: rgba(232, 236, 255, 0.78);
         }
 
-        @media screen and (max-width: 768px) {
-            nav ul {
+        .tidal-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .partners {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .partners a {
+            color: var(--primary-light);
+        }
+
+        footer {
+            padding: 32px 48px 48px;
+            color: rgba(232, 236, 255, 0.6);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .hero, main {
+                padding: 32px;
+            }
+
+            .cta-row {
                 flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
+                align-items: stretch;
             }
         }
-
     </style>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -149,27 +442,8 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MCXX3BR7');</script>
     <!-- End Google Tag Manager -->
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
     <script>
-
-        window.addEventListener("load", function () {
-            document.querySelectorAll('input[type="submit"]').forEach(function (e) {
-                e.addEventListener('click', function () {
-
-                    var mailformat = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
-                    var name = document.querySelector('#name').value;
-                    var email = document.querySelector('#email').value;
-                    var message = document.querySelector('#message').value;
-
-                    if (name != "" && email != "" && message != "" && email.match(mailformat) != null) {
-                        gtag('set', 'user_data', {'email': email});
-                        gtag('event', 'conversion', {'send_to': 'AW-975458180/nb0cCNOI5-sYEISfkdED'});
-                    }
-                    ;
-                });
-            });
-        });
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -178,150 +452,318 @@
 
         gtag('js', new Date());
         gtag('config', 'AW-975458180');
-        window.addEventListener("load", function () {
-            if (window.location.href.includes("pddjf.com")) {
-                gtag('event', 'conversion', {'send_to': 'AW-975458180/i_t6CKjS6pwYEISfkdED'});
-            }
-        })
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
         gtag('config', 'G-390F8PHDES');
-        window.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('[href*="#contact"]').forEach(function (e) {
-                e.addEventListener('click', function () {
-                    gtag('event', 'contact_us');
-                });
+    </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCXX3BR7" height="0" width="0"
+                  style="display:none;visibility:hidden"></iframe></noscript>
+<div class="site-shell">
+    <header class="hero" id="home">
+        <nav class="top-nav">
+            <div class="brand">AlphaQuant Lab</div>
+            <div class="nav-links">
+                <a href="#services" data-target="services">定制服务</a>
+                <a href="/tidal/">策略信号</a>
+                <a href="#workflow" data-target="workflow">交付流程</a>
+                <a href="#capabilities" data-target="capabilities">能力矩阵</a>
+                <a href="#contact" data-target="contact">联系方式</a>
+            </div>
+        </nav>
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">策略研发 · 自动化执行 · 风控中台</p>
+                <h1>重新定义您的交易体验</h1>
+                <p>我们为交易团队与机构提供的指标开发、策略定制、自动化执行、监控风控覆盖 Binance / OKX / Gateio / Bybit 等主流场景。</p>
+                <ul class="hero-highlights">
+                    <li><span></span>15+ 主流交易所 API 与撮合经验</li>
+                    <li><span></span>7×24 云端部署 + 实盘运维</li>
+                    <li><span></span>TradingView / Python 双栈策略</li>
+                </ul>
+            </div>
+            <div class="hero-visual">
+                <h3>策略组合健康度 · 实时监控</h3>
+                <div class="chart-lines">
+                    <div class="chart-line"><span></span></div>
+                    <div class="chart-line"><span></span></div>
+                    <div class="chart-line"><span></span></div>
+                </div>
+                <div class="metrics" style="margin-top: 28px;">
+                    <div class="metric">
+                        <p class="metric-value">100%</p>
+                        <p class="metric-label">策略稳定上线率</p>
+                    </div>
+                    <div class="metric">
+                        <p class="metric-value">&lt;200ms</p>
+                        <p class="metric-label">订单响应延迟</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="section">
+            <h2>快速交付 · 可量化的业务指标</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <p class="metric-value">300+</p>
+                    <p class="metric-label">策略/工具交付</p>
+                </div>
+                <div class="metric">
+                    <p class="metric-value">2-7 天</p>
+                    <p class="metric-label">小型项目落地周期</p>
+                </div>
+                <div class="metric">
+                    <p class="metric-value">灵活报价</p>
+                    <p class="metric-label">策略定制 1,000 USD 起</p>
+                </div>
+                <div class="metric">
+                    <p class="metric-value">终生</p>
+                    <p class="metric-label">策略维护保障</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services" data-page-section="services">
+            <h2>核心服务矩阵</h2>
+            <div class="card-grid">
+                <article class="card">
+                    <h3>策略定制 / 优化</h3>
+                    <ul>
+                        <li>多周期、多因子CTA策略</li>
+                        <li>网格、马丁格尔、市场中性策略</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>自动化交易系统</h3>
+                    <ul>
+                        <li>撮合/跟单/再平衡机器人</li>
+                        <li>多账户、多交易所调度</li>
+                        <li>实盘监控 + 报警</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>风控与资管中台</h3>
+                    <ul>
+                        <li>多级风控规则引擎</li>
+                        <li>资金账号权限分层</li>
+                        <li>实时 KPI 面板</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="workflow" data-page-section="workflow">
+            <h2>合作流程（4 步直达实盘）</h2>
+            <p>把复杂的策略落地过程拆成最关键的四个里程碑，每一步都有明确产出、责任人和可跟踪的交付物。</p>
+            <div class="process-list">
+                <div class="process-item">
+                    <div class="step-index">1️⃣</div>
+                    <div>
+                        <h3>快速诊断</h3>
+                        <p>30 分钟深聊交易品种、周期、风险偏好与目标收益，锁定必须满足的技术约束与合规要求。</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="step-index">2️⃣</div>
+                    <div>
+                        <h3>方案 + 报价包</h3>
+                        <p>输出策略/系统蓝图、关键技术路线、分阶段排期和透明报价，确认里程碑验收标准。</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="step-index">3️⃣</div>
+                    <div>
+                        <h3>实现与回测</h3>
+                        <p>并行完成指标/策略编码、历史回测与稳健性测试，交付报告及演示环境，准备联调。</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="step-index">4️⃣</div>
+                    <div>
+                        <h3>上线陪跑</h3>
+                        <p>完成 CEX/DEX/量化平台接入，提供 7×24 监控、实盘调优与长期迭代服务，确保策略持续可用。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="capabilities" data-page-section="capabilities">
+            <h2>技术能力 & 生态支持</h2>
+            <div class="card-grid">
+                <article class="card">
+                    <h3>语言开发栈</h3>
+                    <p>Python </p>
+                </article>
+                <article class="card">
+                    <h3>交易所支持</h3>
+                    <p>Binance、OKX、Gate.io、Bybit、Huobi、Bitget 等。</p>
+                </article>
+                <article class="card">
+                    <h3>部署形态</h3>
+                    <p>云端（AWS、阿里云、华为云）、本地机房</p>
+                </article>
+                <article class="card">
+                    <h3>观测与风控</h3>
+                    <p>钉钉/Telegram 通知通道。</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="contact" data-page-section="contact">
+            <h2>联系方式</h2>
+            <p>欢迎注明来自 Google，便于我们准备更精准的解决方案。</p>
+            <div class="contact-wrapper">
+                <div class="contact-card">
+                    <h3>即时沟通</h3>
+                    <ul>
+                        <li>微信：btc1688</li>
+                        <li>QQ：549636719</li>
+                        <li>Telegram：@yf16881</li>
+                    </ul>
+                </div>
+                <div class="contact-card">
+                    <h3>邮件咨询</h3>
+                    <ul>
+                        <li>549636719@qq.com</li>
+                        <li>请附带需求描述 / 预算 / 交付时间</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section partners" id="friendly-links">
+            <h2>合作伙伴 · 友情链接</h2>
+            <p>使用下方专属链接注册 IC Markets，可获赠价值 1,000 USD 的EA。</p>
+            <a href="https://www.icmarkets-zcl.com/?camp=7052" id="referalLink" target="_blank" rel="noopener">
+                IC Markets 官网（中文）
+            </a>
+            <p>IC Markets 提供高达 1,000 倍杠杆，适合虚拟货币与外汇高频交易。杠杆可以放大收益，也可能放大损失，请务必谨慎控制仓位。</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 AlphaQuant Lab · 量化策略开发与优化服务</p>
+    </footer>
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        document.querySelectorAll('input[type="submit"]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                var name = document.querySelector('#name').value;
+                var email = document.querySelector('#email').value;
+                var message = document.querySelector('#message').value;
+
+                if (name !== "" && email !== "" && message !== "" && email.match(mailformat)) {
+                    gtag('set', 'user_data', {'email': email});
+                    gtag('event', 'conversion', {'send_to': 'AW-975458180/nb0cCNOI5-sYEISfkdED'});
+                }
             });
         });
-        document.getElementById('myForm').addEventListener('submit', function (e) {
-            // 阻止表单的默认提交行为
-            e.preventDefault();
 
-            // 创建一个新的FormData对象，它用来构建一组用于发送请求的键/值对
-            var formData = new FormData(this);
+        if (window.location.href.includes("pddjf.com")) {
+            gtag('event', 'conversion', {'send_to': 'AW-975458180/i_t6CKjS6pwYEISfkdED'});
+        }
+    });
 
-            // 创建一个新的XMLHttpRequest对象
-            var xhr = new XMLHttpRequest();
+    var initInteractiveBlocks = function () {
+        var sectionLinks = document.querySelectorAll('.nav-links a[data-target]');
+        var tabSections = document.querySelectorAll('[data-page-section]');
+        var activateSectionHandler = null;
 
-            // 配置它：POST到你的表单的action URL
-            xhr.open('POST', this.action, true);
+        if (sectionLinks.length && tabSections.length) {
+            var activateSection = function (target, options) {
+                var targetNode = null;
+                var shouldScroll = options && options.scroll;
 
-            // 设置一个回调函数来处理服务器的响应
-            xhr.onload = function () {
-                if (xhr.status == 200) {
-                    // 如果我们收到一个正常的服务器响应，处理这里的代码
-                    alert('提交成功');
-                } else {
-                    // 如果发生错误，处理这里的代码
-                    alert('提交发生错误，错误代码：' + xhr.status);
+                tabSections.forEach(function (section) {
+                    if (section.dataset.pageSection === target) {
+                        section.classList.remove('is-hidden');
+                        targetNode = section;
+                    } else {
+                        section.classList.add('is-hidden');
+                    }
+                });
+
+                sectionLinks.forEach(function (link) {
+                    if (link.dataset.target === target) {
+                        link.classList.add('is-active');
+                    } else {
+                        link.classList.remove('is-active');
+                    }
+                });
+
+                if (shouldScroll && targetNode) {
+                    window.requestAnimationFrame(function () {
+                        var yOffset = 32;
+                        var targetY = targetNode.getBoundingClientRect().top + window.pageYOffset - yOffset;
+                        window.scrollTo({
+                            top: targetY,
+                            behavior: 'smooth'
+                        });
+                    });
                 }
             };
 
-            // 发送我们的请求
-            xhr.send(formData);
+            activateSectionHandler = activateSection;
+
+            var defaultTarget = sectionLinks[0].dataset.target;
+            var initialTarget = defaultTarget;
+
+            if (window.location.hash) {
+                var hashTarget = window.location.hash.replace('#', '');
+                var exists = Array.from(tabSections).some(function (section) {
+                    return section.dataset.pageSection === hashTarget;
+                });
+                if (exists) {
+                    initialTarget = hashTarget;
+                }
+            }
+
+            activateSection(initialTarget);
+
+            sectionLinks.forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var target = this.dataset.target;
+                    if (!target) {
+                        return;
+                    }
+                    activateSection(target, {scroll: true});
+                    if (window.history && history.replaceState) {
+                        history.replaceState(null, '', '#' + target);
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-switch-section]').forEach(function (trigger) {
+                trigger.addEventListener('click', function (e) {
+                    var target = this.dataset.switchSection;
+                    if (!activateSectionHandler || !target) {
+                        return;
+                    }
+                    e.preventDefault();
+                    activateSectionHandler(target, {scroll: true});
+                    if (window.history && history.replaceState) {
+                        history.replaceState(null, '', '#' + target);
+                    }
+                });
+            });
+        }
+
+        document.querySelectorAll('[href*="#contact"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                gtag('event', 'contact_us');
+            });
         });
+    };
 
-    </script>
-
-</head>
-<body>
-<header>
-    <h1>专业的量化策略开发与优化服务</h1>
-    <nav>
-        <ul>
-            <li><a href="#services">服务范围</a></li>
-            <li><a href="#why-choose-us">为什么选择我们</a></li>
-            <li><a href="#pricing">服务费用</a></li>
-            <li><a href="#contact">联系方式</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
-    <section id="services">
-        <h2>服务范围</h2>
-        <ul>
-            <li>量化开发：支持中心化交易所/去中心化交易所，期货，股票，外汇等量化交易开发。</li>
-            <li>策略开发：针对现有策略进行优化开发，提高收益率和降低风险。</li>
-            <li>系统搭建：量化交易系统搭建、资管系统搭建、风控系统搭建等。</li>
-            <li>交易工具开发：提供自定义交易工具，如交易机器人、交易软件、跟单软件等。</li>
-            <li>网站开发：专业的金融类网站开发服务，提高品牌形象和在线曝光率。</li>
-            <li>TradingView 策略和指标开发：提供专业的 TradingView 策略和指标开发服务，帮助客户在 TradingView
-                平台上实现量化交易。
-            </li>
-        </ul>
-    </section>
-    <section id="why-choose-us">
-        <h2>为什么选择我们</h2>
-        <ul>
-            <li>丰富的经验：拥有多年金融行业经验，了解中心化交易所/去中心化交易所，期货，股票，外汇等的交易规则和API接口。
-            </li>
-            <li>专业的技术：精通量化策略开发和优化，具备扎实的编程和金融知识。</li>
-            <li>高质量服务：提供高质量的服务，确保客户满意。</li>
-            <li>灵活的定价：根据项目大小和复杂度提供灵活的定价方案。</li>
-            <li>保密与安全：严格保护客户数据和隐私，确保交易策略和信息安全。</li>
-            <li>持续支持：为客户提供终身免费维护，以确保策略始终运行良好。</li>
-        </ul>
-    </section>
-    <section id="pricing">
-        <h2>服务费用</h2>
-        <ul>
-            <li>策略定制服务 6000 RMB 起（可以使用数字货币付款）。</li>
-            <li>小型项目50%首付，交付并满意后50%尾款，2-7天可完成交付。</li>
-            <li>大型项目30%首付，30%中间流程控制，交付满意后40%尾款，视复杂度，7-30天可完成。</li>
-            <li>所有策略终身免费维护，功能修改，需另收费。</li>
-        </ul>
-    </section>
-    <section id="contact">
-        <h2>联系方式</h2>
-        <ul>
-            <li>微信：btc1688，添加时注明来源于google！</li>
-            <li>QQ：549636719，添加时注明来源于google！</li>
-            <li>email：549636719@qq.com，添加时注明来源于google！</li>
-            <li>telegram：@yf16881，添加时注明来源于google！</li>
-        </ul>
-    </section>
-    <section id="contact-form">
-        <h2>联系我们</h2>
-        <form id="myForm" action="https://pddjf.com/submit_form/" method="POST">
-            <label for="name">姓名：</label>
-            <input type="text" id="name" name="name" required><br>
-
-            <label for="email">邮箱：</label>
-            <input type="email" id="email" name="email" required><br>
-
-            <label for="message">留言：</label>
-            <textarea id="message" name="message" rows="4" required></textarea><br>
-
-            <input type="submit" value="发送">
-        </form>
-    </section>
-    <!--{% load static %}-->
-    <!--<img src="{% static '1111.png' %}" >-->
-    <!-- 在这一行之前是你现有的内容 -->
-    <section id="friendly-links">
-       <h2>友情链接</h2>
-        <ul>
-            <li><a href="https://www.icmarkets-zcl.com/?camp=7052" id="referalLink">IC Markets (用次链接注册免费赠送交易系统一套)</a></li>
-            提供高达1000倍的杠杆，为我们交易者打开了虚拟货币和外汇交易的市场。使用杠杆意味着只需要一个小的初始支出（保证金）。杠杆的使用可以放大收益，但损失也可以超过初始存款。
-        </ul>
-        <a href='https://www.icmarkets-zcl.com/?camp=7052'><img class='img-fluid' src='https://promo.icmarkets.com/Banners/2021/Chinese/CH_300x600_Cryptos_FSA.jpg' width='300' height='600'/></a>
-        <a href='https://www.icmarkets-zcl.com/?camp=7052'><img class='img-fluid' src='https://promo.icmarkets.com/Banners/2021/Chinese/CH_300x600_Cellphon_FSA.jpg' width='300' height='600'/></a>
-        <a href='https://www.icmarkets-zcl.com/?camp=7052'><img class='img-fluid' src='https://promo.icmarkets.com/Banners/2021/Chinese/CH_300x600_Robot_FSA.jpg' width='300' height='600'/></a>
-    </section>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCXX3BR7"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-</main>
-
-<footer>
-    <p>版权所有 © 2023 量化策略开发与优化服务</p>
-</footer>
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', initInteractiveBlocks);
+    } else {
+        initInteractiveBlocks();
+    }
+</script>
 </body>
 </html>
-
