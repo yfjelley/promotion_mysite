@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIDAL 策略信号与量化资源服务 - AlphaQuant Lab</title>
-    <meta name="description" content="TIDAL 是 A-Signals 团队打造的 4 小时周期多因子趋势策略，结合 GMMA、Supertrend、MACD、ADX、ATR 等过滤器，并提供信号服务、策略资源与定制化支持。">
+    <meta name="description" content="TIDAL 是 A-Signals 团队打造的 4 小时周期多因子趋势引擎，专注顺势波段与回撤控制，并提供信号服务、策略资源与定制化支持。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
@@ -29,8 +29,10 @@
             min-height: 100vh;
             font-family: 'Manrope', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             color: var(--text);
-            background: radial-gradient(circle at 15% 20%, rgba(92, 124, 250, 0.25), transparent 55%),
-            radial-gradient(circle at 80% 0%, rgba(59, 210, 184, 0.25), transparent 50%), var(--bg);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(92, 124, 250, 0.25), transparent 55%),
+                radial-gradient(circle at 80% 0%, rgba(59, 210, 184, 0.25), transparent 50%),
+                var(--bg);
             padding: 32px 16px 48px;
         }
 
@@ -98,7 +100,7 @@
 
         h1 {
             font-size: clamp(2.2rem, 3.4vw, 3.2rem);
-            margin: 0;
+            margin: 8px 0 0;
         }
 
         h2 {
@@ -130,8 +132,13 @@
         }
 
         .section-copy {
-            color: rgba(233, 237, 255, 0.8);
+            color: rgba(233, 237, 255, 0.85);
             line-height: 1.8;
+        }
+
+        .tagline {
+            font-size: 0.98rem;
+            color: var(--muted);
         }
 
         ul {
@@ -157,6 +164,19 @@
             gap: 12px;
         }
 
+        /* 信号代码块样式 */
+        .signal-snippet {
+            background: rgba(2, 6, 20, 0.9);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px 16px;
+            font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            color: rgba(233, 237, 255, 0.9);
+        }
+
         @media (max-width: 720px) {
             header, main {
                 padding: 32px;
@@ -174,98 +194,143 @@
                 <a class="btn btn-primary" href="#contact">联系咨询</a>
             </div>
         </div>
-        <p class="section-copy">TIDAL 是 A-Signals 团队在真实资金与回测环境中长期验证的多因子趋势策略，核心目标是在 4h 周期中捕捉顺势波段，并利用动态止损、尾随止盈与风险过滤有效控制最大回撤。</p>
-        <p class="section-copy">它把 GMMA、Supertrend、MACD、ADX、ATR、偏移分布与动量信号整合成一个决策引擎，并交由 DynamicStakeController 与实时风控面板执行，可无缝适配 Binance / OKX / Bybit 等主流合约撮合环境。</p>
+
+        <p class="section-copy">
+            TIDAL 是 A-Signals 团队面向合约实盘打造的多因子趋势引擎，专注趋势交易。
+            目标很简单：顺势吃波段，让回撤在可控范围内。
+        </p>
     </header>
+
     <main>
+        <!-- 一、策略亮点 -->
         <section>
-            <h2>一、策略亮点（可落地的多因子顺势框架）</h2>
+            <h2>一、策略亮点：为实盘设计的多因子顺势框架</h2>
             <div class="card-grid">
                 <article class="card">
                     <h3>GMMA 趋势结构</h3>
-                    <p>3–15 与 30–55 两组 EMA 构成的 GMMA 结构实时观察线束收敛/发散，做到“趋势方向 + 通道强度”一眼可见。</p>
+                    <p>
+                        短中长期 EMA 组构成 GMMA 结构，实时呈现线束收敛 / 发散，
+                        让「趋势方向 + 趋势强度」一眼可见，而不是只看单根 K 线的情绪波动。
+                    </p>
                 </article>
+
                 <article class="card">
                     <h3>趋势 + 动量双重过滤</h3>
-                    <p>Supertrend（长/短周期）、ADX+DI、多周期动量、偏移分布、TSMOM 协同判别，过滤震荡行情，减少无效开仓。</p>
+                    <p>
+                        结合 Supertrend、ADX+DI、多周期动量与偏移分布等信号，主动回避震荡区间，
+                        尽量减少无效开仓和频繁“打脸”的来回反向。
+                    </p>
                 </article>
+
                 <article class="card">
                     <h3>波动与成交量控制</h3>
-                    <p>ATR 比例、波动率上限与 Volume Filter 组合，自动识别流动性陷阱和极端滑点场景。</p>
+                    <p>
+                        利用 ATR 比例、波动率上限与成交量过滤，识别极端波动与流动性陷阱，
+                        为实盘中的滑点、爆针和假突破预留安全缓冲。
+                    </p>
                 </article>
+
                 <article class="card">
                     <h3>多层级入场逻辑</h3>
-                    <ul>
-                        <li>EL/ES: NEW-TREND（新趋势起爆）</li>
-                        <li>GMMA-CROSS（多均线成束穿越）</li>
-                        <li>TREND-RET（趋势回踩/回补二次进场）</li>
-                    </ul>
+                    <p>
+                        从 NEW-TREND（新趋势起爆）、GMMA-CROSS（多均线成束突破），
+                        到 TREND-RET（趋势回踩二次进场），分层布局，而不是“一脚踩死”。
+                    </p>
                 </article>
+
                 <article class="card">
                     <h3>实盘级出场与风控</h3>
-                    <ul>
-                        <li>ATR 动态止损，随 ADX 调整倍数</li>
-                        <li>ATR 尾随止盈，分别记录多空 peak/trough</li>
-                        <li>Supertrend 反转、布林极端 + ATR 双重反向信号</li>
-                        <li>持仓超时但仅中等盈利的“温和退出”策略</li>
-                    </ul>
+                    <p>
+                        ATR 动态止损 + ATR 尾随止盈，配合 Supertrend 反转、布林极端与持仓时效管理，
+                        在「保住盈利」和「让利润奔跑」之间做平衡，而不是只盯单一止损价位。
+                    </p>
                 </article>
+
                 <article class="card">
                     <h3>DynamicStakeController</h3>
-                    <p>根据行情状态、风险评分与交易所规则动态调整仓位、子账户权重与订单类型，控制同向暴露并支持多组合调度。</p>
+                    <p>
+                        根据行情状态与风险评分，动态调整仓位和子账户权重，控制同向暴露，
+                        让策略不仅“看得对”，还“下得稳”，避免一波行情把账户拖垮。
+                    </p>
                 </article>
             </div>
         </section>
 
+        <!-- 二、三大服务模块 -->
         <section>
-            <h2>二、服务组合（信号 · 资源 · 定制）</h2>
+            <h2>二、服务模块：突破监控 · 市场评分 · 策略信号</h2>
             <div class="card-grid">
                 <article class="card">
-                    <h3>TIDAL 策略信号服务</h3>
+                    <h3>① 突破监控（Breakout Radar）</h3>
+                    <p class="section-copy">
+                        针对主流 USDT 永续合约，持续监控关键区间的向上 / 向下突破：
+                    </p>
                     <ul>
-                        <li>4h 周期 EL/GMMA/TREND-RET 多空信号</li>
-                        <li>ATR 止损、尾随止盈、趋势反转、极端回落提醒</li>
-                        <li>覆盖主流 USDT 永续合约并附带环境风险提示</li>
+                        <li>BREAKOUT_UP / BREAKOUT_DOWN 精简列表输出</li>
                     </ul>
+                    <p class="section-copy">
+                        适合用来做候选标的池、重点关注列表以及盘中机会雷达。
+                    </p>
                 </article>
+
                 <article class="card">
-                    <h3>策略结构与资源分享</h3>
+                    <h3>② 市场评分（Market Scoring）</h3>
+                    <p class="section-copy">
+                        将行情“压缩”为可读的多空评分，而不是一堆杂乱的 K 线：
+                    </p>
                     <ul>
-                        <li>模块化拆解：入场、过滤、风控、仓位</li>
-                        <li>GMMA × Supertrend × MACD × ADX 实战组合</li>
-                        <li>指标封装、回测调优、团队实战心得</li>
+                        <li>2h / 4h / 12h 多周期组合多头 / 空头得分</li>
                     </ul>
+                    <p class="section-copy">
+                        先看市场整体体温，再决定个别币种如何出手。
+                    </p>
                 </article>
+
                 <article class="card">
-                    <h3>高级定制 / 优化</h3>
+                    <h3>③ 策略信号</h3>
+                    <p class="section-copy">
+                        基于 TIDAL 的多因子引擎输出可直接执行的策略信号：
+                    </p>
                     <ul>
-                        <li>针对账户规模与风格的 TIDAL 变体</li>
-                        <li>适配 Binance / OKX / Bybit 等不同撮合与费率模型</li>
-                        <li>一站式回测、参数优化与风控方案</li>
+                        <li>GMMA-BULL / GMMA-BEAR 结构变化提示</li>
                     </ul>
+                    <p class="section-copy">
+                        从“看懂趋势”到“下得出手”，把方向判断和执行动作统一在一套逻辑里。
+                    </p>
                 </article>
             </div>
         </section>
 
+        <!-- 三、TidalAlertsBot 实盘信号服务 -->
+        <!-- 社群矩阵 -->
         <section>
             <h2>三、Telegram 社群矩阵</h2>
             <div class="group-grid">
                 <article class="card">
                     <h3>1️⃣ A-Signals Quant Lab</h3>
-                    <p>免费的量化学习与资源分享社区，交流行情和交易理念。</p>
-                    <p><a href="https://t.me/+uCIJX_VRxfpmNzg9" target="_blank" rel="noopener" style="color:#74f9d8;">加入 Telegram 群</a></p>
+                    <p>免费的量化学习与资源分享社区，交流行情、策略思路与交易理念。</p>
+                    <p>
+                        <a href="https://t.me/+uCIJX_VRxfpmNzg9" target="_blank" rel="noopener" style="color:#74f9d8;">
+                            加入 Telegram 群
+                        </a>
+                    </p>
                 </article>
                 <article class="card">
-                    <h3>2️⃣ TrendX Signals Pro</h3>
-                    <p>收费提供即时 TIDAL 信号与风险播报。</p>
-                    <p><a href="https://t.me/+_hgYwo1Wm4tjNzY9" target="_blank" rel="noopener" style="color:#a8b7ff;">申请加入订阅群</a></p>
+                    <h3>2️⃣ TrendX / TIDAL Signals Pro</h3>
+                    <p>收费提供即时 TIDAL 趋势信号与风险播报，结合多周期评分与 GMMA 结构提示。</p>
+                    <p>
+                        <a href="https://t.me/+_hgYwo1Wm4tjNzY9" target="_blank" rel="noopener" style="color:#a8b7ff;">
+                            申请加入订阅群
+                        </a>
+                    </p>
                 </article>
             </div>
         </section>
 
+        <!-- 四、联系我们 -->
         <section id="contact">
-            <h2>联系我们</h2>
-            <p class="section-copy">添加联系方式时请注明来自 google。</p>
+            <h2>四、联系我们</h2>
+            <p class="section-copy">添加联系方式时请注明来自官网或搜索，方便识别来源。</p>
             <div class="group-grid">
                 <article class="card">
                     <h3>即时沟通</h3>
@@ -284,6 +349,7 @@
             </div>
         </section>
     </main>
+
     <footer>
         <p>© 2024 AlphaQuant Lab · TIDAL Strategy Desk</p>
     </footer>
