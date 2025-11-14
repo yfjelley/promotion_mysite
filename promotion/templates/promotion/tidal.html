@@ -131,6 +131,59 @@
             gap: 12px;
         }
 
+        .card.module-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(92, 124, 250, 0.25);
+            background: linear-gradient(145deg, rgba(92, 124, 250, 0.08), rgba(7, 16, 36, 0.92));
+        }
+
+        .module-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(92, 124, 250, 0.25);
+            color: #cfd6ff;
+            font-weight: 600;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .module-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .module-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .module-card ul li {
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .module-card ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
         .section-copy {
             color: rgba(233, 237, 255, 0.85);
             line-height: 1.8;
@@ -258,41 +311,47 @@
 
         <!-- 二、三大服务模块 -->
         <section>
-            <h2>二、服务模块：突破监控 · 市场评分 · 策略信号</h2>
+            <h2>二、三大服务模块：突破 · 市场评分 · 策略信号</h2>
             <div class="card-grid">
-                <article class="card">
-                    <h3>① 突破监控（Breakout Radar）</h3>
+                <article class="card module-card">
+                    <h3><span class="module-index">01</span>突破监控（Breakout Radar）</h3>
                     <p class="section-copy">
                         针对主流 USDT 永续合约，持续监控关键区间的向上 / 向下突破：
                     </p>
                     <ul>
+                        <li>多周期窗口（如 24 根 K 线）突破检测</li>
                         <li>BREAKOUT_UP / BREAKOUT_DOWN 精简列表输出</li>
+                        <li>配合 GMMA 结构过滤假突破、追高与砸盘</li>
                     </ul>
                     <p class="section-copy">
                         适合用来做候选标的池、重点关注列表以及盘中机会雷达。
                     </p>
                 </article>
 
-                <article class="card">
-                    <h3>② 市场评分（Market Scoring）</h3>
+                <article class="card module-card">
+                    <h3><span class="module-index">02</span>市场评分（Market Scoring）</h3>
                     <p class="section-copy">
                         将行情“压缩”为可读的多空评分，而不是一堆杂乱的 K 线：
                     </p>
                     <ul>
                         <li>2h / 4h / 12h 多周期组合多头 / 空头得分</li>
+                        <li>给出一句话级别建议：偏多 / 偏空 / 中性观望</li>
+                        <li>支持接入交易系统作为仓位权重与方向参考</li>
                     </ul>
                     <p class="section-copy">
                         先看市场整体体温，再决定个别币种如何出手。
                     </p>
                 </article>
 
-                <article class="card">
-                    <h3>③ 策略信号</h3>
+                <article class="card module-card">
+                    <h3><span class="module-index">03</span>策略信号（Strategy Signals）</h3>
                     <p class="section-copy">
                         基于 TIDAL 的多因子引擎输出可直接执行的策略信号：
                     </p>
                     <ul>
                         <li>GMMA-BULL / GMMA-BEAR 结构变化提示</li>
+                        <li>EL / ES / TREND-RET 等入场级别多空信号</li>
+                        <li>配合 ATR 止损、尾随止盈与趋势反转型出场提醒</li>
                     </ul>
                     <p class="section-copy">
                         从“看懂趋势”到“下得出手”，把方向判断和执行动作统一在一套逻辑里。
