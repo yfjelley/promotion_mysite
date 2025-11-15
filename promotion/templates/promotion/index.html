@@ -1,14 +1,14 @@
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="{{ language_code|default:'zh-hans' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords"
-          content="量化交易, 策略开发, 量化开发, 交易工具, 网站开发, Binance, 币安, OKX, Gateio, VNPY, TradingView 策略, TradingView 指标, 资管系统, 交易机器人">
+          content="{{ page_meta.keywords }}">
     <meta name="description"
-          content="AlphaQuant Lab 专注量化策略研发、自动化交易系统、TradingView 指标与金融网站开发，覆盖 Binance / OKX / Gateio 等主流交易所，提供交付闭环与长期运维。">
-    <title>AlphaQuant Lab | 量化策略开发 · 交易系统 · TradingView 指标</title>
+          content="{{ page_meta.description }}">
+    <title>{{ page_meta.title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
@@ -103,6 +103,39 @@
         .nav-links a:hover {
             background: rgba(92, 124, 250, 0.15);
             border-color: rgba(92, 124, 250, 0.4);
+        }
+
+        .language-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .language-switch form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .language-switch button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #dfe5ff;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+        }
+
+        .language-switch button.is-active {
+            background: rgba(92, 124, 250, 0.3);
+            color: #ffffff;
+            border-color: rgba(92, 124, 250, 0.6);
+        }
+
+        .language-switch button:hover:not(.is-active) {
+            border-color: rgba(92, 124, 250, 0.5);
+            color: #ffffff;
         }
 
         .hero-grid {
@@ -564,107 +597,90 @@
         <nav class="top-nav">
             <div class="brand">AlphaQuant Lab</div>
             <div class="nav-links">
-                <a href="#services" data-target="services">定制服务</a>
-                <a href="/tidal/">策略信号</a>
-                <a href="#capabilities" data-target="capabilities">能力矩阵</a>
-                <a href="#contact" data-target="contact">联系方式</a>
+                {% for link in nav_links %}
+                    <a href="{{ link.href }}" {% if link.target %}data-target="{{ link.target }}"{% endif %}>
+                        {{ link.label }}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="language-switch">
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    {% for code, label in languages %}
+                        <button type="submit"
+                                name="language"
+                                value="{{ code }}"
+                                class="{% if code == language_code %}is-active{% endif %}">
+                            {{ label }}
+                        </button>
+                    {% endfor %}
+                </form>
             </div>
         </nav>
         <div class="hero-grid">
             <div class="hero-copy">
-                <p class="eyebrow">策略研发 · 自动化执行 · 风控中台</p>
-                <h1>重新定义您的交易体验</h1>
-                <p>我们为交易团队与机构提供的指标开发、策略定制、自动化执行、监控风控覆盖 Binance / OKX / Gateio / Bybit 等主流场景。</p>
+                <p class="eyebrow">{{ hero.eyebrow }}</p>
+                <h1>{{ hero.title }}</h1>
+                <p>{{ hero.description }}</p>
                 <ul class="hero-highlights">
-                    <li><span></span>15+ 主流交易所 API 与撮合经验</li>
-                    <li><span></span>7×24 云端部署 + 实盘运维</li>
-                    <li><span></span>TradingView / Python 双栈策略</li>
+                    {% for item in hero_highlights %}
+                        <li><span></span>{{ item }}</li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="hero-visual">
-                <h3>策略组合健康度 · 实时监控</h3>
+                <h3>{{ hero.visual_title }}</h3>
                 <div class="chart-lines">
                     <div class="chart-line"><span></span></div>
                     <div class="chart-line"><span></span></div>
                     <div class="chart-line"><span></span></div>
                 </div>
                 <div class="metrics" style="margin-top: 28px;">
-                    <div class="metric">
-                        <p class="metric-value">100%</p>
-                        <p class="metric-label">策略稳定上线率</p>
-                    </div>
-                    <div class="metric">
-                        <p class="metric-value">&lt;200ms</p>
-                        <p class="metric-label">订单响应延迟</p>
-                    </div>
+                    {% for metric in hero_metrics %}
+                        <div class="metric">
+                            <p class="metric-value">{{ metric.value }}</p>
+                            <p class="metric-label">{{ metric.label }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </header>
     <main>
         <section class="section">
-            <h2>快速交付 · 可量化的业务指标</h2>
+            <h2>{{ business_metrics.title }}</h2>
             <div class="metrics">
-                <div class="metric">
-                    <p class="metric-value">300+</p>
-                    <p class="metric-label">策略/工具交付</p>
-                </div>
-                <div class="metric">
-                    <p class="metric-value">2-7 天</p>
-                    <p class="metric-label">小型项目落地周期</p>
-                </div>
-                <div class="metric">
-                    <p class="metric-value">灵活报价</p>
-                    <p class="metric-label">策略定制 1,000 USD 起</p>
-                </div>
-                <div class="metric">
-                    <p class="metric-value">终生</p>
-                    <p class="metric-label">策略维护保障</p>
-                </div>
+                {% for metric in business_metrics.items %}
+                    <div class="metric">
+                        <p class="metric-value">{{ metric.value }}</p>
+                        <p class="metric-label">{{ metric.label }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </section>
 
         <section class="section" id="services" data-page-section="services">
-            <h2>核心服务矩阵</h2>
+            <h2>{{ services_section.title }}</h2>
             <div class="card-grid">
-                <article class="card">
-                    <h3>全品类量化策略</h3>
-                    <p>中心化 / 去中心化交易所、期货、股票、外汇，按品种与周期定制自动化执行策略。</p>
-                </article>
-                <article class="card">
-                    <h3>系统与中台搭建</h3>
-                    <p>量化系统、资管系统、风控系统、APP / 小程序，全栈落地，支持多账户调度与可观测性。</p>
-                </article>
-                <article class="card">
-                    <h3>Web3 自动化能力</h3>
-                    <p>链游、NFT、抢购、打金等自动化策略引擎，覆盖多链交互与事件监听。</p>
-                </article>
-                <article class="card">
-                    <h3>基础设施与运维</h3>
-                    <p>Windows 机器人、Linux 服务端部署、监控预警、日志链路与灾备方案。</p>
-                </article>
+                {% for card in services_section.cards %}
+                    <article class="card">
+                        <h3>{{ card.title }}</h3>
+                        <p>{{ card.description }}</p>
+                    </article>
+                {% endfor %}
             </div>
         </section>
 
         <section class="section" id="capabilities" data-page-section="capabilities">
-            <h2>技术能力 & 生态支持</h2>
+            <h2>{{ capabilities_section.title }}</h2>
             <div class="card-grid">
-                <article class="card">
-                    <h3>语言开发栈</h3>
-                    <p>Python </p>
-                </article>
-                <article class="card">
-                    <h3>交易所支持</h3>
-                    <p>Binance、OKX、Gate.io、Bybit、Huobi、Bitget 等。</p>
-                </article>
-                <article class="card">
-                    <h3>部署形态</h3>
-                    <p>云端（AWS、阿里云、华为云）、本地机房</p>
-                </article>
-                <article class="card">
-                    <h3>观测与风控</h3>
-                    <p>钉钉/Telegram 通知通道。</p>
-                </article>
+                {% for card in capabilities_section.cards %}
+                    <article class="card">
+                        <h3>{{ card.title }}</h3>
+                        <p>{{ card.description }}</p>
+                    </article>
+                {% endfor %}
             </div>
         </section>
 
@@ -720,16 +736,16 @@
         </section>
 
         <section class="section partners" id="friendly-links">
-            <h2>合作伙伴 · 友情链接</h2>
-            <p>使用下方专属链接注册 IC Markets，可获赠价值 1,000 USD 的EA。</p>
+            <h2>{{ partners_section.title }}</h2>
+            <p>{{ partners_section.intro }}</p>
             <a href="https://www.icmarkets-zcl.com/?camp=7052" id="referalLink" target="_blank" rel="noopener">
-                IC Markets 官网（中文）
+                {{ partners_section.link_label }}
             </a>
-            <p>IC Markets 提供高达 1,000 倍杠杆，适合虚拟货币与外汇高频交易。杠杆可以放大收益，也可能放大损失，请务必谨慎控制仓位。</p>
+            <p>{{ partners_section.warning }}</p>
         </section>
     </main>
     <footer>
-        <p>© 2024 AlphaQuant Lab · 量化策略开发与优化服务</p>
+        <p>{{ footer_copy }}</p>
     </footer>
 </div>
 

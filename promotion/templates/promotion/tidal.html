@@ -1,10 +1,11 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="{{ language_code|default:'zh-hans' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIDAL 策略信号与量化资源服务 - AlphaQuant Lab</title>
-    <meta name="description" content="TIDAL 是 A-Signals 团队打造的 4 小时周期多因子趋势引擎，专注顺势波段与回撤控制，并提供信号服务、策略资源与定制化支持。">
+    <title>{{ page_meta.title }}</title>
+    <meta name="description" content="{{ page_meta.description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
@@ -77,6 +78,38 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+        }
+
+        .language-switch {
+            display: flex;
+            gap: 8px;
+        }
+
+        .language-switch form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .language-switch button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+        }
+
+        .language-switch button.is-active {
+            background: rgba(92, 124, 250, 0.3);
+            color: #ffffff;
+            border-color: rgba(92, 124, 250, 0.6);
+        }
+
+        .language-switch button:hover:not(.is-active) {
+            border-color: rgba(92, 124, 250, 0.5);
+            color: #ffffff;
         }
 
         .btn {
@@ -350,196 +383,133 @@
         <div class="brand-row">
             <div class="brand">AlphaQuant Lab · TIDAL</div>
             <div class="cta-row">
-                <a class="btn btn-secondary" href="/">返回首页</a>
-                <a class="btn btn-primary" href="#contact">联系咨询</a>
+                <a class="btn btn-secondary" href="/">{{ cta_back_home }}</a>
+                <a class="btn btn-primary" href="#contact">{{ cta_contact }}</a>
+                <div class="language-switch">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        {% for code, label in languages %}
+                            <button type="submit"
+                                    name="language"
+                                    value="{{ code }}"
+                                    class="{% if code == language_code %}is-active{% endif %}">
+                                {{ label }}
+                            </button>
+                        {% endfor %}
+                    </form>
+                </div>
             </div>
         </div>
 
         <p class="section-copy">
-            TIDAL 是 A-Signals 团队面向合约实盘打造的多因子趋势引擎，专注趋势交易。
-            目标很简单：顺势吃波段，让回撤在可控范围内。
+            {{ hero_intro }}
         </p>
     </header>
 
     <main>
         <!-- 一、策略亮点 -->
         <section>
-            <h2>一、策略亮点：为实盘设计的多因子顺势框架</h2>
+            <h2>{{ section_titles.highlights }}</h2>
             <div class="card-grid">
-                <article class="card">
-                    <h3>GMMA 趋势结构</h3>
-                    <p>
-                        短中长期 EMA 组构成 GMMA 结构，实时呈现线束收敛 / 发散，
-                        让「趋势方向 + 趋势强度」一眼可见，而不是只看单根 K 线的情绪波动。
-                    </p>
-                </article>
-
-                <article class="card">
-                    <h3>趋势 + 动量双重过滤</h3>
-                    <p>
-                        结合 Supertrend、ADX+DI、多周期动量与偏移分布等信号，主动回避震荡区间，
-                        尽量减少无效开仓和频繁“打脸”的来回反向。
-                    </p>
-                </article>
-
-                <article class="card">
-                    <h3>波动与成交量控制</h3>
-                    <p>
-                        利用 ATR 比例、波动率上限与成交量过滤，识别极端波动与流动性陷阱，
-                        为实盘中的滑点、爆针和假突破预留安全缓冲。
-                    </p>
-                </article>
-
-                <article class="card">
-                    <h3>多层级入场逻辑</h3>
-                    <p>
-                        从 NEW-TREND（新趋势起爆）、GMMA-CROSS（多均线成束突破），
-                        到 TREND-RET（趋势回踩二次进场），分层布局，而不是“一脚踩死”。
-                    </p>
-                </article>
-
-                <article class="card">
-                    <h3>实盘级出场与风控</h3>
-                    <p>
-                        ATR 动态止损 + ATR 尾随止盈，配合 Supertrend 反转、布林极端与持仓时效管理，
-                        在「保住盈利」和「让利润奔跑」之间做平衡，而不是只盯单一止损价位。
-                    </p>
-                </article>
-
-                <article class="card">
-                    <h3>DynamicStakeController</h3>
-                    <p>
-                        根据行情状态与风险评分，动态调整仓位和子账户权重，控制同向暴露，
-                        让策略不仅“看得对”，还“下得稳”，避免一波行情把账户拖垮。
-                    </p>
-                </article>
+                {% for module in modules %}
+                    <article class="card">
+                        <h3>{{ module.title }}</h3>
+                        <p>{{ module.description }}</p>
+                    </article>
+                {% endfor %}
             </div>
         </section>
 
         <!-- 二、三大服务模块 -->
         <section>
-            <h2>二、三大服务模块：突破监控 · 市场评分 · 策略信号</h2>
+            <h2>{{ section_titles.services }}</h2>
             <div class="card-grid">
-                <article class="card module-card">
-                    <h3><span class="module-index">01</span>突破监控（Breakout Radar）</h3>
-                    <p class="section-copy">
-                        针对主流 USDT 永续合约，持续监控关键区间的向上 / 向下突破：
-                    </p>
-                    <ul>
-                        <li>多周期窗口（如 24 根 K 线）突破检测</li>
-                        <li>BREAKOUT_UP / BREAKOUT_DOWN 精简列表输出</li>
-                        <li>配合 GMMA 结构过滤假突破、追高与砸盘</li>
-                    </ul>
-                    <p class="section-copy">
-                        适合用来做候选标的池、重点关注列表以及盘中机会雷达。
-                    </p>
-                </article>
-
-                <article class="card module-card">
-                    <h3><span class="module-index">02</span>市场评分（Market Scoring）</h3>
-                    <p class="section-copy">
-                        将行情“压缩”为可读的多空评分，而不是一堆杂乱的 K 线：
-                    </p>
-                    <ul>
-                        <li>2h / 4h / 12h 多周期组合多头 / 空头得分</li>
-                        <li>给出一句话级别建议：偏多 / 偏空 / 中性观望</li>
-                        <li>支持接入交易系统作为仓位权重与方向参考</li>
-                    </ul>
-                    <p class="section-copy">
-                        先看市场整体体温，再决定个别币种如何出手。
-                    </p>
-                </article>
-
-                <article class="card module-card">
-                    <h3><span class="module-index">03</span>策略信号（Strategy Signals）</h3>
-                    <p class="section-copy">
-                        基于 TIDAL 的多因子引擎输出可直接执行的策略信号：
-                    </p>
-                    <ul>
-                        <li>GMMA-BULL / GMMA-BEAR 结构变化提示</li>
-                        <li>EL / ES / TREND-RET 等入场级别多空信号</li>
-                        <li>配合 ATR 止损、尾随止盈与趋势反转型出场提醒</li>
-                    </ul>
-                    <p class="section-copy">
-                        从“看懂趋势”到“下得出手”，把方向判断和执行动作统一在一套逻辑里。
-                    </p>
-                </article>
+                {% for module in service_modules %}
+                    <article class="card module-card">
+                        <h3><span class="module-index">{{ module.index }}</span>{{ module.title }}</h3>
+                        <p class="section-copy">
+                            {{ module.description }}
+                        </p>
+                        <ul>
+                            {% for bullet in module.bullets %}
+                                <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p class="section-copy">
+                            {{ module.footer }}
+                        </p>
+                    </article>
+                {% endfor %}
             </div>
         </section>
 
         <!-- 三、TidalAlertsBot 实盘信号服务 -->
         <!-- 社群矩阵 -->
         <section>
-            <h2>三、Telegram 社群矩阵</h2>
+            <h2>{{ partner_title }}</h2>
             <div class="group-grid">
-                <article class="card">
-                    <h3>1️⃣ A-Signals Quant Lab</h3>
-                    <p>免费的量化学习与资源分享社区，交流行情、策略思路与交易理念。</p>
-                    <p>
-                        <a href="https://t.me/+uCIJX_VRxfpmNzg9" target="_blank" rel="noopener" style="color:#74f9d8;">
-                            加入 Telegram 群
-                        </a>
-                    </p>
-                </article>
-                <article class="card">
-                    <h3>2️⃣ TrendX / TIDAL Signals Pro</h3>
-                    <p>收费提供即时 TIDAL 趋势信号与风险播报，结合多周期评分与 GMMA 结构提示。</p>
-                    <p>
-                        <a href="https://t.me/+_hgYwo1Wm4tjNzY9" target="_blank" rel="noopener" style="color:#a8b7ff;">
-                            申请加入订阅群
-                        </a>
-                    </p>
-                </article>
+                {% for group in telegram_groups %}
+                    <article class="card">
+                        <h3>{{ group.title }}</h3>
+                        <p>{{ group.description }}</p>
+                        <p>
+                            <a href="{{ group.link }}" target="_blank" rel="noopener" style="color:{{ group.color }};">
+                                {{ group.link_label }}
+                            </a>
+                        </p>
+                    </article>
+                {% endfor %}
             </div>
         </section>
 
         <!-- 四、联系我们 -->
         <section id="contact">
-            <h2>四、联系我们</h2>
+            <h2>{{ section_titles.contact }}</h2>
             <p class="section-copy">
-                联系时请备注“来自官网 / Google”，我们会在 12 小时内回复并安排初步沟通。
+                {{ contact_hint }}
             </p>
             <div class="contact-wrapper" role="list">
-                <address class="contact-card" aria-label="即时沟通" role="listitem">
-                    <p class="contact-eyebrow">即时沟通</p>
-                    <dl class="contact-list">
-                        <dt class="contact-label">微信</dt>
-                        <dd class="contact-value">
-                            <span class="contact-emphasis">btc1688</span>
-                            <button type="button"
-                                    class="contact-copy"
-                                    data-copy-value="btc1688"
-                                    data-default-text="复制 ID"
-                                    data-copied-text="已复制"
-                                    data-copy-error="复制失败，请手动复制"
-                                    data-contact-method="wechat"
-                                    aria-live="polite">
-                                复制 ID
-                            </button>
-                        </dd>
-                        <dt class="contact-label">Telegram</dt>
-                        <dd class="contact-value">
-                            <a class="contact-action"
-                               href="https://t.me/yf16881"
-                               target="_blank"
-                               rel="noopener"
-                               data-contact-method="telegram">
-                                @yf16881
-                            </a>
-                        </dd>
-                    </dl>
-                </address>
-                <address class="contact-card" aria-label="邮件咨询" role="listitem">
-                    <p class="contact-eyebrow">邮件咨询</p>
-                    <p class="contact-value">
-                        <a class="contact-action"
-                           href="mailto:yfjelley@gmail.com"
-                           data-contact-method="email">
-                            yfjelley@gmail.com
-                        </a>
-                    </p>
-                    <p class="contact-note">请附带需求描述、预算与交付时间。</p>
-                </address>
+                {% for card in contact_cards %}
+                    <address class="contact-card" role="listitem" aria-label="{{ card.eyebrow }}">
+                        <p class="contact-eyebrow">{{ card.eyebrow }}</p>
+                        {% if card.items %}
+                            <dl class="contact-list">
+                                {% for item in card.items %}
+                                    <dt class="contact-label">{{ item.label }}</dt>
+                                    <dd class="contact-value">
+                                        {% if item.copyable %}
+                                            <span class="contact-emphasis">{{ item.value }}</span>
+                                            <button type="button"
+                                                    class="contact-copy"
+                                                    data-copy-value="{{ item.value }}"
+                                                    data-default-text="{{ copy_default }}"
+                                                    data-copied-text="{{ copy_success }}"
+                                                    data-copy-error="{{ copy_error }}"
+                                                    data-contact-method="{{ item.method|default:item.label }}"
+                                                    aria-live="polite">
+                                                {{ copy_default }}
+                                            </button>
+                                        {% elif item.href %}
+                                            <a class="contact-action"
+                                               href="{{ item.href }}"
+                                               target="_blank"
+                                               rel="noopener"
+                                               data-contact-method="{{ item.method|default:item.label }}">
+                                                {{ item.value }}
+                                            </a>
+                                        {% else %}
+                                            <span class="contact-emphasis">{{ item.value }}</span>
+                                        {% endif %}
+                                    </dd>
+                                {% endfor %}
+                            </dl>
+                        {% endif %}
+                        {% if card.note %}
+                            <p class="contact-note">{{ card.note }}</p>
+                        {% endif %}
+                    </address>
+                {% endfor %}
             </div>
         </section>
     </main>
