@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.conf import settings
 from django.utils import translation
@@ -8,6 +10,7 @@ from django.http import HttpResponse
 
 
 def index(request):
+    canonical_url = request.build_absolute_uri(request.path)
     page_meta = {
         "title": _("AlphaQuant Lab | 量化策略开发 · 交易系统 · TradingView 指标"),
         "description": _("AlphaQuant Lab 专注量化策略研发、自动化交易系统、TradingView 指标与金融网站开发，覆盖 Binance / OKX / Gateio 等主流交易所，提供交付闭环与长期运维。"),
@@ -93,9 +96,54 @@ def index(request):
     partners_section = {
         "title": _("合作伙伴 · 友情链接"),
         "intro": _("使用下方专属链接注册 IC Markets，可获赠价值 1,000 USD 的EA。"),
-        "link_label": _("IC Markets 官网（中文）"),
-        "warning": _("IC Markets 提供高达 1,000 倍杠杆，适合虚拟货币与外汇高频交易。杠杆可以放大收益，也可能放大损失，请务必谨慎控制仓位。"),
+        "links": [
+            {
+                "label": _("IC Markets 官网（中文）"),
+                "url": "https://www.icmarkets-zcl.com/?camp=7052",
+                "description": _("IC Markets 提供高达 1,000 倍杠杆，适合虚拟货币与外汇高频交易。杠杆可以放大收益，也可能放大损失，请务必谨慎控制仓位。"),
+            },
+            {
+                "label": _("Binance 交易所"),
+                "url": "https://www.binance.com/",
+                "description": _("全球领先的数字资产交易平台，支持现货/合约/期权等多业务。"),
+            },
+            {
+                "label": _("OKX 交易所"),
+                "url": "https://www.gtohfmmy.com/join/2658338",
+                "description": _("提供多品类合约、CEX/DEX 一体化交易体验。"),
+            },
+            {
+                "label": _("Gate.io 交易所"),
+                "url": "https://www.gate.com/referral/earn-together/invite/UwRHXA?ref=UwRHXA&ref_type=103&utm_cmp=rXJBDjtJ&activity_id=1762853469105",
+                "description": _("拥有丰富的合约杠杆产品与 API 生态。"),
+            },
+            {
+                "label": _("Bitget 交易所"),
+                "url": "https://www.bitget.com/",
+                "description": _("以跟单交易和量化生态著称，适合策略开发者。"),
+            },
+        ],
     }
+
+
+    organization_schema = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "AlphaQuant Lab",
+            "url": canonical_url,
+            "description": page_meta["description"],
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "contactType": "business",
+                    "email": "yfjelley@gmail.com",
+                    "availableLanguage": ["zh-CN", "en"],
+                }
+            ],
+        },
+        ensure_ascii=False,
+    )
 
     context = {
         "page_meta": page_meta,
@@ -111,11 +159,14 @@ def index(request):
         "language_code": translation.get_language() or settings.LANGUAGE_CODE,
         "contact_source": _("Google"),
         "footer_copy": _("© 2024 AlphaQuant Lab · 量化策略开发与优化服务"),
+        "canonical_url": canonical_url,
+        "structured_data": organization_schema,
     }
     return render(request, "promotion/index.html", context)
 
 
 def tidal(request):
+    canonical_url = request.build_absolute_uri(request.path)
     modules = [
         {
             "title": _("GMMA 趋势结构"),
@@ -255,6 +306,21 @@ def tidal(request):
         "copy_error": _("复制失败，请手动复制"),
         "footer_copy": _("© 2024 AlphaQuant Lab · TIDAL Strategy Desk"),
         "languages": settings.LANGUAGES,
+        "canonical_url": canonical_url,
+        "structured_data": json.dumps(
+            {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": "TIDAL Strategy Signals",
+                "description": _("TIDAL 是 A-Signals 团队打造的 4 小时周期多因子趋势引擎，专注顺势波段与回撤控制，并提供信号服务、策略资源与定制化支持。"),
+                "brand": {
+                    "@type": "Organization",
+                    "name": "AlphaQuant Lab",
+                },
+                "url": canonical_url,
+            },
+            ensure_ascii=False,
+        ),
     }
     return render(request, "promotion/tidal.html", context)
 

@@ -619,5 +619,10 @@
         });
     })();
 </script>
+{% if structured_data %}
+    <script type="application/ld+json">
+        {{ structured_data|safe }}
+    </script>
+{% endif %}
 </body>
 </html>

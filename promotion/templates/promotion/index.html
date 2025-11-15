@@ -8,6 +8,15 @@
           content="{{ page_meta.keywords }}">
     <meta name="description"
           content="{{ page_meta.description }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_meta.title }}">
+    <meta property="og:description" content="{{ page_meta.description }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ language_code|default:'zh_Hans' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_meta.title }}">
+    <meta name="twitter:description" content="{{ page_meta.description }}">
     <title>{{ page_meta.title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -588,6 +597,11 @@
         gtag('config', 'AW-975458180');
         gtag('config', 'G-390F8PHDES');
     </script>
+    {% if structured_data %}
+        <script type="application/ld+json">
+            {{ structured_data|safe }}
+        </script>
+    {% endif %}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MCXX3BR7" height="0" width="0"
@@ -725,10 +739,19 @@
         <section class="section partners" id="friendly-links">
             <h2>{{ partners_section.title }}</h2>
             <p>{{ partners_section.intro }}</p>
-            <a href="https://www.icmarkets-zcl.com/?camp=7052" id="referalLink" target="_blank" rel="noopener">
-                {{ partners_section.link_label }}
-            </a>
-            <p>{{ partners_section.warning }}</p>
+            <div class="card-grid">
+                {% for link in partners_section.links %}
+                    <article class="card">
+                        <h3>{{ link.label }}</h3>
+                        <p>{{ link.description }}</p>
+                        <p>
+                            <a href="{{ link.url }}" target="_blank" rel="noopener nofollow">
+                                {{ link.label }}
+                            </a>
+                        </p>
+                    </article>
+                {% endfor %}
+            </div>
         </section>
     </main>
     <footer>
