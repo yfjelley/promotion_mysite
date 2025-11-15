@@ -206,6 +206,100 @@
             gap: 20px;
         }
 
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .contact-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            font-style: normal;
+        }
+
+        .contact-eyebrow {
+            margin: 0;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(92, 124, 250, 0.8);
+        }
+
+        .contact-list {
+            margin: 0;
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 8px 16px;
+        }
+
+        .contact-label {
+            margin: 0;
+            color: rgba(233, 237, 255, 0.7);
+            font-weight: 600;
+        }
+
+        .contact-value {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .contact-emphasis {
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(92, 124, 250, 0.18);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .contact-action {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-action:hover {
+            text-decoration: underline;
+        }
+
+        .contact-copy {
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            background: rgba(4, 8, 20, 0.6);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .contact-copy:hover {
+            border-color: rgba(92, 124, 250, 0.8);
+            color: rgba(92, 124, 250, 0.9);
+        }
+
+        .contact-copy.is-copied {
+            border-color: rgba(59, 210, 184, 0.7);
+            background: rgba(59, 210, 184, 0.12);
+            color: var(--accent);
+        }
+
+        .contact-note {
+            margin: 0;
+            color: rgba(233, 237, 255, 0.75);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
         footer {
             padding: 32px 48px;
             background: rgba(4, 8, 20, 0.9);
@@ -233,6 +327,13 @@
         @media (max-width: 720px) {
             header, main {
                 padding: 32px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .contact-value {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -389,22 +490,50 @@
         <!-- 四、联系我们 -->
         <section id="contact">
             <h2>四、联系我们</h2>
-            <p class="section-copy">联系时请备注“来自官网 / Google”，我们会在 12 小时内回复并安排初步沟通。</p>
-            <div class="group-grid">
-                <article class="card">
-                    <h3>即时沟通</h3>
-                    <ul>
-                        <li>微信：btc1688</li>
-                        <li>Telegram：@yf16881</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <h3>邮件咨询</h3>
-                    <ul>
-                        <li>邮箱：yfjelley@gmail.com</li>
-                        <li>请附带需求描述、预算与交付时间</li>
-                    </ul>
-                </article>
+            <p class="section-copy">
+                联系时请备注“来自官网 / Google”，我们会在 12 小时内回复并安排初步沟通。
+            </p>
+            <div class="contact-wrapper" role="list">
+                <address class="contact-card" aria-label="即时沟通" role="listitem">
+                    <p class="contact-eyebrow">即时沟通</p>
+                    <dl class="contact-list">
+                        <dt class="contact-label">微信</dt>
+                        <dd class="contact-value">
+                            <span class="contact-emphasis">btc1688</span>
+                            <button type="button"
+                                    class="contact-copy"
+                                    data-copy-value="btc1688"
+                                    data-default-text="复制 ID"
+                                    data-copied-text="已复制"
+                                    data-copy-error="复制失败，请手动复制"
+                                    data-contact-method="wechat"
+                                    aria-live="polite">
+                                复制 ID
+                            </button>
+                        </dd>
+                        <dt class="contact-label">Telegram</dt>
+                        <dd class="contact-value">
+                            <a class="contact-action"
+                               href="https://t.me/yf16881"
+                               target="_blank"
+                               rel="noopener"
+                               data-contact-method="telegram">
+                                @yf16881
+                            </a>
+                        </dd>
+                    </dl>
+                </address>
+                <address class="contact-card" aria-label="邮件咨询" role="listitem">
+                    <p class="contact-eyebrow">邮件咨询</p>
+                    <p class="contact-value">
+                        <a class="contact-action"
+                           href="mailto:yfjelley@gmail.com"
+                           data-contact-method="email">
+                            yfjelley@gmail.com
+                        </a>
+                    </p>
+                    <p class="contact-note">请附带需求描述、预算与交付时间。</p>
+                </address>
             </div>
         </section>
     </main>
@@ -413,5 +542,101 @@
         <p>© 2024 AlphaQuant Lab · TIDAL Strategy Desk</p>
     </footer>
 </div>
+<script>
+    (function () {
+        var contactSection = document.getElementById('contact');
+        if (!contactSection) {
+            return;
+        }
+
+        var revertTimers = typeof WeakMap !== 'undefined' ? new WeakMap() : new Map();
+
+        var emitContactEvent = function (method, eventName) {
+            if (typeof gtag === 'function' && method) {
+                gtag('event', eventName || 'contact_click', {method: method});
+            }
+        };
+
+        var fallbackCopy = function (value) {
+            var textarea = document.createElement('textarea');
+            textarea.value = value;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            var succeeded = false;
+            try {
+                succeeded = document.execCommand('copy');
+            } catch (err) {
+                succeeded = false;
+            }
+            document.body.removeChild(textarea);
+            return succeeded;
+        };
+
+        contactSection.querySelectorAll('[data-contact-method]').forEach(function (node) {
+            if (node.hasAttribute('data-copy-value')) {
+                return;
+            }
+            node.addEventListener('click', function () {
+                emitContactEvent(node.dataset.contactMethod, node.dataset.contactEvent);
+            });
+        });
+
+        contactSection.querySelectorAll('[data-copy-value]').forEach(function (button) {
+            var defaultText = button.dataset.defaultText || button.textContent;
+            var copiedText = button.dataset.copiedText || 'Copied';
+            var errorText = button.dataset.copyError || '复制失败，请手动复制';
+
+            var revertCopyState = function () {
+                var timer = revertTimers.get(button);
+                if (timer) {
+                    window.clearTimeout(timer);
+                    revertTimers.delete(button);
+                }
+                button.classList.remove('is-copied');
+                button.textContent = defaultText;
+            };
+
+            button.addEventListener('click', function () {
+                var value = button.dataset.copyValue;
+                if (!value) {
+                    return;
+                }
+
+                var method = button.dataset.contactMethod || 'unknown';
+
+                var showCopiedState = function () {
+                    button.classList.add('is-copied');
+                    button.textContent = copiedText;
+                    var timerId = window.setTimeout(revertCopyState, 2000);
+                    revertTimers.set(button, timerId);
+                    emitContactEvent(method, 'contact_copy');
+                };
+
+                var handleFailure = function () {
+                    alert(errorText);
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(value).then(showCopiedState, function () {
+                        if (fallbackCopy(value)) {
+                            showCopiedState();
+                        } else {
+                            handleFailure();
+                        }
+                    });
+                } else if (fallbackCopy(value)) {
+                    showCopiedState();
+                } else {
+                    handleFailure();
+                }
+            });
+
+            button.addEventListener('blur', revertCopyState);
+        });
+    })();
+</script>
 </body>
 </html>

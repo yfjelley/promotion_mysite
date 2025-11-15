@@ -681,7 +681,9 @@
                                     data-copy-value="btc1688"
                                     data-default-text="{% trans "复制 ID" %}"
                                     data-copied-text="{% trans "已复制" %}"
-                                    data-contact-method="wechat">
+                                    data-copy-error="{% trans "复制失败，请手动复制" %}"
+                                    data-contact-method="wechat"
+                                    aria-live="polite">
                                 {% trans "复制 ID" %}
                             </button>
                         </dd>
@@ -792,6 +794,7 @@
             document.querySelectorAll('[data-copy-value]').forEach(function (button) {
                 var defaultText = button.dataset.defaultText || button.textContent;
                 var copiedText = button.dataset.copiedText || 'Copied';
+                var errorText = button.dataset.copyError || '';
 
                 var revertCopyState = function () {
                     var timer = contactRevertTimers.get(button);
@@ -820,14 +823,24 @@
                         emitContactEvent(method, 'contact_copy');
                     };
 
+                    var handleCopyFailure = function () {
+                        if (errorText) {
+                            alert(errorText);
+                        }
+                    };
+
                     if (navigator.clipboard && navigator.clipboard.writeText) {
                         navigator.clipboard.writeText(value).then(showCopiedState, function () {
                             if (fallbackCopy(value)) {
                                 showCopiedState();
+                            } else {
+                                handleCopyFailure();
                             }
                         });
                     } else if (fallbackCopy(value)) {
                         showCopiedState();
+                    } else {
+                        handleCopyFailure();
                     }
                 });
 
