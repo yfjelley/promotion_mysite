@@ -293,6 +293,12 @@
             color: var(--accent);
         }
 
+        .contact-copy.is-error {
+            border-color: rgba(255, 99, 132, 0.75);
+            background: rgba(255, 99, 132, 0.12);
+            color: #ff6384;
+        }
+
         .contact-note {
             margin: 0;
             color: rgba(233, 237, 255, 0.75);
@@ -412,7 +418,7 @@
 
         <!-- 二、三大服务模块 -->
         <section>
-            <h2>二、三大服务模块：突破 · 市场评分 · 策略信号</h2>
+            <h2>二、三大服务模块：突破监控 · 市场评分 · 策略信号</h2>
             <div class="card-grid">
                 <article class="card module-card">
                     <h3><span class="module-index">01</span>突破监控（Breakout Radar）</h3>
@@ -589,14 +595,35 @@
             var copiedText = button.dataset.copiedText || 'Copied';
             var errorText = button.dataset.copyError || '复制失败，请手动复制';
 
-            var revertCopyState = function () {
+            var clearTimer = function () {
                 var timer = revertTimers.get(button);
                 if (timer) {
                     window.clearTimeout(timer);
                     revertTimers.delete(button);
                 }
+            };
+
+            var revertCopyState = function () {
+                clearTimer();
                 button.classList.remove('is-copied');
+                button.classList.remove('is-error');
                 button.textContent = defaultText;
+            };
+
+            var startRevertTimer = function () {
+                clearTimer();
+                var timerId = window.setTimeout(revertCopyState, 2000);
+                revertTimers.set(button, timerId);
+            };
+
+            var showTemporaryState = function (stateClass, nextText) {
+                button.classList.remove('is-copied');
+                button.classList.remove('is-error');
+                if (stateClass) {
+                    button.classList.add(stateClass);
+                }
+                button.textContent = nextText;
+                startRevertTimer();
             };
 
             button.addEventListener('click', function () {
@@ -608,15 +635,12 @@
                 var method = button.dataset.contactMethod || 'unknown';
 
                 var showCopiedState = function () {
-                    button.classList.add('is-copied');
-                    button.textContent = copiedText;
-                    var timerId = window.setTimeout(revertCopyState, 2000);
-                    revertTimers.set(button, timerId);
+                    showTemporaryState('is-copied', copiedText);
                     emitContactEvent(method, 'contact_copy');
                 };
 
                 var handleFailure = function () {
-                    alert(errorText);
+                    showTemporaryState('is-error', errorText);
                 };
 
                 if (navigator.clipboard && navigator.clipboard.writeText) {

@@ -420,6 +420,12 @@
             color: #33d8b3;
         }
 
+        .contact-copy.is-error {
+            border-color: rgba(255, 99, 132, 0.7);
+            background: rgba(255, 99, 132, 0.12);
+            color: #ff6384;
+        }
+
         .contact-note {
             margin: 0;
             color: rgba(232, 236, 255, 0.75);
@@ -796,14 +802,37 @@
                 var copiedText = button.dataset.copiedText || 'Copied';
                 var errorText = button.dataset.copyError || '';
 
-                var revertCopyState = function () {
+                var clearTimer = function () {
                     var timer = contactRevertTimers.get(button);
                     if (timer) {
                         window.clearTimeout(timer);
                         contactRevertTimers.delete(button);
                     }
+                };
+
+                var revertCopyState = function () {
+                    clearTimer();
                     button.classList.remove('is-copied');
+                    button.classList.remove('is-error');
                     button.textContent = defaultText;
+                };
+
+                var startRevertTimer = function () {
+                    clearTimer();
+                    var timeoutId = window.setTimeout(function () {
+                        revertCopyState();
+                    }, 2000);
+                    contactRevertTimers.set(button, timeoutId);
+                };
+
+                var showTemporaryState = function (stateClass, nextText) {
+                    button.classList.remove('is-copied');
+                    button.classList.remove('is-error');
+                    if (stateClass) {
+                        button.classList.add(stateClass);
+                    }
+                    button.textContent = nextText;
+                    startRevertTimer();
                 };
 
                 button.addEventListener('click', function () {
@@ -814,18 +843,13 @@
                     var method = button.dataset.contactMethod || 'unknown';
 
                     var showCopiedState = function () {
-                        button.classList.add('is-copied');
-                        button.textContent = copiedText;
-                        var timeoutId = window.setTimeout(function () {
-                            revertCopyState();
-                        }, 2000);
-                        contactRevertTimers.set(button, timeoutId);
+                        showTemporaryState('is-copied', copiedText);
                         emitContactEvent(method, 'contact_copy');
                     };
 
                     var handleCopyFailure = function () {
                         if (errorText) {
-                            alert(errorText);
+                            showTemporaryState('is-error', errorText);
                         }
                     };
 
