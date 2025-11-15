@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -460,7 +461,6 @@
             <div class="nav-links">
                 <a href="#services" data-target="services">定制服务</a>
                 <a href="/tidal/">策略信号</a>
-                <a href="#workflow" data-target="workflow">交付流程</a>
                 <a href="#capabilities" data-target="capabilities">能力矩阵</a>
                 <a href="#contact" data-target="contact">联系方式</a>
             </div>
@@ -541,41 +541,6 @@
             </div>
         </section>
 
-        <section class="section" id="workflow" data-page-section="workflow">
-            <h2>合作流程（4 步直达实盘）</h2>
-            <p>把复杂的策略落地过程拆成最关键的四个里程碑，每一步都有明确产出、责任人和可跟踪的交付物。</p>
-            <div class="process-list">
-                <div class="process-item">
-                    <div class="step-index">1️⃣</div>
-                    <div>
-                        <h3>快速诊断</h3>
-                        <p>30 分钟深聊交易品种、周期、风险偏好与目标收益，锁定必须满足的技术约束与合规要求。</p>
-                    </div>
-                </div>
-                <div class="process-item">
-                    <div class="step-index">2️⃣</div>
-                    <div>
-                        <h3>方案 + 报价包</h3>
-                        <p>输出策略/系统蓝图、关键技术路线、分阶段排期和透明报价，确认里程碑验收标准。</p>
-                    </div>
-                </div>
-                <div class="process-item">
-                    <div class="step-index">3️⃣</div>
-                    <div>
-                        <h3>实现与回测</h3>
-                        <p>并行完成指标/策略编码、历史回测与稳健性测试，交付报告及演示环境，准备联调。</p>
-                    </div>
-                </div>
-                <div class="process-item">
-                    <div class="step-index">4️⃣</div>
-                    <div>
-                        <h3>上线陪跑</h3>
-                        <p>完成 CEX/DEX/量化平台接入，提供 7×24 监控、实盘调优与长期迭代服务，确保策略持续可用。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="section" id="capabilities" data-page-section="capabilities">
             <h2>技术能力 & 生态支持</h2>
             <div class="card-grid">
@@ -599,16 +564,16 @@
         </section>
 
         <section class="section" id="contact" data-page-section="contact">
-            <h2>联系方式</h2>
-            <p>联系时备注“来自 Google”，我们会在 12 小时内回复。</p>
+            <h2>{% trans "联系方式" %}</h2>
+            <p>{% trans "联系时备注“来自 Google”，我们会在 12 小时内回复。" %}</p>
             <div class="contact-wrapper">
                 <div class="contact-card">
-                    <p>微信：<strong>btc1688</strong></p>
-                    <p>Telegram：<strong>@yf16881</strong></p>
+                    <p><span>{% trans "微信：" %}</span><strong>btc1688</strong></p>
+                    <p><span>{% trans "Telegram：" %}</span><strong>@yf16881</strong></p>
                 </div>
                 <div class="contact-card">
-                    <p>邮箱：<strong>yfjelley@gmail.com</strong></p>
-                    <p>请附：需求描述 / 预算 / 交付时间。</p>
+                    <p><span>{% trans "邮箱：" %}</span><strong>yfjelley@gmail.com</strong></p>
+                    <p>{% trans "请附：需求描述 / 预算 / 交付时间。" %}</p>
                 </div>
             </div>
         </section>

@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: promotion\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-01 00:00+0000\n"
+"PO-Revision-Date: 2024-07-01 00:00+0000\n"
+"Last-Translator: Automated <noreply@example.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "联系方式"
+msgstr "Contact"
+
+msgid "联系时备注“来自 Google”，我们会在 12 小时内回复。"
+msgstr "Mention that you found us via Google and we'll reply within 12 hours."
+
+msgid "微信："
+msgstr "WeChat: "
+
+msgid "Telegram："
+msgstr "Telegram: "
+
+msgid "邮箱："
+msgstr "Email: "
+
+msgid "请附：需求描述 / 预算 / 交付时间。"
+msgstr "Please include: project brief, budget, and timeline."
