@@ -603,20 +603,7 @@
                     </a>
                 {% endfor %}
             </div>
-            <div class="language-switch">
-                <form action="{% url 'set_language' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                    {% for code, label in languages %}
-                        <button type="submit"
-                                name="language"
-                                value="{{ code }}"
-                                class="{% if code == language_code %}is-active{% endif %}">
-                            {{ label }}
-                        </button>
-                    {% endfor %}
-                </form>
-            </div>
+            {% include "promotion/partials/language_switch.html" %}
         </nav>
         <div class="hero-grid">
             <div class="hero-copy">

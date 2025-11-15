@@ -385,20 +385,7 @@
             <div class="cta-row">
                 <a class="btn btn-secondary" href="/">{{ cta_back_home }}</a>
                 <a class="btn btn-primary" href="#contact">{{ cta_contact }}</a>
-                <div class="language-switch">
-                    <form action="{% url 'set_language' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                        {% for code, label in languages %}
-                            <button type="submit"
-                                    name="language"
-                                    value="{{ code }}"
-                                    class="{% if code == language_code %}is-active{% endif %}">
-                                {{ label }}
-                            </button>
-                        {% endfor %}
-                    </form>
-                </div>
+                {% include "promotion/partials/language_switch.html" %}
             </div>
         </div>
 

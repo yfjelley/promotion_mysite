@@ -192,6 +192,9 @@ msgstr "Simplified Chinese"
 msgid "English"
 msgstr "English"
 
+msgid "Language selector"
+msgstr "Language selector"
+
 msgid "TIDAL 策略信号与量化资源服务 - AlphaQuant Lab"
 msgstr "TIDAL Strategy Signals & Quant Resources - AlphaQuant Lab"
 
