@@ -27,8 +27,8 @@ msgstr ""
 "development, Binance, OKX, Gateio, VNPY, TradingView strategy, TradingView "
 "indicators, asset management system, trading bots"
 
-msgid "定制服务"
-msgstr "Custom Solutions"
+msgid "策略开发"
+msgstr "Strategy Development"
 
 msgid "策略信号"
 msgstr "Strategy Signals"

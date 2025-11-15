@@ -18,7 +18,7 @@ def index(request):
     }
 
     nav_links = [
-        {"href": "#services", "label": _("定制服务"), "target": "services"},
+        {"href": "#services", "label": _("策略开发"), "target": "services"},
         {"href": "/tidal/", "label": _("策略信号"), "target": None},
         {"href": "#capabilities", "label": _("能力矩阵"), "target": "capabilities"},
         {"href": "#contact", "label": _("联系方式"), "target": "contact"},
