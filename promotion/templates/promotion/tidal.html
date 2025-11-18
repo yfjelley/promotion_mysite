@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_meta.title }}</title>
     <meta name="description" content="{{ page_meta.description }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_meta.title }}">
+    <meta property="og:description" content="{{ page_meta.description }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ language_code|default:'zh_Hans' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_meta.title }}">
+    <meta name="twitter:description" content="{{ page_meta.description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"

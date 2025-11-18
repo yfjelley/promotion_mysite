@@ -9,8 +9,15 @@ from django.utils.translation import gettext as _
 from django.http import HttpResponse
 
 
+def build_canonical_url(request):
+    base = getattr(settings, "SITE_CANONICAL_BASE", None)
+    if base:
+        return base.rstrip("/") + request.path
+    return request.build_absolute_uri(request.path)
+
+
 def index(request):
-    canonical_url = request.build_absolute_uri(request.path)
+    canonical_url = build_canonical_url(request)
     page_meta = {
         "title": _("AlphaQuant Lab | 量化策略开发 · 交易系统 · TradingView 指标"),
         "description": _("AlphaQuant Lab 专注量化策略研发、自动化交易系统、TradingView 指标与金融网站开发，覆盖 Binance / OKX / Gateio 等主流交易所，提供交付闭环与长期运维。"),
@@ -144,9 +151,8 @@ def index(request):
     }
     return render(request, "promotion/index.html", context)
 
-
 def tidal(request):
-    canonical_url = request.build_absolute_uri(request.path)
+    canonical_url = build_canonical_url(request)
     modules = [
         {
             "title": _("GMMA 趋势结构"),
