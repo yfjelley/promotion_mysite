@@ -144,3 +144,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 print(STATIC_ROOT)
+
+# Public canonical base URL used for SEO links
+SITE_CANONICAL_BASE = "https://pddjf.com"

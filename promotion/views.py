@@ -102,26 +102,6 @@ def index(request):
                 "url": "https://www.icmarkets-zcl.com/?camp=7052",
                 "description": _("IC Markets 提供高达 1,000 倍杠杆，适合虚拟货币与外汇高频交易。杠杆可以放大收益，也可能放大损失，请务必谨慎控制仓位。"),
             },
-            {
-                "label": _("Binance 交易所"),
-                "url": "https://www.binance.com/",
-                "description": _("全球领先的数字资产交易平台，支持现货/合约/期权等多业务。"),
-            },
-            {
-                "label": _("OKX 交易所"),
-                "url": "https://www.gtohfmmy.com/join/2658338",
-                "description": _("提供多品类合约、CEX/DEX 一体化交易体验。"),
-            },
-            {
-                "label": _("Gate.io 交易所"),
-                "url": "https://www.gate.com/referral/earn-together/invite/UwRHXA?ref=UwRHXA&ref_type=103&utm_cmp=rXJBDjtJ&activity_id=1762853469105",
-                "description": _("拥有丰富的合约杠杆产品与 API 生态。"),
-            },
-            {
-                "label": _("Bitget 交易所"),
-                "url": "https://www.bitget.com/",
-                "description": _("以跟单交易和量化生态著称，适合策略开发者。"),
-            },
         ],
     }
 
