@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://promotion-mysite.pages.dev/sitemap.xml
+Sitemap: https://icojf.com/sitemap.xml
