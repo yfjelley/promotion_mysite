@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>3Commas 类交易机器人定制开发 | TradingView Webhook 与 DCA/Grid Bot</title>
-  <meta name="description" content="提供类似 3Commas 的交易机器人定制开发：TradingView Webhook 信号、DCA Bot、Grid Bot、Smart Trade、Binance/OKX API 自动下单、风控和私有部署。">
+  <title>TradingView 自动交易机器人定制开发 | Webhook、DCA/Grid 与交易所 API</title>
+  <meta name="description" content="提供 TradingView Webhook 自动交易机器人、DCA/Grid 策略执行、交易所 API 下单、风控引擎、源码交付和私有化部署。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/">
-  <meta property="og:title" content="3Commas 类交易机器人定制开发">
-  <meta property="og:description" content="把你的交易规则做成可运行的 TradingView 信号机器人、DCA/Grid Bot、自动下单和风控系统。">
+  <meta property="og:title" content="TradingView 自动交易机器人定制开发">
+  <meta property="og:description" content="把你的 TradingView 信号、DCA/Grid 策略和交易所 API 做成私有化自动交易系统。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/">
-  <meta name="theme-color" content="#111827">
+  <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
   <script src="/scripts.js" defer></script>
@@ -19,17 +19,16 @@
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "交易机器人定制开发与私有部署",
+    "name": "SignalCraft Labs 自动交易系统定制开发",
     "url": "https://icojf.com/",
     "areaServed": ["中国", "新加坡", "香港", "全球远程"],
     "serviceType": [
       "TradingView Webhook 自动交易机器人",
-      "DCA Bot 定制开发",
-      "Grid Bot 定制开发",
-      "Binance OKX API 自动下单系统",
-      "交易风控系统与私有部署"
+      "DCA Grid 策略执行系统",
+      "交易所 API 自动下单系统",
+      "交易风控引擎与私有化部署"
     ],
-    "priceRange": "RMB 6000+",
+    "priceRange": "2000 美金起",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "sales",
@@ -41,320 +40,327 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="交易机器人定制开发首页">
-      <span class="brand-mark" aria-hidden="true">B</span>
-      <span>Bot Build Studio</span>
+    <a class="brand" href="/" aria-label="SignalCraft Labs 自动交易系统开发首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
     </a>
     <nav class="nav" aria-label="主导航">
       <a href="#services">可开发范围</a>
-      <a href="#packages">方案报价</a>
-      <a href="#process">交付流程</a>
-      <a href="#contact">联系评估</a>
+      <a href="#architecture">交付方案</a>
+      <a href="#packages">报价流程</a>
+      <a class="nav-cta" href="#contact" data-contact="nav_cta">免费评估</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <h1 id="hero-title">3Commas 类交易机器人定制开发</h1>
+        <h1 id="hero-title">TradingView 自动交易机器人定制开发</h1>
         <p class="hero-lede">
-          把 TradingView 信号、DCA/Grid 策略和交易所 API 做成自动交易系统。
-          支持 Binance、OKX、Gate，交付源码、私有部署和远程讲解。
+          把 TradingView 信号、DCA/Grid 策略和交易所 API 深度集成，做成可测试、可部署、可扩展的自动交易系统。
+          交付源码、部署文档和远程讲解，适合已有规则但缺少工程落地的交易者或团队。
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#contact" data-contact="hero_cta">发送规则，免费评估</a>
-          <a class="button secondary" href="#services">查看可开发范围</a>
+          <a class="button primary" href="#contact" data-contact="hero_cta">免费评估交易规则</a>
+          <a class="button secondary" href="#architecture">查看交付方案</a>
         </div>
-        <dl class="hero-stats">
+        <div class="hero-proof" role="group" aria-label="交付特点">
           <div>
-            <dt>常见周期</dt>
-            <dd>2-10 天</dd>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-2.9 8.4-7 10-4.1-1.6-7-5.2-7-10V6l7-3z"/><path d="M9 12l2 2 4-5"/></svg>
+            <strong>安全私有部署</strong>
+            <span>数据不出站，部署在你的环境</span>
           </div>
           <div>
-            <dt>起步预算</dt>
-            <dd>6000 RMB+</dd>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9l-4 3 4 3"/><path d="M16 9l4 3-4 3"/><path d="M14 5l-4 14"/></svg>
+            <strong>源码完整交付</strong>
+            <span>代码、配置、使用文档可审计</span>
           </div>
           <div>
-            <dt>交付方式</dt>
-            <dd>源码 + 私有部署</dd>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v4a2 2 0 0 0 2 2h1"/><path d="M20 13v4a2 2 0 0 1-2 2h-1"/><path d="M9 19h6"/></svg>
+            <strong>专业技术支持</strong>
+            <span>从规则拆解到上线全程协助</span>
           </div>
-        </dl>
-        <p class="trust-note">非 3Commas 官方服务，不复制其品牌或平台；提供类似功能的定制开发和私有部署。</p>
+        </div>
       </div>
 
-      <div class="bot-console">
-        <div class="console-head">
-          <strong>Private Bot Workflow</strong>
-          <span>live-ready after testing</span>
+      <div class="system-panel" role="group" aria-label="自动交易系统总览">
+        <div class="panel-top">
+          <strong>交易系统总览</strong>
+          <span>系统状态 <em>运行中</em></span>
         </div>
-        <div class="flow">
-          <div class="flow-node">
-            <span>01</span>
-            <strong>TradingView Signal</strong>
-            <small>alert_message / webhook</small>
-          </div>
-          <div class="flow-line" aria-hidden="true"></div>
-          <div class="flow-node">
-            <span>02</span>
+        <div class="module-row">
+          <article>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h3l2-5 4 10 2-5h5"/></svg>
+            <strong>Signal In</strong>
+            <span>Webhook 实时信号</span>
+          </article>
+          <article>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-2.9 8.4-7 10-4.1-1.6-7-5.2-7-10V6l7-3z"/><path d="M9.5 12.5l1.7 1.7 3.8-4.5"/></svg>
             <strong>Risk Engine</strong>
-            <small>size / stop / reduceOnly</small>
-          </div>
-          <div class="flow-line" aria-hidden="true"></div>
-          <div class="flow-node">
-            <span>03</span>
+            <span>风控校验</span>
+          </article>
+          <article>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12"/><path d="M13 8l4 4-4 4"/><path d="M6 7h8"/><path d="M6 17h8"/></svg>
+            <strong>Order Router</strong>
+            <span>订单路由</span>
+          </article>
+          <article>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5"/><path d="M12 12v9"/><path d="M12 12L4 7.5"/></svg>
             <strong>Exchange API</strong>
-            <small>Binance / OKX / Gate</small>
+            <span>下单与回报</span>
+          </article>
+        </div>
+        <div class="dashboard-grid">
+          <div class="metric-board">
+            <div class="metric">
+              <span>今日交易</span>
+              <strong>128</strong>
+            </div>
+            <div class="metric positive">
+              <span>今日盈亏</span>
+              <strong>+2,410</strong>
+            </div>
+            <div class="metric">
+              <span>胜率</span>
+              <strong>61.3%</strong>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head">
+                <strong>收益曲线</strong>
+                <span>30 天</span>
+              </div>
+              <svg class="line-chart" viewBox="0 0 360 150" aria-hidden="true">
+                <path class="chart-area" d="M0 116 C35 105 48 126 76 110 C106 93 122 107 148 83 C177 57 203 78 229 52 C257 25 287 46 316 30 C337 18 348 18 360 12 L360 150 L0 150 Z"/>
+                <path class="chart-line" d="M0 116 C35 105 48 126 76 110 C106 93 122 107 148 83 C177 57 203 78 229 52 C257 25 287 46 316 30 C337 18 348 18 360 12"/>
+              </svg>
+            </div>
+          </div>
+          <div class="status-board">
+            <strong>系统状态</strong>
+            <ul>
+              <li><span>Webhook</span><em>连接正常</em></li>
+              <li><span>风控引擎</span><em>运行中</em></li>
+              <li><span>订单路由</span><em>运行中</em></li>
+              <li><span>交易所 API</span><em>连接正常</em></li>
+              <li><span>告警服务</span><em>正常</em></li>
+            </ul>
           </div>
         </div>
-        <div class="bot-grid">
-          <article>
-            <span>DCA Bot</span>
-            <strong>分批补仓</strong>
-            <small>安全单、止盈、最大层数</small>
-          </article>
-          <article>
-            <span>Grid Bot</span>
-            <strong>网格执行</strong>
-            <small>区间、间距、仓位限制</small>
-          </article>
-          <article>
-            <span>Signal Bot</span>
-            <strong>信号下单</strong>
-            <small>Webhook、开平仓、告警</small>
-          </article>
-          <article>
-            <span>Smart Trade</span>
-            <strong>智能交易</strong>
-            <small>止损、追踪止盈、分批止盈</small>
-          </article>
+        <div class="position-table">
+          <div class="table-title">持仓概览</div>
+          <div class="table-row table-head">
+            <span>交易对</span><span>方向</span><span>仓位</span><span>状态</span>
+          </div>
+          <div class="table-row">
+            <span>BTC/USDT</span><span class="long">多</span><span>0.152 BTC</span><span>持仓中</span>
+          </div>
+          <div class="table-row">
+            <span>ETH/USDT</span><span class="long">多</span><span>1.250 ETH</span><span>持仓中</span>
+          </div>
+          <div class="table-row">
+            <span>SOL/USDT</span><span class="short">空</span><span>25.00 SOL</span><span>已风控</span>
+          </div>
         </div>
-        <pre><code>{
-  "source": "tradingview",
-  "symbol": "BTCUSDT",
-  "side": "buy",
-  "risk_pct": 1.2,
-  "exchange": "okx"
-}</code></pre>
       </div>
     </section>
 
-    <section id="services" class="section" aria-labelledby="services-title">
-      <div class="section-head">
-        <p class="section-label">可开发范围</p>
-        <h2 id="services-title">不是卖固定模板，而是按你的交易规则定制</h2>
-        <p>如果你现在用 TradingView、Excel、手动盯盘或第三方机器人配置交易规则，可以把流程拆出来做成自己的私有版本。</p>
+    <section id="services" class="section services" aria-labelledby="services-title">
+      <div class="section-head centered">
+        <h2 id="services-title">为你的自动交易系统提供全栈能力</h2>
+        <p>不是出售固定策略，也不是代管资金，而是把你已有的交易规则工程化。</p>
       </div>
-      <div class="service-grid">
-        <article class="service-card featured">
-          <h3>TradingView Webhook 机器人</h3>
-          <p>Pine Script 信号、alert_message、Webhook 接收、自动开仓/平仓、失败重试和日志记录。</p>
+      <div class="capability-grid">
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h3l2-5 4 10 2-5h5"/><path d="M4 5v14"/></svg>
+          <h3>信号对接</h3>
+          <p>对接 TradingView Webhook 信号、策略条件、Webhook 文案和多品种触发。</p>
+          <a href="#contact">了解更多</a>
         </article>
-        <article class="service-card">
-          <h3>DCA / 马丁机器人</h3>
-          <p>首单、安全单、补仓间隔、最大层数、止盈回撤、单币种或多币种运行。</p>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4z"/><path d="M13 4h7v7h-7z"/><path d="M4 13h7v7H4z"/><path d="M13 13h7v7h-7z"/></svg>
+          <h3>策略执行</h3>
+          <p>DCA、Grid、分批止盈、追踪止损、冷却时间、最大层数和仓位限制。</p>
+          <a href="#contact">了解更多</a>
         </article>
-        <article class="service-card">
-          <h3>Grid 网格机器人</h3>
-          <p>区间网格、等差/等比网格、仓位限制、异常价格保护和运行状态看板。</p>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-2.9 8.4-7 10-4.1-1.6-7-5.2-7-10V6l7-3z"/><path d="M9.5 12.5l1.7 1.7 3.8-4.5"/></svg>
+          <h3>风控管理</h3>
+          <p>单笔风险、最大仓位、只减仓、异常价格保护、失败重试和告警。</p>
+          <a href="#contact">了解更多</a>
         </article>
-        <article class="service-card">
-          <h3>Smart Trade 工具</h3>
-          <p>止损、分批止盈、追踪止盈、条件单、反向平仓和人工确认开关。</p>
-        </article>
-        <article class="service-card">
-          <h3>交易所 API 对接</h3>
-          <p>Binance、OKX、Gate 等交易所的下单、撤单、持仓同步、资金费率和异常告警。</p>
-        </article>
-        <article class="service-card">
-          <h3>私有部署与源码交付</h3>
-          <p>部署到 VPS、Docker 或本地服务器，交付源码、配置说明和远程操作讲解。</p>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5"/><path d="M12 12v9"/><path d="M12 12L4 7.5"/></svg>
+          <h3>系统交付</h3>
+          <p>源码交付、私有化部署、运行文档、远程培训和后续扩展建议。</p>
+          <a href="#contact">了解更多</a>
         </article>
       </div>
     </section>
 
-    <section class="section fit" aria-labelledby="fit-title">
-      <div class="section-head">
-        <p class="section-label">客户筛选</p>
-        <h2 id="fit-title">适合有明确规则的人，不适合只想买稳赚策略的人</h2>
+    <section id="architecture" class="architecture" aria-labelledby="architecture-title">
+      <div class="section-head centered dark">
+        <h2 id="architecture-title">交付架构与技术方案</h2>
+        <p>从信号、风控、路由到交易所回报，关键链路都可审计、可测试、可替换。</p>
       </div>
-      <div class="fit-grid">
-        <article class="fit-card positive">
-          <h3>适合</h3>
-          <ul class="check-list">
-            <li>已经有入场、出场、止损、止盈规则</li>
-            <li>想把 TradingView 信号接到交易所自动执行</li>
-            <li>需要比通用平台更灵活的定制功能</li>
-            <li>希望代码和部署环境掌握在自己手里</li>
-          </ul>
+      <div class="architecture-flow" role="group" aria-label="交付架构">
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h3l2-5 4 10 2-5h5"/></svg>
+          <strong>TradingView Webhook</strong>
+          <span>实时信号</span>
         </article>
-        <article class="fit-card negative">
-          <h3>不适合</h3>
-          <ul class="plain-list">
-            <li>只想购买保本、稳赚、固定收益策略</li>
-            <li>没有任何明确规则，只要求“帮我赚钱”</li>
-            <li>不愿意做回测、模拟盘或小资金灰度</li>
-            <li>要求提供交易所提现权限或代管资金</li>
-          </ul>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          <strong>信号处理服务</strong>
+          <span>解析 / 校验 / 去重</span>
         </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-2.9 8.4-7 10-4.1-1.6-7-5.2-7-10V6l7-3z"/></svg>
+          <strong>风控引擎</strong>
+          <span>仓位 / 止损 / 权限</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12"/><path d="M13 8l4 4-4 4"/><path d="M6 7h8"/><path d="M6 17h8"/></svg>
+          <strong>策略执行引擎</strong>
+          <span>DCA / Grid / 止盈止损</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="M8 11h8"/><path d="M8 14h5"/></svg>
+          <strong>订单路由</strong>
+          <span>混合优化 / 限频</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/></svg>
+          <strong>交易所 API</strong>
+          <span>下单 / 查询 / 回报</span>
+        </article>
+      </div>
+      <div class="architecture-notes">
+        <div><strong>高可用架构</strong><span>模块化设计，稳定可靠</span></div>
+        <div><strong>实时监控</strong><span>关键信号与告警通知</span></div>
+        <div><strong>安全合规</strong><span>API 权限限制与操作审计</span></div>
+        <div><strong>灵活扩展</strong><span>支持多交易所与多策略</span></div>
       </div>
     </section>
 
     <section id="packages" class="section packages" aria-labelledby="packages-title">
-      <div class="section-head">
-        <p class="section-label">方案报价</p>
-        <h2 id="packages-title">按复杂度报价，先评估规则再开工</h2>
-        <p>下面是常见范围，最终价格取决于策略复杂度、交易所数量、是否需要后台、是否需要回测和部署维护。</p>
+      <div class="section-head centered">
+        <h2 id="packages-title">交付流程与报价</h2>
+        <p>先评估规则，再确认报价。所有方案都建议先模拟盘或小资金灰度测试。</p>
       </div>
-      <div class="package-grid">
-        <article class="package-card">
-          <h3>信号脚本包</h3>
-          <p class="price">6000 RMB 起</p>
-          <ul class="check-list">
-            <li>TradingView 指标/策略脚本</li>
-            <li>提醒条件和 Webhook 文案</li>
-            <li>基础回测和参数说明</li>
-          </ul>
-        </article>
-        <article class="package-card emphasis">
-          <h3>Bot 自动化包</h3>
-          <p class="price">12000 RMB 起</p>
-          <ul class="check-list">
-            <li>Webhook 接收服务</li>
-            <li>交易所 API 自动下单</li>
-            <li>风控、日志、异常告警</li>
-          </ul>
-        </article>
-        <article class="package-card">
-          <h3>私有系统包</h3>
-          <p class="price">30000 RMB 起</p>
-          <ul class="check-list">
-            <li>多策略/多币种运行</li>
-            <li>简单后台或监控面板</li>
-            <li>Docker/VPS 部署和维护方案</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="process" class="section process" aria-labelledby="process-title">
-      <div class="section-head">
-        <p class="section-label">交付流程</p>
-        <h2 id="process-title">先把规则讲清楚，再做可运行版本</h2>
-      </div>
-      <ol class="steps">
-        <li>
-          <span>01</span>
-          <h3>规则评估</h3>
-          <p>确认品种、周期、信号来源、开平仓条件、止损止盈、仓位方式和目标交易所。</p>
-        </li>
-        <li>
-          <span>02</span>
-          <h3>报价排期</h3>
-          <p>给出开发范围、报价、交付物、验收方式和是否需要分阶段交付。</p>
-        </li>
-        <li>
-          <span>03</span>
-          <h3>开发测试</h3>
-          <p>完成脚本、接口、风控、日志和部署配置，先用模拟盘或小资金灰度验证。</p>
-        </li>
-        <li>
-          <span>04</span>
-          <h3>交付讲解</h3>
-          <p>交付源码、配置说明、运行截图或录屏，远程讲解如何启动、停止和排查问题。</p>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section proof" aria-labelledby="proof-title">
-      <div class="section-head">
-        <p class="section-label">交付边界</p>
-        <h2 id="proof-title">技术实现可以负责，交易收益不能承诺</h2>
-      </div>
-      <div class="proof-grid">
-        <div>
-          <h3>你会拿到</h3>
-          <ul class="check-list">
-            <li>可运行源码、配置文件和部署说明</li>
-            <li>API 权限建议：只开交易权限，不开提现权限</li>
-            <li>运行日志、异常处理和基础风控说明</li>
-            <li>验收后的必要 bug 修复支持</li>
-          </ul>
+      <div class="package-layout">
+        <ol class="timeline">
+          <li><span>01</span><strong>需求沟通</strong><em>了解交易策略与目标</em></li>
+          <li><span>02</span><strong>方案设计</strong><em>确认架构与功能清单</em></li>
+          <li><span>03</span><strong>合同签订</strong><em>确定范围与交付计划</em></li>
+          <li><span>04</span><strong>开发与测试</strong><em>分阶段开发与联调测试</em></li>
+          <li><span>05</span><strong>交付上线</strong><em>源码交付与部署培训</em></li>
+        </ol>
+        <div class="pricing-grid">
+          <article>
+            <h3>标准版</h3>
+            <p>适合单策略 / 单交易所</p>
+            <strong class="price">2000 美金起</strong>
+            <ul>
+              <li>Webhook 信号对接</li>
+              <li>单策略执行引擎</li>
+              <li>基础风控与仓位管理</li>
+              <li>源码交付与部署文档</li>
+            </ul>
+            <a class="button secondary" href="#contact" data-contact="standard_quote">咨询报价</a>
+          </article>
+          <article class="featured">
+            <span class="corner">推荐</span>
+            <h3>专业版</h3>
+            <p>适合多策略 / 多交易所</p>
+            <strong class="price">5000 美金起</strong>
+            <ul>
+              <li>多策略并行执行</li>
+              <li>高级风控与资金管理</li>
+              <li>多交易所 API 适配</li>
+              <li>监控面板与异常告警</li>
+            </ul>
+            <a class="button primary" href="#contact" data-contact="pro_quote">咨询报价</a>
+          </article>
+          <article>
+            <h3>企业版</h3>
+            <p>适合定制化 / 高可用部署</p>
+            <strong class="price">10000 美金起</strong>
+            <ul>
+              <li>定制功能开发</li>
+              <li>私有化高可用部署</li>
+              <li>权限、日志与审计</li>
+              <li>专项技术支持</li>
+            </ul>
+            <a class="button secondary" href="#contact" data-contact="enterprise_quote">咨询报价</a>
+          </article>
         </div>
-        <div>
-          <h3>明确不会做</h3>
+      </div>
+    </section>
+
+    <section class="section guardrails" aria-labelledby="guardrails-title">
+      <div class="section-head">
+        <h2 id="guardrails-title">我们做技术交付，不承诺投资收益</h2>
+        <p>自动交易系统的价值是降低手工执行误差、提升规则执行一致性。策略盈亏仍由你的规则、市场环境和资金管理决定。</p>
+      </div>
+      <div class="guardrail-grid">
+        <article>
+          <h3>适合的客户</h3>
+          <ul class="check-list">
+            <li>已经有明确入场、出场、止损、止盈规则</li>
+            <li>需要把 TradingView 信号接到交易所自动执行</li>
+            <li>希望源码和部署环境掌握在自己手里</li>
+            <li>愿意做回测、模拟盘或小资金灰度</li>
+          </ul>
+        </article>
+        <article>
+          <h3>明确不提供</h3>
           <ul class="plain-list">
-            <li>不承诺保本、固定收益或稳赚。</li>
-            <li>不代管资金，不索取交易所提现权限。</li>
-            <li>不提供投资建议，客户自行承担交易风险。</li>
-            <li>不绕过交易所限制或做违规用途。</li>
+            <li>不销售保本、稳赚、固定收益策略</li>
+            <li>不代管资金，不要求交易所提现权限</li>
+            <li>不替客户做投资决策或喊单服务</li>
+            <li>不复制第三方平台品牌、界面或专有功能</li>
           </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <div class="contact-copy">
+        <h2 id="contact-title">准备好构建你的自动交易系统了吗？</h2>
+        <p>提交你的策略规则或 TradingView 信号说明，通常 1 个工作日内给出评估与方案建议。</p>
+        <div class="contact-row">
+          <a href="mailto:549636719@qq.com" data-contact="email">549636719@qq.com</a>
+          <button type="button" data-copy="btc1688" data-contact="wechat_copy">复制微信 btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="telegram">Telegram @yf16881</a>
         </div>
+        <p class="copy-status" aria-live="polite"></p>
       </div>
-    </section>
-
-    <section class="section faq" aria-labelledby="faq-title">
-      <div class="section-head">
-        <p class="section-label">常见问题</p>
-        <h2 id="faq-title">咨询前先把这几个问题想清楚</h2>
+      <div class="contact-card">
+        <strong>免费评估需要提供</strong>
+        <ul>
+          <li>信号来源和触发条件</li>
+          <li>交易所、品种和周期</li>
+          <li>仓位、止损、止盈规则</li>
+          <li>是否需要后台、告警和私有部署</li>
+        </ul>
       </div>
-      <details>
-        <summary>我想做一个 3Commas 类机器人，可以直接开发吗？</summary>
-        <p>可以，但要先明确你需要的是 DCA、Grid、Signal Bot、Smart Trade，还是几个模块组合。规则越清楚，报价越准确。</p>
-      </details>
-      <details>
-        <summary>可以接 TradingView 自动下单吗？</summary>
-        <p>可以。常见做法是 TradingView 触发 Webhook，服务端校验信号和风控后调用交易所 API 下单。</p>
-      </details>
-      <details>
-        <summary>你们会保管我的交易所账户吗？</summary>
-        <p>不会。API 只建议开交易权限，不应开启提现权限。系统可部署在你的服务器或你控制的环境里。</p>
-      </details>
-      <details>
-        <summary>能保证机器人赚钱吗？</summary>
-        <p>不能保证。服务范围是开发、部署和技术风控，不承诺任何收益结果。</p>
-      </details>
-    </section>
-
-    <section id="contact" class="section contact" aria-labelledby="contact-title">
-      <div class="section-head">
-        <p class="section-label">联系评估</p>
-        <h2 id="contact-title">把交易规则发来，先判断能不能做</h2>
-        <p>添加时请注明来自 Google，并简单说明：策略类型、交易品种、周期、交易所、是否需要实盘、预算范围。</p>
-      </div>
-      <div class="contact-grid">
-        <button class="contact-card" type="button" data-copy="btc1688" data-contact="wechat">
-          <span>微信</span>
-          <strong>btc1688</strong>
-          <small>点击复制</small>
-        </button>
-        <button class="contact-card" type="button" data-copy="549636719" data-contact="qq">
-          <span>QQ</span>
-          <strong>549636719</strong>
-          <small>点击复制</small>
-        </button>
-        <a class="contact-card" href="mailto:549636719@qq.com?subject=TradingView%20Webhook%20Bot%20%E5%BC%80%E5%8F%91%E5%92%A8%E8%AF%A2" data-contact="email">
-          <span>Email</span>
-          <strong>549636719@qq.com</strong>
-          <small>发送需求</small>
-        </a>
-        <a class="contact-card" href="https://t.me/yf16881" target="_blank" rel="noopener" data-contact="telegram">
-          <span>Telegram</span>
-          <strong>@yf16881</strong>
-          <small>打开 Telegram</small>
-        </a>
-      </div>
-      <p class="copy-status" aria-live="polite"></p>
     </section>
   </main>
 
-  <div class="mobile-contact-bar">
-    <a href="#contact" data-contact="mobile_contact">免费评估</a>
-    <button type="button" data-copy="btc1688" data-contact="mobile_wechat">复制微信</button>
-  </div>
-
   <footer class="site-footer">
-    <p>© 2026 Bot Build Studio. 交易系统技术开发服务，不提供投资建议或收益承诺。</p>
-    <a href="/privacy">隐私政策</a>
+    <p><strong>SignalCraft Labs</strong> 自动交易系统定制开发工作室</p>
+    <nav aria-label="页脚导航">
+      <a href="#services">可开发范围</a>
+      <a href="#architecture">交付方案</a>
+      <a href="#packages">交付报价</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议。</p>
   </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="#contact" data-contact="mobile_cta">免费评估</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
 </body>
 </html>
