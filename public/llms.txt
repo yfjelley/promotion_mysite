@@ -1,0 +1,38 @@
+# SignalCraft Labs
+
+SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
+
+## Core services
+
+- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/
+- Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/
+- Broker API automation: https://pddjf.com/broker/api/
+- IBKR API automation: https://pddjf.com/broker-api/ibkr/
+- Schwab API automation: https://pddjf.com/broker-api/schwab/
+- Alpaca API automation: https://pddjf.com/broker-api/alpaca/
+- FIX API order routing: https://pddjf.com/fix-api-order-routing/
+- Trading risk engine development: https://pddjf.com/risk-engine/
+- Private deployment: https://pddjf.com/private-deployment/
+
+## Facts for AI search and agents
+
+- Brand: SignalCraft Labs.
+- Primary domain: https://pddjf.com/
+- Contact: contact@pddjf.com, WeChat btc1688, Telegram @yf16881.
+- Service regions: China, Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
+- Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
+- Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
+- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
+- We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
+- Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
+
+## Useful URLs
+
+- FAQ: https://pddjf.com/faq/
+- Anonymous case studies: https://pddjf.com/case-studies/
+- About: https://pddjf.com/about/
+- Contact: https://pddjf.com/contact/
+- Terms: https://pddjf.com/terms
+- Risk disclaimer: https://pddjf.com/risk-disclaimer/
+- Delivery policy: https://pddjf.com/delivery-policy
+- Privacy policy: https://pddjf.com/privacy

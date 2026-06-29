@@ -13,16 +13,25 @@ gtag("js", new Date());
 gtag("config", ADS_ID);
 gtag("config", GA_ID);
 
-function reportContact(method) {
-  gtag("event", "contact_click", {
-    method,
-    event_category: "lead",
-  });
+function reportAdsLead(method) {
   gtag("event", "conversion", {
     send_to: ADS_CONVERSION,
     value: ADS_LEAD_VALUE,
     currency: ADS_LEAD_CURRENCY,
+    lead_method: method,
   });
+}
+
+function reportContactClick(method, isLead = false) {
+  gtag("event", "contact_click", {
+    method,
+    event_category: isLead ? "lead" : "engagement",
+    lead_action: isLead ? "external_contact" : "internal_cta",
+  });
+
+  if (isLead) {
+    reportAdsLead(method);
+  }
 }
 
 async function copyText(value) {
@@ -47,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-contact]:not([data-copy])").forEach((element) => {
     element.addEventListener("click", () => {
-      reportContact(element.dataset.contact);
+      reportContactClick(element.dataset.contact, element.dataset.leadContact === "true");
     });
   });
 
@@ -59,12 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (status) {
           status.textContent = `已复制：${value}`;
         }
-        reportContact(button.dataset.contact || "copy");
+        reportContactClick(button.dataset.contact || "copy", true);
       } catch (error) {
         if (status) {
           status.textContent = "复制失败，请手动复制页面上的联系方式。";
         }
       }
+    });
+  });
+
+  document.querySelectorAll("form[data-lead-form]").forEach((form) => {
+    form.addEventListener("submit", () => {
+      reportContactClick(form.dataset.contact || "form_submit", true);
     });
   });
 });

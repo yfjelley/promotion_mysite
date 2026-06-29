@@ -1,0 +1,1170 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+
+const root = new URL("..", import.meta.url).pathname;
+const publicDir = join(root, "public");
+const today = "2026-06-30";
+const site = "https://pddjf.com";
+
+const contact = {
+  email: "contact@pddjf.com",
+  wechat: "btc1688",
+  telegram: "@yf16881",
+  telegramUrl: "https://t.me/yf16881"
+};
+
+const offers = [
+  { name: "Starter", price: "2000", label: "2000 美金起", description: "单接口、单工作流、基础风控和部署文档。" },
+  { name: "Professional", price: "5000", label: "5000 美金起", description: "多规则、风控引擎、监控日志和灰度联调。" },
+  { name: "Private Infrastructure", price: "10000", label: "10000 美金起", description: "多接口、后台、权限、审计和私有化部署。" }
+];
+
+const baseInputRows = [
+  ["信号来源", "TradingView Alert、研究脚本、人工确认、组合规则或外部事件。"],
+  ["接口权限", "券商、交易所、FIX、REST/WebSocket 或内部系统的 API 权限状态。"],
+  ["交易规则", "入场、出场、仓位、止损止盈、撤单、冷却和异常处理。"],
+  ["风控边界", "最大仓位、单笔风险、只减仓、暂停开关、价格偏离和告警。"],
+  ["部署环境", "客户服务器、VPS、Docker、日志、告警、备份和权限要求。"]
+];
+
+const permissionRows = [
+  ["读取权限", "需要", "用于查询余额、持仓、订单状态、成交回报和日志对账。"],
+  ["交易权限", "按项目需要", "只在自动执行项目中启用，并建议限制 IP、品种和订单范围。"],
+  ["提现权限", "不需要", "不建议提供提现、划转或资金托管权限。"],
+  ["管理员权限", "默认不需要", "除非客户明确要求部署协助，否则由客户自行保管账户和服务器主权限。"]
+];
+
+const acceptanceRows = [
+  ["源码和配置", "源码、环境变量样例、配置说明和版本记录已交付。"],
+  ["日志和告警", "每次信号、拒绝原因、订单请求、执行结果和异常都有可追踪记录。"],
+  ["风控验证", "最大仓位、限频、只减仓、暂停开关、价格保护等规则通过测试。"],
+  ["灰度上线", "先用测试环境、模拟盘或小资金范围验证，不以盈利结果作为验收条件。"],
+  ["交付文档", "部署、重启、回滚、密钥轮换和常见故障处理说明已交付。"]
+];
+
+const servicePages = [
+  {
+    slug: "tradingview-webhook-automation",
+    breadcrumb: "TradingView Webhook 自动化",
+    eyebrow: "TradingView Webhook Automation",
+    title: "TradingView Webhook 自动交易系统开发 | 信号解析、风控、下单与告警",
+    description: "TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。",
+    h1: "TradingView Webhook 自动交易系统开发",
+    intro: "把 TradingView Alert / Pine Script 信号变成可测试、可追踪、可灰度上线的自动执行系统。重点不是卖策略，而是把你已经定义好的信号、仓位、风控和异常处理工程化。",
+    serviceType: "TradingView Webhook automation development",
+    llmsLabel: "TradingView Webhook automation",
+    fit: [
+      "已经有 Pine Script、Alert 条件或明确的信号文案。",
+      "需要把信号接入交易所 API、券商 API 或内部订单系统。",
+      "希望处理重复信号、冷却时间、仓位限制、失败告警和审计日志。"
+    ],
+    notFit: [
+      "只想购买收益承诺型策略或让系统替你判断行情。",
+      "没有明确入场、出场、仓位或风险边界。",
+      "不愿意先做模拟盘、小资金或测试环境验证。"
+    ],
+    deliverables: [
+      "Webhook 接收服务、签名或密钥校验、信号格式解析。",
+      "去重、限频、冷却时间、最大仓位、只减仓等风控规则。",
+      "订单路由、失败重试、日志审计、Telegram / Email 告警。",
+      "源码、配置样例、部署文档和远程交付讲解。"
+    ],
+    process: [
+      "确认 TradingView Alert 文案、变量、品种、周期和触发条件。",
+      "拆解仓位、止损、止盈、撤单、冷却和异常处理规则。",
+      "开发 Webhook、风控、订单路由和告警模块。",
+      "先在测试环境或小资金灰度验证执行链路。"
+    ],
+    limits: [
+      "TradingView 只负责发出信号，成交质量取决于交易接口、网络、流动性和规则。",
+      "Webhook 可能重复、延迟或丢失，系统需要去重、重试和人工告警。",
+      "不承诺策略盈利、胜率、回撤或滑点结果。"
+    ],
+    faq: [
+      ["TradingView Webhook 能防重复下单吗？", "可以设计信号 ID、时间窗口、品种方向和冷却规则来降低重复执行风险，但仍建议保留日志和人工告警。"],
+      ["需要提供 TradingView 账号吗？", "通常不需要。你只需提供 Alert 文案、触发规则和 Webhook 配置方式。"],
+      ["能同时接交易所和券商 API 吗？", "可以，但建议先完成一个接口的稳定执行，再逐步扩展到多接口路由。"],
+      ["Alert 文案应该怎么设计？", "建议包含策略名、品种、方向、数量、时间戳、动作类型和可校验的 secret，方便系统解析和去重。"],
+      ["Webhook 失败时会怎样处理？", "可以配置重试、失败告警、人工确认和熔断规则，避免静默失败或重复下单。"]
+    ],
+    related: [
+      ["/risk-engine/", "风控引擎开发"],
+      ["/exchange-api-trading-bot-development/", "交易所 API 自动化"],
+      ["/private-deployment/", "私有化部署"]
+    ]
+  },
+  {
+    slug: "exchange-api-trading-bot-development",
+    breadcrumb: "交易所 API 自动化",
+    eyebrow: "Exchange API Automation",
+    title: "交易所 API 自动交易系统开发 | 订单路由、风控与私有化部署",
+    description: "交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。",
+    h1: "交易所 API 自动交易系统开发",
+    intro: "围绕你已有的交易规则，构建可监控、可审计、可私有部署的交易所 API 执行系统。适合需要把 Webhook、策略信号或组合规则接入自动下单流程的客户。",
+    serviceType: "Exchange API trading automation development",
+    llmsLabel: "Exchange API trading bot development",
+    fit: [
+      "已经有明确的 DCA、Grid、趋势、套利或组合执行规则。",
+      "需要处理订单状态、失败重试、仓位上限和多品种配置。",
+      "希望源码、配置和服务器环境掌握在自己手里。"
+    ],
+    notFit: [
+      "希望购买现成收益承诺型策略或让开发方代管资金。",
+      "无法提供 API 权限、交易品种、规则参数和验收方式。",
+      "不接受交易所限制、滑点、手续费、网络和市场波动风险。"
+    ],
+    deliverables: [
+      "API 接入、订单路由、持仓查询、成交回报和日志审计。",
+      "最大仓位、单笔风险、只减仓、限频、异常价格保护。",
+      "DCA/Grid/分批止盈止损等规则执行模块。",
+      "私有化部署、配置样例、运行手册和远程讲解。"
+    ],
+    process: [
+      "确认平台 API 能力、账户权限、品种、订单类型和地区限制。",
+      "整理策略参数、仓位规则、风控边界和告警要求。",
+      "开发执行模块并接入测试环境或小资金灰度。",
+      "交付源码、部署文档和后续扩展建议。"
+    ],
+    limits: [
+      "不同交易所 API、限频、订单类型和地区规则不同，需要以官方 API 和账户权限为准。",
+      "市场波动、滑点、流动性、手续费和平台故障可能造成损失。",
+      "系统开发只提升执行一致性，不改变策略本身的盈利能力。"
+    ],
+    faq: [
+      ["API Key 需要提现权限吗？", "不需要，也不建议提供。通常只需要读取和交易权限，并尽量限制 IP 与品种范围。"],
+      ["可以部署在自己的服务器吗？", "可以。标准交付包含源码、配置样例和部署说明，适合客户自有 VPS 或云服务器。"],
+      ["可以先做小版本吗？", "建议从单策略、单接口、单品种或小资金灰度开始，减少无效开发。"],
+      ["交易所 API 限频会影响系统吗？", "会。需要按平台规则设计请求节流、订单状态轮询、WebSocket 监听和异常回退。"],
+      ["能做多交易所统一下单吗？", "可以评估，但不同交易所的订单类型、精度、手续费和风控规则不同，通常建议分阶段接入。"]
+    ],
+    related: [
+      ["/tradingview-webhook-automation/", "TradingView Webhook"],
+      ["/risk-engine/", "风控引擎"],
+      ["/case-studies/", "匿名案例"]
+    ]
+  },
+  {
+    slug: "broker-api/ibkr",
+    breadcrumb: "IBKR API 自动化",
+    eyebrow: "IBKR API Automation",
+    title: "IBKR API 自动交易系统开发 | TWS Gateway、订单路由与审计日志",
+    description: "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。",
+    h1: "IBKR API 自动交易系统开发",
+    intro: "为已经具备 IBKR / Interactive Brokers 账户和明确交易规则的客户，构建订单执行、持仓同步、风险校验和审计日志系统。具体能力以账户权限、地区限制和官方 API 为准。",
+    serviceType: "IBKR API automation development",
+    llmsLabel: "IBKR API automation",
+    fit: [
+      "已开通或准备开通 IBKR API 相关权限。",
+      "需要把股票、ETF、期权或多资产组合规则接入自动执行。",
+      "需要持仓同步、订单状态回报、风控校验和日志审计。"
+    ],
+    notFit: [
+      "希望外包投资判断、荐股、喊单或资金托管。",
+      "没有明确订单类型、交易时段、仓位规则和异常处理。",
+      "无法接受券商 API、TWS Gateway 或账户权限限制。"
+    ],
+    deliverables: [
+      "IBKR 连接方案评估、TWS Gateway / Client Portal 工作流建议。",
+      "订单路由、撤单、成交回报、持仓同步和错误处理。",
+      "价格保护、最大仓位、交易时段、只减仓和人工确认节点。",
+      "源码交付、部署文档、运行日志和远程讲解。"
+    ],
+    process: [
+      "确认账户类型、地区、API 方式、交易品种和订单类型。",
+      "梳理策略触发、组合约束、风控边界和人工确认点。",
+      "搭建连接、路由、日志、告警和测试流程。",
+      "用模拟环境或小资金灰度验证执行稳定性。"
+    ],
+    limits: [
+      "IBKR 具体 API 能力、数据权限和订单限制以官方说明和账户状态为准。",
+      "TWS / Gateway 运行状态、网络连接和账户风控会影响自动化稳定性。",
+      "不声称与 Interactive Brokers 存在官方合作、授权或背书。"
+    ],
+    faq: [
+      ["IBKR 自动化适合做全自动吗？", "可以做自动执行，但建议保留风控、限额、日志和必要的人工确认节点。"],
+      ["能做组合再平衡吗？", "可以围绕目标权重、现金约束和持仓同步设计订单计划。"],
+      ["需要先有 IBKR 账户吗？", "最好已有账户和权限。没有权限时只能做方案评估，不能验证真实接口。"],
+      ["TWS Gateway 和 Client Portal 怎么选？", "需要根据账户权限、运行环境、稳定性要求和目标订单流程评估，不能只按接口名称决定。"],
+      ["IBKR 项目上线前要验证什么？", "至少验证连接稳定性、订单类型、交易时段、撤单流程、持仓同步、拒单处理和审计日志。"]
+    ],
+    related: [
+      ["/broker/api/", "券商 API 总览"],
+      ["/fix-api-order-routing/", "FIX API 订单路由"],
+      ["/broker-api/alpaca/", "Alpaca API 自动化"]
+    ]
+  },
+  {
+    slug: "broker-api/schwab",
+    breadcrumb: "Schwab API 自动化",
+    eyebrow: "Schwab API Automation",
+    title: "Schwab API 自动化系统开发 | 账户授权、订单流程与组合监控",
+    description: "Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。",
+    h1: "Schwab API 自动化系统开发",
+    intro: "面向已有 Schwab 账户、开放接口权限和清晰交易流程的客户，开发规则执行、订单监控、组合数据同步和风险控制系统。所有能力以官方 API、账户权限和地区限制为准。",
+    serviceType: "Schwab API automation development",
+    llmsLabel: "Schwab API automation",
+    fit: [
+      "需要把既定交易规则接入 Schwab API 工作流。",
+      "关注账户授权、组合数据、订单状态和审计日志。",
+      "希望先做小范围验证，再决定是否扩展后台或多账户流程。"
+    ],
+    notFit: [
+      "没有 API 访问条件或不能完成第三方平台审核。",
+      "希望由开发方代替做投资判断或管理账户资金。",
+      "把盈利结果作为软件项目验收标准。"
+    ],
+    deliverables: [
+      "账户授权流程梳理、API 能力评估和接口边界说明。",
+      "订单请求、状态同步、异常告警和日志留存。",
+      "风控校验、组合约束、人工确认节点和部署文档。",
+      "源码、配置样例和远程交付讲解。"
+    ],
+    process: [
+      "确认 Schwab API 权限、账户类型、交易品种和目标流程。",
+      "定义订单规则、风控条件、日志字段和验收路径。",
+      "开发授权、订单、组合、风控和告警模块。",
+      "在测试或小资金环境中验证流程。"
+    ],
+    limits: [
+      "Schwab API 的可用范围、审核流程和地区限制可能变化，应以官方文档为准。",
+      "OAuth 授权、Token 续期和账户权限需要客户自行管理或授权。",
+      "不声称与 Schwab 存在官方合作、代理或背书关系。"
+    ],
+    faq: [
+      ["Schwab API 可以做自动下单吗？", "需要先确认你的账户、应用和 API 权限是否支持目标订单流程。"],
+      ["可以做只读组合监控吗？", "可以，只读监控、告警和报表比全自动下单风险更低，适合先验证。"],
+      ["开发前最重要的资料是什么？", "账户权限状态、目标订单类型、授权流程、策略规则和验收标准。"],
+      ["OAuth 授权过期怎么办？", "项目需要设计 token 保存、续期、失效告警和重新授权流程，避免订单链路突然中断。"],
+      ["Schwab 项目能承诺 API 可用吗？", "不能。API 权限、审核、地区限制和平台政策由 Schwab 决定，开发前只能做可行性评估和边界说明。"]
+    ],
+    related: [
+      ["/broker/api/", "券商 API 总览"],
+      ["/broker-api/ibkr/", "IBKR API 自动化"],
+      ["/risk-engine/", "风控引擎"]
+    ]
+  },
+  {
+    slug: "broker-api/alpaca",
+    breadcrumb: "Alpaca API 自动化",
+    eyebrow: "Alpaca API Automation",
+    title: "Alpaca API 自动交易系统开发 | REST、WebSocket、订单状态与告警",
+    description: "Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。",
+    h1: "Alpaca API 自动交易系统开发",
+    intro: "为使用 Alpaca API 的量化研究者和交易团队，把研究信号、订单路由、WebSocket 回报、日志审计和风控规则整合成私有化执行系统。",
+    serviceType: "Alpaca API automation development",
+    llmsLabel: "Alpaca API automation",
+    fit: [
+      "已有 Alpaca API Key、交易规则和测试环境。",
+      "需要 REST 下单、WebSocket 订单回报、持仓同步和告警。",
+      "希望从纸面交易或小范围灰度开始验证。"
+    ],
+    notFit: [
+      "希望购买现成盈利策略或把账户交给第三方管理。",
+      "没有明确交易品种、订单类型、仓位和风控规则。",
+      "不愿意处理 API 限制、市场数据权限和地区限制。"
+    ],
+    deliverables: [
+      "REST API 接入、WebSocket 状态监听和异常处理。",
+      "订单路由、持仓同步、风控校验、日志审计和告警。",
+      "配置化策略参数、测试环境说明和部署文档。",
+      "源码交付和远程操作讲解。"
+    ],
+    process: [
+      "确认 Alpaca 账户权限、品种、数据权限和目标订单流程。",
+      "设计信号、风控、状态回报和日志字段。",
+      "开发 REST/WebSocket 接入与执行模块。",
+      "用 paper trading 或小资金灰度验证。"
+    ],
+    limits: [
+      "Alpaca API 的品种、地区、数据和订单能力以官方说明和账户权限为准。",
+      "WebSocket 连接、限频、市场数据延迟和交易时段会影响执行体验。",
+      "不声称与 Alpaca 存在官方合作、授权或背书。"
+    ],
+    faq: [
+      ["Alpaca paper trading 可以先验证吗？", "可以，通常建议先用 paper trading 验证订单和风控流程。"],
+      ["可以把研究脚本接进来吗？", "可以，但需要先整理输出信号格式、频率和风险边界。"],
+      ["是否支持后台面板？", "可以作为 5000 美金或 10000 美金档的扩展范围评估。"],
+      ["REST 和 WebSocket 都需要吗？", "通常 REST 用于请求和查询，WebSocket 用于订单状态和行情事件监听，具体按项目范围决定。"],
+      ["Alpaca 数据权限会影响执行吗？", "会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。"]
+    ],
+    related: [
+      ["/broker/api/", "券商 API 总览"],
+      ["/broker-api/ibkr/", "IBKR API 自动化"],
+      ["/private-deployment/", "私有化部署"]
+    ]
+  },
+  {
+    slug: "fix-api-order-routing",
+    breadcrumb: "FIX API 订单路由",
+    eyebrow: "FIX API Order Routing",
+    title: "FIX API 订单路由系统开发 | 会话管理、风控、回报与审计",
+    description: "FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。",
+    h1: "FIX API 订单路由系统开发",
+    intro: "面向需要专业订单路由、执行回报和审计日志的团队，围绕 FIX 会话、消息流程、风控网关和异常恢复构建私有化执行系统。",
+    serviceType: "FIX API order routing development",
+    llmsLabel: "FIX API order routing",
+    fit: [
+      "已有券商、流动性提供方或交易接口的 FIX 接入条件。",
+      "需要可审计的订单消息、执行回报、拒单处理和重连恢复。",
+      "关注稳定性、日志、权限和风控，而不是只写一次性脚本。"
+    ],
+    notFit: [
+      "没有 FIX 接入权限、测试环境或接口规范。",
+      "希望用 FIX API 规避合规、账户或平台限制。",
+      "把低延迟和成交质量承诺作为项目验收目标。"
+    ],
+    deliverables: [
+      "FIX 会话管理、心跳、序号、重连和消息日志。",
+      "订单新建、撤单、改单、执行回报和拒单处理。",
+      "风控前置校验、限频、权限分层和人工确认节点。",
+      "部署文档、运行手册、测试用例和交付讲解。"
+    ],
+    process: [
+      "确认 FIX 版本、接入方规范、测试环境和消息字段。",
+      "设计会话、订单、风控、日志和异常恢复流程。",
+      "开发并在 UAT / 测试环境完成消息链路验证。",
+      "上线前做灰度、监控、回滚和权限检查。"
+    ],
+    limits: [
+      "FIX 接入通常依赖第三方审核、证书、专线或测试环境，周期不可完全由开发方控制。",
+      "低延迟能力与网络、机房、券商路由和接口限制有关。",
+      "不承诺成交价格、成交速度、收益或回撤。"
+    ],
+    faq: [
+      ["FIX API 适合个人客户吗？", "通常更适合已有专业接口条件的团队或机构，个人客户多数先评估 REST/WebSocket 或券商 API。"],
+      ["能做订单审计吗？", "可以，FIX 项目应重点保留原始消息、状态变化、拒单原因和人工操作记录。"],
+      ["需要多久？", "取决于接入方测试环境、消息规范和验收流程，通常先做接口可行性评估。"],
+      ["FIX 项目最容易卡在哪里？", "常见卡点是测试环境开通、证书/网络配置、消息字段差异、序号恢复和拒单原因处理。"],
+      ["是否承诺低延迟成交？", "不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。"]
+    ],
+    related: [
+      ["/broker/api/", "券商 API 自动化"],
+      ["/risk-engine/", "风控引擎"],
+      ["/private-deployment/", "私有部署"]
+    ]
+  },
+  {
+    slug: "risk-engine",
+    breadcrumb: "交易风控引擎",
+    eyebrow: "Risk Engine",
+    title: "自动交易风控引擎开发 | 仓位限制、价格保护、权限与审计",
+    description: "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。",
+    h1: "自动交易风控引擎开发",
+    intro: "自动交易系统的核心不是更激进地下单，而是在每次执行前确认规则、权限、仓位、价格和异常状态。风控引擎让执行流程有边界、有记录、可回放。",
+    serviceType: "Automated trading risk engine development",
+    llmsLabel: "Trading risk engine development",
+    fit: [
+      "已有自动下单或半自动交易流程，需要补前置风控。",
+      "需要最大仓位、单笔风险、只减仓、限频和异常价格保护。",
+      "希望所有信号、拒绝原因、订单和告警都有日志。"
+    ],
+    notFit: [
+      "希望风控系统承诺不亏损或承诺固定回撤上限。",
+      "没有清晰的仓位、资金、品种和订单边界。",
+      "不愿意接受人工确认、熔断和暂停机制。"
+    ],
+    deliverables: [
+      "前置风控规则、配置文件、拒单原因和审计日志。",
+      "仓位、敞口、价格偏离、交易时段、订单频率和冷却限制。",
+      "异常状态熔断、告警通知、手动暂停和恢复流程。",
+      "与 Webhook、交易所 API、券商 API 或 FIX 路由集成。"
+    ],
+    process: [
+      "梳理交易规则、账户规模、品种、订单类型和最大风险边界。",
+      "定义风控规则优先级、拒绝原因、日志字段和告警级别。",
+      "开发规则引擎、配置管理、审计日志和监控告警。",
+      "通过模拟盘、回放样本或小资金灰度验证。"
+    ],
+    limits: [
+      "风控引擎降低执行错误和超规则行为，不能消除市场风险。",
+      "极端行情、流动性不足、API 故障和网络异常仍可能造成损失。",
+      "风控规则需要客户定期复核，不能长期无人维护。"
+    ],
+    faq: [
+      ["风控引擎可以接现有机器人吗？", "可以，但需要先确认现有系统的信号格式、下单入口和日志能力。"],
+      ["能支持手动暂停吗？", "可以设计全局暂停、品种暂停、只减仓和人工确认开关。"],
+      ["风控规则能配置化吗？", "可以，常见规则会做成配置项，便于后续调整。"],
+      ["风控引擎能消除亏损吗？", "不能。它能减少超规则执行和操作错误，但不能消除市场波动、滑点、流动性和策略风险。"],
+      ["上线前如何验收风控？", "用回放样本、模拟盘或小资金测试逐项验证拒单、限频、暂停、告警和审计日志。"]
+    ],
+    related: [
+      ["/tradingview-webhook-automation/", "Webhook 自动化"],
+      ["/exchange-api-trading-bot-development/", "交易所 API 自动化"],
+      ["/fix-api-order-routing/", "FIX API"]
+    ]
+  },
+  {
+    slug: "private-deployment",
+    breadcrumb: "私有化部署",
+    eyebrow: "Private Deployment",
+    title: "自动交易系统私有化部署 | 源码交付、VPS、日志、告警与权限",
+    description: "自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。",
+    h1: "自动交易系统私有化部署",
+    intro: "把自动交易系统部署在客户控制的服务器或云环境中，交付源码、配置样例、运行文档和远程讲解。重点是让系统可审计、可迁移、可维护。",
+    serviceType: "Private deployment for automated trading systems",
+    llmsLabel: "Private deployment",
+    fit: [
+      "希望源码、API Key、数据库和运行环境都掌握在自己手里。",
+      "需要日志、告警、备份、重启和权限边界。",
+      "已有 VPS、云服务器或希望我们协助选择部署方式。"
+    ],
+    notFit: [
+      "希望把账户和资金完全交给第三方托管。",
+      "不愿意负责服务器、API Key 和账户权限安全。",
+      "要求开发方长期无边界运维所有环境。"
+    ],
+    deliverables: [
+      "源码、配置样例、环境变量说明和部署文档。",
+      "VPS / Docker / 进程守护 / 日志轮转 / 告警配置。",
+      "API Key 最小权限建议、IP 限制和密钥轮换说明。",
+      "远程上线讲解、回滚方案和后续扩展建议。"
+    ],
+    process: [
+      "确认部署环境、操作系统、网络、域名和安全边界。",
+      "整理服务模块、配置项、日志路径和告警渠道。",
+      "部署应用、测试启动、重启、日志、告警和备份。",
+      "交付文档并完成远程讲解。"
+    ],
+    limits: [
+      "私有化部署不等于全托管运维，长期运维需单独约定范围。",
+      "客户应自行保管服务器账号、API Key 和账户安全。",
+      "云服务、域名、短信、行情、券商或交易所费用不包含在开发报价内。"
+    ],
+    faq: [
+      ["必须买服务器吗？", "纯展示站不需要服务器；自动交易执行系统通常需要客户控制的 VPS 或云环境。"],
+      ["API Key 如何保护？", "建议最小权限、IP 白名单、环境变量存储和定期轮换，不提供提现权限。"],
+      ["可以部署到客户自己的云吗？", "可以，只要能提供必要的远程部署条件和权限。"],
+      ["私有部署包括长期运维吗？", "不默认包括。长期监控、升级、备份巡检和应急响应需要单独约定服务范围。"],
+      ["交付后客户需要掌握什么？", "需要掌握服务器登录、配置文件、重启命令、日志位置、告警渠道和密钥轮换流程。"]
+    ],
+    related: [
+      ["/risk-engine/", "风控引擎"],
+      ["/delivery-policy", "交付边界"],
+      ["/contact/", "联系评估"]
+    ]
+  }
+];
+
+const faqPage = {
+  slug: "faq",
+  breadcrumb: "常见问题",
+  eyebrow: "FAQ",
+  title: "自动交易系统开发常见问题 | Webhook、券商 API、风控和部署",
+  description: "SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、预算、交付和风险边界。",
+  h1: "自动交易系统开发常见问题",
+  intro: "这里集中回答客户在咨询前最常问的问题。所有回答都以技术开发和系统交付为边界，不构成投资建议。",
+  questions: [
+    ["你们是卖策略还是做系统开发？", "我们做自动交易系统和交易 API 定制开发，不出售收益承诺型策略，不代管资金，也不替客户做投资判断。"],
+    ["项目预算为什么是 2000 / 5000 / 10000 美金三档？", "2000 美金通常适合单接口验证，5000 美金适合多规则和风控监控，10000 美金适合多接口、后台、权限和私有部署。最终报价以需求清单为准。"],
+    ["TradingView Webhook 自动化需要什么资料？", "需要 Alert 文案、信号变量、品种、周期、方向、仓位规则、止损止盈和异常处理方式。"],
+    ["券商 API 项目前最需要确认什么？", "需要确认账户 API 权限、地区限制、订单类型、交易品种、数据权限和是否有测试环境。"],
+    ["你们会接触客户资金吗？", "不会。我们建议使用最小权限 API Key，不需要提现权限，不代管账户或资金。"],
+    ["项目如何验收？", "以双方确认的功能清单、接口平台、测试路径、日志、告警、源码和部署文档为准，盈利结果不作为软件验收标准。"],
+    ["能不能做全自动交易？", "技术上可以做自动执行，但建议保留风控、限额、人工确认、暂停开关和小资金灰度流程。"],
+    ["多久能交付？", "取决于接口平台、规则复杂度和是否需要后台。单接口验证通常更快，多接口和私有化系统需要分阶段评估。"],
+    ["后续可以扩展吗？", "可以。建议先做最小可验证版本，再扩展到多策略、多接口、后台、权限和更完整的运维流程。"],
+    ["如果第三方 API 政策变化怎么办？", "第三方平台的 API、费用、权限和地区限制由平台决定。若变化影响项目，需要重新评估替代方案或范围。"]
+  ]
+};
+
+const caseStudiesPage = {
+  slug: "case-studies",
+  breadcrumb: "匿名案例",
+  eyebrow: "Anonymous Case Studies",
+  title: "自动交易系统匿名项目复盘 | Webhook、券商 API、风控和私有部署",
+  description: "SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。",
+  h1: "自动交易系统匿名项目复盘",
+  intro: "以下是匿名化的工程交付场景，只说明问题、系统方案和可验证交付物，不公开客户身份，不展示收益曲线，也不构成投资建议。",
+  studies: [
+    {
+      title: "TradingView 信号去重与订单路由",
+      context: "客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。",
+      constraints: "不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。",
+      architecture: "TradingView Alert -> Webhook 接收 -> 签名校验 -> 去重/冷却 -> 风控 -> 订单路由 -> 告警和日志。",
+      deliverables: "Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。",
+      boundary: "不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。"
+    },
+    {
+      title: "券商 API 组合再平衡工作流",
+      context: "客户需要按目标权重生成订单计划，并保留人工确认点。",
+      constraints: "账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。",
+      architecture: "持仓同步 -> 目标权重计算 -> 订单计划 -> 人工确认 -> 券商 API -> 执行回报 -> 审计日志。",
+      deliverables: "组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。",
+      boundary: "客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。"
+    },
+    {
+      title: "多接口私有化部署与告警",
+      context: "客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。",
+      constraints: "客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。",
+      architecture: "VPS/Docker -> 环境变量 -> 执行服务 -> 日志轮转 -> 告警渠道 -> 备份和恢复说明。",
+      deliverables: "源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。",
+      boundary: "交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。"
+    }
+  ]
+};
+
+const aboutPage = {
+  slug: "about",
+  breadcrumb: "关于",
+  eyebrow: "About SignalCraft Labs",
+  title: "关于 SignalCraft Labs | 自动交易系统与交易 API 定制开发工作室",
+  description: "SignalCraft Labs 是自动交易系统与交易 API 定制开发工作室，提供 TradingView Webhook、券商 API、交易所 API、风控和私有化部署服务。",
+  h1: "关于 SignalCraft Labs",
+  intro: "SignalCraft Labs 专注自动交易系统与交易 API 工程落地。我们服务已有规则但缺少工程实现的交易者、研究团队和小型技术团队，通过远程方式完成评估、开发、部署和交付讲解。",
+  facts: [
+    ["服务方式", "远程需求评估、远程开发、私有化部署、源码和文档交付。"],
+    ["技术方向", "TradingView Webhook、券商 API、交易所 API、FIX、风控引擎、日志审计和告警。"],
+    ["常见技术栈", "Python、Node.js、REST/WebSocket、FIX、SQLite/PostgreSQL、Docker、VPS、Cloudflare、Telegram/Email 告警。"],
+    ["交付样例", "源码仓库、环境变量样例、部署文档、运行日志、告警截图说明、灰度测试清单和远程交付讲解。"],
+    ["验收方式", "按功能清单、接口路径、测试环境、日志、告警、文档和灰度流程验收，不按交易收益验收。"],
+    ["服务地区", "中国、香港、新加坡、台湾、美国及其他可远程协作地区。"],
+    ["服务边界", "不代管资金，不提供投资建议，不承诺交易收益，不声称第三方平台官方合作。"]
+  ]
+};
+
+const contactPage = {
+  slug: "contact",
+  breadcrumb: "联系",
+  eyebrow: "Contact",
+  title: "联系 SignalCraft Labs | 自动交易系统开发需求评估",
+  description: "联系 SignalCraft Labs 评估 TradingView Webhook、券商 API、交易所 API、风控引擎和私有化部署需求。",
+  h1: "联系 SignalCraft Labs 评估你的自动交易系统需求",
+  intro: "请尽量一次性提供信号来源、交易平台、API 权限、品种、订单类型、仓位和风控规则。信息越清楚，越容易判断可行性、预算和交付路径。",
+  checklist: [
+    "信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。",
+    "接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。",
+    "交易规则：入场、出场、仓位、止损止盈、撤单和异常处理。",
+    "部署要求：客户服务器、VPS、Docker、日志、告警、后台或权限系统。",
+    "预算范围：2000 美金、5000 美金或 10000 美金档位。"
+  ],
+  facts: [
+    ["回复时间", "资料完整时通常 1 个工作日内回复初步可行性判断。"],
+    ["合作前置条件", "客户需提供平台、权限、规则、风控边界和预算范围；没有权限时只能做方案评估。"],
+    ["服务地区", "中国、香港、新加坡、台湾、美国及其他可远程协作地区。"],
+    ["不需要提供", "不需要提现权限、资金托管权限、账户主密码或无关个人资料。"]
+  ]
+};
+
+const riskDisclaimerPage = {
+  slug: "risk-disclaimer",
+  breadcrumb: "风险免责声明",
+  eyebrow: "Risk Disclaimer",
+  title: "自动交易系统风险免责声明 | 非投资建议、非资金托管、非收益承诺",
+  description: "自动交易系统风险免责声明，说明本服务仅为技术开发，不构成投资建议、不代管资金、不承诺收益、胜率或回撤。",
+  h1: "自动交易系统风险免责声明",
+  intro: "自动交易系统只能把既定规则更一致地执行出来，不能让策略结果变得确定。客户应自行判断策略、资金、账户权限、地区合规和第三方平台规则。",
+  points: [
+    ["非投资建议", "网站和沟通内容只用于说明技术开发服务，不构成投资建议、交易建议、荐股、喊单或财务建议。"],
+    ["非收益承诺", "任何系统、风控、Webhook 或 API 集成都不承诺盈利、胜率、回撤、滑点或成交质量。"],
+    ["非资金托管", "我们不代管资金，不要求提现权限，不替客户保管交易账户或 API Key。"],
+    ["第三方平台限制", "TradingView、券商、交易所、FIX 接入方和云服务能力以其官方说明、账户权限和地区限制为准。"],
+    ["客户责任", "客户应先在测试环境、模拟盘或小资金灰度环境中验证执行链路，并自行承担交易风险。"]
+  ]
+};
+
+const allGeneratedPages = [
+  ...servicePages,
+  faqPage,
+  caseStudiesPage,
+  aboutPage,
+  contactPage,
+  riskDisclaimerPage
+];
+
+const navLinks = [
+  ["/tradingview-webhook-automation/", "TradingView"],
+  ["/broker/api/", "券商 API"],
+  ["/faq/", "FAQ"],
+  ["/case-studies/", "案例"],
+  ["/about/", "关于"],
+  ["/contact/", "联系"]
+];
+
+const footerServiceLinks = [
+  ["/tradingview-webhook-automation/", "TradingView Webhook"],
+  ["/exchange-api-trading-bot-development/", "交易所 API"],
+  ["/broker/api/", "券商 API"],
+  ["/broker-api/ibkr/", "IBKR API"],
+  ["/broker-api/schwab/", "Schwab API"],
+  ["/broker-api/alpaca/", "Alpaca API"],
+  ["/fix-api-order-routing/", "FIX API"],
+  ["/risk-engine/", "风控引擎"],
+  ["/private-deployment/", "私有部署"],
+  ["/faq/", "FAQ"],
+  ["/case-studies/", "案例"],
+  ["/about/", "关于"],
+  ["/contact/", "联系"]
+];
+
+const policyLinks = [
+  ["/terms", "服务条款"],
+  ["/risk-disclaimer/", "风险免责声明"],
+  ["/disclaimer", "免责声明"],
+  ["/delivery-policy", "交付边界"],
+  ["/privacy", "隐私政策"]
+];
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function leadText(value) {
+  const [lead] = String(value).split(/[，。、]/);
+  return lead.trim() || String(value);
+}
+
+function pagePath(slug) {
+  return join(publicDir, slug, "index.html");
+}
+
+function canonical(slug) {
+  return `${site}/${slug}/`;
+}
+
+function routeForSlug(slug) {
+  return `/${slug}/`;
+}
+
+function serviceManifest() {
+  return {
+    site,
+    generatedAt: today,
+    generatedServiceRoutes: servicePages.map((page) => routeForSlug(page.slug)),
+    coreServiceUrls: [
+      ...servicePages.slice(0, 2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug) })),
+      { label: "Broker API automation", url: `${site}/broker/api/` },
+      ...servicePages.slice(2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug) }))
+    ]
+  };
+}
+
+function writePublicFile(path, content) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${content.trim()}\n`, "utf8");
+}
+
+function header(activeLabel = "") {
+  return `<header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      ${navLinks.map(([href, label]) => `<a${label === activeLabel ? ' aria-current="page"' : ""} href="${href}">${label}</a>`).join("\n      ")}
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+    </nav>
+  </header>`;
+}
+
+function footer() {
+  return `<footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <nav aria-label="服务页导航">
+      ${footerServiceLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
+    </nav>
+    <nav aria-label="政策页导航">
+      ${policyLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <button type="button" data-copy="${contact.wechat}" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>`;
+}
+
+function breadcrumbs(page) {
+  return `<nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>${escapeHtml(page.breadcrumb)}</span>
+    </nav>`;
+}
+
+function jsonLd(data) {
+  return `<script type="application/ld+json">
+${JSON.stringify(data, null, 2)}
+  </script>`;
+}
+
+function baseGraph(page, type = "WebPage") {
+  const url = canonical(page.slug);
+  return [
+    {
+      "@type": "Organization",
+      "@id": `${site}/#organization`,
+      "name": "SignalCraft Labs",
+      "url": site,
+      "logo": `${site}/favicon.svg`,
+      "email": contact.email,
+      "sameAs": [contact.telegramUrl],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": contact.email,
+        "availableLanguage": ["zh-CN", "en"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site}/#website`,
+      "url": site,
+      "name": "SignalCraft Labs",
+      "publisher": { "@id": `${site}/#organization` },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": type,
+      "@id": `${url}#webpage`,
+      "url": url,
+      "name": page.h1,
+      "description": page.description,
+      "isPartOf": { "@id": `${site}/#website` },
+      "about": { "@id": `${site}/#organization` },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": `${site}/` },
+        { "@type": "ListItem", "position": 2, "name": page.breadcrumb, "item": url }
+      ]
+    }
+  ];
+}
+
+function serviceSchema(page) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "WebPage"),
+      {
+        "@type": "Service",
+        "@id": `${canonical(page.slug)}#service`,
+        "name": page.h1,
+        "description": page.description,
+        "serviceType": page.serviceType,
+        "provider": { "@id": `${site}/#organization` },
+        "areaServed": ["中国", "香港", "新加坡", "台湾", "美国", "全球远程"],
+        "offers": {
+          "@type": "OfferCatalog",
+          "name": "自动交易系统开发预算区间",
+          "itemListElement": offers.map((offer) => ({
+            "@type": "Offer",
+            "name": offer.name,
+            "priceCurrency": "USD",
+            "price": offer.price,
+            "description": offer.description,
+            "availability": "https://schema.org/InStock"
+          }))
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${canonical(page.slug)}#faq`,
+        "mainEntity": page.faq.map(([question, answer]) => ({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        }))
+      }
+    ]
+  };
+}
+
+function summaryRows(page) {
+  return [
+    ["是什么", `SignalCraft Labs 提供 ${page.serviceType}，把客户已有规则工程化为可测试、可审计的执行系统。`],
+    ["服务对象", page.fit.join(" ")],
+    ["交付物", page.deliverables.join(" ")],
+    ["不做什么", "不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。"],
+    ["预算范围", "2000 / 5000 / 10000 美金，按接口数量、风控复杂度、后台和部署范围评估。"],
+    ["联系方式", `${contact.email} / 微信 ${contact.wechat} / Telegram ${contact.telegram}`]
+  ];
+}
+
+function comparisonTable(title, intro, rows, columns = ["项目", "说明"]) {
+  return `<article class="evidence-table">
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(intro)}</p>
+          <div class="data-table columns-${columns.length}" role="table" aria-label="${escapeHtml(title)}">
+            <div class="table-row table-head" role="row">${columns.map((column) => `<span role="columnheader">${escapeHtml(column)}</span>`).join("")}</div>
+            ${rows.map((row) => `<div class="table-row" role="row">${row.map((cell) => `<span role="cell">${escapeHtml(cell)}</span>`).join("")}</div>`).join("")}
+          </div>
+        </article>`;
+}
+
+function aiSummarySection(page) {
+  return `<section class="section ai-summary-section" aria-labelledby="ai-summary-title">
+      <div class="section-head">
+        <p class="eyebrow">AI-citable summary</p>
+        <h2 id="ai-summary-title">可引用事实摘要</h2>
+        <p>这段内容用来帮助搜索引擎、AI 摘要和人工评估者快速理解服务边界。</p>
+      </div>
+      <div class="summary-list">
+        ${summaryRows(page).map(([label, value]) => `<div><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join("")}
+      </div>
+    </section>`;
+}
+
+function evidenceTablesSection(page) {
+  const budgetRows = offers.map((offer) => [offer.label, offer.description]);
+  return `<section class="section evidence-section" aria-labelledby="evidence-title">
+      <div class="section-head">
+        <p class="eyebrow">Checklists & Tables</p>
+        <h2 id="evidence-title">资料、权限、预算和验收表</h2>
+        <p>正式项目会把这些表转成需求清单和验收清单，减少范围歧义。</p>
+      </div>
+      <div class="evidence-grid">
+        ${comparisonTable("联系前资料清单", "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", baseInputRows)}
+        ${comparisonTable("API Key 最小权限建议", "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", permissionRows, ["权限", "建议", "原因"])}
+        ${comparisonTable("预算范围拆解", "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, ["预算档", "适合范围"])}
+        ${comparisonTable("上线验收清单", "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", acceptanceRows)}
+      </div>
+    </section>`;
+}
+
+function servicePageHtml(page) {
+  const url = canonical(page.slug);
+  const activeLabel = page.slug.startsWith("broker-api/") ? "券商 API" : "";
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="${url}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  ${jsonLd(serviceSchema(page))}
+</head>
+<body class="content-page">
+  ${header(activeLabel)}
+  <main>
+    <section class="content-hero">
+      ${breadcrumbs(page)}
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">免费评估需求</a>
+        <a class="button secondary" href="#deliverables">查看交付内容</a>
+      </div>
+      <nav class="mobile-quick-links" aria-label="移动端快速入口">
+        <a href="#fit">适合谁</a>
+        <a href="#deliverables">交付</a>
+        <a href="#faq">FAQ</a>
+        <a href="/contact/">联系</a>
+      </nav>
+      <div class="fact-strip" aria-label="项目预算和服务边界">
+        <span>预算：2000 / 5000 / 10000 美金</span>
+        <span>源码交付</span>
+        <span>私有部署</span>
+        <span>不代管资金</span>
+      </div>
+    </section>
+
+    ${aiSummarySection(page)}
+
+    <section id="fit" class="section answer-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Fit Check</p>
+        <h2>这个服务适合谁，不适合谁</h2>
+        <p>先判断是否值得进入技术评估，避免把策略效果、平台限制或新增需求混进开发范围。</p>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>适合谁</h3>
+          <ul class="check-list">${page.fit.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>
+        <article>
+          <h3>不适合谁</h3>
+          <ul class="plain-list">${page.notFit.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="deliverables" class="section content-band">
+      <div class="section-head">
+        <p class="eyebrow">Deliverables</p>
+        <h2>交付内容清单</h2>
+        <p>正式报价会把功能、接口、验收路径和交付物写清楚。</p>
+      </div>
+      <div class="detail-grid">${page.deliverables.map((item) => `<article><h3>${escapeHtml(leadText(item))}</h3><p>${escapeHtml(item)}</p></article>`).join("")}</div>
+    </section>
+
+    <section class="section process-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Process</p>
+        <h2>开发流程</h2>
+      </div>
+      <ol class="process-grid">${page.process.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(leadText(item))}</strong><em>${escapeHtml(item)}</em></li>`).join("")}</ol>
+    </section>
+
+    <section class="section budget-section">
+      <div class="section-head centered dark">
+        <p class="eyebrow">Budget</p>
+        <h2>预算区间</h2>
+        <p>预算取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。</p>
+      </div>
+      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Professional" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(offer.description)}</p><strong class="price">${offer.label}</strong><a class="button ${offer.name === "Professional" ? "primary" : "secondary"}" href="/contact/" data-contact="content_budget_${offer.name.toLowerCase().replaceAll(" ", "_")}">咨询报价</a></article>`).join("")}</div>
+    </section>
+
+    <section class="section risk-section">
+      <div class="section-head">
+        <p class="eyebrow">Risk Boundary</p>
+        <h2>风险边界和平台限制</h2>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>风险边界</h3>
+          <ul class="plain-list">${page.limits.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>
+        <article>
+          <h3>联系前请准备</h3>
+          <ul class="check-list">
+            <li>平台、账户权限和 API 文档或接口说明</li>
+            <li>信号来源、品种、订单类型和交易时段</li>
+            <li>仓位、风控、暂停、告警和验收标准</li>
+            <li>预算档位和期望部署环境</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    ${evidenceTablesSection(page)}
+
+    <section id="faq" class="section faq-section">
+      <div class="section-head centered">
+        <p class="eyebrow">FAQ</p>
+        <h2>常见问题</h2>
+      </div>
+      <div class="faq-list">${page.faq.map(([question, answer]) => `<article><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("")}</div>
+    </section>
+
+    <section class="section related-section">
+      <div class="section-head">
+        <p class="eyebrow">Related</p>
+        <h2>相关服务页</h2>
+      </div>
+      <div class="policy-links">${page.related.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join("")}<a href="/faq/">常见问题</a><a href="/case-studies/">匿名案例</a></div>
+    </section>
+
+    ${ctaBlock()}
+  </main>
+  ${footer()}
+</body>
+</html>`;
+}
+
+function ctaBlock() {
+  return `<section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <div class="contact-row">
+          <a href="mailto:${contact.email}" data-contact="content_email" data-lead-contact="true">${contact.email}</a>
+          <button type="button" data-copy="${contact.wechat}" data-contact="content_wechat_copy">复制微信 ${contact.wechat}</button>
+          <a href="${contact.telegramUrl}" data-contact="content_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>评估资料</strong>
+        <ul>
+          <li>信号和交易规则</li>
+          <li>API 平台和权限状态</li>
+          <li>风控、告警和部署要求</li>
+          <li>预算档位：2000 / 5000 / 10000 美金</li>
+        </ul>
+      </div>
+    </section>`;
+}
+
+function faqHtml(page) {
+  const url = canonical(page.slug);
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "FAQPage"),
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": page.questions.map(([question, answer]) => ({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        }))
+      }
+    ]
+  };
+  return infoPageHtml(page, "FAQ", `<div class="faq-list wide-faq">${page.questions.map(([question, answer]) => `<article><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("")}</div>`, schema);
+}
+
+function casesHtml(page) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "CollectionPage"),
+      ...page.studies.map((study, index) => ({
+        "@type": "CreativeWork",
+        "@id": `${canonical(page.slug)}#case-${index + 1}`,
+        "name": study.title,
+        "description": `${study.context} ${study.constraints} ${study.architecture} ${study.deliverables} ${study.boundary}`,
+        "isPartOf": { "@id": `${canonical(page.slug)}#webpage` }
+      }))
+    ]
+  };
+  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>项目背景</strong><p>${escapeHtml(study.context)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>架构</strong><p>${escapeHtml(study.architecture)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>边界</strong><p>${escapeHtml(study.boundary)}</p></article>`).join("")}</div>`;
+  return infoPageHtml(page, "案例", body, schema);
+}
+
+function aboutHtml(page) {
+  const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "AboutPage") };
+  const body = `<div class="detail-grid">${page.facts.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>
+    <div class="answer-grid">
+      <article><h3>我们更擅长</h3><ul class="check-list"><li>把已有交易规则工程化</li><li>把 API 工作流做成可测试系统</li><li>补齐风控、日志、告警和部署文档</li></ul></article>
+      <article><h3>我们不提供</h3><ul class="plain-list"><li>投资建议、喊单、荐股或代客理财</li><li>资金托管或提现权限管理</li><li>第三方平台品牌复制或官方合作暗示</li></ul></article>
+    </div>`;
+  return infoPageHtml(page, "关于", body, schema);
+}
+
+function contactHtml(page) {
+  const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "ContactPage") };
+  const body = `<div class="answer-grid">
+      <article><h3>联系渠道</h3><div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="contact_page_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="contact_page_wechat_copy">复制微信 ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="contact_page_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div><p class="copy-status" aria-live="polite"></p></article>
+      <article><h3>请附上这些信息</h3><ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>
+    </div>
+    <div class="detail-grid contact-facts">${page.facts.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>`;
+  return infoPageHtml(page, "联系", body, schema, false);
+}
+
+function riskHtml(page) {
+  const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "WebPage") };
+  const body = `<div class="detail-grid">${page.points.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>`;
+  return infoPageHtml(page, "风险免责声明", body, schema);
+}
+
+function infoPageHtml(page, active, body, schema, includeCta = true) {
+  const url = canonical(page.slug);
+  const cta = includeCta ? `\n    ${ctaBlock()}` : "";
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="${url}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  ${jsonLd(schema)}
+</head>
+<body class="content-page">
+  ${header(active)}
+  <main>
+    <section class="content-hero compact">
+      ${breadcrumbs(page)}
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+    </section>
+    <section class="section content-band">${body}</section>
+${cta}
+  </main>
+  ${footer()}
+</body>
+</html>`;
+}
+
+for (const page of servicePages) {
+  writePublicFile(pagePath(page.slug), servicePageHtml(page));
+}
+writePublicFile(join(publicDir, "service-pages.json"), JSON.stringify(serviceManifest(), null, 2));
+writePublicFile(pagePath(faqPage.slug), faqHtml(faqPage));
+writePublicFile(pagePath(caseStudiesPage.slug), casesHtml(caseStudiesPage));
+writePublicFile(pagePath(aboutPage.slug), aboutHtml(aboutPage));
+writePublicFile(pagePath(contactPage.slug), contactHtml(contactPage));
+writePublicFile(pagePath(riskDisclaimerPage.slug), riskHtml(riskDisclaimerPage));
+
+const sitemapUrls = [
+  ["/", "weekly", "1.0"],
+  ["/broker/api/", "weekly", "0.9"],
+  ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8"]),
+  ["/faq/", "weekly", "0.75"],
+  ["/case-studies/", "monthly", "0.7"],
+  ["/about/", "monthly", "0.65"],
+  ["/contact/", "monthly", "0.65"],
+  ["/terms", "monthly", "0.4"],
+  ["/risk-disclaimer/", "monthly", "0.45"],
+  ["/disclaimer", "monthly", "0.4"],
+  ["/delivery-policy", "monthly", "0.4"],
+  ["/privacy", "monthly", "0.3"]
+];
+
+writePublicFile(join(publicDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.map(([path, freq, priority]) => `  <url>
+    <loc>${site}${path}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${freq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`).join("\n")}
+</urlset>`);
+
+writePublicFile(join(publicDir, "llms.txt"), `# SignalCraft Labs
+
+SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
+
+## Core services
+
+${serviceManifest().coreServiceUrls.map(({ label, url }) => `- ${label}: ${url}`).join("\n")}
+
+## Facts for AI search and agents
+
+- Brand: SignalCraft Labs.
+- Primary domain: https://pddjf.com/
+- Contact: ${contact.email}, WeChat ${contact.wechat}, Telegram ${contact.telegram}.
+- Service regions: China, Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
+- Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
+- Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
+- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
+- We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
+- Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
+
+## Useful URLs
+
+- FAQ: https://pddjf.com/faq/
+- Anonymous case studies: https://pddjf.com/case-studies/
+- About: https://pddjf.com/about/
+- Contact: https://pddjf.com/contact/
+- Terms: https://pddjf.com/terms
+- Risk disclaimer: https://pddjf.com/risk-disclaimer/
+- Delivery policy: https://pddjf.com/delivery-policy
+- Privacy policy: https://pddjf.com/privacy
+`);

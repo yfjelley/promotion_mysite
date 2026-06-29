@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Broker API 自动化系统开发 | IBKR、Schwab、Alpaca、FIX API</title>
+  <meta name="description" content="面向已开通券商 API 的交易者和团队，开发 Broker API 自动化系统，覆盖订单路由、组合同步、风险控制、执行日志、告警和私有化部署。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/broker/api/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Broker API 自动化系统开发">
+  <meta property="og:description" content="为 IBKR、Schwab、Alpaca、FIX/REST/WebSocket 等开放接口券商构建私有化订单执行与组合自动化系统。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/broker/api/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://pddjf.com/#organization",
+        "name": "SignalCraft Labs",
+        "url": "https://pddjf.com/",
+        "logo": "https://pddjf.com/favicon.svg",
+        "email": "contact@pddjf.com",
+        "sameAs": ["https://t.me/yf16881"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "contact@pddjf.com",
+          "availableLanguage": ["zh-CN", "en"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pddjf.com/#website",
+        "url": "https://pddjf.com/",
+        "name": "SignalCraft Labs",
+        "publisher": { "@id": "https://pddjf.com/#organization" },
+        "inLanguage": "zh-CN"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://pddjf.com/broker/api/#service",
+        "name": "Broker API 自动化系统开发",
+        "url": "https://pddjf.com/broker/api/",
+        "description": "为 IBKR、Schwab、Alpaca、FIX/REST/WebSocket 等开放接口券商构建私有化订单执行与组合自动化系统。",
+        "provider": { "@id": "https://pddjf.com/#organization" },
+        "areaServed": ["中国", "新加坡", "香港", "台湾", "美国", "全球远程"],
+        "serviceType": [
+          "Broker API automation development",
+          "Order routing system development",
+          "Portfolio workflow automation",
+          "FIX API integration",
+          "IBKR API integration",
+          "Schwab API automation",
+          "Alpaca API automation"
+        ],
+        "offers": {
+          "@type": "OfferCatalog",
+          "name": "Broker API 项目预算",
+          "itemListElement": [
+            { "@type": "Offer", "name": "API Starter", "priceCurrency": "USD", "price": "2000" },
+            { "@type": "Offer", "name": "Execution System", "priceCurrency": "USD", "price": "5000" },
+            { "@type": "Offer", "name": "Private Infrastructure", "priceCurrency": "USD", "price": "10000" }
+          ]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pddjf.com/broker/api/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://pddjf.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Broker API", "item": "https://pddjf.com/broker/api/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="broker-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Broker API 页面导航">
+      <a href="#scope">开发范围</a>
+      <a href="#platforms">接口平台</a>
+      <a href="#process">交付流程</a>
+      <a href="#trust">信任信息</a>
+      <a href="#pricing">报价</a>
+      <a class="nav-cta" href="#contact" data-contact="broker_nav_cta">预约评估</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="broker-landing-hero" aria-labelledby="broker-hero-title">
+      <div class="broker-hero-copy">
+        <p class="eyebrow">Broker API Automation Development</p>
+        <h1 id="broker-hero-title">券商 API 自动化系统开发</h1>
+        <p class="hero-lede">
+          为已经具备交易规则和券商 API 权限的交易者、研究团队和资产管理技术团队，构建私有化的订单执行、组合同步、风险控制、日志审计和告警系统。
+          适配开放接口券商与 FIX / REST / WebSocket 工作流，重点是稳定执行你的规则，不代替你做投资判断。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact" data-contact="broker_hero_cta">预约 API 架构评估</a>
+          <a class="button secondary" href="#scope">查看开发范围</a>
+        </div>
+        <nav class="mobile-quick-links" aria-label="移动端快速入口">
+          <a href="#scope">范围</a>
+          <a href="#pricing">报价</a>
+          <a href="#trust">信任</a>
+          <a href="/privacy">隐私</a>
+        </nav>
+        <div class="assurance-strip" aria-label="服务边界">
+          <span>No custody</span>
+          <span>No investment advice</span>
+          <span>Source code delivery</span>
+          <span>Private deployment</span>
+        </div>
+      </div>
+
+      <div class="execution-console" aria-label="Broker API execution console">
+        <div class="console-head">
+          <strong>Execution Workflow</strong>
+          <span>Broker API</span>
+        </div>
+        <div class="console-flow">
+          <article>
+            <span>01</span>
+            <strong>Signal / Rule</strong>
+            <em>策略信号、组合规则、再平衡条件</em>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Risk Guard</strong>
+            <em>账户权限、仓位、价格、敞口校验</em>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Order Router</strong>
+            <em>下单、撤单、限频、失败重试</em>
+          </article>
+          <article>
+            <span>04</span>
+            <strong>Audit Trail</strong>
+            <em>成交回报、日志、告警、回放</em>
+          </article>
+        </div>
+        <div class="console-metrics">
+          <div><span>API Access</span><strong>Read / Trade</strong></div>
+          <div><span>Deployment</span><strong>Private VPS</strong></div>
+          <div><span>Budget From</span><strong>2000 美金</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope" class="section broker-scope" aria-labelledby="scope-title">
+      <div class="section-head centered">
+        <p class="eyebrow">What We Build</p>
+        <h2 id="scope-title">把券商 API 变成可监控的执行系统</h2>
+        <p>不是简单写一个下单脚本，而是围绕真实交易流程补齐权限、风控、路由、异常处理和审计链路。</p>
+      </div>
+      <div class="broker-capability-grid">
+        <article>
+          <h3>订单路由</h3>
+          <p>限价、市价、分批、撤单、重试、限频、滑点保护和失败告警。</p>
+        </article>
+        <article>
+          <h3>组合自动化</h3>
+          <p>持仓同步、现金约束、再平衡、敞口限制和多品种工作流。</p>
+        </article>
+        <article>
+          <h3>风险控制</h3>
+          <p>最大仓位、单笔风险、只减仓、交易时段、价格偏离和 API 权限边界。</p>
+        </article>
+        <article>
+          <h3>执行监控</h3>
+          <p>信号、风控、订单、成交回报、异常处理和人工确认节点全链路留痕。</p>
+        </article>
+        <article>
+          <h3>系统部署</h3>
+          <p>私有环境部署、配置说明、日志留存、运行文档和远程交付讲解。</p>
+        </article>
+        <article>
+          <h3>后续扩展</h3>
+          <p>从单券商到多接口，从单策略到多组合工作流，按模块逐步扩展。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="platforms" class="broker-platforms" aria-labelledby="platforms-title">
+      <div class="section-head">
+        <p class="eyebrow">API-Ready Platforms</p>
+        <h2 id="platforms-title">适配开放接口券商和专业交易 API</h2>
+        <p>
+          可围绕 IBKR / Interactive Brokers、Schwab、Alpaca、FIX API、REST API、WebSocket 行情与回报接口设计。
+          具体功能以你的账户权限、地区限制和官方 API 能力为准。
+        </p>
+      </div>
+      <div class="platform-grid">
+        <article>
+          <strong>IBKR / Interactive Brokers</strong>
+          <span>Client Portal、TWS Gateway、订单与持仓工作流</span>
+        </article>
+        <article>
+          <strong>Schwab API</strong>
+          <span>账户授权、订单流程、组合数据和回报处理</span>
+        </article>
+        <article>
+          <strong>Alpaca / REST API</strong>
+          <span>股票和 ETF 自动化、订单状态同步和告警</span>
+        </article>
+        <article>
+          <strong>FIX / WebSocket</strong>
+          <span>更专业的低延迟订单路由、行情订阅和执行回报</span>
+        </article>
+      </div>
+      <div class="platform-note">
+        <strong>重要边界</strong>
+        <span>我们只做技术开发与系统交付，不声称与上述平台存在官方合作关系，不提供投资建议，不接触提现权限。</span>
+      </div>
+    </section>
+
+    <section id="process" class="section broker-process" aria-labelledby="process-title">
+      <div class="section-head centered">
+        <p class="eyebrow">Delivery Process</p>
+        <h2 id="process-title">从 API 权限检查到灰度上线</h2>
+        <p>先确认你的券商接口是否能支持目标工作流，再决定开发范围，减少无效投入。</p>
+      </div>
+      <ol class="process-grid">
+        <li><span>01</span><strong>接口可行性评估</strong><em>确认券商、账户权限、品种、订单类型和地区限制。</em></li>
+        <li><span>02</span><strong>规则与风控拆解</strong><em>明确触发条件、仓位约束、异常处理和人工确认点。</em></li>
+        <li><span>03</span><strong>系统开发与联调</strong><em>搭建订单路由、监控日志、告警和测试环境。</em></li>
+        <li><span>04</span><strong>模拟盘 / 小资金灰度</strong><em>先验证执行稳定性，再逐步提高自动化比例。</em></li>
+      </ol>
+    </section>
+
+    <section id="pricing" class="broker-pricing" aria-labelledby="pricing-title">
+      <div class="section-head centered dark">
+        <p class="eyebrow">Engagement Options</p>
+        <h2 id="pricing-title">三档项目预算</h2>
+        <p>报价取决于券商接口、订单类型、风控复杂度、是否需要后台和部署要求。</p>
+      </div>
+      <div class="pricing-grid broker-pricing-grid">
+        <article>
+          <h3>API Starter</h3>
+          <p>单券商 / 单工作流验证</p>
+          <strong class="price">2000 美金起</strong>
+          <ul>
+            <li>API 权限和订单流程评估</li>
+            <li>单账户订单执行原型</li>
+            <li>基础日志和失败告警</li>
+            <li>源码与部署说明</li>
+          </ul>
+          <a class="button secondary" href="#contact" data-contact="broker_starter_quote">咨询报价</a>
+        </article>
+        <article class="featured">
+          <span class="corner">推荐</span>
+          <h3>Execution System</h3>
+          <p>多规则 / 风控 / 组合工作流</p>
+          <strong class="price">5000 美金起</strong>
+          <ul>
+            <li>订单路由与风控引擎</li>
+            <li>持仓同步和组合约束</li>
+            <li>监控日志与告警通知</li>
+            <li>模拟盘或小资金灰度支持</li>
+          </ul>
+          <a class="button primary" href="#contact" data-contact="broker_execution_quote">咨询报价</a>
+        </article>
+        <article>
+          <h3>Private Infrastructure</h3>
+          <p>高可用 / 多接口 / 团队使用</p>
+          <strong class="price">10000 美金起</strong>
+          <ul>
+            <li>多券商或 FIX 工作流</li>
+            <li>权限、审计和后台面板</li>
+            <li>私有化部署与运维文档</li>
+            <li>专项扩展开发和支持</li>
+          </ul>
+          <a class="button secondary" href="#contact" data-contact="broker_private_quote">咨询报价</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="trust" class="section trust-layer broker-trust" aria-labelledby="broker-trust-title">
+      <div class="trust-overview">
+        <div class="trust-summary">
+          <p class="eyebrow">Trust & Scope</p>
+          <h2 id="broker-trust-title">券商 API 项目先确认权限、边界和验收标准</h2>
+          <p>
+            券商自动化项目的核心不是“预测行情”，而是把你已经确定的规则稳定执行出来。我们会先检查账户 API 权限、订单类型、地区限制和第三方平台能力，再确认能否进入开发。
+          </p>
+          <div class="trust-meta">
+            <div><strong>服务方式</strong><span>远程评估、远程开发、私有化部署、交付文档和线上讲解</span></div>
+            <div><strong>服务地区</strong><span>中国、香港、新加坡、台湾、美国及其他可远程协作地区</span></div>
+            <div><strong>安全边界</strong><span>建议使用最小权限 API Key，不接触提现权限，不代管资金</span></div>
+          </div>
+        </div>
+        <div class="trust-grid">
+          <article>
+            <h3>可交付内容</h3>
+            <p>订单路由、持仓同步、风控校验、执行日志、异常告警、配置样例、部署文档和源码交付。</p>
+          </article>
+          <article>
+            <h3>技术栈</h3>
+            <p>REST/WebSocket/FIX、Python、Node.js、数据库、日志审计、任务调度、VPS 或客户自有云环境。</p>
+          </article>
+          <article>
+            <h3>验收方式</h3>
+            <p>按需求清单、测试环境、模拟盘或小资金灰度结果验收系统执行链路，不以盈利结果作为验收标准。</p>
+          </article>
+          <article>
+            <h3>平台关系</h3>
+            <p>不声称与 IBKR、Schwab、Alpaca 或其他券商存在官方合作关系；具体能力以官方 API 和账户权限为准。</p>
+          </article>
+        </div>
+      </div>
+      <div class="case-grid" aria-label="匿名券商 API 场景">
+        <article>
+          <span>01</span>
+          <h3>单账户订单执行</h3>
+          <p>把既定信号转成订单请求，加入价格保护、失败重试、状态回报和告警。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>组合再平衡流程</h3>
+          <p>按目标权重和现金约束生成订单计划，保留人工确认点和完整审计日志。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>多接口执行监控</h3>
+          <p>把券商、信号源、数据库、告警和日志模块接入客户控制的私有环境。</p>
+        </article>
+      </div>
+      <div class="policy-links" aria-label="服务政策链接">
+        <a href="/terms">服务条款</a>
+        <a href="/disclaimer">免责声明</a>
+        <a href="/delivery-policy">交付与退款边界</a>
+        <a href="/privacy">隐私政策</a>
+      </div>
+    </section>
+
+    <section class="section qualification" aria-labelledby="qualification-title">
+      <div class="qualification-copy">
+        <p class="eyebrow">Best Fit</p>
+        <h2 id="qualification-title">更适合已经有明确交易流程的客户</h2>
+        <p>如果你只是想找收益承诺型方案，这个服务不适合。我们更适合把已有流程做成稳定系统。</p>
+      </div>
+      <div class="qualification-grid">
+        <article>
+          <h3>适合</h3>
+          <ul class="check-list">
+            <li>已经开通或准备开通券商 API 权限</li>
+            <li>有清晰的信号、组合、再平衡或执行规则</li>
+            <li>需要源码、日志、权限控制和私有部署</li>
+            <li>愿意从模拟盘或小资金灰度开始验证</li>
+          </ul>
+        </article>
+        <article>
+          <h3>不提供</h3>
+          <ul class="plain-list">
+            <li>不做收益、胜率或回撤承诺</li>
+            <li>不代管资金、不索要提现权限</li>
+            <li>不做喊单、荐股或投资顾问服务</li>
+            <li>不复制第三方平台品牌或专有界面</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact broker-contact" aria-labelledby="contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="contact-title">发来你的券商 API 工作流，我们先判断能不能做</h2>
+        <p>请尽量提供券商名称、账户 API 权限状态、交易品种、订单类型、风控规则、是否需要后台和部署环境。通常 1 个工作日内回复初步方案。</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="broker_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="broker_wechat_copy">复制微信 btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="broker_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>评估时请准备</strong>
+        <ul>
+          <li>券商平台与 API 权限状态</li>
+          <li>需要自动化的订单类型和品种</li>
+          <li>信号来源、风控规则和人工确认点</li>
+          <li>预算档位：2000 / 5000 / 10000 美金</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> Broker API 自动化系统开发</p>
+    <nav aria-label="页脚导航">
+      <a href="/">首页</a>
+      <a href="#scope">开发范围</a>
+      <a href="#platforms">接口平台</a>
+      <a href="/broker-api/ibkr/">IBKR</a>
+      <a href="/broker-api/schwab/">Schwab</a>
+      <a href="/broker-api/alpaca/">Alpaca</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/contact/">联系</a>
+      <a href="#pricing">报价</a>
+      <a href="#trust">信任信息</a>
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="#contact" data-contact="broker_mobile_cta">预约评估</a>
+    <button type="button" data-copy="btc1688" data-contact="broker_mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

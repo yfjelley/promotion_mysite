@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自动交易系统匿名项目复盘 | Webhook、券商 API、风控和私有部署</title>
+  <meta name="description" content="SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/case-studies/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="自动交易系统匿名项目复盘">
+  <meta property="og:description" content="SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/case-studies/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://pddjf.com/case-studies/#webpage",
+      "url": "https://pddjf.com/case-studies/",
+      "name": "自动交易系统匿名项目复盘",
+      "description": "SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/case-studies/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "匿名案例",
+          "item": "https://pddjf.com/case-studies/"
+        }
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://pddjf.com/case-studies/#case-1",
+      "name": "TradingView 信号去重与订单路由",
+      "description": "客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。 不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。 TradingView Alert -> Webhook 接收 -> 签名校验 -> 去重/冷却 -> 风控 -> 订单路由 -> 告警和日志。 Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。 不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/case-studies/#webpage"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://pddjf.com/case-studies/#case-2",
+      "name": "券商 API 组合再平衡工作流",
+      "description": "客户需要按目标权重生成订单计划，并保留人工确认点。 账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。 持仓同步 -> 目标权重计算 -> 订单计划 -> 人工确认 -> 券商 API -> 执行回报 -> 审计日志。 组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。 客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/case-studies/#webpage"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://pddjf.com/case-studies/#case-3",
+      "name": "多接口私有化部署与告警",
+      "description": "客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。 客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。 VPS/Docker -> 环境变量 -> 执行服务 -> 日志轮转 -> 告警渠道 -> 备份和恢复说明。 源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。 交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/case-studies/#webpage"
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/tradingview-webhook-automation/">TradingView</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/faq/">FAQ</a>
+      <a aria-current="page" href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+    </nav>
+  </header>
+  <main>
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>匿名案例</span>
+    </nav>
+      <p class="eyebrow">Anonymous Case Studies</p>
+      <h1>自动交易系统匿名项目复盘</h1>
+      <p class="hero-lede">以下是匿名化的工程交付场景，只说明问题、系统方案和可验证交付物，不公开客户身份，不展示收益曲线，也不构成投资建议。</p>
+      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+    </section>
+    <section class="section content-band"><div class="case-study-grid expanded-cases"><article><span>01</span><h3>TradingView 信号去重与订单路由</h3><strong>项目背景</strong><p>客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。</p><strong>约束</strong><p>不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。</p><strong>架构</strong><p>TradingView Alert -&gt; Webhook 接收 -&gt; 签名校验 -&gt; 去重/冷却 -&gt; 风控 -&gt; 订单路由 -&gt; 告警和日志。</p><strong>交付物</strong><p>Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。</p><strong>边界</strong><p>不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。</p></article><article><span>02</span><h3>券商 API 组合再平衡工作流</h3><strong>项目背景</strong><p>客户需要按目标权重生成订单计划，并保留人工确认点。</p><strong>约束</strong><p>账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。</p><strong>架构</strong><p>持仓同步 -&gt; 目标权重计算 -&gt; 订单计划 -&gt; 人工确认 -&gt; 券商 API -&gt; 执行回报 -&gt; 审计日志。</p><strong>交付物</strong><p>组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。</p><strong>边界</strong><p>客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。</p></article><article><span>03</span><h3>多接口私有化部署与告警</h3><strong>项目背景</strong><p>客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。</p><strong>约束</strong><p>客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。</p><strong>架构</strong><p>VPS/Docker -&gt; 环境变量 -&gt; 执行服务 -&gt; 日志轮转 -&gt; 告警渠道 -&gt; 备份和恢复说明。</p><strong>交付物</strong><p>源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。</p><strong>边界</strong><p>交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。</p></article></div></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">复制微信 btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>评估资料</strong>
+        <ul>
+          <li>信号和交易规则</li>
+          <li>API 平台和权限状态</li>
+          <li>风控、告警和部署要求</li>
+          <li>预算档位：2000 / 5000 / 10000 美金</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

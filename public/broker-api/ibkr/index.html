@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IBKR API 自动交易系统开发 | TWS Gateway、订单路由与审计日志</title>
+  <meta name="description" content="IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/broker-api/ibkr/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="IBKR API 自动交易系统开发">
+  <meta property="og:description" content="IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/broker-api/ibkr/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/broker-api/ibkr/#webpage",
+      "url": "https://pddjf.com/broker-api/ibkr/",
+      "name": "IBKR API 自动交易系统开发",
+      "description": "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/broker-api/ibkr/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "IBKR API 自动化",
+          "item": "https://pddjf.com/broker-api/ibkr/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://pddjf.com/broker-api/ibkr/#service",
+      "name": "IBKR API 自动交易系统开发",
+      "description": "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。",
+      "serviceType": "IBKR API automation development",
+      "provider": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "areaServed": [
+        "中国",
+        "香港",
+        "新加坡",
+        "台湾",
+        "美国",
+        "全球远程"
+      ],
+      "offers": {
+        "@type": "OfferCatalog",
+        "name": "自动交易系统开发预算区间",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Starter",
+            "priceCurrency": "USD",
+            "price": "2000",
+            "description": "单接口、单工作流、基础风控和部署文档。",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Professional",
+            "priceCurrency": "USD",
+            "price": "5000",
+            "description": "多规则、风控引擎、监控日志和灰度联调。",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Private Infrastructure",
+            "priceCurrency": "USD",
+            "price": "10000",
+            "description": "多接口、后台、权限、审计和私有化部署。",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/broker-api/ibkr/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "IBKR 自动化适合做全自动吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以做自动执行，但建议保留风控、限额、日志和必要的人工确认节点。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "能做组合再平衡吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以围绕目标权重、现金约束和持仓同步设计订单计划。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "需要先有 IBKR 账户吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "最好已有账户和权限。没有权限时只能做方案评估，不能验证真实接口。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "TWS Gateway 和 Client Portal 怎么选？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "需要根据账户权限、运行环境、稳定性要求和目标订单流程评估，不能只按接口名称决定。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "IBKR 项目上线前要验证什么？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "至少验证连接稳定性、订单类型、交易时段、撤单流程、持仓同步、拒单处理和审计日志。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/tradingview-webhook-automation/">TradingView</a>
+      <a aria-current="page" href="/broker/api/">券商 API</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+    </nav>
+  </header>
+  <main>
+    <section class="content-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>IBKR API 自动化</span>
+    </nav>
+      <p class="eyebrow">IBKR API Automation</p>
+      <h1>IBKR API 自动交易系统开发</h1>
+      <p class="hero-lede">为已经具备 IBKR / Interactive Brokers 账户和明确交易规则的客户，构建订单执行、持仓同步、风险校验和审计日志系统。具体能力以账户权限、地区限制和官方 API 为准。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">免费评估需求</a>
+        <a class="button secondary" href="#deliverables">查看交付内容</a>
+      </div>
+      <nav class="mobile-quick-links" aria-label="移动端快速入口">
+        <a href="#fit">适合谁</a>
+        <a href="#deliverables">交付</a>
+        <a href="#faq">FAQ</a>
+        <a href="/contact/">联系</a>
+      </nav>
+      <div class="fact-strip" aria-label="项目预算和服务边界">
+        <span>预算：2000 / 5000 / 10000 美金</span>
+        <span>源码交付</span>
+        <span>私有部署</span>
+        <span>不代管资金</span>
+      </div>
+    </section>
+
+    <section class="section ai-summary-section" aria-labelledby="ai-summary-title">
+      <div class="section-head">
+        <p class="eyebrow">AI-citable summary</p>
+        <h2 id="ai-summary-title">可引用事实摘要</h2>
+        <p>这段内容用来帮助搜索引擎、AI 摘要和人工评估者快速理解服务边界。</p>
+      </div>
+      <div class="summary-list">
+        <div><strong>是什么</strong><span>SignalCraft Labs 提供 IBKR API automation development，把客户已有规则工程化为可测试、可审计的执行系统。</span></div><div><strong>服务对象</strong><span>已开通或准备开通 IBKR API 相关权限。 需要把股票、ETF、期权或多资产组合规则接入自动执行。 需要持仓同步、订单状态回报、风控校验和日志审计。</span></div><div><strong>交付物</strong><span>IBKR 连接方案评估、TWS Gateway / Client Portal 工作流建议。 订单路由、撤单、成交回报、持仓同步和错误处理。 价格保护、最大仓位、交易时段、只减仓和人工确认节点。 源码交付、部署文档、运行日志和远程讲解。</span></div><div><strong>不做什么</strong><span>不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。</span></div><div><strong>预算范围</strong><span>2000 / 5000 / 10000 美金，按接口数量、风控复杂度、后台和部署范围评估。</span></div><div><strong>联系方式</strong><span>contact@pddjf.com / 微信 btc1688 / Telegram @yf16881</span></div>
+      </div>
+    </section>
+
+    <section id="fit" class="section answer-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Fit Check</p>
+        <h2>这个服务适合谁，不适合谁</h2>
+        <p>先判断是否值得进入技术评估，避免把策略效果、平台限制或新增需求混进开发范围。</p>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>适合谁</h3>
+          <ul class="check-list"><li>已开通或准备开通 IBKR API 相关权限。</li><li>需要把股票、ETF、期权或多资产组合规则接入自动执行。</li><li>需要持仓同步、订单状态回报、风控校验和日志审计。</li></ul>
+        </article>
+        <article>
+          <h3>不适合谁</h3>
+          <ul class="plain-list"><li>希望外包投资判断、荐股、喊单或资金托管。</li><li>没有明确订单类型、交易时段、仓位规则和异常处理。</li><li>无法接受券商 API、TWS Gateway 或账户权限限制。</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="deliverables" class="section content-band">
+      <div class="section-head">
+        <p class="eyebrow">Deliverables</p>
+        <h2>交付内容清单</h2>
+        <p>正式报价会把功能、接口、验收路径和交付物写清楚。</p>
+      </div>
+      <div class="detail-grid"><article><h3>IBKR 连接方案评估</h3><p>IBKR 连接方案评估、TWS Gateway / Client Portal 工作流建议。</p></article><article><h3>订单路由</h3><p>订单路由、撤单、成交回报、持仓同步和错误处理。</p></article><article><h3>价格保护</h3><p>价格保护、最大仓位、交易时段、只减仓和人工确认节点。</p></article><article><h3>源码交付</h3><p>源码交付、部署文档、运行日志和远程讲解。</p></article></div>
+    </section>
+
+    <section class="section process-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Process</p>
+        <h2>开发流程</h2>
+      </div>
+      <ol class="process-grid"><li><span>01</span><strong>确认账户类型</strong><em>确认账户类型、地区、API 方式、交易品种和订单类型。</em></li><li><span>02</span><strong>梳理策略触发</strong><em>梳理策略触发、组合约束、风控边界和人工确认点。</em></li><li><span>03</span><strong>搭建连接</strong><em>搭建连接、路由、日志、告警和测试流程。</em></li><li><span>04</span><strong>用模拟环境或小资金灰度验证执行稳定性</strong><em>用模拟环境或小资金灰度验证执行稳定性。</em></li></ol>
+    </section>
+
+    <section class="section budget-section">
+      <div class="section-head centered dark">
+        <p class="eyebrow">Budget</p>
+        <h2>预算区间</h2>
+        <p>预算取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。</p>
+      </div>
+      <div class="pricing-grid"><article><h3>Starter</h3><p>单接口、单工作流、基础风控和部署文档。</p><strong class="price">2000 美金起</strong><a class="button secondary" href="/contact/" data-contact="content_budget_starter">咨询报价</a></article><article class="featured"><h3>Professional</h3><p>多规则、风控引擎、监控日志和灰度联调。</p><strong class="price">5000 美金起</strong><a class="button primary" href="/contact/" data-contact="content_budget_professional">咨询报价</a></article><article><h3>Private Infrastructure</h3><p>多接口、后台、权限、审计和私有化部署。</p><strong class="price">10000 美金起</strong><a class="button secondary" href="/contact/" data-contact="content_budget_private_infrastructure">咨询报价</a></article></div>
+    </section>
+
+    <section class="section risk-section">
+      <div class="section-head">
+        <p class="eyebrow">Risk Boundary</p>
+        <h2>风险边界和平台限制</h2>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>风险边界</h3>
+          <ul class="plain-list"><li>IBKR 具体 API 能力、数据权限和订单限制以官方说明和账户状态为准。</li><li>TWS / Gateway 运行状态、网络连接和账户风控会影响自动化稳定性。</li><li>不声称与 Interactive Brokers 存在官方合作、授权或背书。</li></ul>
+        </article>
+        <article>
+          <h3>联系前请准备</h3>
+          <ul class="check-list">
+            <li>平台、账户权限和 API 文档或接口说明</li>
+            <li>信号来源、品种、订单类型和交易时段</li>
+            <li>仓位、风控、暂停、告警和验收标准</li>
+            <li>预算档位和期望部署环境</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section evidence-section" aria-labelledby="evidence-title">
+      <div class="section-head">
+        <p class="eyebrow">Checklists & Tables</p>
+        <h2 id="evidence-title">资料、权限、预算和验收表</h2>
+        <p>正式项目会把这些表转成需求清单和验收清单，减少范围歧义。</p>
+      </div>
+      <div class="evidence-grid">
+        <article class="evidence-table">
+          <h3>联系前资料清单</h3>
+          <p>没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。</p>
+          <div class="data-table columns-2" role="table" aria-label="联系前资料清单">
+            <div class="table-row table-head" role="row"><span role="columnheader">项目</span><span role="columnheader">说明</span></div>
+            <div class="table-row" role="row"><span role="cell">信号来源</span><span role="cell">TradingView Alert、研究脚本、人工确认、组合规则或外部事件。</span></div><div class="table-row" role="row"><span role="cell">接口权限</span><span role="cell">券商、交易所、FIX、REST/WebSocket 或内部系统的 API 权限状态。</span></div><div class="table-row" role="row"><span role="cell">交易规则</span><span role="cell">入场、出场、仓位、止损止盈、撤单、冷却和异常处理。</span></div><div class="table-row" role="row"><span role="cell">风控边界</span><span role="cell">最大仓位、单笔风险、只减仓、暂停开关、价格偏离和告警。</span></div><div class="table-row" role="row"><span role="cell">部署环境</span><span role="cell">客户服务器、VPS、Docker、日志、告警、备份和权限要求。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>API Key 最小权限建议</h3>
+          <p>默认只使用项目必要权限，避免提现、划转和无关管理员权限。</p>
+          <div class="data-table columns-3" role="table" aria-label="API Key 最小权限建议">
+            <div class="table-row table-head" role="row"><span role="columnheader">权限</span><span role="columnheader">建议</span><span role="columnheader">原因</span></div>
+            <div class="table-row" role="row"><span role="cell">读取权限</span><span role="cell">需要</span><span role="cell">用于查询余额、持仓、订单状态、成交回报和日志对账。</span></div><div class="table-row" role="row"><span role="cell">交易权限</span><span role="cell">按项目需要</span><span role="cell">只在自动执行项目中启用，并建议限制 IP、品种和订单范围。</span></div><div class="table-row" role="row"><span role="cell">提现权限</span><span role="cell">不需要</span><span role="cell">不建议提供提现、划转或资金托管权限。</span></div><div class="table-row" role="row"><span role="cell">管理员权限</span><span role="cell">默认不需要</span><span role="cell">除非客户明确要求部署协助，否则由客户自行保管账户和服务器主权限。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>预算范围拆解</h3>
+          <p>预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。</p>
+          <div class="data-table columns-2" role="table" aria-label="预算范围拆解">
+            <div class="table-row table-head" role="row"><span role="columnheader">预算档</span><span role="columnheader">适合范围</span></div>
+            <div class="table-row" role="row"><span role="cell">2000 美金起</span><span role="cell">单接口、单工作流、基础风控和部署文档。</span></div><div class="table-row" role="row"><span role="cell">5000 美金起</span><span role="cell">多规则、风控引擎、监控日志和灰度联调。</span></div><div class="table-row" role="row"><span role="cell">10000 美金起</span><span role="cell">多接口、后台、权限、审计和私有化部署。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>上线验收清单</h3>
+          <p>验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。</p>
+          <div class="data-table columns-2" role="table" aria-label="上线验收清单">
+            <div class="table-row table-head" role="row"><span role="columnheader">项目</span><span role="columnheader">说明</span></div>
+            <div class="table-row" role="row"><span role="cell">源码和配置</span><span role="cell">源码、环境变量样例、配置说明和版本记录已交付。</span></div><div class="table-row" role="row"><span role="cell">日志和告警</span><span role="cell">每次信号、拒绝原因、订单请求、执行结果和异常都有可追踪记录。</span></div><div class="table-row" role="row"><span role="cell">风控验证</span><span role="cell">最大仓位、限频、只减仓、暂停开关、价格保护等规则通过测试。</span></div><div class="table-row" role="row"><span role="cell">灰度上线</span><span role="cell">先用测试环境、模拟盘或小资金范围验证，不以盈利结果作为验收条件。</span></div><div class="table-row" role="row"><span role="cell">交付文档</span><span role="cell">部署、重启、回滚、密钥轮换和常见故障处理说明已交付。</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq-section">
+      <div class="section-head centered">
+        <p class="eyebrow">FAQ</p>
+        <h2>常见问题</h2>
+      </div>
+      <div class="faq-list"><article><h3>IBKR 自动化适合做全自动吗？</h3><p>可以做自动执行，但建议保留风控、限额、日志和必要的人工确认节点。</p></article><article><h3>能做组合再平衡吗？</h3><p>可以围绕目标权重、现金约束和持仓同步设计订单计划。</p></article><article><h3>需要先有 IBKR 账户吗？</h3><p>最好已有账户和权限。没有权限时只能做方案评估，不能验证真实接口。</p></article><article><h3>TWS Gateway 和 Client Portal 怎么选？</h3><p>需要根据账户权限、运行环境、稳定性要求和目标订单流程评估，不能只按接口名称决定。</p></article><article><h3>IBKR 项目上线前要验证什么？</h3><p>至少验证连接稳定性、订单类型、交易时段、撤单流程、持仓同步、拒单处理和审计日志。</p></article></div>
+    </section>
+
+    <section class="section related-section">
+      <div class="section-head">
+        <p class="eyebrow">Related</p>
+        <h2>相关服务页</h2>
+      </div>
+      <div class="policy-links"><a href="/broker/api/">券商 API 总览</a><a href="/fix-api-order-routing/">FIX API 订单路由</a><a href="/broker-api/alpaca/">Alpaca API 自动化</a><a href="/faq/">常见问题</a><a href="/case-studies/">匿名案例</a></div>
+    </section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">复制微信 btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>评估资料</strong>
+        <ul>
+          <li>信号和交易规则</li>
+          <li>API 平台和权限状态</li>
+          <li>风控、告警和部署要求</li>
+          <li>预算档位：2000 / 5000 / 10000 美金</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

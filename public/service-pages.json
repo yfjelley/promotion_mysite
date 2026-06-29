@@ -1,0 +1,52 @@
+{
+  "site": "https://pddjf.com",
+  "generatedAt": "2026-06-30",
+  "generatedServiceRoutes": [
+    "/tradingview-webhook-automation/",
+    "/exchange-api-trading-bot-development/",
+    "/broker-api/ibkr/",
+    "/broker-api/schwab/",
+    "/broker-api/alpaca/",
+    "/fix-api-order-routing/",
+    "/risk-engine/",
+    "/private-deployment/"
+  ],
+  "coreServiceUrls": [
+    {
+      "label": "TradingView Webhook automation",
+      "url": "https://pddjf.com/tradingview-webhook-automation/"
+    },
+    {
+      "label": "Exchange API trading bot development",
+      "url": "https://pddjf.com/exchange-api-trading-bot-development/"
+    },
+    {
+      "label": "Broker API automation",
+      "url": "https://pddjf.com/broker/api/"
+    },
+    {
+      "label": "IBKR API automation",
+      "url": "https://pddjf.com/broker-api/ibkr/"
+    },
+    {
+      "label": "Schwab API automation",
+      "url": "https://pddjf.com/broker-api/schwab/"
+    },
+    {
+      "label": "Alpaca API automation",
+      "url": "https://pddjf.com/broker-api/alpaca/"
+    },
+    {
+      "label": "FIX API order routing",
+      "url": "https://pddjf.com/fix-api-order-routing/"
+    },
+    {
+      "label": "Trading risk engine development",
+      "url": "https://pddjf.com/risk-engine/"
+    },
+    {
+      "label": "Private deployment",
+      "url": "https://pddjf.com/private-deployment/"
+    }
+  ]
+}
