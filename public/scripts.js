@@ -1,5 +1,7 @@
 const ADS_ID = "AW-975458180";
 const ADS_CONVERSION = "AW-975458180/i_t6CKjS6pwYEISfkdED";
+const ADS_LEAD_VALUE = 100.0;
+const ADS_LEAD_CURRENCY = "USD";
 const GA_ID = "G-390F8PHDES";
 
 window.dataLayer = window.dataLayer || [];
@@ -18,8 +20,8 @@ function reportContact(method) {
   });
   gtag("event", "conversion", {
     send_to: ADS_CONVERSION,
-    value: 1.0,
-    currency: "CNY",
+    value: ADS_LEAD_VALUE,
+    currency: ADS_LEAD_CURRENCY,
   });
 }
 
@@ -43,7 +45,7 @@ async function copyText(value) {
 document.addEventListener("DOMContentLoaded", () => {
   const status = document.querySelector(".copy-status");
 
-  document.querySelectorAll("[data-contact]").forEach((element) => {
+  document.querySelectorAll("[data-contact]:not([data-copy])").forEach((element) => {
     element.addEventListener("click", () => {
       reportContact(element.dataset.contact);
     });
@@ -57,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (status) {
           status.textContent = `已复制：${value}`;
         }
+        reportContact(button.dataset.contact || "copy");
       } catch (error) {
         if (status) {
           status.textContent = "复制失败，请手动复制页面上的联系方式。";
