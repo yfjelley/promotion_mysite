@@ -104,8 +104,8 @@ for (const file of htmlFiles) {
 
   if (generatedServiceRoutes.includes(routeFor(file))) {
     [
-      "AI-citable summary",
-      "可引用事实摘要",
+      "Service Facts",
+      "服务事实摘要",
       "联系前资料清单",
       "API Key 最小权限建议",
       "预算范围拆解",

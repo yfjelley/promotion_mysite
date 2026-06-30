@@ -803,12 +803,53 @@ function comparisonTable(title, intro, rows, columns = ["项目", "说明"]) {
 function aiSummarySection(page) {
   return `<section class="section ai-summary-section" aria-labelledby="ai-summary-title">
       <div class="section-head">
-        <p class="eyebrow">AI-citable summary</p>
-        <h2 id="ai-summary-title">可引用事实摘要</h2>
-        <p>这段内容用来帮助搜索引擎、AI 摘要和人工评估者快速理解服务边界。</p>
+        <p class="eyebrow">Service Facts</p>
+        <h2 id="ai-summary-title">服务事实摘要</h2>
+        <p>用项目评估语言快速说明服务对象、交付物、预算范围和不做事项。</p>
       </div>
       <div class="summary-list">
         ${summaryRows(page).map(([label, value]) => `<div><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join("")}
+      </div>
+    </section>`;
+}
+
+function deliverableSamplesSection() {
+  return `<section class="section deliverable-samples" aria-labelledby="deliverable-samples-title">
+      <div class="section-head centered">
+        <p class="eyebrow">Delivery Samples</p>
+        <h2 id="deliverable-samples-title">匿名交付物样例</h2>
+        <p>以下是脱敏示意，展示交付中常见的日志、Webhook 流程和验收清单，不包含客户账户、策略参数或真实订单。</p>
+      </div>
+      <div class="sample-artifact-grid">
+        <article class="sample-artifact log-sample">
+          <div class="sample-head"><span>运行日志样例</span><em>masked log</em></div>
+          <div class="log-window" role="img" aria-label="脱敏运行日志样例">
+            <div><strong>09:31:04</strong><span>webhook.received</span><em>symbol=BTCUSDT action=reduce_only</em></div>
+            <div><strong>09:31:04</strong><span>risk.checked</span><em>max_position ok, cooldown ok</em></div>
+            <div><strong>09:31:05</strong><span>order.routed</span><em>exchange_api latency=218ms</em></div>
+            <div><strong>09:31:05</strong><span>alert.sent</span><em>telegram delivery confirmed</em></div>
+          </div>
+        </article>
+        <article class="sample-artifact flow-sample">
+          <div class="sample-head"><span>Webhook 流程图样例</span><em>handoff diagram</em></div>
+          <div class="flow-map" role="img" aria-label="Webhook 到风控和订单路由的流程样例">
+            <span>TradingView Alert</span>
+            <span>签名校验</span>
+            <span>去重/冷却</span>
+            <span>风控规则</span>
+            <span>订单路由</span>
+            <span>日志与告警</span>
+          </div>
+        </article>
+        <article class="sample-artifact checklist-sample">
+          <div class="sample-head"><span>上线验收清单样例</span><em>acceptance sheet</em></div>
+          <ul class="sample-checklist">
+            <li><span></span>源码、配置样例和部署文档已交付</li>
+            <li><span></span>测试环境信号解析、拒单、下单链路已验证</li>
+            <li><span></span>暂停开关、限频、最大仓位和只减仓规则已验证</li>
+            <li><span></span>日志、告警、重启和回滚流程已讲解</li>
+          </ul>
+        </article>
       </div>
     </section>`;
 }
@@ -1031,7 +1072,7 @@ function casesHtml(page) {
       }))
     ]
   };
-  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>项目背景</strong><p>${escapeHtml(study.context)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>架构</strong><p>${escapeHtml(study.architecture)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>边界</strong><p>${escapeHtml(study.boundary)}</p></article>`).join("")}</div>`;
+  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>项目背景</strong><p>${escapeHtml(study.context)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>架构</strong><p>${escapeHtml(study.architecture)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>边界</strong><p>${escapeHtml(study.boundary)}</p></article>`).join("")}</div>${deliverableSamplesSection()}`;
   return infoPageHtml(page, "案例", body, schema);
 }
 
