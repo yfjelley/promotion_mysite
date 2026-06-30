@@ -1,6 +1,6 @@
-User-agent: *
-Content-Signal: search=yes, ai-input=yes, ai-train=no
-Allow: /
+# Site-specific crawler policy.
+# Cloudflare Managed Robots.txt may prepend the general search/training policy on production.
+# This file keeps search-answer/user agents explicit and avoids repeating managed training-bot blocks.
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -10,20 +10,5 @@ Allow: /
 
 User-agent: OAI-AdsBot
 Allow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
 
 Sitemap: https://pddjf.com/sitemap.xml

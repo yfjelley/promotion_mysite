@@ -173,6 +173,14 @@
             "@type": "Answer",
             "text": "会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Alpaca paper 和 live 环境怎么验收？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "先用 paper trading 验证信号解析、风控拒绝、订单状态和告警，再评估是否切到 live 小范围灰度。"
+          }
         }
       ]
     }
@@ -309,6 +317,22 @@
       </div>
       <div class="evidence-grid">
         <article class="evidence-table">
+          <h3>平台接入细节</h3>
+          <p>这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。</p>
+          <div class="data-table columns-3" role="table" aria-label="平台接入细节">
+            <div class="table-row table-head" role="row"><span role="columnheader">主题</span><span role="columnheader">项目要点</span><span role="columnheader">验收关注</span></div>
+            <div class="table-row" role="row"><span role="cell">环境切换</span><span role="cell">区分 paper trading 与 live trading，明确 API Key、Base URL、数据权限和订单权限。</span><span role="cell">测试环境验证通过后再决定是否进入小资金灰度。</span></div><div class="table-row" role="row"><span role="cell">REST 与 WebSocket</span><span role="cell">REST 负责下单、查询和账户状态，WebSocket 用于订单状态、行情事件或执行回报监听。</span><span role="cell">订单状态流、断线重连和漏报补偿逻辑可测试。</span></div><div class="table-row" role="row"><span role="cell">常见错误</span><span role="cell">重点处理限频、数据权限不足、市场关闭、资产不可交易和订单状态不同步。</span><span role="cell">错误原因、重试策略和人工告警写入审计日志。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>IBKR / Schwab / Alpaca / FIX API 对比</h3>
+          <p>用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。</p>
+          <div class="data-table columns-4" role="table" aria-label="IBKR / Schwab / Alpaca / FIX API 对比">
+            <div class="table-row table-head" role="row"><span role="columnheader">接口</span><span role="columnheader">适合场景</span><span role="columnheader">接入重点</span><span role="columnheader">常见限制</span></div>
+            <div class="table-row" role="row"><span role="cell">IBKR / TWS Gateway</span><span role="cell">多资产账户、组合执行、持仓同步和审计日志。</span><span role="cell">TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。</span><span role="cell">连接稳定性、数据权限、地区限制和账户风控以客户账户为准。</span></div><div class="table-row" role="row"><span role="cell">Schwab API</span><span role="cell">美股账户授权、组合数据、订单监控和规则执行。</span><span role="cell">OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。</span><span role="cell">API 权限、审核流程、地区可用性和平台政策可能变化。</span></div><div class="table-row" role="row"><span role="cell">Alpaca API</span><span role="cell">REST/WebSocket 执行、paper trading 验证和研究信号落地。</span><span role="cell">API Key 权限、paper/live 环境切换、订单状态流和市场数据权限。</span><span role="cell">资产类别、行情延迟、交易时段和订单能力以账户权限为准。</span></div><div class="table-row" role="row"><span role="cell">FIX API</span><span role="cell">专业订单路由、执行回报、UAT 测试和原始消息审计。</span><span role="cell">FIX 版本、会话心跳、序号恢复、证书网络和消息字段映射。</span><span role="cell">通常依赖接入方测试环境、证书、专线或审批流程。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
           <h3>联系前资料清单</h3>
           <p>没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。</p>
           <div class="data-table columns-2" role="table" aria-label="联系前资料清单">
@@ -348,7 +372,7 @@
         <p class="eyebrow">FAQ</p>
         <h2>常见问题</h2>
       </div>
-      <div class="faq-list"><article><h3>Alpaca paper trading 可以先验证吗？</h3><p>可以，通常建议先用 paper trading 验证订单和风控流程。</p></article><article><h3>可以把研究脚本接进来吗？</h3><p>可以，但需要先整理输出信号格式、频率和风险边界。</p></article><article><h3>是否支持后台面板？</h3><p>可以作为 5000 美金或 10000 美金档的扩展范围评估。</p></article><article><h3>REST 和 WebSocket 都需要吗？</h3><p>通常 REST 用于请求和查询，WebSocket 用于订单状态和行情事件监听，具体按项目范围决定。</p></article><article><h3>Alpaca 数据权限会影响执行吗？</h3><p>会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。</p></article></div>
+      <div class="faq-list"><article><h3>Alpaca paper trading 可以先验证吗？</h3><p>可以，通常建议先用 paper trading 验证订单和风控流程。</p></article><article><h3>可以把研究脚本接进来吗？</h3><p>可以，但需要先整理输出信号格式、频率和风险边界。</p></article><article><h3>是否支持后台面板？</h3><p>可以作为 5000 美金或 10000 美金档的扩展范围评估。</p></article><article><h3>REST 和 WebSocket 都需要吗？</h3><p>通常 REST 用于请求和查询，WebSocket 用于订单状态和行情事件监听，具体按项目范围决定。</p></article><article><h3>Alpaca 数据权限会影响执行吗？</h3><p>会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。</p></article><article><h3>Alpaca paper 和 live 环境怎么验收？</h3><p>先用 paper trading 验证信号解析、风控拒绝、订单状态和告警，再评估是否切到 live 小范围灰度。</p></article></div>
     </section>
 
     <section class="section related-section">

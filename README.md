@@ -31,7 +31,13 @@ Trust and policy pages:
 AI-search support:
 
 - `/llms.txt` summarizes the brand, service URLs, exclusions, pricing ranges, and contact paths for AI search/agent readers.
-- `robots.txt` allows ordinary search and search-oriented AI crawlers while blocking training-oriented crawlers.
+- `robots.txt` keeps site-specific allow rules for search-answer/user-triggered AI crawlers.
+
+Production robots policy assumes Cloudflare Managed Robots.txt remains enabled.
+Cloudflare prepends the general search/training policy in production, while
+this repo's `public/robots.txt` avoids repeating those managed blocks. If this
+site is served outside Cloudflare Pages or Managed Robots.txt is disabled,
+re-add explicit training-bot blocks before deployment.
 
 ## Generate and validate content
 

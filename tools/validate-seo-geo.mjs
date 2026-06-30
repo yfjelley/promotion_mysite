@@ -136,18 +136,27 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 [
   "User-agent: OAI-SearchBot\nAllow: /",
   "User-agent: ChatGPT-User\nAllow: /",
-  "User-agent: GPTBot\nDisallow: /",
-  "User-agent: Google-Extended\nDisallow: /",
-  "Content-Signal: search=yes, ai-input=yes, ai-train=no",
+  "User-agent: OAI-AdsBot\nAllow: /",
   "Sitemap: https://pddjf.com/sitemap.xml"
 ].forEach((needle) => requireText("robots.txt", robots, needle));
+
+[
+  "Content-Signal:",
+  "User-agent: GPTBot",
+  "User-agent: Google-Extended",
+  "User-agent: ClaudeBot"
+].forEach((needle) => {
+  if (robots.includes(needle)) errors.push(`robots.txt: duplicates Cloudflare managed policy: ${needle}`);
+});
 
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
+  "Last updated: 2026-06-30",
   "TradingView Webhook automation",
   "IBKR API automation",
   "AI-citable factual summary",
+  "Page summaries",
   "2000 美金",
   "5000 美金",
   "10000 美金",
@@ -160,10 +169,14 @@ for (const entry of serviceManifest.coreServiceUrls) {
     continue;
   }
 
-  const { label, url } = entry;
+  const { label, url, summary } = entry;
   if (typeof label !== "string" || label.trim() === "") errors.push("service-pages.json: coreServiceUrls entry missing label");
   if (typeof url !== "string" || !url.startsWith(site)) errors.push(`service-pages.json: invalid core service URL ${String(url)}`);
+  if (typeof summary !== "string" || summary.trim().length < 24) {
+    errors.push(`service-pages.json: core service URL missing useful summary for ${String(label || url)}`);
+  }
   if (typeof url === "string") requireText("llms.txt", llms, url);
+  if (typeof summary === "string" && summary.trim() !== "") requireText("llms.txt", llms, summary);
 }
 
 const riskyTerms = [

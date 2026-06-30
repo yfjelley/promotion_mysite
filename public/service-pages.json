@@ -14,39 +14,48 @@
   "coreServiceUrls": [
     {
       "label": "TradingView Webhook automation",
-      "url": "https://pddjf.com/tradingview-webhook-automation/"
+      "url": "https://pddjf.com/tradingview-webhook-automation/",
+      "summary": "TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。"
     },
     {
       "label": "Exchange API trading bot development",
-      "url": "https://pddjf.com/exchange-api-trading-bot-development/"
+      "url": "https://pddjf.com/exchange-api-trading-bot-development/",
+      "summary": "交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。"
     },
     {
       "label": "Broker API automation",
-      "url": "https://pddjf.com/broker/api/"
+      "url": "https://pddjf.com/broker/api/",
+      "summary": "Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment."
     },
     {
       "label": "IBKR API automation",
-      "url": "https://pddjf.com/broker-api/ibkr/"
+      "url": "https://pddjf.com/broker-api/ibkr/",
+      "summary": "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。"
     },
     {
       "label": "Schwab API automation",
-      "url": "https://pddjf.com/broker-api/schwab/"
+      "url": "https://pddjf.com/broker-api/schwab/",
+      "summary": "Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。"
     },
     {
       "label": "Alpaca API automation",
-      "url": "https://pddjf.com/broker-api/alpaca/"
+      "url": "https://pddjf.com/broker-api/alpaca/",
+      "summary": "Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。"
     },
     {
       "label": "FIX API order routing",
-      "url": "https://pddjf.com/fix-api-order-routing/"
+      "url": "https://pddjf.com/fix-api-order-routing/",
+      "summary": "FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。"
     },
     {
       "label": "Trading risk engine development",
-      "url": "https://pddjf.com/risk-engine/"
+      "url": "https://pddjf.com/risk-engine/",
+      "summary": "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。"
     },
     {
       "label": "Private deployment",
-      "url": "https://pddjf.com/private-deployment/"
+      "url": "https://pddjf.com/private-deployment/",
+      "summary": "自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。"
     }
   ]
 }

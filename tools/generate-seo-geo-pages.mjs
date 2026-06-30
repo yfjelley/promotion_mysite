@@ -42,6 +42,36 @@ const acceptanceRows = [
   ["交付文档", "部署、重启、回滚、密钥轮换和常见故障处理说明已交付。"]
 ];
 
+const brokerComparisonRows = [
+  ["IBKR / TWS Gateway", "多资产账户、组合执行、持仓同步和审计日志。", "TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。", "连接稳定性、数据权限、地区限制和账户风控以客户账户为准。"],
+  ["Schwab API", "美股账户授权、组合数据、订单监控和规则执行。", "OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。", "API 权限、审核流程、地区可用性和平台政策可能变化。"],
+  ["Alpaca API", "REST/WebSocket 执行、paper trading 验证和研究信号落地。", "API Key 权限、paper/live 环境切换、订单状态流和市场数据权限。", "资产类别、行情延迟、交易时段和订单能力以账户权限为准。"],
+  ["FIX API", "专业订单路由、执行回报、UAT 测试和原始消息审计。", "FIX 版本、会话心跳、序号恢复、证书网络和消息字段映射。", "通常依赖接入方测试环境、证书、专线或审批流程。"]
+];
+
+const platformDetailRows = {
+  "broker-api/ibkr": [
+    ["连接方式", "优先评估 TWS Gateway / Client Portal 的运行环境、断线重连、会话保持和账户登录流程。", "能稳定连接、断线告警、重连后不重复下单。"],
+    ["订单与持仓", "确认股票、ETF、期权或组合订单类型、交易时段、撤单流程和成交回报字段。", "订单请求、拒单、撤单、成交回报和持仓同步都有日志。"],
+    ["常见错误", "重点处理连接断开、权限不足、数据订阅缺失、订单类型不支持和交易时段限制。", "错误码归类、人工告警、暂停开关和回滚流程可演示。"]
+  ],
+  "broker-api/schwab": [
+    ["授权流程", "围绕 OAuth 授权、Token 保存、续期、失效告警和重新授权流程设计。", "授权过期时系统停止自动请求并提示人工处理。"],
+    ["账户范围", "先确认账户、应用审核、可用接口、订单类型、组合数据和地区限制。", "只对客户已授权账户和已确认接口范围开发。"],
+    ["常见错误", "重点处理授权失效、权限不足、账户不可见、订单拒绝和接口返回变化。", "日志能定位授权、请求、响应、拒单和人工处理节点。"]
+  ],
+  "broker-api/alpaca": [
+    ["环境切换", "区分 paper trading 与 live trading，明确 API Key、Base URL、数据权限和订单权限。", "测试环境验证通过后再决定是否进入小资金灰度。"],
+    ["REST 与 WebSocket", "REST 负责下单、查询和账户状态，WebSocket 用于订单状态、行情事件或执行回报监听。", "订单状态流、断线重连和漏报补偿逻辑可测试。"],
+    ["常见错误", "重点处理限频、数据权限不足、市场关闭、资产不可交易和订单状态不同步。", "错误原因、重试策略和人工告警写入审计日志。"]
+  ],
+  "fix-api-order-routing": [
+    ["会话管理", "确认 FIX 版本、SenderCompID/TargetCompID、心跳、序号、重置规则和断线恢复。", "UAT 中验证登录、心跳、重连、序号恢复和登出流程。"],
+    ["消息字段", "映射 NewOrderSingle、Cancel、ExecutionReport、Reject 等核心消息和接入方自定义字段。", "保留原始 FIX 消息、标准化状态和字段级错误。"],
+    ["上线约束", "提前确认测试环境、证书、网络、白名单、审批周期和接入方验收脚本。", "上线前完成灰度、回滚、监控和人工暂停开关。"]
+  ]
+};
+
 const servicePages = [
   {
     slug: "tradingview-webhook-automation",
@@ -185,7 +215,8 @@ const servicePages = [
       ["能做组合再平衡吗？", "可以围绕目标权重、现金约束和持仓同步设计订单计划。"],
       ["需要先有 IBKR 账户吗？", "最好已有账户和权限。没有权限时只能做方案评估，不能验证真实接口。"],
       ["TWS Gateway 和 Client Portal 怎么选？", "需要根据账户权限、运行环境、稳定性要求和目标订单流程评估，不能只按接口名称决定。"],
-      ["IBKR 项目上线前要验证什么？", "至少验证连接稳定性、订单类型、交易时段、撤单流程、持仓同步、拒单处理和审计日志。"]
+      ["IBKR 项目上线前要验证什么？", "至少验证连接稳定性、订单类型、交易时段、撤单流程、持仓同步、拒单处理和审计日志。"],
+      ["IBKR 常见错误怎么处理？", "会把连接断开、权限不足、数据订阅缺失、订单类型不支持和交易时段限制归类到日志，并配置告警或暂停规则。"]
     ],
     related: [
       ["/broker/api/", "券商 API 总览"],
@@ -235,7 +266,8 @@ const servicePages = [
       ["可以做只读组合监控吗？", "可以，只读监控、告警和报表比全自动下单风险更低，适合先验证。"],
       ["开发前最重要的资料是什么？", "账户权限状态、目标订单类型、授权流程、策略规则和验收标准。"],
       ["OAuth 授权过期怎么办？", "项目需要设计 token 保存、续期、失效告警和重新授权流程，避免订单链路突然中断。"],
-      ["Schwab 项目能承诺 API 可用吗？", "不能。API 权限、审核、地区限制和平台政策由 Schwab 决定，开发前只能做可行性评估和边界说明。"]
+      ["Schwab 项目能承诺 API 可用吗？", "不能。API 权限、审核、地区限制和平台政策由 Schwab 决定，开发前只能做可行性评估和边界说明。"],
+      ["Schwab API 最容易卡在哪里？", "常见卡点是应用审核、OAuth 授权、账户范围不可见、订单权限不足和接口返回字段变化。"]
     ],
     related: [
       ["/broker/api/", "券商 API 总览"],
@@ -285,7 +317,8 @@ const servicePages = [
       ["可以把研究脚本接进来吗？", "可以，但需要先整理输出信号格式、频率和风险边界。"],
       ["是否支持后台面板？", "可以作为 5000 美金或 10000 美金档的扩展范围评估。"],
       ["REST 和 WebSocket 都需要吗？", "通常 REST 用于请求和查询，WebSocket 用于订单状态和行情事件监听，具体按项目范围决定。"],
-      ["Alpaca 数据权限会影响执行吗？", "会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。"]
+      ["Alpaca 数据权限会影响执行吗？", "会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。"],
+      ["Alpaca paper 和 live 环境怎么验收？", "先用 paper trading 验证信号解析、风控拒绝、订单状态和告警，再评估是否切到 live 小范围灰度。"]
     ],
     related: [
       ["/broker/api/", "券商 API 总览"],
@@ -335,7 +368,8 @@ const servicePages = [
       ["能做订单审计吗？", "可以，FIX 项目应重点保留原始消息、状态变化、拒单原因和人工操作记录。"],
       ["需要多久？", "取决于接入方测试环境、消息规范和验收流程，通常先做接口可行性评估。"],
       ["FIX 项目最容易卡在哪里？", "常见卡点是测试环境开通、证书/网络配置、消息字段差异、序号恢复和拒单原因处理。"],
-      ["是否承诺低延迟成交？", "不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。"]
+      ["是否承诺低延迟成交？", "不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。"],
+      ["FIX 日志需要保留什么？", "建议同时保留原始 FIX 消息、标准化订单状态、拒单原因、人工操作和系统告警，便于审计和排障。"]
     ],
     related: [
       ["/broker/api/", "券商 API 自动化"],
@@ -635,9 +669,9 @@ function serviceManifest() {
     generatedAt: today,
     generatedServiceRoutes: servicePages.map((page) => routeForSlug(page.slug)),
     coreServiceUrls: [
-      ...servicePages.slice(0, 2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug) })),
-      { label: "Broker API automation", url: `${site}/broker/api/` },
-      ...servicePages.slice(2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug) }))
+      ...servicePages.slice(0, 2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug), summary: page.description })),
+      { label: "Broker API automation", url: `${site}/broker/api/`, summary: "Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment." },
+      ...servicePages.slice(2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug), summary: page.description }))
     ]
   };
 }
@@ -856,6 +890,17 @@ function deliverableSamplesSection() {
 
 function evidenceTablesSection(page) {
   const budgetRows = offers.map((offer) => [offer.label, offer.description]);
+  const platformRows = platformDetailRows[page.slug];
+  const shouldShowBrokerComparison = page.slug.startsWith("broker-api/") || page.slug === "fix-api-order-routing";
+  const tables = [
+    platformRows ? comparisonTable("平台接入细节", "这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。", platformRows, ["主题", "项目要点", "验收关注"]) : null,
+    shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", brokerComparisonRows, ["接口", "适合场景", "接入重点", "常见限制"]) : null,
+    comparisonTable("联系前资料清单", "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", baseInputRows),
+    comparisonTable("API Key 最小权限建议", "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", permissionRows, ["权限", "建议", "原因"]),
+    comparisonTable("预算范围拆解", "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, ["预算档", "适合范围"]),
+    comparisonTable("上线验收清单", "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", acceptanceRows)
+  ].filter(Boolean).join("\n        ");
+
   return `<section class="section evidence-section" aria-labelledby="evidence-title">
       <div class="section-head">
         <p class="eyebrow">Checklists & Tables</p>
@@ -863,10 +908,7 @@ function evidenceTablesSection(page) {
         <p>正式项目会把这些表转成需求清单和验收清单，减少范围歧义。</p>
       </div>
       <div class="evidence-grid">
-        ${comparisonTable("联系前资料清单", "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", baseInputRows)}
-        ${comparisonTable("API Key 最小权限建议", "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", permissionRows, ["权限", "建议", "原因"])}
-        ${comparisonTable("预算范围拆解", "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, ["预算档", "适合范围"])}
-        ${comparisonTable("上线验收清单", "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", acceptanceRows)}
+        ${tables}
       </div>
     </section>`;
 }
@@ -1182,9 +1224,11 @@ writePublicFile(join(publicDir, "llms.txt"), `# SignalCraft Labs
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
+Last updated: ${today}
+
 ## Core services
 
-${serviceManifest().coreServiceUrls.map(({ label, url }) => `- ${label}: ${url}`).join("\n")}
+${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${label}: ${url} — ${summary}`).join("\n")}
 
 ## Facts for AI search and agents
 
@@ -1197,6 +1241,10 @@ ${serviceManifest().coreServiceUrls.map(({ label, url }) => `- ${label}: ${url}`
 - Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
 - We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
 - Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
+
+## Page summaries
+
+${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${url} — ${label}: ${summary}`).join("\n")}
 
 ## Useful URLs
 

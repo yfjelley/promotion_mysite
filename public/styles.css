@@ -1680,6 +1680,10 @@ h3 {
   grid-template-columns: minmax(105px, 0.58fr) minmax(92px, 0.42fr) minmax(0, 1.35fr);
 }
 
+.data-table.columns-4 .table-row {
+  grid-template-columns: minmax(96px, 0.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
 .answer-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2186,7 +2190,8 @@ h3 {
   }
 
   .data-table .table-row,
-  .data-table.columns-3 .table-row {
+  .data-table.columns-3 .table-row,
+  .data-table.columns-4 .table-row {
     grid-template-columns: 1fr;
   }
 

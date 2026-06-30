@@ -2,17 +2,19 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
+Last updated: 2026-06-30
+
 ## Core services
 
-- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/
-- Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/
-- Broker API automation: https://pddjf.com/broker/api/
-- IBKR API automation: https://pddjf.com/broker-api/ibkr/
-- Schwab API automation: https://pddjf.com/broker-api/schwab/
-- Alpaca API automation: https://pddjf.com/broker-api/alpaca/
-- FIX API order routing: https://pddjf.com/fix-api-order-routing/
-- Trading risk engine development: https://pddjf.com/risk-engine/
-- Private deployment: https://pddjf.com/private-deployment/
+- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
+- Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
+- Broker API automation: https://pddjf.com/broker/api/ — Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
+- IBKR API automation: https://pddjf.com/broker-api/ibkr/ — IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。
+- Schwab API automation: https://pddjf.com/broker-api/schwab/ — Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
+- Alpaca API automation: https://pddjf.com/broker-api/alpaca/ — Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
+- FIX API order routing: https://pddjf.com/fix-api-order-routing/ — FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
+- Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 
 ## Facts for AI search and agents
 
@@ -25,6 +27,18 @@ SignalCraft Labs is a remote software development studio for automated trading s
 - Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
 - We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
 - Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
+
+## Page summaries
+
+- https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook automation: TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
+- https://pddjf.com/exchange-api-trading-bot-development/ — Exchange API trading bot development: 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
+- https://pddjf.com/broker/api/ — Broker API automation: Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
+- https://pddjf.com/broker-api/ibkr/ — IBKR API automation: IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。
+- https://pddjf.com/broker-api/schwab/ — Schwab API automation: Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
+- https://pddjf.com/broker-api/alpaca/ — Alpaca API automation: Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
+- https://pddjf.com/fix-api-order-routing/ — FIX API order routing: FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
+- https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 
 ## Useful URLs
 

@@ -173,6 +173,14 @@
             "@type": "Answer",
             "text": "不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "FIX 日志需要保留什么？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "建议同时保留原始 FIX 消息、标准化订单状态、拒单原因、人工操作和系统告警，便于审计和排障。"
+          }
         }
       ]
     }
@@ -309,6 +317,22 @@
       </div>
       <div class="evidence-grid">
         <article class="evidence-table">
+          <h3>平台接入细节</h3>
+          <p>这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。</p>
+          <div class="data-table columns-3" role="table" aria-label="平台接入细节">
+            <div class="table-row table-head" role="row"><span role="columnheader">主题</span><span role="columnheader">项目要点</span><span role="columnheader">验收关注</span></div>
+            <div class="table-row" role="row"><span role="cell">会话管理</span><span role="cell">确认 FIX 版本、SenderCompID/TargetCompID、心跳、序号、重置规则和断线恢复。</span><span role="cell">UAT 中验证登录、心跳、重连、序号恢复和登出流程。</span></div><div class="table-row" role="row"><span role="cell">消息字段</span><span role="cell">映射 NewOrderSingle、Cancel、ExecutionReport、Reject 等核心消息和接入方自定义字段。</span><span role="cell">保留原始 FIX 消息、标准化状态和字段级错误。</span></div><div class="table-row" role="row"><span role="cell">上线约束</span><span role="cell">提前确认测试环境、证书、网络、白名单、审批周期和接入方验收脚本。</span><span role="cell">上线前完成灰度、回滚、监控和人工暂停开关。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>IBKR / Schwab / Alpaca / FIX API 对比</h3>
+          <p>用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。</p>
+          <div class="data-table columns-4" role="table" aria-label="IBKR / Schwab / Alpaca / FIX API 对比">
+            <div class="table-row table-head" role="row"><span role="columnheader">接口</span><span role="columnheader">适合场景</span><span role="columnheader">接入重点</span><span role="columnheader">常见限制</span></div>
+            <div class="table-row" role="row"><span role="cell">IBKR / TWS Gateway</span><span role="cell">多资产账户、组合执行、持仓同步和审计日志。</span><span role="cell">TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。</span><span role="cell">连接稳定性、数据权限、地区限制和账户风控以客户账户为准。</span></div><div class="table-row" role="row"><span role="cell">Schwab API</span><span role="cell">美股账户授权、组合数据、订单监控和规则执行。</span><span role="cell">OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。</span><span role="cell">API 权限、审核流程、地区可用性和平台政策可能变化。</span></div><div class="table-row" role="row"><span role="cell">Alpaca API</span><span role="cell">REST/WebSocket 执行、paper trading 验证和研究信号落地。</span><span role="cell">API Key 权限、paper/live 环境切换、订单状态流和市场数据权限。</span><span role="cell">资产类别、行情延迟、交易时段和订单能力以账户权限为准。</span></div><div class="table-row" role="row"><span role="cell">FIX API</span><span role="cell">专业订单路由、执行回报、UAT 测试和原始消息审计。</span><span role="cell">FIX 版本、会话心跳、序号恢复、证书网络和消息字段映射。</span><span role="cell">通常依赖接入方测试环境、证书、专线或审批流程。</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
           <h3>联系前资料清单</h3>
           <p>没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。</p>
           <div class="data-table columns-2" role="table" aria-label="联系前资料清单">
@@ -348,7 +372,7 @@
         <p class="eyebrow">FAQ</p>
         <h2>常见问题</h2>
       </div>
-      <div class="faq-list"><article><h3>FIX API 适合个人客户吗？</h3><p>通常更适合已有专业接口条件的团队或机构，个人客户多数先评估 REST/WebSocket 或券商 API。</p></article><article><h3>能做订单审计吗？</h3><p>可以，FIX 项目应重点保留原始消息、状态变化、拒单原因和人工操作记录。</p></article><article><h3>需要多久？</h3><p>取决于接入方测试环境、消息规范和验收流程，通常先做接口可行性评估。</p></article><article><h3>FIX 项目最容易卡在哪里？</h3><p>常见卡点是测试环境开通、证书/网络配置、消息字段差异、序号恢复和拒单原因处理。</p></article><article><h3>是否承诺低延迟成交？</h3><p>不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。</p></article></div>
+      <div class="faq-list"><article><h3>FIX API 适合个人客户吗？</h3><p>通常更适合已有专业接口条件的团队或机构，个人客户多数先评估 REST/WebSocket 或券商 API。</p></article><article><h3>能做订单审计吗？</h3><p>可以，FIX 项目应重点保留原始消息、状态变化、拒单原因和人工操作记录。</p></article><article><h3>需要多久？</h3><p>取决于接入方测试环境、消息规范和验收流程，通常先做接口可行性评估。</p></article><article><h3>FIX 项目最容易卡在哪里？</h3><p>常见卡点是测试环境开通、证书/网络配置、消息字段差异、序号恢复和拒单原因处理。</p></article><article><h3>是否承诺低延迟成交？</h3><p>不承诺。延迟和成交质量受网络、机房、券商路由、市场流动性和接口限制影响。</p></article><article><h3>FIX 日志需要保留什么？</h3><p>建议同时保留原始 FIX 消息、标准化订单状态、拒单原因、人工操作和系统告警，便于审计和排障。</p></article></div>
     </section>
 
     <section class="section related-section">
