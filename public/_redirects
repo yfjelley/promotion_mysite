@@ -8,7 +8,13 @@
 /risk-disclaimer.html /risk-disclaimer/ 301
 /investment-risk-disclaimer /risk-disclaimer/ 301
 /home / 301
+/tradingview/webhook /tradingview-webhook-automation/ 301
+/bot/api /tradingview-webhook-automation/ 301
+/exchange/api /exchange-api-trading-bot-development/ 301
+/trading/bot /exchange-api-trading-bot-development/ 301
+/api/execution /exchange-api-trading-bot-development/ 301
 /broker-api /broker/api/ 301
+/broker/api /broker/api/ 301
 /tradingview-webhook-automation /tradingview-webhook-automation/ 301
 /exchange-api-trading-bot-development /exchange-api-trading-bot-development/ 301
 /broker-api/ibkr /broker-api/ibkr/ 301
