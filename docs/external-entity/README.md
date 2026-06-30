@@ -13,7 +13,7 @@ and future directory listings.
 - WeChat: btc1688
 - Telegram: @yf16881
 - Primary language: Chinese, with selected English service terms for API search
-- Service regions: China, Hong Kong, Singapore, Taiwan, United States, and other
+- Service regions: Hong Kong, Singapore, Taiwan, United States, and other
   remote-friendly regions
 - Business type: remote software development studio
 - Core offer: automated trading system and trading API workflow development
@@ -51,4 +51,3 @@ the website source changes first:
 - `technical software development only`
 - `no investment advice, no signals, no managed accounts, no custody, no
   withdrawal permissions, and no profit promises`
-

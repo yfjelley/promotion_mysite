@@ -661,7 +661,7 @@ const aboutPage = {
     ["验收方式", "按功能清单、接口路径、测试环境、日志、告警、文档和灰度流程验收，不按交易收益验收。"],
     ["公开工程资料", "GitHub 上提供脱敏 Webhook 去重/风控 dry-run demo、平台接入笔记、API 权限安全建议和验收清单。"],
     ["站外实体信号", "GitHub、LinkedIn、官网和公开工程资料使用一致的 SignalCraft Labs 品牌、服务边界和联系方式。"],
-    ["服务地区", "中国、香港、新加坡、台湾、美国及其他可远程协作地区。"],
+    ["服务地区", "香港、新加坡、台湾、美国及其他可远程协作地区。"],
     ["服务边界", "不代管资金，不提供投资建议，不承诺交易收益，不声称第三方平台官方合作。"]
   ]
 };
@@ -684,7 +684,7 @@ const contactPage = {
   facts: [
     ["回复时间", "资料完整时通常 1 个工作日内回复初步可行性判断。"],
     ["合作前置条件", "客户需提供平台、权限、规则、风控边界和预算范围；没有权限时只能做方案评估。"],
-    ["服务地区", "中国、香港、新加坡、台湾、美国及其他可远程协作地区。"],
+    ["服务地区", "香港、新加坡、台湾、美国及其他可远程协作地区。"],
     ["不需要提供", "不需要提现权限、资金托管权限、账户主密码或无关个人资料。"]
   ]
 };
@@ -901,7 +901,7 @@ function serviceSchema(page) {
         "description": page.description,
         "serviceType": page.serviceType,
         "provider": { "@id": `${site}/#organization` },
-        "areaServed": ["中国", "香港", "新加坡", "台湾", "美国", "全球远程"],
+        "areaServed": ["香港", "新加坡", "台湾", "美国", "全球远程"],
         "offers": {
           "@type": "OfferCatalog",
           "name": "自动交易系统开发预算区间",
@@ -1474,7 +1474,7 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${label}
 - GitHub profile: ${githubProfileUrl}
 - Public engineering notes: ${engineeringNotesUrl}
 - LinkedIn profile: ${linkedinProfileUrl}
-- Service regions: China, Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
+- Service regions: Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
 - Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
 - Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
 - Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.

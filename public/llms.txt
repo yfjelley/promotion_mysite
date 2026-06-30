@@ -24,7 +24,7 @@ Last updated: 2026-06-30
 - GitHub profile: https://github.com/yfjelley
 - Public engineering notes: https://github.com/yfjelley/signalcraft-labs-engineering-notes
 - LinkedIn profile: https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/
-- Service regions: China, Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
+- Service regions: Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
 - Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
 - Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
 - Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
