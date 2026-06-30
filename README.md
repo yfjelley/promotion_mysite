@@ -1,5 +1,14 @@
 # SignalCraft Labs landing page
 
+Public website and entity reference assets for SignalCraft Labs:
+
+- Brand: SignalCraft Labs
+- Website: https://pddjf.com/
+- Contact: contact@pddjf.com
+- Service boundary: technical software development only; no investment advice,
+  no signals, no managed accounts, no custody, no withdrawal permissions, and no
+  profit promises.
+
 Static Google Ads landing page for Cloudflare Pages. No VPS is required for the
 current site because the production artifact is static HTML, CSS, and JS.
 
@@ -32,6 +41,9 @@ AI-search support:
 
 - `/llms.txt` summarizes the brand, service URLs, exclusions, pricing ranges, and contact paths for AI search/agent readers.
 - `robots.txt` keeps site-specific allow rules for search-answer/user-triggered AI crawlers.
+- `docs/external-entity/` contains the canonical external profile, GitHub
+  profile copy, LinkedIn copy, and technical blog draft used to keep public
+  entity references consistent across platforms.
 
 Production robots policy assumes Cloudflare Managed Robots.txt remains enabled.
 Cloudflare prepends the general search/training policy in production, while

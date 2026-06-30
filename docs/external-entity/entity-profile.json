@@ -1,0 +1,77 @@
+{
+  "brand": "SignalCraft Labs",
+  "website": "https://pddjf.com/",
+  "contactEmail": "contact@pddjf.com",
+  "wechat": "btc1688",
+  "telegram": "@yf16881",
+  "entityType": "remote software development studio",
+  "primaryOffer": "Automated trading system and trading API workflow development",
+  "serviceRegions": [
+    "China",
+    "Hong Kong",
+    "Singapore",
+    "Taiwan",
+    "United States",
+    "remote-friendly regions"
+  ],
+  "coreServices": [
+    {
+      "label": "TradingView Webhook automation",
+      "url": "https://pddjf.com/tradingview-webhook-automation/"
+    },
+    {
+      "label": "Exchange API trading system development",
+      "url": "https://pddjf.com/exchange-api-trading-bot-development/"
+    },
+    {
+      "label": "Broker API automation",
+      "url": "https://pddjf.com/broker/api/"
+    },
+    {
+      "label": "IBKR API automation",
+      "url": "https://pddjf.com/broker-api/ibkr/"
+    },
+    {
+      "label": "Schwab API automation",
+      "url": "https://pddjf.com/broker-api/schwab/"
+    },
+    {
+      "label": "Alpaca API automation",
+      "url": "https://pddjf.com/broker-api/alpaca/"
+    },
+    {
+      "label": "FIX API order routing",
+      "url": "https://pddjf.com/fix-api-order-routing/"
+    },
+    {
+      "label": "Trading risk engine development",
+      "url": "https://pddjf.com/risk-engine/"
+    },
+    {
+      "label": "Private deployment",
+      "url": "https://pddjf.com/private-deployment/"
+    }
+  ],
+  "serviceBoundary": {
+    "provides": [
+      "technical software development",
+      "source code delivery",
+      "configuration examples",
+      "deployment documentation",
+      "logging and alerts",
+      "risk checks",
+      "remote handoff"
+    ],
+    "doesNotProvide": [
+      "investment advice",
+      "stock recommendations",
+      "trading signals",
+      "managed accounts",
+      "custody",
+      "withdrawal permissions",
+      "profit promises"
+    ],
+    "thirdPartyPlatformNotice": "Third-party platform names are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing."
+  },
+  "lastUpdated": "2026-06-30"
+}
