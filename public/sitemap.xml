@@ -73,6 +73,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/articles/</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/tradingview-webhook-duplicate-orders/</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/about/</loc>
     <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>

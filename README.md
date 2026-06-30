@@ -25,6 +25,7 @@ SEO and GEO content pages:
 - `/fix-api-order-routing/` for FIX API execution workflows.
 - `/risk-engine/` for pre-trade risk controls.
 - `/private-deployment/` for private deployment, source delivery, and operational handoff.
+- `/articles/` and `/articles/.../` for problem-focused technical articles and official/API reference links.
 - `/faq/` for answer-style FAQ content.
 - `/case-studies/` for anonymous engineering case studies.
 - `/about/` and `/contact/` for entity trust and independent contact pages.
@@ -41,6 +42,7 @@ AI-search support:
 
 - `/llms.txt` summarizes the brand, service URLs, exclusions, pricing ranges, and contact paths for AI search/agent readers.
 - `robots.txt` keeps site-specific allow rules for search-answer/user-triggered AI crawlers.
+- External trust links are kept consistent across `llms.txt`, JSON-LD `sameAs`, `/about/`, service pages, and the public GitHub engineering notes repo at `https://github.com/yfjelley/signalcraft-labs-engineering-notes`.
 - `docs/external-entity/` contains the canonical external profile, GitHub
   profile copy, LinkedIn copy, and technical blog draft used to keep public
   entity references consistent across platforms.

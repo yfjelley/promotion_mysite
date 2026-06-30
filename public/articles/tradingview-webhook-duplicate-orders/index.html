@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TradingView Webhook 如何防重复下单 | 去重、冷却、风控和日志</title>
+  <meta name="description" content="TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-duplicate-orders/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="TradingView Webhook 如何防重复下单">
+  <meta property="og:description" content="TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-duplicate-orders/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/#webpage",
+      "url": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/",
+      "name": "TradingView Webhook 如何防重复下单",
+      "description": "TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "TradingView Webhook 防重复下单",
+          "item": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/#article",
+      "headline": "TradingView Webhook 如何防重复下单",
+      "description": "TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。",
+      "url": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-06-30",
+      "dateModified": "2026-06-30",
+      "inLanguage": "zh-CN",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/tradingview-webhook-automation/">TradingView</a>
+      <a href="/broker/api/">券商 API</a>
+      <a aria-current="page" href="/articles/">技术资料</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+    </nav>
+  </header>
+  <main>
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>TradingView Webhook 防重复下单</span>
+    </nav>
+      <p class="eyebrow">TradingView Webhook</p>
+      <h1>TradingView Webhook 如何防重复下单</h1>
+      <p class="hero-lede">TradingView Alert 负责把信号发出来，但自动交易系统必须自己处理重复信号、延迟、重试、风控和日志。防重复下单不是一个按钮，而是一组工程约束。</p>
+      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。</p>
+      <section>
+        <h2>先让 Alert payload 可识别</h2>
+        <p>Alert 文案至少应包含策略名、品种、方向、动作、数量、bar 时间或信号时间、以及 shared secret。系统用这些字段生成稳定 event_id，避免同一根 K 线或同一交易动作被重复执行。</p>
+        <ul class="check-list"><li>不要只传 buy/sell 一个词。</li><li>不要把交易数量写死在服务端且没有版本记录。</li><li>secret 只用于请求校验，不应放在前端页面或公开仓库。</li></ul>
+      </section><section>
+        <h2>用 event_id 和冷却窗口做幂等</h2>
+        <p>Webhook 接收后先检查 event_id 是否已处理，再检查同一品种、同一方向、同一策略的冷却窗口。只有通过幂等检查和风控检查后，才进入订单准备或订单路由。</p>
+        <ul class="check-list"><li>event_id 可由 strategy、symbol、action、bar_time 拼接。</li><li>冷却窗口应按策略和品种分组，而不是全局一刀切。</li><li>重复信号应该写入日志，不能静默丢弃。</li></ul>
+      </section><section>
+        <h2>把风控拒绝当成正常结果记录</h2>
+        <p>最大仓位、最大数量、价格偏离、只减仓、暂停开关和交易时段都可能拒绝信号。拒绝不是系统失败，而是可审计的风控结果。</p>
+        <ul class="check-list"><li>日志里保留 risk_decision 和 risk_reason。</li><li>告警区分重复、权限错误、风控拒绝和第三方接口错误。</li><li>上线前用样本信号回放，逐项验证通过和拒绝路径。</li></ul>
+      </section>
+      <section>
+        <h2>上线前检查</h2>
+        <ul class="check-list"><li>重复同一个 payload 时只准备一次订单。</li><li>secret 错误时拒绝并告警。</li><li>超出最大数量或仓位时拒绝并记录原因。</li><li>交易接口不可用时进入暂停或人工处理流程。</li><li>客户能看到事件日志、拒单原因和重启方式。</li></ul>
+      </section>
+      <section>
+        <h2>参考资料</h2>
+        <div class="reference-list">
+      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs 公开脱敏 demo，展示去重、权限校验和风控拒绝日志。</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>相关技术文章</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">TradingView Webhook</p>
+        <h3>TradingView Webhook 如何防重复下单</h3>
+        <p>TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。</p>
+        <a href="/articles/tradingview-webhook-duplicate-orders/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS Gateway 和 Client Portal 怎么选</h3>
+        <p>IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal/">阅读文章</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">复制微信 btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>评估资料</strong>
+        <ul>
+          <li>信号和交易规则</li>
+          <li>API 平台和权限状态</li>
+          <li>风控、告警和部署要求</li>
+          <li>预算档位：2000 / 5000 / 10000 美金</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

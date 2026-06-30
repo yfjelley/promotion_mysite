@@ -4,6 +4,8 @@ import { join, relative, sep } from "node:path";
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const site = "https://pddjf.com";
+const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
+const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const errors = [];
 
 function walk(dir) {
@@ -49,6 +51,8 @@ function readServiceManifest() {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
     const generatedServiceRoutes = Array.isArray(manifest.generatedServiceRoutes) ? manifest.generatedServiceRoutes : [];
     const coreServiceUrls = Array.isArray(manifest.coreServiceUrls) ? manifest.coreServiceUrls : [];
+    const externalTrustLinks = Array.isArray(manifest.externalTrustLinks) ? manifest.externalTrustLinks : [];
+    const articleUrls = Array.isArray(manifest.articleUrls) ? manifest.articleUrls : [];
 
     if (generatedServiceRoutes.length === 0) errors.push("service-pages.json: missing generatedServiceRoutes");
     if (coreServiceUrls.length === 0) errors.push("service-pages.json: missing coreServiceUrls");
@@ -59,7 +63,7 @@ function readServiceManifest() {
       }
     }
 
-    return { generatedServiceRoutes, coreServiceUrls };
+    return { generatedServiceRoutes, coreServiceUrls, externalTrustLinks, articleUrls };
   } catch (error) {
     errors.push(`service-pages.json: invalid JSON: ${error.message}`);
     return { generatedServiceRoutes: [], coreServiceUrls: [] };
@@ -69,6 +73,8 @@ function readServiceManifest() {
 const htmlFiles = walk(publicDir).filter((file) => file.endsWith(".html"));
 const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
+const externalTrustLinks = Array.isArray(serviceManifest.externalTrustLinks) ? serviceManifest.externalTrustLinks : [];
+const articleUrls = Array.isArray(serviceManifest.articleUrls) ? serviceManifest.articleUrls : [];
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, "utf8");
@@ -157,6 +163,10 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "IBKR API automation",
   "AI-citable factual summary",
   "Page summaries",
+  "External trust links",
+  "Technical articles",
+  engineeringNotesUrl,
+  linkedinProfileUrl,
   "2000 美金",
   "5000 美金",
   "10000 美金",
@@ -177,6 +187,46 @@ for (const entry of serviceManifest.coreServiceUrls) {
   }
   if (typeof url === "string") requireText("llms.txt", llms, url);
   if (typeof summary === "string" && summary.trim() !== "") requireText("llms.txt", llms, summary);
+}
+
+if (externalTrustLinks.length < 3) errors.push("service-pages.json: expected at least 3 external trust links");
+if (articleUrls.length < 2) errors.push("service-pages.json: expected at least 2 article URLs");
+
+for (const entry of externalTrustLinks) {
+  if (!entry || typeof entry !== "object") {
+    errors.push("service-pages.json: invalid externalTrustLinks entry");
+    continue;
+  }
+
+  const { label, url, summary } = entry;
+  if (typeof label !== "string" || label.trim() === "") errors.push("service-pages.json: external trust link missing label");
+  if (typeof url !== "string" || !/^https:\/\/(github\.com|www\.linkedin\.com)\//.test(url)) {
+    errors.push(`service-pages.json: invalid external trust URL ${String(url)}`);
+  }
+  if (typeof summary !== "string" || summary.trim().length < 24) {
+    errors.push(`service-pages.json: external trust link missing useful summary for ${String(label || url)}`);
+  }
+  if (typeof url === "string") requireText("llms.txt", llms, url);
+}
+
+for (const entry of articleUrls) {
+  if (!entry || typeof entry !== "object") {
+    errors.push("service-pages.json: invalid articleUrls entry");
+    continue;
+  }
+
+  const { label, url, summary } = entry;
+  if (typeof label !== "string" || label.trim() === "") errors.push("service-pages.json: article URL missing label");
+  if (typeof url !== "string" || !url.startsWith(`${site}/articles/`)) {
+    errors.push(`service-pages.json: invalid article URL ${String(url)}`);
+  }
+  if (typeof summary !== "string" || summary.trim().length < 24) {
+    errors.push(`service-pages.json: article URL missing useful summary for ${String(label || url)}`);
+  }
+  if (typeof url === "string") {
+    requireText("llms.txt", llms, url);
+    requireText("sitemap.xml", sitemap, url);
+  }
 }
 
 const riskyTerms = [

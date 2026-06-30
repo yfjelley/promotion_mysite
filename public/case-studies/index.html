@@ -28,7 +28,10 @@
       "logo": "https://pddjf.com/favicon.svg",
       "email": "contact@pddjf.com",
       "sameAs": [
-        "https://t.me/yf16881"
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -122,6 +125,7 @@
     <nav class="nav" aria-label="主导航">
       <a href="/tradingview-webhook-automation/">TradingView</a>
       <a href="/broker/api/">券商 API</a>
+      <a href="/articles/">技术资料</a>
       <a href="/faq/">FAQ</a>
       <a aria-current="page" href="/case-studies/">案例</a>
       <a href="/about/">关于</a>
@@ -141,7 +145,15 @@
       <p class="hero-lede">以下是匿名化的工程交付场景，只说明问题、系统方案和可验证交付物，不公开客户身份，不展示收益曲线，也不构成投资建议。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
-    <section class="section content-band"><div class="case-study-grid expanded-cases"><article><span>01</span><h3>TradingView 信号去重与订单路由</h3><strong>项目背景</strong><p>客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。</p><strong>约束</strong><p>不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。</p><strong>架构</strong><p>TradingView Alert -&gt; Webhook 接收 -&gt; 签名校验 -&gt; 去重/冷却 -&gt; 风控 -&gt; 订单路由 -&gt; 告警和日志。</p><strong>交付物</strong><p>Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。</p><strong>边界</strong><p>不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。</p></article><article><span>02</span><h3>券商 API 组合再平衡工作流</h3><strong>项目背景</strong><p>客户需要按目标权重生成订单计划，并保留人工确认点。</p><strong>约束</strong><p>账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。</p><strong>架构</strong><p>持仓同步 -&gt; 目标权重计算 -&gt; 订单计划 -&gt; 人工确认 -&gt; 券商 API -&gt; 执行回报 -&gt; 审计日志。</p><strong>交付物</strong><p>组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。</p><strong>边界</strong><p>客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。</p></article><article><span>03</span><h3>多接口私有化部署与告警</h3><strong>项目背景</strong><p>客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。</p><strong>约束</strong><p>客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。</p><strong>架构</strong><p>VPS/Docker -&gt; 环境变量 -&gt; 执行服务 -&gt; 日志轮转 -&gt; 告警渠道 -&gt; 备份和恢复说明。</p><strong>交付物</strong><p>源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。</p><strong>边界</strong><p>交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。</p></article></div><section class="section deliverable-samples" aria-labelledby="deliverable-samples-title">
+    <section class="section content-band"><div class="case-study-grid expanded-cases"><article><span>01</span><h3>TradingView 信号去重与订单路由</h3><strong>项目背景</strong><p>客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。</p><strong>约束</strong><p>不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。</p><strong>架构</strong><p>TradingView Alert -&gt; Webhook 接收 -&gt; 签名校验 -&gt; 去重/冷却 -&gt; 风控 -&gt; 订单路由 -&gt; 告警和日志。</p><strong>交付物</strong><p>Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。</p><strong>边界</strong><p>不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。</p></article><article><span>02</span><h3>券商 API 组合再平衡工作流</h3><strong>项目背景</strong><p>客户需要按目标权重生成订单计划，并保留人工确认点。</p><strong>约束</strong><p>账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。</p><strong>架构</strong><p>持仓同步 -&gt; 目标权重计算 -&gt; 订单计划 -&gt; 人工确认 -&gt; 券商 API -&gt; 执行回报 -&gt; 审计日志。</p><strong>交付物</strong><p>组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。</p><strong>边界</strong><p>客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。</p></article><article><span>03</span><h3>多接口私有化部署与告警</h3><strong>项目背景</strong><p>客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。</p><strong>约束</strong><p>客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。</p><strong>架构</strong><p>VPS/Docker -&gt; 环境变量 -&gt; 执行服务 -&gt; 日志轮转 -&gt; 告警渠道 -&gt; 备份和恢复说明。</p><strong>交付物</strong><p>源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。</p><strong>边界</strong><p>交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。</p></article></div>
+    <section class="embedded-section">
+      <h2>公开脱敏资料</h2>
+      <p>案例只描述工程约束和交付方式；公开 GitHub 资料提供脱敏 demo、权限建议和验收清单，便于独立检查交付口径。</p>
+      <div class="reference-list">
+      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Engineering notes</strong><span>脱敏工程资料仓库，包含 Webhook 去重/风控 dry-run demo、权限安全建议、平台接入笔记和验收清单。</span></a>
+    </div>
+    </section>
+    <section class="section deliverable-samples" aria-labelledby="deliverable-samples-title">
       <div class="section-head centered">
         <p class="eyebrow">Delivery Samples</p>
         <h2 id="deliverable-samples-title">匿名交付物样例</h2>
@@ -215,6 +227,7 @@
       <a href="/fix-api-order-routing/">FIX API</a>
       <a href="/risk-engine/">风控引擎</a>
       <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
       <a href="/faq/">FAQ</a>
       <a href="/case-studies/">案例</a>
       <a href="/about/">关于</a>

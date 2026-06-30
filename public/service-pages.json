@@ -57,5 +57,34 @@
       "url": "https://pddjf.com/private-deployment/",
       "summary": "自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。"
     }
+  ],
+  "externalTrustLinks": [
+    {
+      "label": "GitHub profile",
+      "url": "https://github.com/yfjelley",
+      "summary": "公开 GitHub 资料，用于连接站点品牌、工程资料和源码交付能力。"
+    },
+    {
+      "label": "Engineering notes",
+      "url": "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+      "summary": "脱敏工程资料仓库，包含 Webhook 去重/风控 dry-run demo、权限安全建议、平台接入笔记和验收清单。"
+    },
+    {
+      "label": "LinkedIn profile",
+      "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+      "summary": "LinkedIn 公开资料，用于保持站外实体信息、服务边界和联系方式一致。"
+    }
+  ],
+  "articleUrls": [
+    {
+      "label": "TradingView Webhook 如何防重复下单",
+      "url": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/",
+      "summary": "TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。"
+    },
+    {
+      "label": "IBKR TWS Gateway 和 Client Portal 怎么选",
+      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
+      "summary": "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。"
+    }
   ]
 }
