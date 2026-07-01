@@ -97,11 +97,14 @@ function icojfAssetPath(pathname) {
 async function fetchAsset(env, request, pathname, statusOverride) {
   const assetUrl = new URL(request.url);
   assetUrl.pathname = pathname;
+  assetUrl.search = "";
   let assetResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
 
   const assetRedirect = assetResponse.headers.get("Location");
   if ([301, 302, 307, 308].includes(assetResponse.status) && assetRedirect?.startsWith("/")) {
-    assetUrl.pathname = assetRedirect;
+    const redirectUrl = new URL(assetRedirect, assetUrl);
+    assetUrl.pathname = redirectUrl.pathname;
+    assetUrl.search = "";
     assetResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
   }
 
