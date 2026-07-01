@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How We Prevent Duplicate TradingView Webhook Orders | Event IDs, Cooldowns and Risk Logs</title>
-  <meta name="description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <title>IBKR API Strategy Execution | Orders, Positions, Risk Checks and Logs</title>
+  <meta name="description" content="How to evaluate IBKR API strategy execution projects, including account permissions, order types, positions, rejects, risk checks, logs and staged rollout.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <link rel="canonical" href="https://pddjf.com/articles/ibkr-api-strategy-execution/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="How We Prevent Duplicate TradingView Webhook Orders">
-  <meta property="og:description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <meta property="og:title" content="IBKR API Strategy Execution">
+  <meta property="og:description" content="How to evaluate IBKR API strategy execution projects, including account permissions, order types, positions, rejects, risk checks, logs and staged rollout.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <meta property="og:url" content="https://pddjf.com/articles/ibkr-api-strategy-execution/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#webpage",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
-      "name": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+      "@id": "https://pddjf.com/articles/ibkr-api-strategy-execution/#webpage",
+      "url": "https://pddjf.com/articles/ibkr-api-strategy-execution/",
+      "name": "IBKR API Strategy Execution",
+      "description": "How to evaluate IBKR API strategy execution projects, including account permissions, order types, positions, rejects, risk checks, logs and staged rollout.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#breadcrumb",
+      "@id": "https://pddjf.com/articles/ibkr-api-strategy-execution/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Prevent Duplicate TradingView Webhook Orders",
-          "item": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/"
+          "name": "IBKR API Strategy Execution",
+          "item": "https://pddjf.com/articles/ibkr-api-strategy-execution/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#article",
-      "headline": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "@id": "https://pddjf.com/articles/ibkr-api-strategy-execution/#article",
+      "headline": "IBKR API Strategy Execution",
+      "description": "How to evaluate IBKR API strategy execution projects, including account permissions, order types, positions, rejects, risk checks, logs and staged rollout.",
+      "url": "https://pddjf.com/articles/ibkr-api-strategy-execution/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -133,36 +133,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Prevent Duplicate TradingView Webhook Orders</span>
+      <span>IBKR API Strategy Execution</span>
     </nav>
-      <p class="eyebrow">Webhook Case Note</p>
-      <h1>How We Prevent Duplicate TradingView Webhook Orders</h1>
-      <p class="hero-lede">Duplicate TradingView webhook orders are usually not solved by one setting. A production-ready workflow needs stable event IDs, cooldown windows, risk decisions, logging and a replayable acceptance test.</p>
+      <p class="eyebrow">IBKR API</p>
+      <h1>IBKR API Strategy Execution</h1>
+      <p class="hero-lede">IBKR API strategy execution is not only about sending orders. A reliable workflow has to verify account permissions, instruments, order types, market data, position state, rejects, risk checks and operational logs.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+      <p class="article-summary">IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.</p>
       <section>
-        <h2>Start with a payload that can identify one event</h2>
-        <p>The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.</p>
-        <ul class="check-list"><li>Do not rely on a plain buy or sell string.</li><li>Include enough fields to distinguish strategy, symbol, direction and time.</li><li>Keep the shared secret out of public pages and repositories.</li></ul>
+        <h2>Start with account and permission reality</h2>
+        <p>The first question is not which strategy is best. The first question is whether the customer's IBKR account, region, instruments, market data and API permissions support the intended workflow.</p>
+        <ul class="check-list"><li>Confirm account type, region and API access.</li><li>List target instruments, order types and trading hours.</li><li>Separate read-only evaluation from live order permission.</li></ul>
       </section><section>
-        <h2>Apply idempotency before order routing</h2>
-        <p>The receiver should check whether the event ID has already been processed before any order is prepared. A second layer checks the same strategy, symbol and action inside a cooldown window so repeated alerts do not become repeated orders.</p>
-        <ul class="check-list"><li>Store every accepted, duplicated and rejected event.</li><li>Group cooldowns by strategy and symbol, not only globally.</li><li>Log duplicate events as a normal audit result instead of silently dropping them.</li></ul>
+        <h2>Make positions and order state first-class data</h2>
+        <p>An execution system should know current positions, open orders, submitted orders, rejected orders and completed fills. Strategy signals should be checked against this state before routing another request.</p>
+        <ul class="check-list"><li>Sync positions before accepting new order intent.</li><li>Track cancel flow, rejects and partial fills.</li><li>Do not assume a local submitted status means an order is live or filled.</li></ul>
       </section><section>
-        <h2>Treat risk rejects as successful controls</h2>
-        <p>Max position, max order size, price protection, trading hours, manual pause and reduce-only rules can all reject a valid-looking webhook. That reject should be visible to the client with a risk reason and alert status.</p>
-        <ul class="check-list"><li>Keep risk_decision and risk_reason in the event log.</li><li>Separate duplicate_signal, risk_rejected, api_error and manual_pause alerts.</li><li>Replay sample payloads before connecting real order permissions.</li></ul>
+        <h2>Stage execution with operational controls</h2>
+        <p>A practical IBKR rollout starts with dry-run or limited scope, then verifies reconnects, session health, rejects, cancel flow, position sync, risk limits and manual pause before increasing automation authority.</p>
+        <ul class="check-list"><li>Keep a manual pause switch above strategy logic.</li><li>Log signal, order request, API response and final status.</li><li>Document restart, rollback and key rotation steps.</li></ul>
       </section>
       <section>
-        <h2>Duplicate-order acceptance checks</h2>
-        <ul class="check-list"><li>Sending the same payload twice produces only one order intent.</li><li>A wrong shared secret is rejected and logged.</li><li>A max-position breach is rejected with a visible risk reason.</li><li>Manual pause blocks new order routing before the API call.</li><li>The client can review event ID, duplicate status, risk decision and alert delivery.</li></ul>
+        <h2>IBKR strategy execution readiness checklist</h2>
+        <ul class="check-list"><li>Account region, account type, API access and market data requirements are known.</li><li>Target instruments, order types and trading hours have been reviewed.</li><li>Position sync and open-order sync run before live routing.</li><li>Rejects, cancels, partial fills, reconnects and session expiry are tested.</li><li>Manual pause, risk limits, audit logs and handoff documentation are included.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a>
+      <a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>IBKR platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a>
     </div>
       </section>
       <section>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How We Prevent Duplicate TradingView Webhook Orders | Event IDs, Cooldowns and Risk Logs</title>
-  <meta name="description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
+  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="How We Prevent Duplicate TradingView Webhook Orders">
-  <meta property="og:description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
+  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#webpage",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
-      "name": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
+      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "name": "Automated Trading Strategy Risk Checklist",
+      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#breadcrumb",
+      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Prevent Duplicate TradingView Webhook Orders",
-          "item": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/"
+          "name": "Automated Strategy Risk Checklist",
+          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#article",
-      "headline": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
+      "headline": "Automated Trading Strategy Risk Checklist",
+      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -133,36 +133,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Prevent Duplicate TradingView Webhook Orders</span>
+      <span>Automated Strategy Risk Checklist</span>
     </nav>
-      <p class="eyebrow">Webhook Case Note</p>
-      <h1>How We Prevent Duplicate TradingView Webhook Orders</h1>
-      <p class="hero-lede">Duplicate TradingView webhook orders are usually not solved by one setting. A production-ready workflow needs stable event IDs, cooldown windows, risk decisions, logging and a replayable acceptance test.</p>
+      <p class="eyebrow">Risk Controls</p>
+      <h1>Automated Trading Strategy Risk Checklist</h1>
+      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
       <section>
-        <h2>Start with a payload that can identify one event</h2>
-        <p>The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.</p>
-        <ul class="check-list"><li>Do not rely on a plain buy or sell string.</li><li>Include enough fields to distinguish strategy, symbol, direction and time.</li><li>Keep the shared secret out of public pages and repositories.</li></ul>
+        <h2>Set hard limits before strategy logic</h2>
+        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
+        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
       </section><section>
-        <h2>Apply idempotency before order routing</h2>
-        <p>The receiver should check whether the event ID has already been processed before any order is prepared. A second layer checks the same strategy, symbol and action inside a cooldown window so repeated alerts do not become repeated orders.</p>
-        <ul class="check-list"><li>Store every accepted, duplicated and rejected event.</li><li>Group cooldowns by strategy and symbol, not only globally.</li><li>Log duplicate events as a normal audit result instead of silently dropping them.</li></ul>
+        <h2>Turn failure modes into tests</h2>
+        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
+        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
       </section><section>
-        <h2>Treat risk rejects as successful controls</h2>
-        <p>Max position, max order size, price protection, trading hours, manual pause and reduce-only rules can all reject a valid-looking webhook. That reject should be visible to the client with a risk reason and alert status.</p>
-        <ul class="check-list"><li>Keep risk_decision and risk_reason in the event log.</li><li>Separate duplicate_signal, risk_rejected, api_error and manual_pause alerts.</li><li>Replay sample payloads before connecting real order permissions.</li></ul>
+        <h2>Handoff should include operations, not only code</h2>
+        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
+        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
       </section>
       <section>
-        <h2>Duplicate-order acceptance checks</h2>
-        <ul class="check-list"><li>Sending the same payload twice produces only one order intent.</li><li>A wrong shared secret is rejected and logged.</li><li>A max-position breach is rejected with a visible risk reason.</li><li>Manual pause blocks new order routing before the API call.</li><li>The client can review event ID, duplicate status, risk decision and alert delivery.</li></ul>
+        <h2>Pre-launch risk acceptance checklist</h2>
+        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a>
+      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a>
     </div>
       </section>
       <section>

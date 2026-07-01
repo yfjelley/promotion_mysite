@@ -28,7 +28,7 @@ SEO and GEO content pages:
   landing pages.
 - `/risk-engine/` for pre-trade risk controls.
 - `/private-deployment/` for private deployment, source delivery, and operational handoff.
-- `/articles/` and `/articles/.../` for problem-focused technical articles and official/API reference links.
+- `/articles/` and `/articles/.../` for problem-focused technical articles and official/API reference links, including English strategy automation, IBKR execution, FIX routing, risk checklist, and failure-mode pages.
 - `/faq/` for answer-style FAQ content.
 - `/case-studies/` for anonymous engineering case studies.
 - `/about/` and `/contact/` for entity trust and independent contact pages.

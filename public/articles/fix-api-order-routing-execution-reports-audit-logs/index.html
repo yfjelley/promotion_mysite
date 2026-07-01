@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How We Prevent Duplicate TradingView Webhook Orders | Event IDs, Cooldowns and Risk Logs</title>
-  <meta name="description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <title>FIX API Order Routing for Automated Strategies | Execution Reports and Audit Logs</title>
+  <meta name="description" content="A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <link rel="canonical" href="https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="How We Prevent Duplicate TradingView Webhook Orders">
-  <meta property="og:description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <meta property="og:title" content="FIX API Order Routing for Automated Strategies">
+  <meta property="og:description" content="A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <meta property="og:url" content="https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#webpage",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
-      "name": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+      "@id": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/#webpage",
+      "url": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/",
+      "name": "FIX API Order Routing for Automated Strategies",
+      "description": "A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#breadcrumb",
+      "@id": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Prevent Duplicate TradingView Webhook Orders",
-          "item": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/"
+          "name": "FIX API Order Routing",
+          "item": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#article",
-      "headline": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "@id": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/#article",
+      "headline": "FIX API Order Routing for Automated Strategies",
+      "description": "A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.",
+      "url": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -133,36 +133,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Prevent Duplicate TradingView Webhook Orders</span>
+      <span>FIX API Order Routing</span>
     </nav>
-      <p class="eyebrow">Webhook Case Note</p>
-      <h1>How We Prevent Duplicate TradingView Webhook Orders</h1>
-      <p class="hero-lede">Duplicate TradingView webhook orders are usually not solved by one setting. A production-ready workflow needs stable event IDs, cooldown windows, risk decisions, logging and a replayable acceptance test.</p>
+      <p class="eyebrow">FIX API</p>
+      <h1>FIX API Order Routing for Automated Strategies</h1>
+      <p class="hero-lede">FIX API order routing is an execution workflow, not just a message sender. The system must define session behavior, message scope, order identifiers, execution reports, rejects, sequence recovery and audit logs before production use.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+      <p class="article-summary">FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence.</p>
       <section>
-        <h2>Start with a payload that can identify one event</h2>
-        <p>The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.</p>
-        <ul class="check-list"><li>Do not rely on a plain buy or sell string.</li><li>Include enough fields to distinguish strategy, symbol, direction and time.</li><li>Keep the shared secret out of public pages and repositories.</li></ul>
+        <h2>Define the session and message scope early</h2>
+        <p>Before building order routing, the client and counterparty should confirm FIX version, SenderCompID, TargetCompID, heartbeat interval, sequence rules, test environment, certificates, allowlists and required message types.</p>
+        <ul class="check-list"><li>Map Logon, Heartbeat, NewOrderSingle, Cancel, ExecutionReport, Reject and Logout.</li><li>Confirm counterparty-specific tags before coding around assumptions.</li><li>Treat test environment access as a project dependency.</li></ul>
       </section><section>
-        <h2>Apply idempotency before order routing</h2>
-        <p>The receiver should check whether the event ID has already been processed before any order is prepared. A second layer checks the same strategy, symbol and action inside a cooldown window so repeated alerts do not become repeated orders.</p>
-        <ul class="check-list"><li>Store every accepted, duplicated and rejected event.</li><li>Group cooldowns by strategy and symbol, not only globally.</li><li>Log duplicate events as a normal audit result instead of silently dropping them.</li></ul>
+        <h2>Use reports to drive order state</h2>
+        <p>Internal order state should be driven by ExecutionReport, Reject and CancelReject messages, not by the fact that a NewOrderSingle was written to the socket. Each report should connect back to a unique client order ID.</p>
+        <ul class="check-list"><li>Preserve ClOrdID, OrderID, ExecID, OrdStatus and ExecType.</li><li>Store raw FIX messages and normalized order state.</li><li>Make rejects and cancel failures visible to operators.</li></ul>
       </section><section>
-        <h2>Treat risk rejects as successful controls</h2>
-        <p>Max position, max order size, price protection, trading hours, manual pause and reduce-only rules can all reject a valid-looking webhook. That reject should be visible to the client with a risk reason and alert status.</p>
-        <ul class="check-list"><li>Keep risk_decision and risk_reason in the event log.</li><li>Separate duplicate_signal, risk_rejected, api_error and manual_pause alerts.</li><li>Replay sample payloads before connecting real order permissions.</li></ul>
+        <h2>Prove recovery before live order flow</h2>
+        <p>UAT should cover login, heartbeat, new order, cancel, reject, partial fill, disconnect, reconnect, sequence recovery and logout. Without this evidence, production incidents are difficult to diagnose.</p>
+        <ul class="check-list"><li>Test ResendRequest and PossDupFlag handling where applicable.</li><li>Pause new routing until state is reconciled after reconnect.</li><li>Keep raw messages exportable for audit and support.</li></ul>
       </section>
       <section>
-        <h2>Duplicate-order acceptance checks</h2>
-        <ul class="check-list"><li>Sending the same payload twice produces only one order intent.</li><li>A wrong shared secret is rejected and logged.</li><li>A max-position breach is rejected with a visible risk reason.</li><li>Manual pause blocks new order routing before the API call.</li><li>The client can review event ID, duplicate status, risk decision and alert delivery.</li></ul>
+        <h2>FIX routing acceptance checklist</h2>
+        <ul class="check-list"><li>The counterparty FIX spec, test credentials and network requirements are available.</li><li>NewOrderSingle, Cancel, ExecutionReport, Reject and Logout are mapped.</li><li>Raw messages and normalized status logs can be linked by order ID and session.</li><li>Disconnect, reconnect, sequence recovery and resend behavior are tested.</li><li>Operators can pause routing and review rejects before production use.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a>
+      <a href="https://fixtrading.org/standards/fix-protocol/" rel="noopener" target="_blank"><strong>FIX Trading Community</strong><span>FIX Trading Community 的 FIX Protocol 标准介绍。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>FIX platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a>
     </div>
       </section>
       <section>

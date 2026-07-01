@@ -1001,6 +1001,208 @@ const articlePages = [
       officialReferenceLinks[1],
       ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
     ]
+  },
+  {
+    slug: "articles/tradingview-webhook-strategy-automation",
+    lang: "en",
+    breadcrumb: "TradingView Webhook Strategy Automation",
+    eyebrow: "TradingView Webhook",
+    title: "TradingView Webhook Strategy Automation | From Alert Payload to Broker Order",
+    description: "A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.",
+    h1: "TradingView Webhook Strategy Automation",
+    intro: "A TradingView alert is only the signal source. A usable automation workflow needs payload design, request validation, duplicate prevention, risk checks, broker API routing, logs and a controlled go-live process.",
+    summary: "TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests.",
+    sections: [
+      {
+        title: "Turn the alert into an explicit order intent",
+        body: "The alert payload should describe the strategy, symbol, action, side, quantity model, timeframe, signal time and version. That makes the receiver able to decide what the signal means instead of guessing from a short text message.",
+        bullets: ["Avoid payloads that only say buy or sell.", "Include a strategy version when the trading rule changes.", "Keep secrets and account identifiers out of public scripts and screenshots."]
+      },
+      {
+        title: "Validate and store the event before execution",
+        body: "The receiver should validate the shared secret, parse the payload, create a stable event ID, check duplicate status and store the event before any broker API call. This makes retries and alert bursts auditable.",
+        bullets: ["Use event IDs for idempotency.", "Apply cooldowns by strategy, symbol and action.", "Store accepted, duplicated and rejected events with a visible reason."]
+      },
+      {
+        title: "Route only after risk checks pass",
+        body: "Order routing should happen after max size, max position, market-hours, price protection, manual pause and reduce-only checks. The system should log whether a signal became an order, a risk reject or an API error.",
+        bullets: ["Do not make profit results the acceptance criterion.", "Connect to paper, test or limited live scope first.", "Keep order intent, API response and final status in the audit log."]
+      }
+    ],
+    checklistTitle: "Webhook automation handoff checklist",
+    checklist: [
+      "The payload contains strategy, symbol, action, timeframe, size model and signal time.",
+      "Duplicate payloads do not create duplicate order intents.",
+      "Manual pause blocks routing before any broker API request.",
+      "Risk rejects show a reason such as max_position, price_protection or market_closed.",
+      "The client can review event logs, order logs, rejects, alerts and restart steps."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
+  },
+  {
+    slug: "articles/ibkr-api-strategy-execution",
+    lang: "en",
+    breadcrumb: "IBKR API Strategy Execution",
+    eyebrow: "IBKR API",
+    title: "IBKR API Strategy Execution | Orders, Positions, Risk Checks and Logs",
+    description: "How to evaluate IBKR API strategy execution projects, including account permissions, order types, positions, rejects, risk checks, logs and staged rollout.",
+    h1: "IBKR API Strategy Execution",
+    intro: "IBKR API strategy execution is not only about sending orders. A reliable workflow has to verify account permissions, instruments, order types, market data, position state, rejects, risk checks and operational logs.",
+    summary: "IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.",
+    sections: [
+      {
+        title: "Start with account and permission reality",
+        body: "The first question is not which strategy is best. The first question is whether the customer's IBKR account, region, instruments, market data and API permissions support the intended workflow.",
+        bullets: ["Confirm account type, region and API access.", "List target instruments, order types and trading hours.", "Separate read-only evaluation from live order permission."]
+      },
+      {
+        title: "Make positions and order state first-class data",
+        body: "An execution system should know current positions, open orders, submitted orders, rejected orders and completed fills. Strategy signals should be checked against this state before routing another request.",
+        bullets: ["Sync positions before accepting new order intent.", "Track cancel flow, rejects and partial fills.", "Do not assume a local submitted status means an order is live or filled."]
+      },
+      {
+        title: "Stage execution with operational controls",
+        body: "A practical IBKR rollout starts with dry-run or limited scope, then verifies reconnects, session health, rejects, cancel flow, position sync, risk limits and manual pause before increasing automation authority.",
+        bullets: ["Keep a manual pause switch above strategy logic.", "Log signal, order request, API response and final status.", "Document restart, rollback and key rotation steps."]
+      }
+    ],
+    checklistTitle: "IBKR strategy execution readiness checklist",
+    checklist: [
+      "Account region, account type, API access and market data requirements are known.",
+      "Target instruments, order types and trading hours have been reviewed.",
+      "Position sync and open-order sync run before live routing.",
+      "Rejects, cancels, partial fills, reconnects and session expiry are tested.",
+      "Manual pause, risk limits, audit logs and handoff documentation are included."
+    ],
+    references: [
+      officialReferenceLinks[1],
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/fix-api-order-routing-execution-reports-audit-logs",
+    lang: "en",
+    breadcrumb: "FIX API Order Routing",
+    eyebrow: "FIX API",
+    title: "FIX API Order Routing for Automated Strategies | Execution Reports and Audit Logs",
+    description: "A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.",
+    h1: "FIX API Order Routing for Automated Strategies",
+    intro: "FIX API order routing is an execution workflow, not just a message sender. The system must define session behavior, message scope, order identifiers, execution reports, rejects, sequence recovery and audit logs before production use.",
+    summary: "FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence.",
+    sections: [
+      {
+        title: "Define the session and message scope early",
+        body: "Before building order routing, the client and counterparty should confirm FIX version, SenderCompID, TargetCompID, heartbeat interval, sequence rules, test environment, certificates, allowlists and required message types.",
+        bullets: ["Map Logon, Heartbeat, NewOrderSingle, Cancel, ExecutionReport, Reject and Logout.", "Confirm counterparty-specific tags before coding around assumptions.", "Treat test environment access as a project dependency."]
+      },
+      {
+        title: "Use reports to drive order state",
+        body: "Internal order state should be driven by ExecutionReport, Reject and CancelReject messages, not by the fact that a NewOrderSingle was written to the socket. Each report should connect back to a unique client order ID.",
+        bullets: ["Preserve ClOrdID, OrderID, ExecID, OrdStatus and ExecType.", "Store raw FIX messages and normalized order state.", "Make rejects and cancel failures visible to operators."]
+      },
+      {
+        title: "Prove recovery before live order flow",
+        body: "UAT should cover login, heartbeat, new order, cancel, reject, partial fill, disconnect, reconnect, sequence recovery and logout. Without this evidence, production incidents are difficult to diagnose.",
+        bullets: ["Test ResendRequest and PossDupFlag handling where applicable.", "Pause new routing until state is reconciled after reconnect.", "Keep raw messages exportable for audit and support."]
+      }
+    ],
+    checklistTitle: "FIX routing acceptance checklist",
+    checklist: [
+      "The counterparty FIX spec, test credentials and network requirements are available.",
+      "NewOrderSingle, Cancel, ExecutionReport, Reject and Logout are mapped.",
+      "Raw messages and normalized status logs can be linked by order ID and session.",
+      "Disconnect, reconnect, sequence recovery and resend behavior are tested.",
+      "Operators can pause routing and review rejects before production use."
+    ],
+    references: [
+      officialReferenceLinks[4],
+      ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/automated-trading-strategy-risk-checklist",
+    lang: "en",
+    breadcrumb: "Automated Strategy Risk Checklist",
+    eyebrow: "Risk Controls",
+    title: "Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions",
+    description: "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+    h1: "Automated Trading Strategy Risk Checklist",
+    intro: "Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.",
+    summary: "An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.",
+    sections: [
+      {
+        title: "Set hard limits before strategy logic",
+        body: "Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.",
+        bullets: ["Manual pause should override every strategy signal.", "API keys should not include withdrawal or transfer permission.", "Symbol and order-type allowlists reduce accidental routing risk."]
+      },
+      {
+        title: "Turn failure modes into tests",
+        body: "A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.",
+        bullets: ["Every reject needs a visible risk reason.", "Alerts should distinguish risk_rejected from api_error.", "Sample payload replay is more useful than a vague manual review."]
+      },
+      {
+        title: "Handoff should include operations, not only code",
+        body: "The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.",
+        bullets: ["Returns are not the acceptance criterion.", "Start with paper, test or limited live scope where possible.", "Document who can pause, restart and rotate keys."]
+      }
+    ],
+    checklistTitle: "Pre-launch risk acceptance checklist",
+    checklist: [
+      "Read, trade and admin permissions are scoped separately.",
+      "Manual pause prevents order routing before any third-party API call.",
+      "Duplicate, stale and malformed signals are rejected and logged.",
+      "Max position, max order size, market-hours and price-protection checks are tested.",
+      "Restart, rollback, alert delivery and key rotation are documented."
+    ],
+    references: [
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."],
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."]
+    ]
+  },
+  {
+    slug: "articles/common-automated-strategy-failure-points",
+    lang: "en",
+    breadcrumb: "Automated Strategy Failure Points",
+    eyebrow: "Failure Modes",
+    title: "Common Automated Trading Strategy Failure Points | Webhooks, APIs and Order State",
+    description: "Common failure points in automated trading strategy implementation, including duplicate signals, repainting, stale state, API rejects, reconnects, partial fills and weak logs.",
+    h1: "Common Automated Trading Strategy Failure Points",
+    intro: "Most strategy automation failures are not caused by one bad indicator. They come from ambiguous signals, missing state, duplicate events, weak risk checks, unsupported order flows, reconnect gaps and logs that cannot explain what happened.",
+    summary: "Common automated trading strategy failure points include duplicate signals, repainting, stale position state, API rejects, reconnect gaps, partial fills, missing pause controls and weak audit logs.",
+    sections: [
+      {
+        title: "Signal failures happen before the API call",
+        body: "A strategy signal can be duplicated, delayed, repainted, missing context or generated from a rule version that changed. The receiver needs enough payload context and state to reject unsafe or unclear events.",
+        bullets: ["Include strategy version, symbol, action, signal time and timeframe.", "Reject stale signals before order preparation.", "Log duplicate and malformed events as normal outcomes."]
+      },
+      {
+        title: "Execution failures come from missing state",
+        body: "A system that does not know current position, open orders, recent fills and outstanding cancels can easily send the wrong order. Position sync and order state are part of the strategy automation layer.",
+        bullets: ["Check open orders before submitting another entry.", "Handle partial fills and cancel failures explicitly.", "Do not treat API request success as execution success."]
+      },
+      {
+        title: "Operations failures make small bugs expensive",
+        body: "When a system has no pause switch, no alert classification, no restart note and no audit log, a small API error becomes a production incident. Operations design should be part of the first build, not a later cleanup.",
+        bullets: ["Classify duplicate_signal, risk_rejected, api_error and operator_pause.", "Keep restart and rollback steps near the deployment config.", "Make logs readable by the client, not only by the developer."]
+      }
+    ],
+    checklistTitle: "Failure-mode review checklist",
+    checklist: [
+      "The system rejects duplicate, stale and malformed signals.",
+      "Position, open-order and recent-fill state are checked before routing.",
+      "Partial fills, cancel failures, API rejects and reconnects have explicit handling.",
+      "Manual pause, alert routing and restart steps are tested.",
+      "Audit logs explain why each signal became an order, reject or ignored event."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      officialReferenceLinks[1],
+      officialReferenceLinks[4],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
   }
 ];
 
@@ -1466,8 +1668,12 @@ function referenceLinksList(references) {
 
 function articleCards(language = "zh-CN") {
   const english = isEnglish(language);
+  const orderedArticles = [
+    ...articlePages.filter((article) => isEnglish(article) === english),
+    ...articlePages.filter((article) => isEnglish(article) !== english)
+  ];
   return `<div class="article-card-grid">
-      ${articlePages.map((article) => `<article>
+      ${orderedArticles.map((article) => `<article>
         <p class="eyebrow">${escapeHtml(article.eyebrow)}</p>
         <h3>${escapeHtml(article.h1)}</h3>
         <p>${escapeHtml(article.summary)}</p>

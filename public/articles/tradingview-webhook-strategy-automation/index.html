@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How We Prevent Duplicate TradingView Webhook Orders | Event IDs, Cooldowns and Risk Logs</title>
-  <meta name="description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <title>TradingView Webhook Strategy Automation | From Alert Payload to Broker Order</title>
+  <meta name="description" content="A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-strategy-automation/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="How We Prevent Duplicate TradingView Webhook Orders">
-  <meta property="og:description" content="A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.">
+  <meta property="og:title" content="TradingView Webhook Strategy Automation">
+  <meta property="og:description" content="A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">
+  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-strategy-automation/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#webpage",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
-      "name": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#webpage",
+      "url": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/",
+      "name": "TradingView Webhook Strategy Automation",
+      "description": "A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#breadcrumb",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Prevent Duplicate TradingView Webhook Orders",
-          "item": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/"
+          "name": "TradingView Webhook Strategy Automation",
+          "item": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#article",
-      "headline": "How We Prevent Duplicate TradingView Webhook Orders",
-      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
-      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#article",
+      "headline": "TradingView Webhook Strategy Automation",
+      "description": "A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.",
+      "url": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -133,31 +133,31 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Prevent Duplicate TradingView Webhook Orders</span>
+      <span>TradingView Webhook Strategy Automation</span>
     </nav>
-      <p class="eyebrow">Webhook Case Note</p>
-      <h1>How We Prevent Duplicate TradingView Webhook Orders</h1>
-      <p class="hero-lede">Duplicate TradingView webhook orders are usually not solved by one setting. A production-ready workflow needs stable event IDs, cooldown windows, risk decisions, logging and a replayable acceptance test.</p>
+      <p class="eyebrow">TradingView Webhook</p>
+      <h1>TradingView Webhook Strategy Automation</h1>
+      <p class="hero-lede">A TradingView alert is only the signal source. A usable automation workflow needs payload design, request validation, duplicate prevention, risk checks, broker API routing, logs and a controlled go-live process.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+      <p class="article-summary">TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests.</p>
       <section>
-        <h2>Start with a payload that can identify one event</h2>
-        <p>The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.</p>
-        <ul class="check-list"><li>Do not rely on a plain buy or sell string.</li><li>Include enough fields to distinguish strategy, symbol, direction and time.</li><li>Keep the shared secret out of public pages and repositories.</li></ul>
+        <h2>Turn the alert into an explicit order intent</h2>
+        <p>The alert payload should describe the strategy, symbol, action, side, quantity model, timeframe, signal time and version. That makes the receiver able to decide what the signal means instead of guessing from a short text message.</p>
+        <ul class="check-list"><li>Avoid payloads that only say buy or sell.</li><li>Include a strategy version when the trading rule changes.</li><li>Keep secrets and account identifiers out of public scripts and screenshots.</li></ul>
       </section><section>
-        <h2>Apply idempotency before order routing</h2>
-        <p>The receiver should check whether the event ID has already been processed before any order is prepared. A second layer checks the same strategy, symbol and action inside a cooldown window so repeated alerts do not become repeated orders.</p>
-        <ul class="check-list"><li>Store every accepted, duplicated and rejected event.</li><li>Group cooldowns by strategy and symbol, not only globally.</li><li>Log duplicate events as a normal audit result instead of silently dropping them.</li></ul>
+        <h2>Validate and store the event before execution</h2>
+        <p>The receiver should validate the shared secret, parse the payload, create a stable event ID, check duplicate status and store the event before any broker API call. This makes retries and alert bursts auditable.</p>
+        <ul class="check-list"><li>Use event IDs for idempotency.</li><li>Apply cooldowns by strategy, symbol and action.</li><li>Store accepted, duplicated and rejected events with a visible reason.</li></ul>
       </section><section>
-        <h2>Treat risk rejects as successful controls</h2>
-        <p>Max position, max order size, price protection, trading hours, manual pause and reduce-only rules can all reject a valid-looking webhook. That reject should be visible to the client with a risk reason and alert status.</p>
-        <ul class="check-list"><li>Keep risk_decision and risk_reason in the event log.</li><li>Separate duplicate_signal, risk_rejected, api_error and manual_pause alerts.</li><li>Replay sample payloads before connecting real order permissions.</li></ul>
+        <h2>Route only after risk checks pass</h2>
+        <p>Order routing should happen after max size, max position, market-hours, price protection, manual pause and reduce-only checks. The system should log whether a signal became an order, a risk reject or an API error.</p>
+        <ul class="check-list"><li>Do not make profit results the acceptance criterion.</li><li>Connect to paper, test or limited live scope first.</li><li>Keep order intent, API response and final status in the audit log.</li></ul>
       </section>
       <section>
-        <h2>Duplicate-order acceptance checks</h2>
-        <ul class="check-list"><li>Sending the same payload twice produces only one order intent.</li><li>A wrong shared secret is rejected and logged.</li><li>A max-position breach is rejected with a visible risk reason.</li><li>Manual pause blocks new order routing before the API call.</li><li>The client can review event ID, duplicate status, risk decision and alert delivery.</li></ul>
+        <h2>Webhook automation handoff checklist</h2>
+        <ul class="check-list"><li>The payload contains strategy, symbol, action, timeframe, size model and signal time.</li><li>Duplicate payloads do not create duplicate order intents.</li><li>Manual pause blocks routing before any broker API request.</li><li>Risk rejects show a reason such as max_position, price_protection or market_closed.</li><li>The client can review event logs, order logs, rejects, alerts and restart steps.</li></ul>
       </section>
       <section>
         <h2>References</h2>

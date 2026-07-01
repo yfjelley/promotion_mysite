@@ -123,6 +123,31 @@
       "label": "IBKR TWS Gateway vs Client Portal for Automated Trading",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
       "summary": "IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests."
+    },
+    {
+      "label": "TradingView Webhook Strategy Automation",
+      "url": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/",
+      "summary": "TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests."
+    },
+    {
+      "label": "IBKR API Strategy Execution",
+      "url": "https://pddjf.com/articles/ibkr-api-strategy-execution/",
+      "summary": "IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout."
+    },
+    {
+      "label": "FIX API Order Routing for Automated Strategies",
+      "url": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/",
+      "summary": "FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence."
+    },
+    {
+      "label": "Automated Trading Strategy Risk Checklist",
+      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "summary": "An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff."
+    },
+    {
+      "label": "Common Automated Trading Strategy Failure Points",
+      "url": "https://pddjf.com/articles/common-automated-strategy-failure-points/",
+      "summary": "Common automated trading strategy failure points include duplicate signals, repainting, stale position state, API rejects, reconnect gaps, partial fills, missing pause controls and weak audit logs."
     }
   ]
 }

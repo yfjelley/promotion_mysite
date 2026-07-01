@@ -48,6 +48,11 @@ Last updated: 2026-07-01
 - https://pddjf.com/articles/fix-api-execution-report-audit-log-design/ — FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。
 - https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/ — Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.
 - https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/ — IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.
+- https://pddjf.com/articles/tradingview-webhook-strategy-automation/ — TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests.
+- https://pddjf.com/articles/ibkr-api-strategy-execution/ — IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.
+- https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/ — FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence.
+- https://pddjf.com/articles/automated-trading-strategy-risk-checklist/ — An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.
+- https://pddjf.com/articles/common-automated-strategy-failure-points/ — Common automated trading strategy failure points include duplicate signals, repainting, stale position state, API rejects, reconnect gaps, partial fills, missing pause controls and weak audit logs.
 
 ## Official reference links
 
