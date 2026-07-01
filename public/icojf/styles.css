@@ -498,6 +498,158 @@ h3 {
   font-size: 18px;
 }
 
+.eyebrow {
+  margin-bottom: 10px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.studio-hero {
+  grid-template-columns: minmax(0, 0.98fr) minmax(420px, 0.82fr);
+}
+
+.hero-tags,
+.asset-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero-tags {
+  margin-top: 22px;
+}
+
+.hero-tags span,
+.asset-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.build-system-panel {
+  overflow: hidden;
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  border-radius: 10px;
+  background: var(--navy);
+  color: #e2e8f0;
+  box-shadow: 0 24px 68px rgba(15, 23, 42, 0.22);
+}
+
+.build-system-panel .panel-head {
+  border-bottom-color: rgba(226, 232, 240, 0.16);
+  color: #e2e8f0;
+}
+
+.system-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 14px;
+  padding: 16px;
+}
+
+.workflow-card,
+.handover-card {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 10px;
+  background: #111c2f;
+  padding: 14px;
+}
+
+.handover-card {
+  background: #fff;
+  color: var(--ink);
+}
+
+.mini-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.workflow-lane {
+  min-height: 34px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #1e40af;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.workflow-lane:nth-of-type(3) {
+  background: #164e63;
+}
+
+.workflow-lane:nth-of-type(4) {
+  background: #166534;
+}
+
+.progress-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dbeafe;
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+}
+
+.handover-card p {
+  margin: 8px 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.launch-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(226, 232, 240, 0.16);
+}
+
+.launch-steps span {
+  padding: 12px;
+  border-right: 1px solid rgba(226, 232, 240, 0.12);
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.launch-steps span:last-child {
+  border-right: 0;
+}
+
+.launch-steps strong {
+  display: block;
+  color: #e2e8f0;
+}
+
+.accent-blue {
+  border-top: 4px solid var(--blue);
+}
+
+.accent-green {
+  border-top: 4px solid var(--green);
+}
+
+.accent-amber {
+  border-top: 4px solid var(--amber);
+}
+
 @media (max-width: 980px) {
   .site-header {
     position: static;
@@ -513,6 +665,11 @@ h3 {
 
   .hero,
   .contact-band {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-hero,
+  .system-preview-grid {
     grid-template-columns: 1fr;
   }
 
@@ -543,6 +700,15 @@ h3 {
 
   .button {
     width: 100%;
+  }
+
+  .launch-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-tags span,
+  .asset-tags span {
+    font-size: 12px;
   }
 
   .service-grid,
