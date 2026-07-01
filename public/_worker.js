@@ -97,8 +97,16 @@ function icojfAssetPath(pathname) {
 async function fetchAsset(env, request, pathname, statusOverride) {
   const assetUrl = new URL(request.url);
   assetUrl.pathname = pathname;
-  const assetResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
+  let assetResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
+
+  const assetRedirect = assetResponse.headers.get("Location");
+  if ([301, 302, 307, 308].includes(assetResponse.status) && assetRedirect?.startsWith("/")) {
+    assetUrl.pathname = assetRedirect;
+    assetResponse = await env.ASSETS.fetch(new Request(assetUrl, request));
+  }
+
   const response = new Response(assetResponse.body, assetResponse);
+  response.headers.delete("Location");
   return withSecurityHeaders(response, statusOverride ?? response.status);
 }
 
