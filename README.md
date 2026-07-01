@@ -12,6 +12,18 @@ Public website and entity reference assets for SignalCraft Labs:
 Static Google Ads landing page for Cloudflare Pages. No VPS is required for the
 current site because the production artifact is static HTML, CSS, and JS.
 
+This repository now serves two clearly separated public websites from the same
+Cloudflare Pages project:
+
+- `https://pddjf.com/` is the SignalCraft Labs automated trading engineering
+  site.
+- `https://icojf.com/` is an independent software outsourcing, API integration,
+  SaaS MVP, and business automation site under `public/icojf/`.
+
+Do not use `icojf.com` as a redirect alias for `pddjf.com`, and do not reuse
+the trading automation copy, canonical URLs, sitemap, or JSON-LD on the
+software outsourcing site.
+
 The primary conversion pages are:
 
 - `/` for the broader automated trading system offer.
@@ -69,7 +81,8 @@ node tools/validate-seo-geo.mjs
 Run both commands after changing page slugs, service copy, prices, structured
 data, robots policy, or contact details. The validator checks pddjf canonical
 URLs, JSON-LD parsing, sitemap file coverage, internal links, `robots.txt`,
-`llms.txt`, and risky positioning terms.
+`llms.txt`, the independent `icojf.com` canonical URLs, the separate
+`public/icojf/sitemap.xml`, and risky positioning terms.
 
 ## Deploy
 
@@ -84,10 +97,11 @@ Cloudflare Pages deployment.
 
 `public/_worker.js` is part of the Pages deployment and is the runtime source of
 truth for canonical host redirects and path aliases. It keeps `pddjf.com` as the
-canonical host, redirects `icojf.com`, `www.icojf.com`, and `www.pddjf.com` to
-the canonical host, redirects the `promotion-mysite.pages.dev` preview host and
-its preview subdomains to `pddjf.com`, and mirrors the legacy path redirects
-listed in `public/_redirects` for compatibility/documentation.
+canonical host for the trading automation site, redirects `www.pddjf.com` and
+the `promotion-mysite.pages.dev` preview hosts to `pddjf.com`, serves
+`icojf.com` from `public/icojf/`, and redirects `www.icojf.com` to
+`icojf.com`. The two production domains must remain separate for Ads, SEO,
+canonical URLs, sitemaps, and structured data.
 
 If old immutable Pages deployment hashes must also be closed after they were
 created with an earlier Worker bundle, configure a Cloudflare account-level Bulk

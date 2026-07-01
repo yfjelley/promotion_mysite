@@ -4,6 +4,8 @@ import { join, relative, sep } from "node:path";
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const site = "https://pddjf.com";
+const softwareDir = join(publicDir, "icojf");
+const softwareSite = "https://icojf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const errors = [];
@@ -34,6 +36,19 @@ function fileForPath(pathname) {
   if (existsSync(indexFile)) return indexFile;
 
   return join(publicDir, pathname);
+}
+
+function softwareFileForPath(pathname) {
+  if (pathname === "/") return join(softwareDir, "index.html");
+  if (pathname.endsWith("/")) return join(softwareDir, pathname, "index.html");
+
+  const htmlFile = join(softwareDir, `${pathname}.html`);
+  if (existsSync(htmlFile)) return htmlFile;
+
+  const indexFile = join(softwareDir, pathname, "index.html");
+  if (existsSync(indexFile)) return indexFile;
+
+  return join(softwareDir, pathname);
 }
 
 function requireText(label, value, needle) {
@@ -71,12 +86,14 @@ function readServiceManifest() {
 }
 
 const htmlFiles = walk(publicDir).filter((file) => file.endsWith(".html"));
+const pddjfHtmlFiles = htmlFiles.filter((file) => !relative(publicDir, file).replaceAll(sep, "/").startsWith("icojf/"));
+const softwareHtmlFiles = htmlFiles.filter((file) => relative(publicDir, file).replaceAll(sep, "/").startsWith("icojf/"));
 const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
 const externalTrustLinks = Array.isArray(serviceManifest.externalTrustLinks) ? serviceManifest.externalTrustLinks : [];
 const articleUrls = Array.isArray(serviceManifest.articleUrls) ? serviceManifest.articleUrls : [];
 
-for (const file of htmlFiles) {
+for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
   const rel = relative(root, file);
   const is404 = rel === "public/404.html";
@@ -142,12 +159,60 @@ for (const file of htmlFiles) {
   }
 }
 
+for (const file of softwareHtmlFiles) {
+  const html = readFileSync(file, "utf8");
+  const rel = relative(root, file);
+  const is404 = rel === "public/icojf/404.html";
+
+  if (html.includes("https://pddjf.com") || html.includes("SignalCraft Labs")) {
+    errors.push(`${rel}: must stay separate from pddjf.com brand/domain`);
+  }
+
+  if (!is404) {
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
+    const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
+
+    if (!canonical) errors.push(`${rel}: missing canonical`);
+    if (canonical && !canonical.startsWith(softwareSite)) errors.push(`${rel}: canonical not icojf: ${canonical}`);
+    if (!ogUrl) errors.push(`${rel}: missing og:url`);
+    if (ogUrl && !ogUrl.startsWith(softwareSite)) errors.push(`${rel}: og:url not icojf: ${ogUrl}`);
+  }
+
+  const ldBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  if (!is404 && ldBlocks.length === 0) errors.push(`${rel}: missing JSON-LD`);
+  for (const [, raw] of ldBlocks) {
+    try {
+      JSON.parse(raw);
+    } catch (error) {
+      errors.push(`${rel}: invalid JSON-LD: ${error.message}`);
+    }
+  }
+
+  for (const [, attr, href] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
+    if (!href.startsWith("/") || href.startsWith("//")) continue;
+    const [pathOnly] = href.split("#");
+    const [pathname] = pathOnly.split("?");
+    if (!pathname || pathname === "/") continue;
+
+    const target = softwareFileForPath(pathname);
+    if (!existsSync(target)) errors.push(`${rel}: ${attr} target missing: ${href}`);
+  }
+}
+
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 for (const loc of locs) {
   if (!loc.startsWith(site)) errors.push(`sitemap non-pddjf loc: ${loc}`);
   const target = fileForPath(new URL(loc).pathname);
   if (!existsSync(target)) errors.push(`sitemap loc has no file: ${loc}`);
+}
+
+const softwareSitemap = readFileSync(join(softwareDir, "sitemap.xml"), "utf8");
+const softwareLocs = [...softwareSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+for (const loc of softwareLocs) {
+  if (!loc.startsWith(softwareSite)) errors.push(`icojf sitemap non-icojf loc: ${loc}`);
+  const target = softwareFileForPath(new URL(loc).pathname);
+  if (!existsSync(target)) errors.push(`icojf sitemap loc has no file: ${loc}`);
 }
 
 const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
@@ -166,6 +231,15 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 ].forEach((needle) => {
   if (robots.includes(needle)) errors.push(`robots.txt: duplicates Cloudflare managed policy: ${needle}`);
 });
+
+const softwareRobots = readFileSync(join(softwareDir, "robots.txt"), "utf8");
+[
+  "User-agent: *\nAllow: /",
+  "User-agent: OAI-SearchBot\nAllow: /",
+  "User-agent: ChatGPT-User\nAllow: /",
+  "User-agent: OAI-AdsBot\nAllow: /",
+  "Sitemap: https://icojf.com/sitemap.xml"
+].forEach((needle) => requireText("icojf/robots.txt", softwareRobots, needle));
 
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
@@ -275,4 +349,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-process.stdout.write(`SEO/GEO validation ok: ${htmlFiles.length} html files, ${locs.length} sitemap URLs\n`);
+process.stdout.write(`SEO/GEO validation ok: ${pddjfHtmlFiles.length} pddjf html files, ${locs.length} pddjf sitemap URLs, ${softwareHtmlFiles.length} icojf html files, ${softwareLocs.length} icojf sitemap URLs\n`);
