@@ -14,31 +14,31 @@
 
 Files to modify:
 
-- `tools/validate-seo-geo.mjs`  
+- `tools/validate-seo-geo.mjs`
   Add ICOJF-specific validation guards before changing content, so the current site fails for the right reasons: product-studio positioning, correct service regions, no `美国`/`中国大陆` service-region wording, page-level FAQ depth, and no `pddjf.com` leakage.
 
-- `public/icojf/index.html`  
+- `public/icojf/index.html`
   Replace the current generic software outsourcing homepage with the simplified-Chinese product studio homepage from the approved spec: hero, system visual, capability map, case notes, process, security boundary, region/service facts, and CTA.
 
-- `public/icojf/api-integration-development/index.html`  
+- `public/icojf/api-integration-development/index.html`
   Deepen into an API Integration intent page with facts summary, OAuth/API Key/Webhook/rate-limit/retry/audit-log content, acceptance criteria, safety boundary, and FAQ JSON-LD.
 
-- `public/icojf/mvp-saas-development/index.html`  
+- `public/icojf/mvp-saas-development/index.html`
   Deepen into a SaaS MVP intent page with scope, user roles, data model, admin console, deployment/handover, acceptance criteria, and FAQ JSON-LD.
 
-- `public/icojf/business-process-automation/index.html`  
+- `public/icojf/business-process-automation/index.html`
   Deepen into a Workflow Automation intent page with manual-process mapping, approval/review paths, scheduled jobs, exception queues, rollback, acceptance criteria, and FAQ JSON-LD.
 
-- `public/icojf/contact/index.html`  
+- `public/icojf/contact/index.html`
   Convert the contact page into a project-brief page that filters low-quality leads and asks for project background, existing systems, APIs, budget range, timeline, region, and acceptance owner.
 
-- `public/icojf/privacy.html`, `public/icojf/terms.html`, `public/icojf/404.html`  
+- `public/icojf/privacy.html`, `public/icojf/terms.html`, `public/icojf/404.html`
   Light copy update only: brand footer and terms wording should say product studio / API integration / SaaS MVP / workflow automation, not generic low-cost outsourcing.
 
-- `public/icojf/styles.css`  
+- `public/icojf/styles.css`
   Add product-studio visual components and responsive rules: studio hero, build system preview, capability cards, case-note cards, matrix tables, FAQ cards, region facts, and safer mobile footer/button layout.
 
-- `public/icojf/sitemap.xml` and `public/icojf/robots.txt`  
+- `public/icojf/sitemap.xml` and `public/icojf/robots.txt`
   Verify only. Do not add new URLs in this phase unless a route is already present in `public/icojf/`.
 
 Files not to modify unless a verification failure proves it is required:
