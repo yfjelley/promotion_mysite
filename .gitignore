@@ -10,3 +10,4 @@ node_modules/
 .wrangler/
 .omx/
 .playwright-cli/
+.superpowers/
