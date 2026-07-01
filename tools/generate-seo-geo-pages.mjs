@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
-const today = "2026-06-30";
+const today = "2026-07-01";
 const site = "https://pddjf.com";
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
@@ -558,8 +558,8 @@ const articlesIndexPage = {
   slug: "articles",
   breadcrumb: "技术文章",
   eyebrow: "Engineering Articles",
-  title: "自动交易系统技术文章 | Webhook、券商 API、权限安全和验收清单",
-  description: "SignalCraft Labs 自动交易系统技术文章，覆盖 TradingView Webhook 去重、IBKR 接入选择、API Key 权限安全和上线验收。",
+  title: "自动交易系统技术文章 | Webhook、券商 API、FIX、风控验收和审计日志",
+  description: "SignalCraft Labs 自动交易系统技术文章，覆盖 TradingView Webhook 去重、IBKR 接入选择、风控验收、FIX 回报和审计日志。",
   h1: "自动交易系统技术文章",
   intro: "这些文章面向已经有交易规则和 API 权限、正在评估工程落地的客户。重点是接口限制、风险边界、验收清单和可维护性，不讨论收益预测。"
 };
@@ -641,6 +641,84 @@ const articlePages = [
     references: [
       officialReferenceLinks[1],
       ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs 脱敏平台接入笔记。"]
+    ]
+  },
+  {
+    slug: "articles/automated-trading-risk-acceptance-checklist",
+    breadcrumb: "自动交易系统风控验收清单",
+    eyebrow: "Risk Controls",
+    title: "自动交易系统上线前的风控验收清单 | 权限、暂停、拒单和灰度",
+    description: "自动交易系统上线前风控验收清单，覆盖 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警和灰度上线。",
+    h1: "自动交易系统上线前的风控验收清单",
+    intro: "自动交易系统上线前，真正要验收的不是行情判断，而是系统在错误信号、越权请求、接口异常和人工暂停时能否按预期停下来、写日志并通知负责人。",
+    summary: "自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。",
+    sections: [
+      {
+        title: "先定义不能下单的场景",
+        body: "风控验收从禁止条件开始。系统应在 API Key 权限不足、超过最大仓位、超过单笔数量、交易时段不匹配、价格偏离过大或人工暂停开启时拒绝下单。",
+        bullets: ["每个禁止条件都应有明确 risk_reason。", "暂停开关应优先于所有策略信号。", "API Key 不需要提现或划转权限。"]
+      },
+      {
+        title: "把拒单和告警做成可复查事件",
+        body: "拒单不是异常噪音，而是风控系统的正常输出。日志里应保留信号、规则版本、风控决定、拒绝原因、订单意图、第三方接口响应和告警发送状态。",
+        bullets: ["区分 duplicate_signal、risk_rejected、api_error 和 manual_pause。", "告警内容应能定位品种、策略、动作和拒绝原因。", "客户应能用样本信号复现通过和拒绝路径。"]
+      },
+      {
+        title: "用灰度上线替代一次性全自动",
+        body: "上线流程应从 dry-run、模拟盘、测试环境或极小范围灰度开始。只有日志、告警、拒单、重启和回滚路径都演示过，才进入更高权限的自动执行。",
+        bullets: ["先验证只读、查询、下单、撤单和状态同步。", "先跑固定样本，再接真实信号。", "上线文档应写清楚重启、暂停、回滚和密钥轮换方式。"]
+      }
+    ],
+    checklistTitle: "上线前风控验收项",
+    checklist: [
+      "API Key 没有提现、划转或无关管理员权限。",
+      "人工暂停开启后，任何新信号都不会进入订单路由。",
+      "重复信号、超仓位、超数量和价格偏离都会被拒绝并写入日志。",
+      "第三方 API 超时、拒单或断线时会告警，并保留原始响应。",
+      "客户能按文档完成重启、暂停、回滚和密钥轮换。"
+    ],
+    references: [
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs 脱敏上线验收清单。"],
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs API Key 最小权限建议。"]
+    ]
+  },
+  {
+    slug: "articles/fix-api-execution-report-audit-log-design",
+    breadcrumb: "FIX API 回报与审计日志",
+    eyebrow: "FIX API",
+    title: "FIX API 订单回报和审计日志设计 | ExecutionReport、序号和原始消息",
+    description: "FIX API 订单回报和审计日志设计指南，说明 ExecutionReport、Reject、会话序号、原始消息、标准化状态和上线验收。",
+    h1: "FIX API 订单回报和审计日志设计",
+    intro: "FIX API 项目里，下单只是链路的一部分。真正可维护的订单路由系统必须把 ExecutionReport、Reject、序号恢复、原始消息和标准化订单状态设计清楚。",
+    summary: "FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。",
+    sections: [
+      {
+        title: "把 ExecutionReport 当成订单状态来源",
+        body: "NewOrderSingle 发出后，系统不能只看本地请求成功。订单状态应由 ExecutionReport、Reject、CancelReject 等回报驱动，并映射成内部统一状态。",
+        bullets: ["保留 ClOrdID、OrderID、ExecID、OrdStatus、ExecType 和 CumQty。", "拒单和撤单失败要进入人工可见队列。", "同一订单的多次回报应按序合并。"]
+      },
+      {
+        title: "同时保存原始消息和标准化日志",
+        body: "原始 FIX 消息用于排查接入方差异和字段问题，标准化日志用于后台展示、告警和审计。两者都要保存，且能通过订单号、会话和时间关联。",
+        bullets: ["原始消息不要只存解析后的摘要。", "标准化日志应包含方向、品种、数量、价格、状态和拒绝原因。", "敏感字段和凭证不能写入公开日志。"]
+      },
+      {
+        title: "上线前验证会话和序号恢复",
+        body: "FIX 链路必须测试登录、心跳、断线、重连、序号重置、重发请求、登出和 UAT 脚本。没有这些记录，后续生产问题很难定位。",
+        bullets: ["记录 SenderCompID、TargetCompID、MsgSeqNum 和 PossDupFlag。", "断线后先同步状态，再继续处理新订单。", "UAT 回放要覆盖下单、撤单、拒单和部分成交。"]
+      }
+    ],
+    checklistTitle: "FIX 回报和审计验收项",
+    checklist: [
+      "每个订单都有唯一 ClOrdID，并能关联全部回报。",
+      "ExecutionReport、Reject 和 CancelReject 都写入原始消息日志。",
+      "内部订单状态由回报驱动，不只依赖本地下单请求。",
+      "断线重连、序号恢复和重发请求经过 UAT 验证。",
+      "审计日志能导出订单生命周期、拒绝原因和关键 FIX 字段。"
+    ],
+    references: [
+      officialReferenceLinks[4],
+      ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs 脱敏平台接入笔记。"]
     ]
   }
 ];

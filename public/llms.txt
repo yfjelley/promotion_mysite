@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-06-30
+Last updated: 2026-07-01
 
 ## Core services
 
@@ -41,6 +41,8 @@ Last updated: 2026-06-30
 
 - https://pddjf.com/articles/tradingview-webhook-duplicate-orders/ — TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。
 - https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/ — IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。
+- https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/ — 自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。
+- https://pddjf.com/articles/fix-api-execution-report-audit-log-design/ — FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。
 
 ## Official reference links
 

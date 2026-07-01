@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>自动交易系统技术文章 | Webhook、券商 API、FIX、风控验收和审计日志</title>
-  <meta name="description" content="SignalCraft Labs 自动交易系统技术文章，覆盖 TradingView Webhook 去重、IBKR 接入选择、风控验收、FIX 回报和审计日志。">
+  <title>自动交易系统上线前的风控验收清单 | 权限、暂停、拒单和灰度</title>
+  <meta name="description" content="自动交易系统上线前风控验收清单，覆盖 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警和灰度上线。">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/">
+  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="自动交易系统技术文章">
-  <meta property="og:description" content="SignalCraft Labs 自动交易系统技术文章，覆盖 TradingView Webhook 去重、IBKR 接入选择、风控验收、FIX 回报和审计日志。">
+  <meta property="og:title" content="自动交易系统上线前的风控验收清单">
+  <meta property="og:description" content="自动交易系统上线前风控验收清单，覆盖 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警和灰度上线。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/">
+  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -54,11 +54,11 @@
       "inLanguage": "zh-CN"
     },
     {
-      "@type": "CollectionPage",
-      "@id": "https://pddjf.com/articles/#webpage",
-      "url": "https://pddjf.com/articles/",
-      "name": "自动交易系统技术文章",
-      "description": "SignalCraft Labs 自动交易系统技术文章，覆盖 TradingView Webhook 去重、IBKR 接入选择、风控验收、FIX 回报和审计日志。",
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/#webpage",
+      "url": "https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/",
+      "name": "自动交易系统上线前的风控验收清单",
+      "description": "自动交易系统上线前风控验收清单，覆盖 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警和灰度上线。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/#breadcrumb",
+      "@id": "https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,42 +80,10 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "技术文章",
-          "item": "https://pddjf.com/articles/"
+          "name": "自动交易系统风控验收清单",
+          "item": "https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/"
         }
       ]
-    },
-    {
-      "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/#article",
-      "headline": "TradingView Webhook 如何防重复下单",
-      "description": "TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。",
-      "url": "https://pddjf.com/articles/tradingview-webhook-duplicate-orders/",
-      "author": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "publisher": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "datePublished": "2026-07-01",
-      "dateModified": "2026-07-01",
-      "inLanguage": "zh-CN"
-    },
-    {
-      "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/#article",
-      "headline": "IBKR TWS Gateway 和 Client Portal 怎么选",
-      "description": "IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。",
-      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
-      "author": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "publisher": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "datePublished": "2026-07-01",
-      "dateModified": "2026-07-01",
-      "inLanguage": "zh-CN"
     },
     {
       "@type": "TechArticle",
@@ -131,23 +99,13 @@
       },
       "datePublished": "2026-07-01",
       "dateModified": "2026-07-01",
-      "inLanguage": "zh-CN"
-    },
-    {
-      "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/fix-api-execution-report-audit-log-design/#article",
-      "headline": "FIX API 订单回报和审计日志设计",
-      "description": "FIX API 订单回报和审计日志设计指南，说明 ExecutionReport、Reject、会话序号、原始消息、标准化状态和上线验收。",
-      "url": "https://pddjf.com/articles/fix-api-execution-report-audit-log-design/",
-      "author": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "publisher": {
-        "@id": "https://pddjf.com/#organization"
-      },
-      "datePublished": "2026-07-01",
-      "dateModified": "2026-07-01",
-      "inLanguage": "zh-CN"
+      "inLanguage": "zh-CN",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
     }
   ]
 }
@@ -175,14 +133,41 @@
       <nav class="breadcrumb" aria-label="面包屑">
       <a href="/">首页</a>
       <span aria-hidden="true">/</span>
-      <span>技术文章</span>
+      <span>自动交易系统风控验收清单</span>
     </nav>
-      <p class="eyebrow">Engineering Articles</p>
-      <h1>自动交易系统技术文章</h1>
-      <p class="hero-lede">这些文章面向已经有交易规则和 API 权限、正在评估工程落地的客户。重点是接口限制、风险边界、验收清单和可维护性，不讨论收益预测。</p>
+      <p class="eyebrow">Risk Controls</p>
+      <h1>自动交易系统上线前的风控验收清单</h1>
+      <p class="hero-lede">自动交易系统上线前，真正要验收的不是行情判断，而是系统在错误信号、越权请求、接口异常和人工暂停时能否按预期停下来、写日志并通知负责人。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
-    <section class="section content-band"><div class="article-card-grid">
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。</p>
+      <section>
+        <h2>先定义不能下单的场景</h2>
+        <p>风控验收从禁止条件开始。系统应在 API Key 权限不足、超过最大仓位、超过单笔数量、交易时段不匹配、价格偏离过大或人工暂停开启时拒绝下单。</p>
+        <ul class="check-list"><li>每个禁止条件都应有明确 risk_reason。</li><li>暂停开关应优先于所有策略信号。</li><li>API Key 不需要提现或划转权限。</li></ul>
+      </section><section>
+        <h2>把拒单和告警做成可复查事件</h2>
+        <p>拒单不是异常噪音，而是风控系统的正常输出。日志里应保留信号、规则版本、风控决定、拒绝原因、订单意图、第三方接口响应和告警发送状态。</p>
+        <ul class="check-list"><li>区分 duplicate_signal、risk_rejected、api_error 和 manual_pause。</li><li>告警内容应能定位品种、策略、动作和拒绝原因。</li><li>客户应能用样本信号复现通过和拒绝路径。</li></ul>
+      </section><section>
+        <h2>用灰度上线替代一次性全自动</h2>
+        <p>上线流程应从 dry-run、模拟盘、测试环境或极小范围灰度开始。只有日志、告警、拒单、重启和回滚路径都演示过，才进入更高权限的自动执行。</p>
+        <ul class="check-list"><li>先验证只读、查询、下单、撤单和状态同步。</li><li>先跑固定样本，再接真实信号。</li><li>上线文档应写清楚重启、暂停、回滚和密钥轮换方式。</li></ul>
+      </section>
+      <section>
+        <h2>上线前风控验收项</h2>
+        <ul class="check-list"><li>API Key 没有提现、划转或无关管理员权限。</li><li>人工暂停开启后，任何新信号都不会进入订单路由。</li><li>重复信号、超仓位、超数量和价格偏离都会被拒绝并写入日志。</li><li>第三方 API 超时、拒单或断线时会告警，并保留原始响应。</li><li>客户能按文档完成重启、暂停、回滚和密钥轮换。</li></ul>
+      </section>
+      <section>
+        <h2>参考资料</h2>
+        <div class="reference-list">
+      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs 脱敏上线验收清单。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs API Key 最小权限建议。</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>相关技术文章</h2>
+        <div class="article-card-grid">
       <article>
         <p class="eyebrow">TradingView Webhook</p>
         <h3>TradingView Webhook 如何防重复下单</h3>
@@ -205,13 +190,8 @@
         <a href="/articles/fix-api-execution-report-audit-log-design/">阅读文章</a>
       </article>
     </div>
-    <section class="embedded-section">
-      <h2>公开工程资料</h2>
-      <p>文章中的实现建议会和 GitHub 脱敏资料仓库保持一致，便于客户在咨询前先判断交付方式是否符合自己的安全边界。</p>
-      <div class="reference-list">
-      <a href="https://github.com/yfjelley" rel="noopener" target="_blank"><strong>GitHub profile</strong><span>公开 GitHub 资料，用于连接站点品牌、工程资料和源码交付能力。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Engineering notes</strong><span>脱敏工程资料仓库，包含 Webhook 去重/风控 dry-run demo、权限安全建议、平台接入笔记和验收清单。</span></a><a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank"><strong>LinkedIn profile</strong><span>LinkedIn 公开资料，用于保持站外实体信息、服务边界和联系方式一致。</span></a>
-    </div>
-    </section></section>
+      </section>
+    </article></section>
 
     <section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">

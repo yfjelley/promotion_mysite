@@ -878,6 +878,51 @@ h3 {
   color: var(--muted);
 }
 
+.trust-proof-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 1220px;
+  margin: 30px auto 0;
+}
+
+.trust-proof-links a {
+  display: block;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(7, 139, 123, 0.18);
+  border-radius: 8px;
+  background: #f7fbfb;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+}
+
+.trust-proof-links a:hover,
+.trust-proof-links a:focus-visible {
+  border-color: rgba(7, 139, 123, 0.45);
+  color: var(--teal);
+}
+
+.trust-proof-links strong,
+.trust-proof-links span {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.trust-proof-links strong {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.trust-proof-links span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .case-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2178,6 +2223,10 @@ h3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .trust-proof-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .broker-landing-hero,
   .broker-platforms,
   .qualification {
@@ -2397,8 +2446,9 @@ h3 {
 
   .capability-grid,
   .broker-points,
-  .trust-grid,
-  .case-grid,
+    .trust-grid,
+    .trust-proof-links,
+    .case-grid,
   .legal-content,
   .broker-capability-grid,
   .platform-grid,
