@@ -314,6 +314,12 @@ h3 {
   color: #cbd5e1;
 }
 
+.section-head .eyebrow {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .service-grid,
 .proof-grid,
 .check-grid,
