@@ -183,7 +183,7 @@ for (const file of softwareHtmlFiles) {
   if (isCoreSoftwarePage) {
     [
       "ICOJF Studio",
-      "香港、新加坡、台湾、日本及海外中文客户",
+      "支持中文/英文远程协作",
       "Software Product Studio"
     ].forEach((needle) => requireText(rel, html, needle));
   }
