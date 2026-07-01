@@ -13,6 +13,9 @@ Last updated: 2026-07-01
 - Schwab API automation: https://pddjf.com/broker-api/schwab/ — Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - Alpaca API automation: https://pddjf.com/broker-api/alpaca/ — Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - FIX API order routing: https://pddjf.com/fix-api-order-routing/ — FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- TradingView Webhook Developer: https://pddjf.com/tradingview-webhook-developer/ — Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
+- IBKR API Automation Developer: https://pddjf.com/ibkr-api-automation-developer/ — Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
+- FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 
@@ -43,6 +46,8 @@ Last updated: 2026-07-01
 - https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/ — IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。
 - https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/ — 自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。
 - https://pddjf.com/articles/fix-api-execution-report-audit-log-design/ — FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。
+- https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/ — Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.
+- https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/ — IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.
 
 ## Official reference links
 
@@ -61,6 +66,9 @@ Last updated: 2026-07-01
 - https://pddjf.com/broker-api/schwab/ — Schwab API automation: Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - https://pddjf.com/broker-api/alpaca/ — Alpaca API automation: Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - https://pddjf.com/fix-api-order-routing/ — FIX API order routing: FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- https://pddjf.com/tradingview-webhook-developer/ — TradingView Webhook Developer: Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
+- https://pddjf.com/ibkr-api-automation-developer/ — IBKR API Automation Developer: Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
+- https://pddjf.com/fix-api-order-routing-developer/ — FIX API Order Routing Developer: Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 

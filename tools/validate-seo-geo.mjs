@@ -109,14 +109,26 @@ for (const file of htmlFiles) {
   }
 
   if (generatedServiceRoutes.includes(routeFor(file))) {
-    [
-      "Service Facts",
-      "服务事实摘要",
-      "联系前资料清单",
-      "API Key 最小权限建议",
-      "预算范围拆解",
-      "上线验收清单"
-    ].forEach((needle) => requireText(rel, html, needle));
+    const isEnglishPage = /<html lang="en">/.test(html);
+    const requiredServiceNeedles = isEnglishPage
+      ? [
+          "Service Facts",
+          "Service facts summary",
+          "Pre-contact checklist",
+          "API key minimum permission guidance",
+          "Budget range breakdown",
+          "Launch acceptance checklist"
+        ]
+      : [
+          "Service Facts",
+          "服务事实摘要",
+          "联系前资料清单",
+          "API Key 最小权限建议",
+          "预算范围拆解",
+          "上线验收清单"
+        ];
+
+    requiredServiceNeedles.forEach((needle) => requireText(rel, html, needle));
   }
 
   for (const [, attr, href] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {

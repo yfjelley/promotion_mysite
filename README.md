@@ -23,6 +23,9 @@ SEO and GEO content pages:
 - `/exchange-api-trading-bot-development/` for exchange API automation.
 - `/broker-api/ibkr/`, `/broker-api/schwab/`, and `/broker-api/alpaca/` for platform-specific broker API pages.
 - `/fix-api-order-routing/` for FIX API execution workflows.
+- `/tradingview-webhook-developer/`, `/ibkr-api-automation-developer/`, and
+  `/fix-api-order-routing-developer/` for high-intent English search and Ads
+  landing pages.
 - `/risk-engine/` for pre-trade risk controls.
 - `/private-deployment/` for private deployment, source delivery, and operational handoff.
 - `/articles/` and `/articles/.../` for problem-focused technical articles and official/API reference links.

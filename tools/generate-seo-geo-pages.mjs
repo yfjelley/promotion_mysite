@@ -44,11 +44,26 @@ const baseInputRows = [
   ["部署环境", "客户服务器、VPS、Docker、日志、告警、备份和权限要求。"]
 ];
 
+const baseInputRowsEn = [
+  ["Signal source", "TradingView alert, research script, manual approval, portfolio rule or external event."],
+  ["API access", "Broker API, exchange API, FIX, REST/WebSocket or internal system permission status."],
+  ["Trading rules", "Entry, exit, sizing, stops, take-profit, cancel flow, cooldowns and exception handling."],
+  ["Risk limits", "Max position, per-order risk, reduce-only mode, pause switch, price protection and alerts."],
+  ["Deployment", "Customer server, VPS, Docker, logs, alerts, backups and permission requirements."]
+];
+
 const permissionRows = [
   ["读取权限", "需要", "用于查询余额、持仓、订单状态、成交回报和日志对账。"],
   ["交易权限", "按项目需要", "只在自动执行项目中启用，并建议限制 IP、品种和订单范围。"],
   ["提现权限", "不需要", "不建议提供提现、划转或资金托管权限。"],
   ["管理员权限", "默认不需要", "除非客户明确要求部署协助，否则由客户自行保管账户和服务器主权限。"]
+];
+
+const permissionRowsEn = [
+  ["Read access", "Required", "Used for balances, positions, order status, execution reports and log reconciliation."],
+  ["Trading access", "Scope-based", "Enabled only when automatic execution is in scope, with IP, symbol and order limits where possible."],
+  ["Withdrawal access", "Not needed", "Withdrawal, transfer or custody permissions should not be provided."],
+  ["Admin access", "Usually not needed", "Server or account admin access stays under customer control unless deployment support is explicitly scoped."]
 ];
 
 const acceptanceRows = [
@@ -59,11 +74,26 @@ const acceptanceRows = [
   ["交付文档", "部署、重启、回滚、密钥轮换和常见故障处理说明已交付。"]
 ];
 
+const acceptanceRowsEn = [
+  ["Source and config", "Source code, environment examples, configuration notes and version notes are delivered."],
+  ["Logs and alerts", "Signals, reject reasons, order requests, execution results and exceptions are traceable."],
+  ["Risk validation", "Max position, rate limits, reduce-only rules, pause switch and price protection are tested."],
+  ["Staged rollout", "Validation starts in a test, paper or limited live scope; returns are not the acceptance criterion."],
+  ["Handoff docs", "Deployment, restart, rollback, key rotation and common incident notes are delivered."]
+];
+
 const brokerComparisonRows = [
   ["IBKR / TWS Gateway", "多资产账户、组合执行、持仓同步和审计日志。", "TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。", "连接稳定性、数据权限、地区限制和账户风控以客户账户为准。"],
   ["Schwab API", "美股账户授权、组合数据、订单监控和规则执行。", "OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。", "API 权限、审核流程、地区可用性和平台政策可能变化。"],
   ["Alpaca API", "REST/WebSocket 执行、paper trading 验证和研究信号落地。", "API Key 权限、paper/live 环境切换、订单状态流和市场数据权限。", "资产类别、行情延迟、交易时段和订单能力以账户权限为准。"],
   ["FIX API", "专业订单路由、执行回报、UAT 测试和原始消息审计。", "FIX 版本、会话心跳、序号恢复、证书网络和消息字段映射。", "通常依赖接入方测试环境、证书、专线或审批流程。"]
+];
+
+const brokerComparisonRowsEn = [
+  ["IBKR / TWS Gateway", "Multi-asset accounts, portfolio execution, position sync and audit logs.", "TWS Gateway / Client Portal connection, order types, trading hours and account permissions.", "Connection stability, data access, region limits and account controls depend on the customer account."],
+  ["Schwab API", "US brokerage account authorization, portfolio data, order monitoring and rule execution.", "OAuth, token refresh, account scope, order requests and portfolio data sync.", "API access, approval flow, region availability and platform policy can change."],
+  ["Alpaca API", "REST/WebSocket execution, paper-trading validation and research signal deployment.", "API key permissions, paper/live environments, order status streams and market data access.", "Asset support, data latency, trading hours and order capability depend on account permissions."],
+  ["FIX API", "Professional order routing, execution reports, UAT and raw message audit trails.", "FIX version, heartbeat, sequence recovery, certificates, network setup and tag mapping.", "Usually depends on counterparty test environment, certificates, network and approval workflow."]
 ];
 
 const platformDetailRows = {
@@ -86,6 +116,19 @@ const platformDetailRows = {
     ["会话管理", "确认 FIX 版本、SenderCompID/TargetCompID、心跳、序号、重置规则和断线恢复。", "UAT 中验证登录、心跳、重连、序号恢复和登出流程。"],
     ["消息字段", "映射 NewOrderSingle、Cancel、ExecutionReport、Reject 等核心消息和接入方自定义字段。", "保留原始 FIX 消息、标准化状态和字段级错误。"],
     ["上线约束", "提前确认测试环境、证书、网络、白名单、审批周期和接入方验收脚本。", "上线前完成灰度、回滚、监控和人工暂停开关。"]
+  ]
+};
+
+const platformDetailRowsEn = {
+  "broker-api/ibkr": [
+    ["Connection model", "Evaluate TWS Gateway / Client Portal runtime, reconnect behavior, session lifecycle and account login flow.", "Stable connection, disconnect alerts and no duplicate routing after reconnect."],
+    ["Orders and positions", "Confirm stocks, ETFs, options or portfolio order types, trading hours, cancel flow and execution report fields.", "Order requests, rejects, cancels, fills and position sync are logged."],
+    ["Common errors", "Handle disconnects, missing permissions, missing data subscriptions, unsupported order types and trading-hour restrictions.", "Errors are classified with alerts, pause controls and rollback steps."]
+  ],
+  "fix-api-order-routing": [
+    ["Session management", "Confirm FIX version, SenderCompID/TargetCompID, heartbeat, sequence numbers, reset rules and recovery behavior.", "UAT validates login, heartbeat, reconnect, sequence recovery and logout."],
+    ["Message fields", "Map NewOrderSingle, Cancel, ExecutionReport, Reject and counterparty-specific tags.", "Raw FIX messages, normalized status and field-level errors are preserved."],
+    ["Go-live constraints", "Confirm test environment, certificates, network, allowlists, approval timeline and UAT scripts early.", "Staged rollout, rollback, monitoring and manual pause are verified before production use."]
   ]
 };
 
@@ -392,6 +435,164 @@ const servicePages = [
       ["/broker/api/", "券商 API 自动化"],
       ["/risk-engine/", "风控引擎"],
       ["/private-deployment/", "私有部署"]
+    ]
+  },
+  {
+    slug: "tradingview-webhook-developer",
+    lang: "en",
+    breadcrumb: "TradingView Webhook Developer",
+    eyebrow: "TradingView Webhook Developer",
+    title: "TradingView Webhook Developer | Custom Order Execution, Risk Checks and Alerts",
+    description: "Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.",
+    h1: "TradingView Webhook Developer",
+    intro: "Custom TradingView webhook development for teams that already have alert logic and need a reliable execution layer: payload validation, duplicate prevention, risk checks, order routing, logs, alerts and private deployment.",
+    serviceType: "TradingView webhook developer for automated order execution systems",
+    llmsLabel: "TradingView Webhook Developer",
+    fit: [
+      "You already have Pine Script alerts, alert payloads or a documented trading rule.",
+      "You need TradingView alerts connected to a broker API, exchange API or internal order workflow.",
+      "You care about duplicate prevention, cooldowns, risk limits, alerting and audit logs before going live."
+    ],
+    notFit: [
+      "You are looking for investment advice, signal selling or account management.",
+      "You do not have clear position sizing, order rules, symbols or risk limits.",
+      "You want to skip dry-run, paper trading or limited-scope production validation."
+    ],
+    deliverables: [
+      "Webhook receiver, shared-secret validation, payload parser and structured event IDs.",
+      "Duplicate prevention, cooldown windows, max-position checks, manual pause and reject logs.",
+      "Order routing adapter for the agreed broker API, exchange API or internal execution workflow.",
+      "Source code, configuration examples, deployment notes and remote handoff."
+    ],
+    process: [
+      "Review the TradingView alert text, payload variables, symbols, timeframes and trigger conditions.",
+      "Define event IDs, position sizing, risk rules, reject reasons and alert channels.",
+      "Build the webhook, risk gate, routing layer, logs and deployment package.",
+      "Validate with sample payload replay, dry-run, paper trading or a limited live scope."
+    ],
+    limits: [
+      "TradingView emits alerts; execution quality still depends on the connected API, account permissions, network, liquidity and order rules.",
+      "Webhook alerts can duplicate, delay or fail, so the system needs idempotency, logging and human-visible alerts.",
+      "This is engineering delivery only, not financial advice, managed accounts or performance claims."
+    ],
+    faq: [
+      ["Can you build a TradingView webhook developer workflow for my alert?", "Yes, if the alert payload, symbol mapping, action, size and risk boundaries can be documented and tested."],
+      ["How do you prevent duplicate TradingView webhook orders?", "The system uses stable event IDs, cooldown windows, strategy/symbol/action grouping, risk checks and audit logs before sending any order."],
+      ["Can the webhook connect to IBKR, Alpaca or FIX?", "It can be evaluated. The final route depends on account permissions, API capability, order types and the customer's deployment requirements."],
+      ["Do you need my TradingView login?", "Usually no. We need the alert payload format, webhook configuration details and the intended trading workflow."],
+      ["Can this run on my own VPS or cloud account?", "Yes. Standard delivery can include source code, environment variables, deployment documentation and a remote handoff."],
+      ["Do you provide trading signals or returns?", "No. The service implements customer-defined rules and does not provide signals, investment advice, custody or return promises."]
+    ],
+    related: [
+      ["/articles/how-we-prevent-duplicate-tradingview-webhook-orders/", "Duplicate webhook case note"],
+      ["/risk-engine/", "Risk engine"],
+      ["/private-deployment/", "Private deployment"]
+    ]
+  },
+  {
+    slug: "ibkr-api-automation-developer",
+    lang: "en",
+    platformDetailSlug: "broker-api/ibkr",
+    breadcrumb: "IBKR API Automation Developer",
+    eyebrow: "IBKR API Automation Developer",
+    title: "IBKR API Automation Developer | TWS Gateway, Client Portal, Order Routing and Logs",
+    description: "Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.",
+    h1: "IBKR API Automation Developer",
+    intro: "IBKR API automation development for clients with defined rules, account access and a need for reliable order execution, position sync, risk checks, execution reports, audit logs and deployment support.",
+    serviceType: "IBKR API automation developer for order execution and portfolio workflows",
+    llmsLabel: "IBKR API Automation Developer",
+    fit: [
+      "You have or are preparing an Interactive Brokers account with relevant API access.",
+      "You need order routing, position sync, portfolio workflow automation or execution logs.",
+      "You want a staged build that validates account permissions, order types and failure handling before production use."
+    ],
+    notFit: [
+      "You want outsourced investment decisions, stock recommendations or managed accounts.",
+      "You cannot verify account permissions, order types, trading hours, market data and API access.",
+      "You expect software delivery to be judged by strategy returns instead of tested workflow behavior."
+    ],
+    deliverables: [
+      "TWS Gateway / Client Portal workflow assessment and integration plan.",
+      "Order routing, cancel flow, execution report handling, position sync and error classification.",
+      "Risk checks for size, exposure, trading hours, manual pause and human confirmation when required.",
+      "Source code, configuration examples, runbook, logs and remote handoff."
+    ],
+    process: [
+      "Review account type, region, API access, target instruments, order types and market data needs.",
+      "Define the order lifecycle, position sync, risk checks, logs, alerts and acceptance tests.",
+      "Build the IBKR connection, routing layer, risk gate and operational logging.",
+      "Validate with a test environment, paper workflow or limited live scope where appropriate."
+    ],
+    limits: [
+      "IBKR API capability, market data, order support and regional availability depend on the customer's account and Interactive Brokers policies.",
+      "TWS Gateway and Client Portal workflows have different session, authentication and operational tradeoffs.",
+      "SignalCraft Labs is not affiliated with, endorsed by or authorized by Interactive Brokers."
+    ],
+    faq: [
+      ["Can you build an IBKR API automation system?", "Yes, after account permissions, target instruments, order types, market data and the intended workflow are reviewed."],
+      ["Should I use TWS Gateway or Client Portal?", "It depends on the execution workflow, session requirements, operations model, data needs and account constraints."],
+      ["Can you automate portfolio rebalancing?", "Yes, if target weights, cash constraints, account scope, order rules and human confirmation requirements are clear."],
+      ["What should be tested before going live?", "Connection stability, order types, cancel flow, rejects, trading hours, position sync, execution reports and audit logs."],
+      ["Do you manage my IBKR account?", "No. The customer controls the account, credentials, funding, API permissions and final trading decisions."],
+      ["Can this be privately deployed?", "Yes. Delivery can include source code, environment configuration, deployment documentation and a runbook."]
+    ],
+    related: [
+      ["/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/", "IBKR TWS vs Client Portal"],
+      ["/broker-api/ibkr/", "IBKR API 中文页"],
+      ["/broker/api/", "Broker API overview"]
+    ]
+  },
+  {
+    slug: "fix-api-order-routing-developer",
+    lang: "en",
+    platformDetailSlug: "fix-api-order-routing",
+    breadcrumb: "FIX API Order Routing Developer",
+    eyebrow: "FIX API Order Routing Developer",
+    title: "FIX API Order Routing Developer | Execution Reports, Session Recovery and Audit Logs",
+    description: "Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.",
+    h1: "FIX API Order Routing Developer",
+    intro: "FIX API order routing development for teams that need controlled execution workflows: session management, NewOrderSingle, cancel flow, ExecutionReport handling, Reject processing, risk checks, audit logs and UAT validation.",
+    serviceType: "FIX API order routing developer for execution workflows and audit logs",
+    llmsLabel: "FIX API Order Routing Developer",
+    fit: [
+      "You already have a broker, venue, liquidity provider or counterparty that offers FIX access.",
+      "You need an auditable order lifecycle with raw FIX messages, normalized status and reject handling.",
+      "You can provide the FIX specification, test environment, credentials workflow and acceptance criteria."
+    ],
+    notFit: [
+      "You do not yet have FIX access, a test environment or a counterparty specification.",
+      "You want FIX to bypass account, compliance, permission or venue limits.",
+      "You expect guaranteed latency, fills, execution quality or trading performance."
+    ],
+    deliverables: [
+      "FIX session management, login, heartbeat, sequence handling, reconnect and logout flow.",
+      "NewOrderSingle, cancel, ExecutionReport, Reject and CancelReject message handling.",
+      "Risk gate, order state model, raw message archive, normalized audit logs and alerting.",
+      "UAT support, deployment notes, runbook and remote handoff."
+    ],
+    process: [
+      "Review FIX version, message spec, SenderCompID/TargetCompID, test environment and network requirements.",
+      "Define the order lifecycle, required tags, state transitions, risk checks and audit fields.",
+      "Build the session layer, message handlers, risk gate, logs and replay-friendly test cases.",
+      "Run UAT for login, heartbeat, order, cancel, reject, partial fill, reconnect and sequence recovery."
+    ],
+    limits: [
+      "FIX onboarding often depends on counterparty approval, certificates, network setup, UAT schedules and custom tag requirements.",
+      "Latency and execution quality depend on infrastructure, route, broker, venue, liquidity and market conditions.",
+      "This is technical implementation, not financial advice, brokerage service or managed trading."
+    ],
+    faq: [
+      ["Can you build a FIX API order routing system?", "Yes, if the counterparty specification, test environment and required message flow are available for review."],
+      ["What FIX messages do you usually handle?", "Typical projects cover Logon, Heartbeat, NewOrderSingle, Cancel, ExecutionReport, Reject, CancelReject, ResendRequest and Logout."],
+      ["Do you keep raw FIX messages?", "Yes. A maintainable FIX system should store raw messages and normalized order state for debugging and audit."],
+      ["What does UAT need to cover?", "Login, heartbeat, new order, cancel, reject, partial fill, disconnect, reconnect, sequence recovery and logout."],
+      ["Can you guarantee low latency?", "No. Latency depends on infrastructure, network, broker, venue and market conditions."],
+      ["Is this connected to investment advice?", "No. The service builds the technical order routing and logging layer for customer-defined workflows."]
+    ],
+    related: [
+      ["/articles/fix-api-execution-report-audit-log-design/", "FIX audit log design"],
+      ["/fix-api-order-routing/", "FIX API 中文页"],
+      ["/risk-engine/", "Risk controls"]
     ]
   },
   {
@@ -720,6 +921,86 @@ const articlePages = [
       officialReferenceLinks[4],
       ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs 脱敏平台接入笔记。"]
     ]
+  },
+  {
+    slug: "articles/how-we-prevent-duplicate-tradingview-webhook-orders",
+    lang: "en",
+    breadcrumb: "Prevent Duplicate TradingView Webhook Orders",
+    eyebrow: "Webhook Case Note",
+    title: "How We Prevent Duplicate TradingView Webhook Orders | Event IDs, Cooldowns and Risk Logs",
+    description: "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+    h1: "How We Prevent Duplicate TradingView Webhook Orders",
+    intro: "Duplicate TradingView webhook orders are usually not solved by one setting. A production-ready workflow needs stable event IDs, cooldown windows, risk decisions, logging and a replayable acceptance test.",
+    summary: "Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.",
+    sections: [
+      {
+        title: "Start with a payload that can identify one event",
+        body: "The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.",
+        bullets: ["Do not rely on a plain buy or sell string.", "Include enough fields to distinguish strategy, symbol, direction and time.", "Keep the shared secret out of public pages and repositories."]
+      },
+      {
+        title: "Apply idempotency before order routing",
+        body: "The receiver should check whether the event ID has already been processed before any order is prepared. A second layer checks the same strategy, symbol and action inside a cooldown window so repeated alerts do not become repeated orders.",
+        bullets: ["Store every accepted, duplicated and rejected event.", "Group cooldowns by strategy and symbol, not only globally.", "Log duplicate events as a normal audit result instead of silently dropping them."]
+      },
+      {
+        title: "Treat risk rejects as successful controls",
+        body: "Max position, max order size, price protection, trading hours, manual pause and reduce-only rules can all reject a valid-looking webhook. That reject should be visible to the client with a risk reason and alert status.",
+        bullets: ["Keep risk_decision and risk_reason in the event log.", "Separate duplicate_signal, risk_rejected, api_error and manual_pause alerts.", "Replay sample payloads before connecting real order permissions."]
+      }
+    ],
+    checklistTitle: "Duplicate-order acceptance checks",
+    checklist: [
+      "Sending the same payload twice produces only one order intent.",
+      "A wrong shared secret is rejected and logged.",
+      "A max-position breach is rejected with a visible risk reason.",
+      "Manual pause blocks new order routing before the API call.",
+      "The client can review event ID, duplicate status, risk decision and alert delivery."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
+  },
+  {
+    slug: "articles/ibkr-tws-gateway-vs-client-portal-automated-trading",
+    lang: "en",
+    breadcrumb: "IBKR TWS Gateway vs Client Portal",
+    eyebrow: "IBKR API",
+    title: "IBKR TWS Gateway vs Client Portal for Automated Trading | Connection, Sessions and Order Workflow",
+    description: "Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.",
+    h1: "IBKR TWS Gateway vs Client Portal for Automated Trading",
+    intro: "The right IBKR automation path depends on the order workflow, account permissions, session model, data needs, operations environment and acceptance tests. The API name alone is not enough.",
+    summary: "IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.",
+    sections: [
+      {
+        title: "TWS Gateway is usually evaluated for long-running workflows",
+        body: "TWS Gateway and TWS API workflows are often considered when the system needs continuous account state, order management, execution reports and position sync. The tradeoff is that the runtime environment, session health and reconnect behavior need careful operations design.",
+        bullets: ["Monitor gateway process health and connection status.", "Validate open orders and positions after restart.", "Test trading hours, order types, rejects and cancel flow."]
+      },
+      {
+        title: "Client Portal fits a different operations model",
+        body: "Client Portal workflows are closer to HTTP or web API integration, but they still depend on account authorization, session lifecycle, available endpoints, region and platform policy. It can be useful for account and workflow evaluation when the intended order flow matches the available endpoints.",
+        bullets: ["Plan for authorization and session expiry.", "Verify whether the needed instruments and order types are available.", "Do not assume every IBKR workflow is exposed through the same API surface."]
+      },
+      {
+        title: "Choose by acceptance tests, not by API branding",
+        body: "Before a live automation scope is accepted, the workflow should demonstrate connection, account lookup, order preview or order placement, cancel flow, reject handling, execution reports, position sync, logs and manual pause behavior.",
+        bullets: ["Start with a paper, test or limited-scope workflow when possible.", "Keep account credentials and final trading decisions under customer control.", "Use audit logs to connect signals, orders, reports and rejects."]
+      }
+    ],
+    checklistTitle: "IBKR automation decision checklist",
+    checklist: [
+      "Account region, account type and API access are confirmed.",
+      "Target instruments, order types, market data and trading hours are known.",
+      "The deployment model is clear: local machine, VPS, customer cloud or supervised process.",
+      "Reconnect, session expiry, rejects, cancel flow and position sync are tested.",
+      "Manual pause, order limits, audit logs and handoff documentation are part of the scope."
+    ],
+    references: [
+      officialReferenceLinks[1],
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
   }
 ];
 
@@ -813,6 +1094,9 @@ const footerServiceLinks = [
   ["/broker-api/schwab/", "Schwab API"],
   ["/broker-api/alpaca/", "Alpaca API"],
   ["/fix-api-order-routing/", "FIX API"],
+  ["/tradingview-webhook-developer/", "TradingView Developer"],
+  ["/ibkr-api-automation-developer/", "IBKR Developer"],
+  ["/fix-api-order-routing-developer/", "FIX Developer"],
   ["/risk-engine/", "风控引擎"],
   ["/private-deployment/", "私有部署"],
   ["/articles/", "技术文章"],
@@ -820,6 +1104,31 @@ const footerServiceLinks = [
   ["/case-studies/", "案例"],
   ["/about/", "关于"],
   ["/contact/", "联系"]
+];
+
+const navLinksEn = [
+  ["/tradingview-webhook-developer/", "TradingView Developer"],
+  ["/ibkr-api-automation-developer/", "IBKR Developer"],
+  ["/fix-api-order-routing-developer/", "FIX Developer"],
+  ["/articles/", "Articles"],
+  ["/case-studies/", "Cases"],
+  ["/about/", "About"],
+  ["/contact/", "Contact"]
+];
+
+const footerServiceLinksEn = [
+  ["/tradingview-webhook-developer/", "TradingView Webhook Developer"],
+  ["/ibkr-api-automation-developer/", "IBKR API Automation Developer"],
+  ["/fix-api-order-routing-developer/", "FIX API Order Routing Developer"],
+  ["/tradingview-webhook-automation/", "TradingView Webhook"],
+  ["/broker/api/", "Broker API"],
+  ["/broker-api/ibkr/", "IBKR API"],
+  ["/fix-api-order-routing/", "FIX API"],
+  ["/risk-engine/", "Risk engine"],
+  ["/private-deployment/", "Private deployment"],
+  ["/articles/", "Articles"],
+  ["/case-studies/", "Case studies"],
+  ["/contact/", "Contact"]
 ];
 
 const policyLinks = [
@@ -836,6 +1145,10 @@ function escapeHtml(value) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function isEnglish(value) {
+  return (typeof value === "string" ? value : value?.lang) === "en";
 }
 
 function leadText(value) {
@@ -875,40 +1188,44 @@ function writePublicFile(path, content) {
   writeFileSync(path, `${content.trim()}\n`, "utf8");
 }
 
-function header(activeLabel = "") {
+function header(activeLabel = "", language = "zh-CN") {
+  const english = isEnglish(language);
+  const links = english ? navLinksEn : navLinks;
   return `<header class="site-header">
-    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+    <a class="brand" href="/" aria-label="${english ? "SignalCraft Labs home" : "SignalCraft Labs 首页"}">
       <span class="brand-mark" aria-hidden="true">S</span>
       <span>SignalCraft Labs</span>
     </a>
-    <nav class="nav" aria-label="主导航">
-      ${navLinks.map(([href, label]) => `<a${label === activeLabel ? ' aria-current="page"' : ""} href="${href}">${label}</a>`).join("\n      ")}
-      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+    <nav class="nav" aria-label="${english ? "Main navigation" : "主导航"}">
+      ${links.map(([href, label]) => `<a${label === activeLabel ? ' aria-current="page"' : ""} href="${href}">${label}</a>`).join("\n      ")}
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">${english ? "Request assessment" : "免费评估"}</a>
     </nav>
   </header>`;
 }
 
-function footer() {
+function footer(language = "zh-CN") {
+  const english = isEnglish(language);
+  const serviceLinks = english ? footerServiceLinksEn : footerServiceLinks;
   return `<footer class="site-footer">
-    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
-    <nav aria-label="服务页导航">
-      ${footerServiceLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
+    <p><strong>SignalCraft Labs</strong> ${english ? "custom automated trading systems and trading API development studio" : "自动交易系统与交易 API 定制开发工作室"}</p>
+    <nav aria-label="${english ? "Service page navigation" : "服务页导航"}">
+      ${serviceLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
     </nav>
-    <nav aria-label="政策页导航">
+    <nav aria-label="${english ? "Policy page navigation" : "政策页导航"}">
       ${policyLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
     </nav>
-    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+    <p>${english ? "Technical software development only. No investment advice, custody, managed accounts or return promises." : "仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。"}</p>
   </footer>
 
-  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
-    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
-    <button type="button" data-copy="${contact.wechat}" data-contact="mobile_wechat_copy">复制微信</button>
+  <div class="mobile-contact-bar" role="group" aria-label="${english ? "Mobile quick contact" : "移动端快捷联系"}">
+    <a href="/contact/" data-contact="mobile_contact">${english ? "Assessment" : "免费评估"}</a>
+    <button type="button" data-copy="${contact.wechat}" data-contact="mobile_wechat_copy">${english ? "Copy WeChat" : "复制微信"}</button>
   </div>`;
 }
 
 function breadcrumbs(page) {
-  return `<nav class="breadcrumb" aria-label="面包屑">
-      <a href="/">首页</a>
+  return `<nav class="breadcrumb" aria-label="${isEnglish(page) ? "Breadcrumb" : "面包屑"}">
+      <a href="/">${isEnglish(page) ? "Home" : "首页"}</a>
       <span aria-hidden="true">/</span>
       <span>${escapeHtml(page.breadcrumb)}</span>
     </nav>`;
@@ -922,6 +1239,7 @@ ${JSON.stringify(data, null, 2)}
 
 function baseGraph(page, type = "WebPage") {
   const url = canonical(page.slug);
+  const language = page.lang || "zh-CN";
   return [
     {
       "@type": "Organization",
@@ -944,7 +1262,7 @@ function baseGraph(page, type = "WebPage") {
       "url": site,
       "name": "SignalCraft Labs",
       "publisher": { "@id": `${site}/#organization` },
-      "inLanguage": "zh-CN"
+      "inLanguage": language
     },
     {
       "@type": type,
@@ -954,7 +1272,7 @@ function baseGraph(page, type = "WebPage") {
       "description": page.description,
       "isPartOf": { "@id": `${site}/#website` },
       "about": { "@id": `${site}/#organization` },
-      "inLanguage": "zh-CN"
+      "inLanguage": language
     },
     {
       "@type": "BreadcrumbList",
@@ -1007,6 +1325,17 @@ function serviceSchema(page) {
 }
 
 function summaryRows(page) {
+  if (isEnglish(page)) {
+    return [
+      ["What it is", `SignalCraft Labs provides ${page.serviceType}, turning customer-defined rules into a testable and auditable execution system.`],
+      ["Who it fits", page.fit.join(" ")],
+      ["Deliverables", page.deliverables.join(" ")],
+      ["What we do not do", "No investment advice, signals, managed accounts, custody, withdrawal permission management or return promises."],
+      ["Budget range", "USD 2,000 / 5,000 / 10,000 depending on API count, risk complexity, dashboard scope and deployment requirements."],
+      ["Contact", `${contact.email} / WeChat ${contact.wechat} / Telegram ${contact.telegram}`]
+    ];
+  }
+
   return [
     ["是什么", `SignalCraft Labs 提供 ${page.serviceType}，把客户已有规则工程化为可测试、可审计的执行系统。`],
     ["服务对象", page.fit.join(" ")],
@@ -1029,11 +1358,12 @@ function comparisonTable(title, intro, rows, columns = ["项目", "说明"]) {
 }
 
 function aiSummarySection(page) {
+  const english = isEnglish(page);
   return `<section class="section ai-summary-section" aria-labelledby="ai-summary-title">
       <div class="section-head">
         <p class="eyebrow">Service Facts</p>
-        <h2 id="ai-summary-title">服务事实摘要</h2>
-        <p>用项目评估语言快速说明服务对象、交付物、预算范围和不做事项。</p>
+        <h2 id="ai-summary-title">${english ? "Service facts summary" : "服务事实摘要"}</h2>
+        <p>${english ? "A concise project-assessment summary covering fit, deliverables, budget range and exclusions." : "用项目评估语言快速说明服务对象、交付物、预算范围和不做事项。"}</p>
       </div>
       <div class="summary-list">
         ${summaryRows(page).map(([label, value]) => `<div><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join("")}
@@ -1083,23 +1413,30 @@ function deliverableSamplesSection() {
 }
 
 function evidenceTablesSection(page) {
-  const budgetRows = offers.map((offer) => [offer.label, offer.description]);
-  const platformRows = platformDetailRows[page.slug];
-  const shouldShowBrokerComparison = page.slug.startsWith("broker-api/") || page.slug === "fix-api-order-routing";
+  const english = isEnglish(page);
+  const budgetDescriptionsEn = {
+    Starter: "Single-interface validation, basic risk checks and deployment notes.",
+    Professional: "Multiple rules, risk engine, monitoring logs and staged integration.",
+    "Private Infrastructure": "Multiple APIs, dashboard, permissions, audit logs and private deployment."
+  };
+  const budgetRows = offers.map((offer) => [english ? offer.label.replace(" 美金起", " USD+") : offer.label, english ? budgetDescriptionsEn[offer.name] : offer.description]);
+  const detailSlug = page.platformDetailSlug || page.slug;
+  const platformRows = english ? platformDetailRowsEn[detailSlug] : platformDetailRows[detailSlug];
+  const shouldShowBrokerComparison = page.slug.startsWith("broker-api/") || page.slug.includes("ibkr-api") || page.slug.includes("fix-api");
   const tables = [
-    platformRows ? comparisonTable("平台接入细节", "这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。", platformRows, ["主题", "项目要点", "验收关注"]) : null,
-    shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", brokerComparisonRows, ["接口", "适合场景", "接入重点", "常见限制"]) : null,
-    comparisonTable("联系前资料清单", "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", baseInputRows),
-    comparisonTable("API Key 最小权限建议", "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", permissionRows, ["权限", "建议", "原因"]),
-    comparisonTable("预算范围拆解", "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, ["预算档", "适合范围"]),
-    comparisonTable("上线验收清单", "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", acceptanceRows)
+    platformRows ? comparisonTable(english ? "Platform integration details" : "平台接入细节", english ? "These facts often affect scope, acceptance tests and go-live timing." : "这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。", platformRows, english ? ["Topic", "Project focus", "Acceptance focus"] : ["主题", "项目要点", "验收关注"]) : null,
+    shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", english ? "A quick comparison of broker/API workflow fit, integration focus and common constraints." : "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", english ? brokerComparisonRowsEn : brokerComparisonRows, english ? ["Interface", "Best fit", "Integration focus", "Common limits"] : ["接口", "适合场景", "接入重点", "常见限制"]) : null,
+    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows),
+    comparisonTable(english ? "API key minimum permission guidance" : "API Key 最小权限建议", english ? "Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access." : "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", english ? permissionRowsEn : permissionRows, english ? ["Permission", "Recommendation", "Reason"] : ["权限", "建议", "原因"]),
+    comparisonTable(english ? "Budget range breakdown" : "预算范围拆解", english ? "Budget depends on API count, risk complexity, dashboard scope, deployment and integration work." : "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, english ? ["Budget tier", "Suitable scope"] : ["预算档", "适合范围"]),
+    comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", english ? acceptanceRowsEn : acceptanceRows)
   ].filter(Boolean).join("\n        ");
 
   return `<section class="section evidence-section" aria-labelledby="evidence-title">
       <div class="section-head">
         <p class="eyebrow">Checklists & Tables</p>
-        <h2 id="evidence-title">资料、权限、预算和验收表</h2>
-        <p>正式项目会把这些表转成需求清单和验收清单，减少范围歧义。</p>
+        <h2 id="evidence-title">${english ? "Inputs, permissions, budget and acceptance tables" : "资料、权限、预算和验收表"}</h2>
+        <p>${english ? "Formal projects turn these tables into a scoped requirements and acceptance checklist." : "正式项目会把这些表转成需求清单和验收清单，减少范围歧义。"}</p>
       </div>
       <div class="evidence-grid">
         ${tables}
@@ -1107,12 +1444,13 @@ function evidenceTablesSection(page) {
     </section>`;
 }
 
-function externalTrustSection() {
+function externalTrustSection(language = "zh-CN") {
+  const english = isEnglish(language);
   return `<section class="section external-trust-section" aria-labelledby="external-trust-title">
       <div class="section-head">
         <p class="eyebrow">External Evidence</p>
-        <h2 id="external-trust-title">站外信任资料</h2>
-        <p>这些公开资料用于交叉验证品牌、服务边界、工程交付方式和脱敏技术样例。</p>
+        <h2 id="external-trust-title">${english ? "External trust materials" : "站外信任资料"}</h2>
+        <p>${english ? "These public materials help verify the brand, service boundary, engineering delivery style and sanitized technical examples." : "这些公开资料用于交叉验证品牌、服务边界、工程交付方式和脱敏技术样例。"}</p>
       </div>
       <div class="external-trust-grid">
         ${externalTrustLinks.map(([label, href, summary]) => `<a href="${href}" rel="me noopener" target="_blank"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(summary)}</span></a>`).join("")}
@@ -1126,22 +1464,24 @@ function referenceLinksList(references) {
     </div>`;
 }
 
-function articleCards() {
+function articleCards(language = "zh-CN") {
+  const english = isEnglish(language);
   return `<div class="article-card-grid">
       ${articlePages.map((article) => `<article>
         <p class="eyebrow">${escapeHtml(article.eyebrow)}</p>
         <h3>${escapeHtml(article.h1)}</h3>
         <p>${escapeHtml(article.summary)}</p>
-        <a href="/${article.slug}/">阅读文章</a>
+        <a href="/${article.slug}/">${english ? "Read article" : "阅读文章"}</a>
       </article>`).join("")}
     </div>`;
 }
 
 function servicePageHtml(page) {
   const url = canonical(page.slug);
+  const english = isEnglish(page);
   const activeLabel = page.slug.startsWith("broker-api/") ? "券商 API" : "";
   return `<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="${page.lang || "zh-CN"}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1161,7 +1501,7 @@ function servicePageHtml(page) {
   ${jsonLd(serviceSchema(page))}
 </head>
 <body class="content-page">
-  ${header(activeLabel)}
+  ${header(activeLabel, page.lang)}
   <main>
     <section class="content-hero">
       ${breadcrumbs(page)}
@@ -1169,20 +1509,20 @@ function servicePageHtml(page) {
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
       <div class="hero-actions">
-        <a class="button primary" href="/contact/" data-contact="content_hero_contact">免费评估需求</a>
-        <a class="button secondary" href="#deliverables">查看交付内容</a>
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${english ? "Request assessment" : "免费评估需求"}</a>
+        <a class="button secondary" href="#deliverables">${english ? "View deliverables" : "查看交付内容"}</a>
       </div>
-      <nav class="mobile-quick-links" aria-label="移动端快速入口">
-        <a href="#fit">适合谁</a>
-        <a href="#deliverables">交付</a>
+      <nav class="mobile-quick-links" aria-label="${english ? "Mobile quick links" : "移动端快速入口"}">
+        <a href="#fit">${english ? "Fit" : "适合谁"}</a>
+        <a href="#deliverables">${english ? "Deliverables" : "交付"}</a>
         <a href="#faq">FAQ</a>
-        <a href="/contact/">联系</a>
+        <a href="/contact/">${english ? "Contact" : "联系"}</a>
       </nav>
       <div class="fact-strip" aria-label="项目预算和服务边界">
-        <span>预算：2000 / 5000 / 10000 美金</span>
-        <span>源码交付</span>
-        <span>私有部署</span>
-        <span>不代管资金</span>
+        <span>${english ? "Budget: USD 2,000 / 5,000 / 10,000" : "预算：2000 / 5000 / 10000 美金"}</span>
+        <span>${english ? "Source delivery" : "源码交付"}</span>
+        <span>${english ? "Private deployment" : "私有部署"}</span>
+        <span>${english ? "No custody" : "不代管资金"}</span>
       </div>
     </section>
 
@@ -1191,16 +1531,16 @@ function servicePageHtml(page) {
     <section id="fit" class="section answer-section">
       <div class="section-head centered">
         <p class="eyebrow">Fit Check</p>
-        <h2>这个服务适合谁，不适合谁</h2>
-        <p>先判断是否值得进入技术评估，避免把策略效果、平台限制或新增需求混进开发范围。</p>
+        <h2>${english ? "Who this service fits, and who it does not fit" : "这个服务适合谁，不适合谁"}</h2>
+        <p>${english ? "Start by checking whether the workflow is ready for technical assessment before expanding scope." : "先判断是否值得进入技术评估，避免把策略效果、平台限制或新增需求混进开发范围。"}</p>
       </div>
       <div class="answer-grid">
         <article>
-          <h3>适合谁</h3>
+          <h3>${english ? "Good fit" : "适合谁"}</h3>
           <ul class="check-list">${page.fit.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </article>
         <article>
-          <h3>不适合谁</h3>
+          <h3>${english ? "Not a fit" : "不适合谁"}</h3>
           <ul class="plain-list">${page.notFit.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </article>
       </div>
@@ -1209,8 +1549,8 @@ function servicePageHtml(page) {
     <section id="deliverables" class="section content-band">
       <div class="section-head">
         <p class="eyebrow">Deliverables</p>
-        <h2>交付内容清单</h2>
-        <p>正式报价会把功能、接口、验收路径和交付物写清楚。</p>
+        <h2>${english ? "Deliverables" : "交付内容清单"}</h2>
+        <p>${english ? "A formal quote turns features, APIs, acceptance paths and handoff items into a clear scope." : "正式报价会把功能、接口、验收路径和交付物写清楚。"}</p>
       </div>
       <div class="detail-grid">${page.deliverables.map((item) => `<article><h3>${escapeHtml(leadText(item))}</h3><p>${escapeHtml(item)}</p></article>`).join("")}</div>
     </section>
@@ -1218,7 +1558,7 @@ function servicePageHtml(page) {
     <section class="section process-section">
       <div class="section-head centered">
         <p class="eyebrow">Process</p>
-        <h2>开发流程</h2>
+        <h2>${english ? "Development process" : "开发流程"}</h2>
       </div>
       <ol class="process-grid">${page.process.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(leadText(item))}</strong><em>${escapeHtml(item)}</em></li>`).join("")}</ol>
     </section>
@@ -1226,29 +1566,29 @@ function servicePageHtml(page) {
     <section class="section budget-section">
       <div class="section-head centered dark">
         <p class="eyebrow">Budget</p>
-        <h2>预算区间</h2>
-        <p>预算取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。</p>
+        <h2>${english ? "Budget range" : "预算区间"}</h2>
+        <p>${english ? "Budget depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "预算取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"}</p>
       </div>
-      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Professional" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(offer.description)}</p><strong class="price">${offer.label}</strong><a class="button ${offer.name === "Professional" ? "primary" : "secondary"}" href="/contact/" data-contact="content_budget_${offer.name.toLowerCase().replaceAll(" ", "_")}">咨询报价</a></article>`).join("")}</div>
+      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Professional" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? (offer.name === "Starter" ? "Single-interface validation, basic risk checks and deployment notes." : offer.name === "Professional" ? "Multiple rules, risk engine, monitoring logs and staged integration." : "Multiple APIs, dashboard, permissions, audit logs and private deployment.") : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Professional" ? "primary" : "secondary"}" href="/contact/" data-contact="content_budget_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Request quote" : "咨询报价"}</a></article>`).join("")}</div>
     </section>
 
     <section class="section risk-section">
       <div class="section-head">
         <p class="eyebrow">Risk Boundary</p>
-        <h2>风险边界和平台限制</h2>
+        <h2>${english ? "Risk boundaries and platform limits" : "风险边界和平台限制"}</h2>
       </div>
       <div class="answer-grid">
         <article>
-          <h3>风险边界</h3>
+          <h3>${english ? "Risk boundary" : "风险边界"}</h3>
           <ul class="plain-list">${page.limits.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </article>
         <article>
-          <h3>联系前请准备</h3>
+          <h3>${english ? "Prepare before contact" : "联系前请准备"}</h3>
           <ul class="check-list">
-            <li>平台、账户权限和 API 文档或接口说明</li>
-            <li>信号来源、品种、订单类型和交易时段</li>
-            <li>仓位、风控、暂停、告警和验收标准</li>
-            <li>预算档位和期望部署环境</li>
+            <li>${english ? "Platform, account permissions and API documentation or interface notes" : "平台、账户权限和 API 文档或接口说明"}</li>
+            <li>${english ? "Signal source, instruments, order types and trading hours" : "信号来源、品种、订单类型和交易时段"}</li>
+            <li>${english ? "Sizing, risk limits, pause rules, alerts and acceptance criteria" : "仓位、风控、暂停、告警和验收标准"}</li>
+            <li>${english ? "Budget tier and preferred deployment environment" : "预算档位和期望部署环境"}</li>
           </ul>
         </article>
       </div>
@@ -1256,7 +1596,7 @@ function servicePageHtml(page) {
 
     ${evidenceTablesSection(page)}
 
-    ${externalTrustSection()}
+    ${externalTrustSection(page.lang)}
 
     <section id="faq" class="section faq-section">
       <div class="section-head centered">
@@ -1269,38 +1609,39 @@ function servicePageHtml(page) {
     <section class="section related-section">
       <div class="section-head">
         <p class="eyebrow">Related</p>
-        <h2>相关服务页</h2>
+        <h2>${english ? "Related pages" : "相关服务页"}</h2>
       </div>
-      <div class="policy-links">${page.related.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join("")}<a href="/faq/">常见问题</a><a href="/case-studies/">匿名案例</a></div>
+      <div class="policy-links">${page.related.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join("")}<a href="/faq/">FAQ</a><a href="/case-studies/">${english ? "Case studies" : "匿名案例"}</a></div>
     </section>
 
-    ${ctaBlock()}
+    ${ctaBlock(page.lang)}
   </main>
-  ${footer()}
+  ${footer(page.lang)}
 </body>
 </html>`;
 }
 
-function ctaBlock() {
+function ctaBlock(language = "zh-CN") {
+  const english = isEnglish(language);
   return `<section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
         <p class="eyebrow">Request Assessment</p>
-        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
-        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <h2 id="content-contact-title">${english ? "Send the rule and API workflow first, then we assess feasibility" : "发来你的规则和 API 工作流，先判断能不能做"}</h2>
+        <p>${english ? "Share the signal source, API platform, account permissions, instruments, order types, sizing and risk rules. A first feasibility reply usually follows within one business day when the brief is complete." : "请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。"}</p>
         <div class="contact-row">
           <a href="mailto:${contact.email}" data-contact="content_email" data-lead-contact="true">${contact.email}</a>
-          <button type="button" data-copy="${contact.wechat}" data-contact="content_wechat_copy">复制微信 ${contact.wechat}</button>
+          <button type="button" data-copy="${contact.wechat}" data-contact="content_wechat_copy">${english ? "Copy WeChat" : "复制微信"} ${contact.wechat}</button>
           <a href="${contact.telegramUrl}" data-contact="content_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a>
         </div>
         <p class="copy-status" aria-live="polite"></p>
       </div>
       <div class="contact-card">
-        <strong>评估资料</strong>
+        <strong>${english ? "Assessment inputs" : "评估资料"}</strong>
         <ul>
-          <li>信号和交易规则</li>
-          <li>API 平台和权限状态</li>
-          <li>风控、告警和部署要求</li>
-          <li>预算档位：2000 / 5000 / 10000 美金</li>
+          <li>${english ? "Signal and trading rules" : "信号和交易规则"}</li>
+          <li>${english ? "API platform and permission status" : "API 平台和权限状态"}</li>
+          <li>${english ? "Risk, alert and deployment requirements" : "风控、告警和部署要求"}</li>
+          <li>${english ? "Budget tier: USD 2,000 / 5,000 / 10,000" : "预算档位：2000 / 5000 / 10000 美金"}</li>
         </ul>
       </div>
     </section>`;
@@ -1365,11 +1706,11 @@ function articlesIndexHtml(page) {
         "publisher": { "@id": `${site}/#organization` },
         "datePublished": today,
         "dateModified": today,
-        "inLanguage": "zh-CN"
+        "inLanguage": article.lang || "zh-CN"
       }))
     ]
   };
-  const body = `${articleCards()}
+  const body = `${articleCards(page.lang)}
     <section class="embedded-section">
       <h2>公开工程资料</h2>
       <p>文章中的实现建议会和 GitHub 脱敏资料仓库保持一致，便于客户在咨询前先判断交付方式是否符合自己的安全边界。</p>
@@ -1379,6 +1720,8 @@ function articlesIndexHtml(page) {
 }
 
 function articleHtml(page) {
+  const language = page.lang || "zh-CN";
+  const english = isEnglish(page);
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -1393,7 +1736,7 @@ function articleHtml(page) {
         "publisher": { "@id": `${site}/#organization` },
         "datePublished": today,
         "dateModified": today,
-        "inLanguage": "zh-CN",
+        "inLanguage": language,
         "about": ["Trading API automation", "Webhook automation", "Risk controls", "Private deployment"]
       }
     ]
@@ -1410,12 +1753,12 @@ function articleHtml(page) {
         <ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </section>
       <section>
-        <h2>参考资料</h2>
+        <h2>${english ? "References" : "参考资料"}</h2>
         ${referenceLinksList(page.references)}
       </section>
       <section>
-        <h2>相关技术文章</h2>
-        ${articleCards()}
+        <h2>${english ? "Related technical articles" : "相关技术文章"}</h2>
+        ${articleCards(page.lang)}
       </section>
     </article>`;
   return infoPageHtml(page, "技术资料", body, schema);
@@ -1454,9 +1797,9 @@ function riskHtml(page) {
 
 function infoPageHtml(page, active, body, schema, includeCta = true) {
   const url = canonical(page.slug);
-  const cta = includeCta ? `\n    ${ctaBlock()}` : "";
+  const cta = includeCta ? `\n    ${ctaBlock(page.lang)}` : "";
   return `<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="${page.lang || "zh-CN"}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1476,7 +1819,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   ${jsonLd(schema)}
 </head>
 <body class="content-page">
-  ${header(active)}
+  ${header(active, page.lang)}
   <main>
     <section class="content-hero compact">
       ${breadcrumbs(page)}
@@ -1488,7 +1831,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
     <section class="section content-band">${body}</section>
 ${cta}
   </main>
-  ${footer()}
+  ${footer(page.lang)}
 </body>
 </html>`;
 }

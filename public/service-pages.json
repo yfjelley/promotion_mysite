@@ -8,6 +8,9 @@
     "/broker-api/schwab/",
     "/broker-api/alpaca/",
     "/fix-api-order-routing/",
+    "/tradingview-webhook-developer/",
+    "/ibkr-api-automation-developer/",
+    "/fix-api-order-routing-developer/",
     "/risk-engine/",
     "/private-deployment/"
   ],
@@ -46,6 +49,21 @@
       "label": "FIX API order routing",
       "url": "https://pddjf.com/fix-api-order-routing/",
       "summary": "FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。"
+    },
+    {
+      "label": "TradingView Webhook Developer",
+      "url": "https://pddjf.com/tradingview-webhook-developer/",
+      "summary": "Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment."
+    },
+    {
+      "label": "IBKR API Automation Developer",
+      "url": "https://pddjf.com/ibkr-api-automation-developer/",
+      "summary": "Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs."
+    },
+    {
+      "label": "FIX API Order Routing Developer",
+      "url": "https://pddjf.com/fix-api-order-routing-developer/",
+      "summary": "Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support."
     },
     {
       "label": "Trading risk engine development",
@@ -95,6 +113,16 @@
       "label": "FIX API 订单回报和审计日志设计",
       "url": "https://pddjf.com/articles/fix-api-execution-report-audit-log-design/",
       "summary": "FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。"
+    },
+    {
+      "label": "How We Prevent Duplicate TradingView Webhook Orders",
+      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "summary": "Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests."
+    },
+    {
+      "label": "IBKR TWS Gateway vs Client Portal for Automated Trading",
+      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
+      "summary": "IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests."
     }
   ]
 }

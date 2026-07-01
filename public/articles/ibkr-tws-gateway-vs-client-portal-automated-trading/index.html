@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IBKR TWS Gateway vs Client Portal for Automated Trading | Connection, Sessions and Order Workflow</title>
+  <meta name="description" content="Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="IBKR TWS Gateway vs Client Portal for Automated Trading">
+  <meta property="og:description" content="Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/#webpage",
+      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
+      "name": "IBKR TWS Gateway vs Client Portal for Automated Trading",
+      "description": "Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "IBKR TWS Gateway vs Client Portal",
+          "item": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/#article",
+      "headline": "IBKR TWS Gateway vs Client Portal for Automated Trading",
+      "description": "Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.",
+      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-01",
+      "inLanguage": "en",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/tradingview-webhook-developer/">TradingView Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX Developer</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Cases</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">Request assessment</a>
+    </nav>
+  </header>
+  <main>
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>IBKR TWS Gateway vs Client Portal</span>
+    </nav>
+      <p class="eyebrow">IBKR API</p>
+      <h1>IBKR TWS Gateway vs Client Portal for Automated Trading</h1>
+      <p class="hero-lede">The right IBKR automation path depends on the order workflow, account permissions, session model, data needs, operations environment and acceptance tests. The API name alone is not enough.</p>
+      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.</p>
+      <section>
+        <h2>TWS Gateway is usually evaluated for long-running workflows</h2>
+        <p>TWS Gateway and TWS API workflows are often considered when the system needs continuous account state, order management, execution reports and position sync. The tradeoff is that the runtime environment, session health and reconnect behavior need careful operations design.</p>
+        <ul class="check-list"><li>Monitor gateway process health and connection status.</li><li>Validate open orders and positions after restart.</li><li>Test trading hours, order types, rejects and cancel flow.</li></ul>
+      </section><section>
+        <h2>Client Portal fits a different operations model</h2>
+        <p>Client Portal workflows are closer to HTTP or web API integration, but they still depend on account authorization, session lifecycle, available endpoints, region and platform policy. It can be useful for account and workflow evaluation when the intended order flow matches the available endpoints.</p>
+        <ul class="check-list"><li>Plan for authorization and session expiry.</li><li>Verify whether the needed instruments and order types are available.</li><li>Do not assume every IBKR workflow is exposed through the same API surface.</li></ul>
+      </section><section>
+        <h2>Choose by acceptance tests, not by API branding</h2>
+        <p>Before a live automation scope is accepted, the workflow should demonstrate connection, account lookup, order preview or order placement, cancel flow, reject handling, execution reports, position sync, logs and manual pause behavior.</p>
+        <ul class="check-list"><li>Start with a paper, test or limited-scope workflow when possible.</li><li>Keep account credentials and final trading decisions under customer control.</li><li>Use audit logs to connect signals, orders, reports and rejects.</li></ul>
+      </section>
+      <section>
+        <h2>IBKR automation decision checklist</h2>
+        <ul class="check-list"><li>Account region, account type and API access are confirmed.</li><li>Target instruments, order types, market data and trading hours are known.</li><li>The deployment model is clear: local machine, VPS, customer cloud or supervised process.</li><li>Reconnect, session expiry, rejects, cancel flow and position sync are tested.</li><li>Manual pause, order limits, audit logs and handoff documentation are part of the scope.</li></ul>
+      </section>
+      <section>
+        <h2>References</h2>
+        <div class="reference-list">
+      <a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>IBKR platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>Related technical articles</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">TradingView Webhook</p>
+        <h3>TradingView Webhook 如何防重复下单</h3>
+        <p>TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。</p>
+        <a href="/articles/tradingview-webhook-duplicate-orders/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS Gateway 和 Client Portal 怎么选</h3>
+        <p>IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Risk Controls</p>
+        <h3>自动交易系统上线前的风控验收清单</h3>
+        <p>自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。</p>
+        <a href="/articles/automated-trading-risk-acceptance-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">FIX API</p>
+        <h3>FIX API 订单回报和审计日志设计</h3>
+        <p>FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。</p>
+        <a href="/articles/fix-api-execution-report-audit-log-design/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Webhook Case Note</p>
+        <h3>How We Prevent Duplicate TradingView Webhook Orders</h3>
+        <p>Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+        <a href="/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS Gateway vs Client Portal for Automated Trading</h3>
+        <p>IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">Read article</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Request Assessment</p>
+        <h2 id="content-contact-title">Send the rule and API workflow first, then we assess feasibility</h2>
+        <p>Share the signal source, API platform, account permissions, instruments, order types, sizing and risk rules. A first feasibility reply usually follows within one business day when the brief is complete.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul>
+          <li>Signal and trading rules</li>
+          <li>API platform and permission status</li>
+          <li>Risk, alert and deployment requirements</li>
+          <li>Budget tier: USD 2,000 / 5,000 / 10,000</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> custom automated trading systems and trading API development studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tradingview-webhook-developer/">TradingView Webhook Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR API Automation Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX API Order Routing Developer</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/contact/" data-contact="mobile_contact">Assessment</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

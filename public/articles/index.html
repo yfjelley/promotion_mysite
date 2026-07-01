@@ -148,6 +148,38 @@
       "datePublished": "2026-07-01",
       "dateModified": "2026-07-01",
       "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/#article",
+      "headline": "How We Prevent Duplicate TradingView Webhook Orders",
+      "description": "A practical engineering note on preventing duplicate TradingView webhook orders with event IDs, cooldown windows, idempotent routing, risk checks and audit logs.",
+      "url": "https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-01",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/#article",
+      "headline": "IBKR TWS Gateway vs Client Portal for Automated Trading",
+      "description": "Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.",
+      "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-01",
+      "inLanguage": "en"
     }
   ]
 }
@@ -203,6 +235,16 @@
         <h3>FIX API 订单回报和审计日志设计</h3>
         <p>FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。</p>
         <a href="/articles/fix-api-execution-report-audit-log-design/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">Webhook Case Note</p>
+        <h3>How We Prevent Duplicate TradingView Webhook Orders</h3>
+        <p>Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.</p>
+        <a href="/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS Gateway vs Client Portal for Automated Trading</h3>
+        <p>IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">阅读文章</a>
       </article>
     </div>
     <section class="embedded-section">
@@ -246,6 +288,9 @@
       <a href="/broker-api/schwab/">Schwab API</a>
       <a href="/broker-api/alpaca/">Alpaca API</a>
       <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX Developer</a>
       <a href="/risk-engine/">风控引擎</a>
       <a href="/private-deployment/">私有部署</a>
       <a href="/articles/">技术文章</a>
