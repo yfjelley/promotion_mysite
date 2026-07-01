@@ -168,6 +168,50 @@ for (const file of softwareHtmlFiles) {
     errors.push(`${rel}: must stay separate from pddjf.com brand/domain`);
   }
 
+  const softwareRoute = `/${relative(softwareDir, file).replaceAll(sep, "/")}`;
+  const isSoftware404 = rel === "public/icojf/404.html";
+  const isCoreSoftwarePage =
+    !isSoftware404 &&
+    [
+      "/index.html",
+      "/api-integration-development/index.html",
+      "/mvp-saas-development/index.html",
+      "/business-process-automation/index.html",
+      "/contact/index.html"
+    ].includes(softwareRoute);
+
+  if (isCoreSoftwarePage) {
+    [
+      "ICOJF Studio",
+      "香港、新加坡、台湾、日本及海外中文客户",
+      "Software Product Studio"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
+  [
+    "美国",
+    "中国大陆",
+    "低价开发",
+    "快速仿站",
+    "包满意",
+    "保证增长",
+    "保证融资",
+    "保证转化"
+  ].forEach((needle) => {
+    if (isCoreSoftwarePage && html.includes(needle)) {
+      errors.push(`${rel}: contains disallowed ICOJF positioning text: ${needle}`);
+    }
+  });
+
+  if (isCoreSoftwarePage) {
+    [
+      "源码",
+      "部署文档",
+      "运行手册",
+      "验收清单"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
   if (!is404) {
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
     const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
@@ -182,7 +226,18 @@ for (const file of softwareHtmlFiles) {
   if (!is404 && ldBlocks.length === 0) errors.push(`${rel}: missing JSON-LD`);
   for (const [, raw] of ldBlocks) {
     try {
-      JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      const graph = Array.isArray(parsed["@graph"]) ? parsed["@graph"] : [];
+      const faqNode = graph.find((node) => node["@type"] === "FAQPage");
+      const isIcojfServicePage = [
+        "public/icojf/api-integration-development/index.html",
+        "public/icojf/mvp-saas-development/index.html",
+        "public/icojf/business-process-automation/index.html"
+      ].includes(rel);
+
+      if (isIcojfServicePage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 5)) {
+        errors.push(`${rel}: ICOJF service page FAQPage should contain at least 5 questions`);
+      }
     } catch (error) {
       errors.push(`${rel}: invalid JSON-LD: ${error.message}`);
     }
