@@ -7,158 +7,179 @@
   <meta name="description" content="ICOJF Studio 提供 API Integration 开发，覆盖 OAuth、API Key、Webhook、Rate Limit、Retry Queue、Audit Log 和 Error Handling；支持中文/英文远程协作。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/api-integration-development/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/api-integration-development/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="API 集成开发 | ICOJF Studio">
-  <meta property="og:description" content="API Integration 开发，覆盖 OAuth、Webhook、Rate Limit、Retry Queue、Audit Log 和上线验收。">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="API 集成开发 | OAuth、Webhook、数据同步与自动化 | ICOJF Studio">
+  <meta property="og:description" content="ICOJF Studio 提供 API Integration 开发，覆盖 OAuth、API Key、Webhook、Rate Limit、Retry Queue、Audit Log 和 Error Handling；支持中文/英文远程协作。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/api-integration-development/">
+  <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://icojf.com/#organization",
-        "name": "ICOJF Studio",
-        "url": "https://icojf.com/",
-        "email": "contact@icojf.com"
-      },
-      {
-        "@type": "Service",
-        "@id": "https://icojf.com/api-integration-development/#service",
-        "name": "API 集成开发",
-        "url": "https://icojf.com/api-integration-development/",
-        "provider": { "@id": "https://icojf.com/#organization" },
-        "serviceType": "API Integration",
-        "areaServed": ["Global", "Remote"]
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://icojf.com/api-integration-development/#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://icojf.com/" },
-          { "@type": "ListItem", "position": 2, "name": "API 集成开发", "item": "https://icojf.com/api-integration-development/" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://icojf.com/api-integration-development/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "API 集成开发前需要提供什么资料？",
-            "acceptedAnswer": { "@type": "Answer", "text": "建议提供 API 文档、测试账号、字段样例、权限范围、业务规则、失败场景和上线负责人。" }
-          },
-          {
-            "@type": "Question",
-            "name": "可以处理 OAuth、API Key 和 Webhook 吗？",
-            "acceptedAnswer": { "@type": "Answer", "text": "可以。项目会先确认认证方式、权限范围、回调地址、签名校验、限频规则和生产测试隔离。" }
-          },
-          {
-            "@type": "Question",
-            "name": "API 调用失败如何处理？",
-            "acceptedAnswer": { "@type": "Answer", "text": "通常会设计超时、重试、幂等、错误分类、异常队列、日志记录和必要的人工复核流程。" }
-          },
-          {
-            "@type": "Question",
-            "name": "是否会交付源码和部署文档？",
-            "acceptedAnswer": { "@type": "Answer", "text": "会交付源码、部署文档、运行手册、环境变量说明、接口字段说明、日志说明和验收清单。" }
-          },
-          {
-            "@type": "Question",
-            "name": "API 集成项目是否限制客户地区？",
-            "acceptedAnswer": { "@type": "Answer", "text": "不限地区，支持中文/英文远程协作，以远程沟通、异步文档和阶段验收为主。" }
-          }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
         ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://icojf.com/api-integration-development/#webpage",
+      "url": "https://icojf.com/api-integration-development/",
+      "name": "API 集成开发",
+      "description": "ICOJF Studio 提供 API Integration 开发，覆盖 OAuth、API Key、Webhook、Rate Limit、Retry Queue、Audit Log 和 Error Handling；支持中文/英文远程协作。",
+      "inLanguage": "zh-CN",
+      "isPartOf": {
+        "@id": "https://icojf.com/#website"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://icojf.com/api-integration-development/#service",
+      "name": "API Integration Development",
+      "description": "API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work.",
+      "serviceType": "API Integration Development",
+      "provider": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "areaServed": [
+        "Remote",
+        "Hong Kong",
+        "Singapore",
+        "Taiwan",
+        "United States"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://icojf.com/api-integration-development/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "API 集成开发前最需要什么资料？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "需要目标系统、接口文档、测试账号、字段样例、权限范围、失败处理方式和验收负责人。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "OAuth 和 API Key 怎么选？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "按第三方平台能力决定。OAuth 更适合用户授权流程，API Key 更适合服务端系统串接，但都要控制权限范围。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Webhook 重复推送怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "用事件 ID、时间窗口、幂等写入、重试队列和审计日志处理，不能假设第三方只推送一次。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "可以只做一个接口验证吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以。单接口验证适合先确认权限、字段、限频和失败路径，再决定是否扩展。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "交付后客户能维护吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "交付会包含源码、环境变量说明、接口备注、日志说明、运行手册和验收示例。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/api-integration-development/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://icojf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "API 集成开发",
+          "item": "https://icojf.com/api-integration-development/"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="ICOJF Studio 首页"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a>
+    <a class="brand" href="/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
     <nav class="nav" aria-label="主导航">
-      <a href="/">首页</a>
+      <a href="/api-integration-development/">API 集成</a>
       <a href="/mvp-saas-development/">SaaS MVP</a>
-      <a href="/business-process-automation/">Workflow Automation</a>
-      <a class="nav-cta" href="/contact/">项目评估</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a class="nav-cta" href="/contact/">提交项目简述</a>
     </nav>
   </header>
-  <main>
-    <section class="subpage-hero">
-      <p class="eyebrow">Software Product Studio</p>
-      <h1>API 集成开发</h1>
-      <p>ICOJF Studio 提供 API Integration 开发，把第三方 SaaS、内部后台、数据服务和自动化流程稳定打通，支持中文/英文远程协作，并交付可运行、可追踪、可验收的接口链路。</p>
-      <div class="hero-actions">
-        <a class="button primary" href="/contact/">咨询 API 集成</a>
-        <a class="button secondary" href="#scope">查看技术范围</a>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="facts-title">
-      <div class="section-head">
-        <p class="eyebrow">Service Facts</p>
-        <h2 id="facts-title">项目事实摘要</h2>
-        <p>先确认平台权限、API 文档、测试环境、字段样例、失败场景和上线窗口，再进入开发排期。</p>
-      </div>
-      <div class="fact-strip">
-        <div><strong>适合项目</strong><span>支付、CRM、ERP、物流、表单、消息、数据平台和内部工具之间的数据同步与事件串接。</span></div>
-        <div><strong>核心技术</strong><span>OAuth、API Key、Webhook、Rate Limit、Retry Queue、幂等键、Audit Log 和 Error Handling。</span></div>
-        <div><strong>交付资产</strong><span>源码、部署文档、运行手册、环境变量说明、接口字段说明、日志说明和验收清单。</span></div>
-        <div><strong>验收方式</strong><span>用测试账号、真实字段样例、失败样例、重放样例和上线检查表逐项确认。</span></div>
-      </div>
-    </section>
-
-    <section id="scope" class="section soft" aria-labelledby="scope-title">
-      <div class="section-head">
-        <p class="eyebrow">Technical Scope</p>
-        <h2 id="scope-title">技术范围</h2>
-        <p>API 项目不是只调通一次接口，而是把权限、回调、同步、限频、失败恢复和日志审计一起纳入上线边界。</p>
-      </div>
-      <table class="scope-table">
-        <tbody>
-          <tr><th>认证与权限</th><td>OAuth、API Key、签名校验、最小权限、测试/生产隔离、密钥轮换建议和访问范围说明。</td></tr>
-          <tr><th>Webhook 接收</th><td>回调地址、签名验证、重复事件去重、事件顺序、失败重放和异常队列。</td></tr>
-          <tr><th>同步与限频</th><td>分页、增量同步、Rate Limit、Retry Queue、超时处理、幂等键和补偿任务。</td></tr>
-          <tr><th>日志与告警</th><td>请求 ID、状态码、错误分类、输入输出摘要、Audit Log、告警规则和验收样例。</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="section" aria-labelledby="acceptance-title">
-      <div class="section-head">
-        <p class="eyebrow">Acceptance</p>
-        <h2 id="acceptance-title">上线验收清单</h2>
-        <p>上线前以可复现样例确认接口链路，而不是只看演示环境里的单次成功调用。</p>
-      </div>
-      <div class="detail-grid">
-        <article class="detail-card"><h3>权限与环境</h3><p>测试/生产环境、密钥权限、回调地址、IP 或域名限制、环境变量和密钥轮换建议已记录。</p></article>
-        <article class="detail-card"><h3>数据与状态</h3><p>字段映射、分页、增量同步、状态流转、重复事件、缺失字段和补偿任务已用样例覆盖。</p></article>
-        <article class="detail-card"><h3>失败与恢复</h3><p>超时、限频、错误分类、Retry Queue、异常队列、重放机制和人工复核流程已验证。</p></article>
-        <article class="detail-card"><h3>交付与交接</h3><p>源码、部署文档、运行手册、日志说明、测试账号、验收清单和维护建议已交付。</p></article>
-      </div>
-    </section>
-
-    <section id="faq" class="section soft" aria-labelledby="faq-title">
-      <div class="section-head">
-        <p class="eyebrow">FAQ</p>
-        <h2 id="faq-title">常见问题</h2>
-        <p>以下问题用于快速判断 API Integration 项目的资料准备、技术边界和交付方式。</p>
-      </div>
-      <div class="faq-grid">
-        <article class="faq-card"><h3>API 集成开发前需要提供什么资料？</h3><p>建议提供 API 文档、测试账号、字段样例、权限范围、业务规则、失败场景和上线负责人。</p></article>
-        <article class="faq-card"><h3>可以处理 OAuth、API Key 和 Webhook 吗？</h3><p>可以。项目会先确认认证方式、权限范围、回调地址、签名校验、限频规则和生产测试隔离。</p></article>
-        <article class="faq-card"><h3>API 调用失败如何处理？</h3><p>通常会设计超时、重试、幂等、错误分类、异常队列、日志记录和必要的人工复核流程。</p></article>
-        <article class="faq-card"><h3>是否会交付源码和部署文档？</h3><p>会交付源码、部署文档、运行手册、环境变量说明、接口字段说明、日志说明和验收清单。</p></article>
-        <article class="faq-card"><h3>API 集成项目是否限制客户地区？</h3><p>不限地区，支持中文/英文远程协作，以远程沟通、异步文档和阶段验收为主。</p></article>
-      </div>
-    </section>
-  </main>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">首页</a><span>/</span><span>API 集成开发</span></nav><p class="eyebrow">Service</p><h1>API 集成开发</h1><p class="hero-lede">把支付、CRM、ERP、邮件短信、物流、数据平台和内部系统串接成可追踪、可交接、可维护的业务流程。项目会先确认接口权限、数据字段、失败路径和验收方式，再进入开发。</p><div class="hero-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="#faq">FAQ</a></div></section>
+  <section class="section soft"><div class="section-head"><p class="eyebrow">Service Facts</p><h2>资料、交付物和验收</h2></div><table class="facts-table"><tbody><tr><th>定位</th><td>Software Product Studio</td></tr><tr><th>常见输入</th><td>OAuth scopes and redirect URIs、API key permissions、Webhook ingestion、Rate limit handling、Retry queues、Audit logs、Error classification</td></tr><tr><th>交付资产</th><td>接口权限和范围评估；字段映射和数据同步流程；Webhook 接收与重试机制；错误日志、运行手册和验收清单；验收清单</td></tr><tr><th>验收方式</th><td>按约定功能、接口路径、日志、异常处理、部署文档和交接清单验收。</td></tr><tr><th>合作边界</th><td>不承诺融资、广告 ROI、平台审核结果或第三方 API 永久可用。</td></tr></tbody></table></section>
+  <section class="section"><div class="section-head"><p class="eyebrow">Scope</p><h2>常见开发范围</h2></div><div class="check-grid"><article class="check-card"><h3>OAuth scopes and redirect URIs</h3><p>项目会确认 OAuth scopes and redirect URIs 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>API key permissions</h3><p>项目会确认 API key permissions 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>Webhook ingestion</h3><p>项目会确认 Webhook ingestion 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>Rate limit handling</h3><p>项目会确认 Rate limit handling 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>Retry queues</h3><p>项目会确认 Retry queues 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>Audit logs</h3><p>项目会确认 Audit logs 对实现、运行和验收的影响。</p></article><article class="check-card"><h3>Error classification</h3><p>项目会确认 Error classification 对实现、运行和验收的影响。</p></article></div></section>
+  <section id="faq" class="section faq-section"><div class="section-head centered"><p class="eyebrow">FAQ</p><h2>FAQ</h2></div><div class="faq-list"><article><h3>API 集成开发前最需要什么资料？</h3><p>需要目标系统、接口文档、测试账号、字段样例、权限范围、失败处理方式和验收负责人。</p></article><article><h3>OAuth 和 API Key 怎么选？</h3><p>按第三方平台能力决定。OAuth 更适合用户授权流程，API Key 更适合服务端系统串接，但都要控制权限范围。</p></article><article><h3>Webhook 重复推送怎么办？</h3><p>用事件 ID、时间窗口、幂等写入、重试队列和审计日志处理，不能假设第三方只推送一次。</p></article><article><h3>可以只做一个接口验证吗？</h3><p>可以。单接口验证适合先确认权限、字段、限频和失败路径，再决定是否扩展。</p></article><article><h3>交付后客户能维护吗？</h3><p>交付会包含源码、环境变量说明、接口备注、日志说明、运行手册和验收示例。</p></article></div></section>
+  <section class="section soft"><div class="contact-band"><div class="section-head"><p class="eyebrow">Contact</p><h2>发送项目简述</h2><p>请附上项目背景、现有系统、接口资料、预算范围、上线时间和验收负责人。</p><div class="cta-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="mailto:contact@icojf.com">contact@icojf.com</a></div></div></div></section></main>
   <footer class="footer">
-    <p><strong>ICOJF Studio</strong> API Integration 与软件产品开发</p>
-    <nav class="footer-links" aria-label="页脚导航"><a href="/">首页</a><a href="/case-notes/api-data-sync/">API 案例</a><a href="/engineering-notes/oauth-integration-checklist/">OAuth 笔记</a><a href="/engineering-notes/webhook-retry-idempotency/">Webhook 笔记</a><a href="/terms">服务条款</a><a href="/privacy">隐私政策</a><a href="/contact/">联系</a></nav>
+    <p><strong>ICOJF Studio</strong> 软件产品工作室、API 集成与业务自动化开发</p>
+    <nav class="footer-links" aria-label="页脚导航">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
   </footer>
 </body>
 </html>

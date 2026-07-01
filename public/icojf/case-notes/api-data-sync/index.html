@@ -7,58 +7,123 @@
   <meta name="description" content="ICOJF Studio 脱敏 API 数据同步案例笔记，说明第三方系统串接中的鉴权、字段映射、限频、失败重试、日志和验收方式。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/case-notes/api-data-sync/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/case-notes/api-data-sync/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="API 数据同步案例笔记 | ICOJF Studio">
-  <meta property="og:description" content="脱敏案例：第三方订单、客户资料和内部后台的数据同步。">
-  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="API 数据同步案例笔记 | 鉴权、字段映射与失败重试 | ICOJF Studio">
+  <meta property="og:description" content="ICOJF Studio 脱敏 API 数据同步案例笔记，说明第三方系统串接中的鉴权、字段映射、限频、失败重试、日志和验收方式。">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/case-notes/api-data-sync/">
+  <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
-      { "@type": "Article", "@id": "https://icojf.com/case-notes/api-data-sync/#article", "headline": "API 数据同步案例笔记", "url": "https://icojf.com/case-notes/api-data-sync/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "zh-CN" },
-      { "@type": "BreadcrumbList", "@id": "https://icojf.com/case-notes/api-data-sync/#breadcrumb", "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://icojf.com/" },
-        { "@type": "ListItem", "position": 2, "name": "案例笔记", "item": "https://icojf.com/case-notes/" },
-        { "@type": "ListItem", "position": 3, "name": "API 数据同步", "item": "https://icojf.com/case-notes/api-data-sync/" }
-      ] }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://icojf.com/case-notes/api-data-sync/#article",
+      "headline": "API 数据同步案例笔记",
+      "description": "ICOJF Studio 脱敏 API 数据同步案例笔记，说明第三方系统串接中的鉴权、字段映射、限频、失败重试、日志和验收方式。",
+      "url": "https://icojf.com/case-notes/api-data-sync/",
+      "author": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/case-notes/api-data-sync/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://icojf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "案例笔记",
+          "item": "https://icojf.com/case-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "API 数据同步案例笔记",
+          "item": "https://icojf.com/case-notes/api-data-sync/"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio 首页"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="主导航"><a href="/">首页</a><a href="/case-notes/">案例笔记</a><a href="/api-integration-development/">API 集成</a><a class="nav-cta" href="/contact/">项目评估</a></nav></header>
-  <main>
-    <section class="subpage-hero"><p class="eyebrow">Case Note</p><h1>API 数据同步案例笔记</h1><p>脱敏项目类型：把第三方订单、客户资料和内部后台打通。重点不是单次 API 调用成功，而是让权限、字段、状态、失败和验收样例都可追踪。</p></section>
-    <section class="section">
-      <div class="content-layout">
-        <article class="article-body">
-          <h2>背景</h2>
-          <p>客户已有一个内部后台和一个第三方 SaaS 平台，人工每天导出表格再导入后台。问题集中在字段名不一致、状态更新延迟、重复导入和失败记录无法追踪。</p>
-          <h2>限制</h2>
-          <ul>
-            <li>第三方 API 有限频，不能用高频轮询代替增量同步。</li>
-            <li>生产权限需要最小化，测试环境和生产环境必须分开。</li>
-            <li>部分历史数据字段缺失，需要保留异常队列供人工复核。</li>
-          </ul>
-          <h2>方案</h2>
-          <p>系统使用测试账号先确认 OAuth / API Key 权限范围，再建立字段映射表、增量同步任务、幂等键、失败重试和审计日志。Webhook 事件进入队列后先校验签名，再按业务对象更新状态。</p>
-          <h2>交付物</h2>
-          <ul>
-            <li>同步服务源码和部署文档。</li>
-            <li>环境变量清单、权限说明和字段映射表。</li>
-            <li>失败重试、异常队列、日志字段和人工复核说明。</li>
-            <li>上线验收清单和维护建议。</li>
-          </ul>
-          <h2>验收方式</h2>
-          <p>用测试账号覆盖正常同步、缺失字段、重复事件、限频错误、回调重放和人工复核样例。上线前确认请求 ID、状态码、错误分类和补偿任务都能在日志中查到。</p>
-        </article>
-        <aside class="side-panel"><h2>适合参考</h2><ul class="evidence-list"><li>CRM、ERP、订单、物流或表单系统同步。</li><li>需要 Webhook、限频处理和失败重试的项目。</li><li>需要交付源码、运行手册和验收样例的接口链路。</li></ul></aside>
-      </div>
-    </section>
-  </main>
-  <footer class="footer"><p><strong>ICOJF Studio</strong> API Integration 与软件产品开发</p><nav class="footer-links" aria-label="页脚导航"><a href="/case-notes/">案例笔记</a><a href="/engineering-notes/webhook-retry-idempotency/">Webhook 笔记</a><a href="/contact/">联系</a></nav></footer>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a class="nav-cta" href="/contact/">提交项目简述</a>
+    </nav>
+  </header>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">首页</a><span>/</span><a href="/case-notes/">案例笔记</a></nav><p class="eyebrow">Case Note</p><h1>API 数据同步案例笔记</h1><p class="hero-lede">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p><section><h2>背景</h2><p>客户已经有第三方订单系统和内部后台，但订单、客户资料和状态变更需要人工导出、清洗和导入。人工流程可以运行，但容易出现字段遗漏、重复处理、状态不同步和问题难追踪。项目目标不是替换所有系统，而是把一个稳定的数据同步路径先做成可监控、可回放、可交接的工具。</p></section><section><h2>限制</h2><p>第三方 API 有权限范围、限频、分页、字段命名差异和失败返回格式。内部后台也有必填字段、枚举值和历史脏数据。开发前必须先确认测试账号、接口文档、样本数据、字段解释和负责人。没有这些资料时，项目只能停留在方案评估。</p></section><section><h2>方案</h2><p>第一步建立字段映射表，明确每个字段来自哪里、如何转换、缺失时如何处理。第二步实现增量拉取或 webhook 接收，并用外部 ID 做幂等写入。第三步加入重试队列、错误分类、人工复核队列和审计日志。所有失败都要能看到原因，而不是只返回一个同步失败。</p></section><section><h2>交付物</h2><p>交付包括源码、环境变量样例、接口说明、字段映射表、失败重试说明、日志字段说明、部署文档和验收脚本。客户可以看到哪些记录已同步、哪些记录被跳过、哪些记录等待人工处理。</p></section><section><h2>验收方式</h2><p>验收不看业务增长结果，而看样本数据能否稳定完成新增、更新、重复事件、缺失字段、接口超时、限频和人工复核路径。只有这些路径都能复现，系统才具备继续扩展到更多字段或更多接口的基础。</p></section><section><h2>适合参考</h2><p>这类笔记适合用于判断项目范围、验收方式和交付边界，不展示客户身份、商业结果或不可验证承诺。</p></section></article></section></main>
+  <footer class="footer">
+    <p><strong>ICOJF Studio</strong> 软件产品工作室、API 集成与业务自动化开发</p>
+    <nav class="footer-links" aria-label="页脚导航">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
+  </footer>
 </body>
 </html>

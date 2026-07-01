@@ -10,4 +10,10 @@ Allow: /
 User-agent: OAI-AdsBot
 Allow: /
 
+User-agent: Cloudflare-AI-Search
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://icojf.com/sitemap.xml

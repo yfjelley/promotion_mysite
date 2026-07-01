@@ -7,39 +7,128 @@
   <meta name="description" content="API integration handover checklist covering source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/engineering-notes/api-integration-handover-checklist/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/engineering-notes/api-integration-handover-checklist/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="API Integration Handover Checklist | ICOJF Studio">
-  <meta property="og:description" content="Source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.">
-  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="API Integration Handover Checklist | Source, Runbook and Acceptance | ICOJF Studio">
+  <meta property="og:description" content="API integration handover checklist covering source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/engineering-notes/api-integration-handover-checklist/">
+  <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
-    { "@type": "Article", "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#article", "headline": "API Integration Handover Checklist", "url": "https://icojf.com/engineering-notes/api-integration-handover-checklist/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "en" },
-    { "@type": "BreadcrumbList", "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#breadcrumb", "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://icojf.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Engineering Notes", "item": "https://icojf.com/engineering-notes/" },
-      { "@type": "ListItem", "position": 3, "name": "API Integration Handover Checklist", "item": "https://icojf.com/engineering-notes/api-integration-handover-checklist/" }
-    ] }
-  ] }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#article",
+      "headline": "API Integration Handover Checklist",
+      "description": "API integration handover checklist covering source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.",
+      "url": "https://icojf.com/engineering-notes/api-integration-handover-checklist/",
+      "author": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "inLanguage": "en",
+      "about": [
+        "API integration",
+        "SaaS MVP",
+        "workflow automation",
+        "software handover"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://icojf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Engineering Notes",
+          "item": "https://icojf.com/engineering-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "API Integration Handover Checklist",
+          "item": "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio home"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="/engineering-notes/">Engineering Notes</a><a href="/api-integration-development/">API Integration</a><a class="nav-cta" href="/contact/">Project Brief</a></nav></header>
-  <main>
-    <section class="subpage-hero"><p class="eyebrow">Engineering Note</p><h1>API Integration Handover Checklist</h1><p>The end of an integration project should leave the owner with a runnable system, clear operational notes, and examples that prove the main paths and failure paths.</p></section>
-    <section class="section"><div class="content-layout"><article class="article-body">
-      <h2>Delivery assets</h2>
-      <ul><li>Source code and repository notes.</li><li>Deployment documentation and service dependencies.</li><li>Environment variable names and where each value comes from.</li><li>Webhook URLs, callback domains, provider dashboard settings, and scope notes.</li></ul>
-      <h2>Operational notes</h2>
-      <p>The runbook should explain normal operation, token rotation, retry behavior, queue inspection, manual replay, common errors, and when to contact the third-party provider.</p>
-      <h2>Logs and audit fields</h2>
-      <p>Useful logs include request ID, provider event ID, status code, error class, processing state, object ID, and timestamp. They should avoid raw secrets and unnecessary sensitive data.</p>
-      <h2>Acceptance examples</h2>
-      <ul><li>Normal event or sync path.</li><li>Duplicate event or repeated sync page.</li><li>Rate-limit or timeout path.</li><li>Invalid credential or missing permission path.</li><li>Manual review and replay path.</li></ul>
-    </article><aside class="side-panel"><h2>Related service</h2><p><a href="/api-integration-development/">API Integration development</a></p><p>This checklist is the standard handover shape for small integration projects.</p></aside></div></section>
-  </main>
-  <footer class="footer"><p><strong>ICOJF Studio</strong> API integration and handover documentation</p><nav class="footer-links" aria-label="Footer navigation"><a href="/engineering-notes/">Engineering Notes</a><a href="/contact/">Contact</a></nav></footer>
+  <header class="site-header">
+    <a class="brand" href="/en/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/en/api-integration-development/">API</a>
+      <a href="/en/saas-mvp-development/">SaaS MVP</a>
+      <a href="/en/workflow-automation-development/">Automation</a>
+      <a href="/engineering-notes/">Notes</a>
+      <a href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Start a brief</a>
+    </nav>
+  </header>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/engineering-notes/">Engineering Notes</a></nav><p class="eyebrow">Engineering Note</p><h1>API Integration Handover Checklist</h1><p class="hero-lede">API integration handover should leave the client with code, configuration notes, operational logs, known limits and acceptance examples they can actually use.</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">API integration handover should leave the client with code, configuration notes, operational logs, known limits and acceptance examples they can actually use.</p><section><h2>Delivery assets</h2><p>The handover package should include source code, dependency notes, environment variable examples, deployment instructions, provider application notes, API permission summary and sample payloads. If the integration depends on a third-party dashboard, the owner and access path should be documented.</p></section><section><h2>Operational notes</h2><p>A maintainable integration explains how to start, stop, restart and verify the service. It should note scheduled jobs, webhook endpoints, queues, database tables, log files, alert destinations and common provider failures. These notes prevent the integration from becoming developer-only knowledge.</p></section><section><h2>Logs and audit fields</h2><p>Logs should answer which event or request was processed, which external system was called, what result was returned, whether a retry is pending and what the operator should do. Secrets, tokens and private customer data should not be written into public logs or screenshots.</p></section><section><h2>Acceptance examples</h2><p>The handover should include sample acceptance cases: successful sync, duplicate event, missing required field, provider rate limit, invalid credentials, revoked authorization and manual retry. These examples are more useful than a vague statement that the integration was tested.</p></section><section><h2>Maintenance ownership</h2><p>Every integration has an owner after delivery. The client should know who can rotate credentials, who receives alerts, who controls provider access and what changes require a new development scope. Clear ownership reduces emergency work when a provider changes an API or permission model.</p></section><section><h2>Related service</h2><p>These notes support ICOJF Studio service pages for API integration, SaaS MVP development and workflow automation.</p><div class="policy-links"><a href="/en/api-integration-development/">API Integration Development</a><a href="/en/saas-mvp-development/">SaaS MVP Development</a><a href="/en/workflow-automation-development/">Workflow Automation Development</a></div></section></article></section></main>
+  <footer class="footer">
+    <p><strong>ICOJF Studio</strong> software product studio for SaaS MVPs, API integrations, workflow automation and internal tools</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
+  </footer>
 </body>
 </html>

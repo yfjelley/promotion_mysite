@@ -7,39 +7,128 @@
   <meta name="description" content="A SaaS MVP scope control note covering first-release boundaries, user roles, data objects, admin workflows, deployment, runbooks, and acceptance criteria.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/engineering-notes/saas-mvp-scope-control/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/engineering-notes/saas-mvp-scope-control/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="SaaS MVP Scope Control | ICOJF Studio">
-  <meta property="og:description" content="First-release boundaries, user roles, data objects, admin workflows, deployment, runbooks, and acceptance criteria.">
-  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="SaaS MVP Scope Control | First Release Acceptance | ICOJF Studio">
+  <meta property="og:description" content="A SaaS MVP scope control note covering first-release boundaries, user roles, data objects, admin workflows, deployment, runbooks, and acceptance criteria.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/engineering-notes/saas-mvp-scope-control/">
+  <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
-    { "@type": "Article", "@id": "https://icojf.com/engineering-notes/saas-mvp-scope-control/#article", "headline": "SaaS MVP Scope Control", "url": "https://icojf.com/engineering-notes/saas-mvp-scope-control/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "en" },
-    { "@type": "BreadcrumbList", "@id": "https://icojf.com/engineering-notes/saas-mvp-scope-control/#breadcrumb", "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://icojf.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Engineering Notes", "item": "https://icojf.com/engineering-notes/" },
-      { "@type": "ListItem", "position": 3, "name": "SaaS MVP Scope Control", "item": "https://icojf.com/engineering-notes/saas-mvp-scope-control/" }
-    ] }
-  ] }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://icojf.com/engineering-notes/saas-mvp-scope-control/#article",
+      "headline": "SaaS MVP Scope Control",
+      "description": "A SaaS MVP scope control note covering first-release boundaries, user roles, data objects, admin workflows, deployment, runbooks, and acceptance criteria.",
+      "url": "https://icojf.com/engineering-notes/saas-mvp-scope-control/",
+      "author": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "inLanguage": "en",
+      "about": [
+        "API integration",
+        "SaaS MVP",
+        "workflow automation",
+        "software handover"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/engineering-notes/saas-mvp-scope-control/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://icojf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Engineering Notes",
+          "item": "https://icojf.com/engineering-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SaaS MVP Scope Control",
+          "item": "https://icojf.com/engineering-notes/saas-mvp-scope-control/"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio home"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="/engineering-notes/">Engineering Notes</a><a href="/mvp-saas-development/">SaaS MVP</a><a class="nav-cta" href="/contact/">Project Brief</a></nav></header>
-  <main>
-    <section class="subpage-hero"><p class="eyebrow">Engineering Note</p><h1>SaaS MVP Scope Control</h1><p>The first version of a SaaS product should prove one useful workflow and leave a clean handover path, not absorb the entire long-term roadmap.</p></section>
-    <section class="section"><div class="content-layout"><article class="article-body">
-      <h2>Start with one workflow</h2>
-      <p>A practical MVP begins with one target user, one core object, one admin workflow, and a clear acceptance checklist. Optional reports, complex permissions, and advanced billing can wait if they do not block the first usable release.</p>
-      <h2>Define the data model</h2>
-      <ul><li>Core objects and required fields.</li><li>Status transitions and who can change them.</li><li>Files, notifications, and audit records.</li><li>Export or reporting needs for the first release.</li></ul>
-      <h2>Acceptance criteria</h2>
-      <p>Acceptance should prove that a user can complete the main action, an admin can review it, data is stored correctly, errors are visible, and the deployed environment can be maintained by the owner.</p>
-      <h2>Handover boundary</h2>
-      <p>Delivery should include source code, deployment docs, environment variable list, test accounts, runbook, basic maintenance notes, and a list of deferred features.</p>
-    </article><aside class="side-panel"><h2>Related case</h2><p><a href="/case-notes/saas-mvp-handover/">SaaS MVP handover case note</a></p><p>Shows how scope control becomes a practical delivery checklist.</p></aside></div></section>
-  </main>
-  <footer class="footer"><p><strong>ICOJF Studio</strong> SaaS MVP and software product delivery</p><nav class="footer-links" aria-label="Footer navigation"><a href="/engineering-notes/">Engineering Notes</a><a href="/contact/">Contact</a></nav></footer>
+  <header class="site-header">
+    <a class="brand" href="/en/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/en/api-integration-development/">API</a>
+      <a href="/en/saas-mvp-development/">SaaS MVP</a>
+      <a href="/en/workflow-automation-development/">Automation</a>
+      <a href="/engineering-notes/">Notes</a>
+      <a href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Start a brief</a>
+    </nav>
+  </header>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/engineering-notes/">Engineering Notes</a></nav><p class="eyebrow">Engineering Note</p><h1>SaaS MVP Scope Control</h1><p class="hero-lede">A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.</p><section><h2>Start with one workflow</h2><p>The first release should prove one core workflow end to end. That usually means one primary user, one reason to submit or change data, one internal review path and one visible completion state. If the team cannot describe the first workflow in a short paragraph, design work should continue before development starts.</p></section><section><h2>Define the data model</h2><p>MVP scope becomes easier when the first data objects are named clearly. Define the user, account, project, request, order, file, message or approval objects that matter to the first workflow. For each object, record required fields, optional fields, states and who can change them. This prevents page design from drifting away from operational reality.</p></section><section><h2>Admin workflow</h2><p>Most early SaaS products need an internal surface before they need advanced public features. Admin users need to view records, change status, correct mistakes, export data and handle support cases. A small admin workflow often creates more value than another marketing-facing screen because it makes the product usable after launch.</p></section><section><h2>Acceptance criteria</h2><p>Acceptance should be written as paths: create account, submit record, update state, handle missing field, view admin list, export or inspect logs and restart the application. The criteria should not depend on future user growth, investor interest or revenue outcomes. Software acceptance checks whether the agreed system behavior exists.</p></section><section><h2>Handover boundary</h2><p>A scoped MVP should include source code, deployment notes, environment variables, account ownership, seed data, runbook steps and a backlog of deferred items. The backlog matters because it makes later ideas visible without allowing them to destabilize the first release.</p></section><section><h2>Related service</h2><p>These notes support ICOJF Studio service pages for API integration, SaaS MVP development and workflow automation.</p><div class="policy-links"><a href="/en/api-integration-development/">API Integration Development</a><a href="/en/saas-mvp-development/">SaaS MVP Development</a><a href="/en/workflow-automation-development/">Workflow Automation Development</a></div></section></article></section></main>
+  <footer class="footer">
+    <p><strong>ICOJF Studio</strong> software product studio for SaaS MVPs, API integrations, workflow automation and internal tools</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
+  </footer>
 </body>
 </html>

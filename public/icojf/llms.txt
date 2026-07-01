@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-02
 
-ICOJF Studio is a remote software product studio focused on SaaS MVP development, API integration development, workflow automation, and internal business tools. The site is independent from SignalCraft Labs and uses https://icojf.com/ as its canonical domain.
+ICOJF Studio is a remote software product studio focused on SaaS MVP development, API integration development, workflow automation, internal tools, data dashboards, and third-party system integration. It uses https://icojf.com/ as its canonical domain for software product services.
 
 ## AI-citable factual summary
 
@@ -13,27 +13,33 @@ ICOJF Studio is a remote software product studio focused on SaaS MVP development
 - Services: SaaS MVP development, API Integration, Workflow Automation, internal tools, data dashboards, third-party system integration
 - Deliverables: source code, deployment documentation, runbook, environment variable list, interface notes, log notes, acceptance checklist, and handover walkthrough
 - Boundaries: no financing promises, no advertising ROI promises, no third-party platform approval promises, no custody, and no project without an accountable owner and acceptance criteria
+- Public entity links: https://github.com/yfjelley, https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/
 
 ## Core pages
 
-- https://icojf.com/ - Software Product Studio homepage for SaaS MVP, API Integration, Workflow Automation, and internal tools.
-- https://icojf.com/api-integration-development/ - API Integration service page covering OAuth, API Key permissions, Webhook handling, Rate Limit handling, Retry Queue, Audit Log, and Error Handling.
-- https://icojf.com/mvp-saas-development/ - SaaS MVP service page covering product scope, user roles, data model, admin console, deployment documentation, runbook, and acceptance checklist.
-- https://icojf.com/business-process-automation/ - Workflow Automation service page covering spreadsheet cleanup, approvals, reporting, reminders, cross-system sync, manual review, exception queues, and rollback boundaries.
+- https://icojf.com/ - Chinese software product studio homepage.
+- https://icojf.com/en/ - English software product studio homepage.
+- https://icojf.com/api-integration-development/ - API 集成开发: ICOJF Studio 提供 API Integration 开发，覆盖 OAuth、API Key、Webhook、Rate Limit、Retry Queue、Audit Log 和 Error Handling；支持中文/英文远程协作。
+- https://icojf.com/en/api-integration-development/ - API Integration Development: API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work.
+- https://icojf.com/mvp-saas-development/ - SaaS MVP 开发: ICOJF Studio 提供 SaaS MVP 开发，覆盖产品范围、用户角色、数据模型、后台管理、部署文档、运行手册和验收清单；支持中文/英文远程协作。
+- https://icojf.com/en/saas-mvp-development/ - SaaS MVP Development: SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow.
+- https://icojf.com/business-process-automation/ - 业务流程自动化开发: ICOJF Studio 提供 Workflow Automation 开发，把表格、审批、报表、通知和跨系统同步做成可追踪的内部工具；支持中文/英文远程协作。
+- https://icojf.com/en/workflow-automation-development/ - Workflow Automation Development: Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains.
+- https://icojf.com/about/ - Entity, service boundary, trust links and handover model.
 - https://icojf.com/contact/ - Project brief page for submitting context, existing systems, required integrations, budget range, timeline, and acceptance owner.
 
 ## Case notes
 
 - https://icojf.com/case-notes/ - Anonymized case note index.
-- https://icojf.com/case-notes/api-data-sync/ - API data sync case note with authentication, field mapping, retry, and audit-log acceptance details.
-- https://icojf.com/case-notes/saas-mvp-handover/ - SaaS MVP handover case note with user roles, admin workflow, deployment notes, and runbook handoff.
-- https://icojf.com/case-notes/workflow-automation-review/ - Workflow automation case note with manual review, exception queue, and rollback design.
+- https://icojf.com/case-notes/api-data-sync/ - 一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。
+- https://icojf.com/case-notes/saas-mvp-handover/ - SaaS MVP 的关键不是第一版功能越多越好，而是把核心用户、核心流程、后台操作、部署和交接做成可继续迭代的基础。
+- https://icojf.com/case-notes/workflow-automation-review/ - 流程自动化不是把所有步骤都变成无人值守，而是把重复步骤系统化，同时保留人工复核、异常队列和回滚方式。
 
 ## Engineering notes
 
 - https://icojf.com/engineering-notes/ - Engineering note index.
-- https://icojf.com/engineering-notes/oauth-integration-checklist/ - OAuth integration checklist for permissions, redirect URI, token refresh, and production separation.
-- https://icojf.com/engineering-notes/webhook-retry-idempotency/ - Webhook retry and idempotency note for duplicate events, event ordering, replay, and failure queues.
-- https://icojf.com/engineering-notes/saas-mvp-scope-control/ - SaaS MVP scope control note for keeping first releases small, testable, and maintainable.
-- https://icojf.com/engineering-notes/workflow-automation-human-approval/ - Workflow automation note explaining when human approval should remain in the flow.
-- https://icojf.com/engineering-notes/api-integration-handover-checklist/ - API integration handover checklist for source code, environment variables, logs, runbook, and acceptance examples.
+- https://icojf.com/engineering-notes/oauth-integration-checklist/ - OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.
+- https://icojf.com/engineering-notes/webhook-retry-idempotency/ - A webhook receiver should expect duplicate, delayed, reordered and retried events, then make every accepted, rejected and replayed event visible in logs.
+- https://icojf.com/engineering-notes/saas-mvp-scope-control/ - A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.
+- https://icojf.com/engineering-notes/workflow-automation-human-approval/ - Workflow automation is strongest when repetitive steps are automated while irreversible, ambiguous or high-risk decisions keep human approval and audit trails.
+- https://icojf.com/engineering-notes/api-integration-handover-checklist/ - API integration handover should leave the client with code, configuration notes, operational logs, known limits and acceptance examples they can actually use.

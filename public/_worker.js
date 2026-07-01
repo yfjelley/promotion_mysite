@@ -44,6 +44,11 @@ const PATH_REDIRECTS = new Map([
 
 const ICOJF_PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
+  ["/about", "/about/"],
+  ["/en", "/en/"],
+  ["/en/api-integration-development", "/en/api-integration-development/"],
+  ["/en/saas-mvp-development", "/en/saas-mvp-development/"],
+  ["/en/workflow-automation-development", "/en/workflow-automation-development/"],
   ["/contact", "/contact/"],
   ["/api-integration-development", "/api-integration-development/"],
   ["/mvp-saas-development", "/mvp-saas-development/"],

@@ -179,12 +179,44 @@ for (const file of softwareHtmlFiles) {
       "/business-process-automation/index.html",
       "/contact/index.html"
     ].includes(softwareRoute);
+  const isEnglishSoftwarePage =
+    !isSoftware404 &&
+    [
+      "/en/index.html",
+      "/en/api-integration-development/index.html",
+      "/en/saas-mvp-development/index.html",
+      "/en/workflow-automation-development/index.html"
+    ].includes(softwareRoute);
+  const isAboutSoftwarePage = softwareRoute === "/about/index.html";
 
   if (isCoreSoftwarePage) {
     [
       "ICOJF Studio",
       "支持中文/英文远程协作",
       "Software Product Studio"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
+  if (isEnglishSoftwarePage) {
+    [
+      "ICOJF Studio",
+      "Software Product Studio",
+      "Source code",
+      "deployment documentation",
+      "runbook",
+      "acceptance checklist"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
+  if (isAboutSoftwarePage) {
+    [
+      "公开实体资料",
+      "GitHub",
+      "LinkedIn",
+      "源码",
+      "部署文档",
+      "运行手册",
+      "验收清单"
     ].forEach((needle) => requireText(rel, html, needle));
   }
 
@@ -232,7 +264,10 @@ for (const file of softwareHtmlFiles) {
       const isIcojfServicePage = [
         "public/icojf/api-integration-development/index.html",
         "public/icojf/mvp-saas-development/index.html",
-        "public/icojf/business-process-automation/index.html"
+        "public/icojf/business-process-automation/index.html",
+        "public/icojf/en/api-integration-development/index.html",
+        "public/icojf/en/saas-mvp-development/index.html",
+        "public/icojf/en/workflow-automation-development/index.html"
       ].includes(rel);
 
       if (isIcojfServicePage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 5)) {
@@ -293,6 +328,7 @@ const softwareRobots = readFileSync(join(softwareDir, "robots.txt"), "utf8");
   "User-agent: OAI-SearchBot\nAllow: /",
   "User-agent: ChatGPT-User\nAllow: /",
   "User-agent: OAI-AdsBot\nAllow: /",
+  "User-agent: Cloudflare-AI-Search\nAllow: /",
   "Sitemap: https://icojf.com/sitemap.xml"
 ].forEach((needle) => requireText("icojf/robots.txt", softwareRobots, needle));
 
@@ -301,7 +337,13 @@ const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
   "ICOJF Studio",
   "Last updated: 2026-07-02",
   "AI-citable factual summary",
+  "Public entity links",
+  "https://icojf.com/en/",
   "https://icojf.com/api-integration-development/",
+  "https://icojf.com/en/api-integration-development/",
+  "https://icojf.com/en/saas-mvp-development/",
+  "https://icojf.com/en/workflow-automation-development/",
+  "https://icojf.com/about/",
   "https://icojf.com/case-notes/api-data-sync/",
   "https://icojf.com/case-notes/saas-mvp-handover/",
   "https://icojf.com/case-notes/workflow-automation-review/",
@@ -313,6 +355,11 @@ const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
 ].forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
 
 [
+  "https://icojf.com/en/",
+  "https://icojf.com/en/api-integration-development/",
+  "https://icojf.com/en/saas-mvp-development/",
+  "https://icojf.com/en/workflow-automation-development/",
+  "https://icojf.com/about/",
   "https://icojf.com/case-notes/api-data-sync/",
   "https://icojf.com/case-notes/saas-mvp-handover/",
   "https://icojf.com/case-notes/workflow-automation-review/",

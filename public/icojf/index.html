@@ -7,265 +7,164 @@
   <meta name="description" content="ICOJF Studio 是软件产品工作室，提供 SaaS MVP、API Integration、Workflow Automation 和企业内部工具开发；支持中文/英文远程协作。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="ICOJF Studio | 软件产品工作室">
-  <meta property="og:description" content="交付可上线、可验收、可维护的软件产品，覆盖 SaaS MVP、API 集成、业务流程自动化和企业内部工具。">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="软件产品工作室 | SaaS MVP、API 集成与业务自动化 | ICOJF Studio">
+  <meta property="og:description" content="ICOJF Studio 是软件产品工作室，提供 SaaS MVP、API Integration、Workflow Automation 和企业内部工具开发；支持中文/英文远程协作。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/">
   <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://icojf.com/#organization",
-        "name": "ICOJF Studio",
-        "url": "https://icojf.com/",
-        "logo": "https://icojf.com/favicon.svg",
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
         "email": "contact@icojf.com",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "sales",
-          "email": "contact@icojf.com",
-          "availableLanguage": ["zh-CN", "en"]
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://icojf.com/#website",
-        "url": "https://icojf.com/",
-        "name": "ICOJF Studio",
-        "publisher": { "@id": "https://icojf.com/#organization" },
-        "inLanguage": "zh-CN"
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://icojf.com/#service",
-        "name": "软件产品工作室",
-        "url": "https://icojf.com/",
-        "provider": { "@id": "https://icojf.com/#organization" },
-        "areaServed": ["Global", "Remote"],
-        "serviceType": [
-          "SaaS MVP 开发",
-          "API Integration",
-          "Workflow Automation",
-          "企业内部工具开发",
-          "软件产品开发"
-        ],
-        "priceRange": "USD 2,000 - 20,000"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://icojf.com/#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://icojf.com/" }
+        "availableLanguage": [
+          "zh-CN",
+          "en"
         ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://icojf.com/#website",
+      "url": "https://icojf.com/",
+      "name": "ICOJF Studio",
+      "publisher": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://icojf.com/#service",
+      "name": "Software Product Studio",
+      "url": "https://icojf.com/",
+      "provider": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "areaServed": [
+        "Remote",
+        "Hong Kong",
+        "Singapore",
+        "Taiwan",
+        "United States"
+      ],
+      "serviceType": [
+        "API Integration Development",
+        "SaaS MVP Development",
+        "Workflow Automation Development"
+      ],
+      "priceRange": "USD 2,000 - 20,000",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "ICOJF Studio service catalog",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "API Integration Development",
+              "url": "https://icojf.com/api-integration-development/",
+              "description": "API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SaaS MVP Development",
+              "url": "https://icojf.com/mvp-saas-development/",
+              "description": "SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Workflow Automation Development",
+              "url": "https://icojf.com/business-process-automation/",
+              "description": "Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
   </script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="ICOJF Studio 首页">
-      <span class="brand-mark" aria-hidden="true">I</span>
-      <span>ICOJF Studio</span>
+    <a class="brand" href="/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
     </a>
     <nav class="nav" aria-label="主导航">
-      <a href="#capabilities">服务能力</a>
-      <a href="#case-notes">案例笔记</a>
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/case-notes/">案例笔记</a>
       <a href="/engineering-notes/">工程笔记</a>
-      <a href="#process">交付流程</a>
-      <a href="#trust">安全边界</a>
+      <a href="/about/">关于</a>
       <a class="nav-cta" href="/contact/">提交项目简述</a>
     </nav>
   </header>
-
-  <main>
-    <section class="hero studio-hero" aria-labelledby="hero-title">
+  <main><section class="hero studio-hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">Software Product Studio</p>
         <h1 id="hero-title">交付可上线、可验收、可维护的软件产品。</h1>
-        <p class="hero-lede">
-          ICOJF Studio 提供 SaaS MVP、API Integration、Workflow Automation 与企业内部工具开发，支持中文/英文远程协作。重点不是堆功能，而是交付能运行、可验收、可维护的系统。
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="/contact/">提交项目简述</a>
-          <a class="button secondary" href="#capabilities">查看服务能力</a>
-        </div>
-        <div class="hero-tags" aria-label="核心服务">
-          <span>SaaS MVP</span>
-          <span>API Integration</span>
-          <span>Workflow Automation</span>
-          <span>Internal Tools</span>
-        </div>
+        <p class="hero-lede">ICOJF Studio 提供 SaaS MVP、API Integration、Workflow Automation 与企业内部工具开发，支持中文/英文远程协作。重点不是堆功能，而是交付能运行、可验收、可维护的系统。</p>
+        <div class="hero-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="#capabilities">查看服务能力</a></div>
+        <div class="hero-tags" aria-label="Core services"><span>SaaS MVP</span><span>API Integration</span><span>Workflow Automation</span><span>Internal Tools</span></div>
       </div>
-
-      <div class="build-system-panel premium-panel" aria-label="项目交付模型示意">
-        <div class="panel-head">
-          <strong>项目交付模型</strong>
-          <span class="status">Scoped handover</span>
-        </div>
-        <div class="system-preview-grid">
-          <div class="workflow-card signal-card">
-            <span class="mini-label">Workflow</span>
-            <div class="workflow-lane"><span>01</span>需求拆解与原型</div>
-            <div class="workflow-lane"><span>02</span>API / 数据流程设计</div>
-            <div class="workflow-lane"><span>03</span>上线、文档、交接</div>
-          </div>
-          <div class="handover-card deliverable-card">
-            <span class="mini-label">交付范围</span>
-            <div class="progress-track"><span style="width:72%"></span></div>
-            <p>MVP / 4-8 周</p>
-            <div class="artifact-list">
-              <span><strong>Source Code</strong>源码</span>
-              <span><strong>Deploy Docs</strong>部署文档</span>
-              <span><strong>Runbook</strong>运行手册</span>
-              <span><strong>Acceptance</strong>验收清单</span>
-            </div>
-          </div>
-        </div>
-        <div class="launch-steps">
-          <span><strong>01</strong> Brief</span>
-          <span><strong>02</strong> Prototype</span>
-          <span><strong>03</strong> Build</span>
-          <span><strong>04</strong> Launch</span>
-        </div>
+      <div class="build-system-panel premium-panel" aria-label="Delivery model">
+        <div class="panel-head"><strong>项目交付模型</strong><span class="status">Scoped handover</span></div>
+        <div class="system-preview-grid"><div class="workflow-card signal-card"><span class="mini-label">Workflow</span><div class="workflow-lane"><span>01</span>需求拆解与原型</div><div class="workflow-lane"><span>02</span>API / 数据流程设计</div><div class="workflow-lane"><span>03</span>上线、文档、交接</div></div><div class="handover-card deliverable-card"><span class="mini-label">交付范围</span><div class="progress-track"><span style="width:72%"></span></div><p>MVP / 4-8 weeks</p><div class="artifact-list"><span><strong>Source Code</strong>源码</span><span><strong>Deploy Docs</strong>部署文档</span><span><strong>Runbook</strong>运行手册</span><span><strong>Acceptance</strong>验收清单</span></div></div></div>
       </div>
     </section>
-
     <section id="capabilities" class="section" aria-labelledby="capabilities-title">
-      <div class="section-head">
-        <p class="eyebrow">Capabilities</p>
-        <h2 id="capabilities-title">服务能力</h2>
-        <p>每个项目先确认业务目标、系统边界、客户需提供资料和验收方式，再进入原型或开发。</p>
-      </div>
-      <div class="service-grid">
-        <article class="service-card accent-blue">
-          <span class="card-index">01</span>
-          <h3>API Integration</h3>
-          <p>支付、CRM、ERP、邮件短信、物流、数据平台和内部系统串接，覆盖 OAuth、Webhook、Rate Limit、Retry Queue、Audit Log 和 Error Handling。</p>
-          <a href="/api-integration-development/">查看 API 集成开发</a>
-        </article>
-        <article class="service-card accent-green">
-          <span class="card-index">02</span>
-          <h3>SaaS MVP</h3>
-          <p>把早期产品做成可演示、可试用、可继续迭代的第一版，包含用户角色、核心流程、后台、数据模型、部署文档和运行手册。</p>
-          <a href="/mvp-saas-development/">查看 SaaS MVP 开发</a>
-        </article>
-        <article class="service-card accent-amber">
-          <span class="card-index">03</span>
-          <h3>Workflow Automation</h3>
-          <p>把重复性的表格、审批、通知、报表和跨系统同步做成可追踪的自动化工具，并保留人工确认、异常队列和回滚方式。</p>
-          <a href="/business-process-automation/">查看业务自动化开发</a>
-        </article>
-      </div>
+      <div class="section-head"><p class="eyebrow">Capabilities</p><h2 id="capabilities-title">服务能力</h2><p>每个项目先确认业务目标、系统边界、客户需提供资料和验收方式，再进入原型或开发。</p></div>
+      <div class="service-grid"><article class="service-card accent-blue"><span class="card-index">01</span><h3>API 集成开发</h3><p>把支付、CRM、ERP、邮件短信、物流、数据平台和内部系统串接成可追踪、可交接、可维护的业务流程。项目会先确认接口权限、数据字段、失败路径和验收方式，再进入开发。</p><a href="/api-integration-development/">查看服务</a></article><article class="service-card accent-green"><span class="card-index">02</span><h3>SaaS MVP 开发</h3><p>把早期产品做成可演示、可试用、可继续迭代的第一版。重点不是一次做完所有功能，而是确认核心用户、核心流程、数据模型、后台权限和第一阶段验收。</p><a href="/mvp-saas-development/">查看服务</a></article><article class="service-card accent-amber"><span class="card-index">03</span><h3>业务流程自动化开发</h3><p>把重复性的表格、审批、提醒、报表和跨系统同步做成可追踪的内部工具。适合已经有稳定流程，但人工复制、催办、汇总或检查成本过高的团队。</p><a href="/business-process-automation/">查看服务</a></article></div>
     </section>
-
-    <section class="section soft" aria-labelledby="facts-title">
-      <div class="section-head">
-        <p class="eyebrow">Service Facts</p>
-        <h2 id="facts-title">项目事实摘要</h2>
-        <p>适合先快速判断范围、地区、交付物和合作边界。</p>
-      </div>
-      <table class="facts-table">
-        <tbody>
-          <tr><th>服务对象</th><td>不限地区，支持中文/英文远程协作；适合创业团队、运营团队、中小企业和需要外部产品开发能力的业务负责人。</td></tr>
-          <tr><th>主要交付物</th><td>源码、部署文档、运行手册、接口说明、环境变量清单、日志说明、验收清单和远程交付讲解。</td></tr>
-          <tr><th>常见项目</th><td>SaaS MVP、API Integration、Workflow Automation、企业内部工具、数据看板和第三方系统串接。</td></tr>
-          <tr><th>合作方式</th><td>以远程沟通、异步文档、阶段交付和明确验收为主；项目开始前确认负责人、测试账号、接口文档和上线窗口。</td></tr>
-          <tr><th>不承诺事项</th><td>不承诺融资、拉新、广告 ROI、平台审核结果、第三方 API 永久可用或没有验收标准的纯想法落地。</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="case-notes" class="section" aria-labelledby="case-notes-title">
-      <div class="section-head">
-        <p class="eyebrow">Case Notes</p>
-        <h2 id="case-notes-title">案例笔记展示方式</h2>
-        <p>第一阶段使用脱敏案例笔记，不夸大商业结果，只展示问题、限制、架构、交付物和验收方式。</p>
-      </div>
-      <div class="proof-grid">
-        <article class="proof-card"><h3>API 数据同步</h3><p>把第三方订单、客户资料和内部后台打通，重点处理鉴权、字段映射、失败重试和日志追踪。</p><a href="/case-notes/api-data-sync/">查看案例笔记</a></article>
-        <article class="proof-card"><h3>SaaS MVP 闭环</h3><p>从角色权限、核心表单、后台管理到部署交接，先做可试用版本，再按真实反馈扩展。</p><a href="/case-notes/saas-mvp-handover/">查看案例笔记</a></article>
-        <article class="proof-card"><h3>人工流程自动化</h3><p>把表格汇总、审批提醒和周报生成流程系统化，同时保留人工确认和异常队列。</p><a href="/case-notes/workflow-automation-review/">查看案例笔记</a></article>
-      </div>
-    </section>
-
-    <section class="section soft" aria-labelledby="notes-title">
-      <div class="section-head">
-        <p class="eyebrow">Engineering Notes</p>
-        <h2 id="notes-title">工程笔记</h2>
-        <p>用英文小文章解释 API 集成、Webhook、SaaS MVP 和业务自动化项目里的真实工程边界，方便客户和搜索系统理解服务深度。</p>
-      </div>
-      <div class="article-grid">
-        <article class="article-card"><h3>OAuth Integration Checklist</h3><p>权限范围、回调地址、Token refresh、生产隔离和交接资料。</p><a href="/engineering-notes/oauth-integration-checklist/">Read note</a></article>
-        <article class="article-card"><h3>Webhook Retry and Idempotency</h3><p>重复事件、重放、事件顺序、失败队列和 Audit Log。</p><a href="/engineering-notes/webhook-retry-idempotency/">Read note</a></article>
-        <article class="article-card"><h3>SaaS MVP Scope Control</h3><p>第一版产品如何收敛用户、流程、数据对象、后台和验收标准。</p><a href="/engineering-notes/saas-mvp-scope-control/">Read note</a></article>
-      </div>
-    </section>
-
-    <section id="process" class="section dark" aria-labelledby="process-title">
-      <div class="section-head">
-        <p class="eyebrow">Delivery Model</p>
-        <h2 id="process-title">交付流程</h2>
-        <p>先定义范围和验收，再进入开发，避免软件产品项目最常见的范围失控。</p>
-      </div>
-      <div class="process">
-        <article class="process-step"><span>1</span><h3>Brief</h3><p>整理项目背景、现有系统、目标用户、关键流程、接口文档和预算范围。</p></article>
-        <article class="process-step"><span>2</span><h3>Prototype</h3><p>确认核心页面、数据对象、用户角色、系统边界和第一阶段验收清单。</p></article>
-        <article class="process-step"><span>3</span><h3>Build</h3><p>按功能切片开发，保留演示环境、变更记录、日志说明和测试用例。</p></article>
-        <article class="process-step"><span>4</span><h3>Launch</h3><p>完成部署、源码交付、运行手册、权限交接、上线检查和维护建议。</p></article>
-      </div>
-    </section>
-
-    <section id="trust" class="section" aria-labelledby="trust-title">
-      <div class="section-head">
-        <p class="eyebrow">Trust & Boundary</p>
-        <h2 id="trust-title">安全与交付边界</h2>
-        <p>项目交付以可维护和可审计为目标，敏感权限、生产数据和第三方平台责任需要在开始前确认。</p>
-      </div>
-      <div class="check-grid">
-        <article class="check-card"><h3>权限最小化</h3><p>API Key、OAuth、测试账号和生产权限应按最小权限配置，并区分测试与生产环境。</p></article>
-        <article class="check-card"><h3>交接资产</h3><p>交付源码、部署文档、运行手册、环境变量说明、日志说明和验收清单。</p></article>
-        <article class="check-card"><h3>不适合项目</h3><p>极低预算、没有明确负责人、只要求复制竞品、不接受阶段验收或文档交接的项目不适合进入开发。</p></article>
-      </div>
-    </section>
-
-    <section id="contact" class="section soft" aria-labelledby="contact-title">
-      <div class="contact-band">
-        <div class="section-head">
-          <p class="eyebrow">Start a Build Brief</p>
-          <h2 id="contact-title">提交项目简述</h2>
-          <p>发来项目背景、现有系统、目标用户、需要集成的平台、预算范围和期望上线时间。可以先做一页范围评估，再决定是否进入原型或开发。</p>
-          <div class="cta-actions">
-            <a class="button primary" href="/contact/">提交项目简述</a>
-            <a class="button secondary" href="mailto:contact@icojf.com">发送邮件</a>
-          </div>
-        </div>
-        <aside class="contact-card">
-          <h3>首次联系建议包含</h3>
-          <ul class="list">
-            <li>项目目标和当前阻塞点。</li>
-            <li>现有系统、表格或接口文档。</li>
-            <li>第一阶段必须上线的核心功能。</li>
-            <li>预算范围、上线时间和验收负责人。</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-  </main>
-
+    <section class="section soft" aria-labelledby="facts-title"><div class="section-head"><p class="eyebrow">Service Facts</p><h2 id="facts-title">项目事实摘要</h2></div><table class="facts-table"><tbody><tr><th>服务对象</th><td>支持中文/英文远程协作；适合创业团队、运营团队、中小企业和需要外部产品开发能力的业务负责人。</td></tr><tr><th>主要交付物</th><td>源码、部署文档、运行手册、接口说明、环境变量清单、日志说明、验收清单和远程交付讲解。</td></tr><tr><th>常见项目</th><td>SaaS MVP、API Integration、Workflow Automation、企业内部工具、数据看板和第三方系统串接。</td></tr><tr><th>不承诺事项</th><td>不承诺融资、拉新、广告 ROI、平台审核结果、第三方 API 永久可用或没有验收标准的纯想法落地。</td></tr></tbody></table></section>
+    <section class="section" aria-labelledby="entity-title"><div class="section-head"><p class="eyebrow">Trust & Entity</p><h2 id="entity-title">公开实体与交付边界</h2><p>ICOJF 在品牌、canonical、sitemap、robots 和页面内容上保持独立的软件产品服务定位。</p></div><div class="check-grid"><article class="check-card"><h3>GitHub</h3><p>公开工程资料信号，用于支撑软件交付和源码交接能力。</p><a href="https://github.com/yfjelley" rel="me noopener" target="_blank">GitHub profile</a></article><article class="check-card"><h3>LinkedIn</h3><p>站外身份资料，用于保持远程协作和服务边界口径一致。</p><a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="me noopener" target="_blank">LinkedIn profile</a></article><article class="check-card"><h3>关于 ICOJF</h3><p>服务范围、交付资产、适合项目和不适合项目的明确说明。</p><a href="/about/">查看关于页</a></article></div></section>
+    <section class="section soft" aria-labelledby="notes-title"><div class="section-head"><p class="eyebrow">Engineering Notes</p><h2 id="notes-title">工程笔记</h2><p>用英文工程文章解释 API 集成、Webhook、SaaS MVP 和业务自动化里的真实边界。</p></div><div class="article-grid"><article class="article-card"><h3>OAuth Integration Checklist</h3><p>OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.</p><a href="/engineering-notes/oauth-integration-checklist/">Read note</a></article><article class="article-card"><h3>Webhook Retry and Idempotency</h3><p>A webhook receiver should expect duplicate, delayed, reordered and retried events, then make every accepted, rejected and replayed event visible in logs.</p><a href="/engineering-notes/webhook-retry-idempotency/">Read note</a></article><article class="article-card"><h3>SaaS MVP Scope Control</h3><p>A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.</p><a href="/engineering-notes/saas-mvp-scope-control/">Read note</a></article></div></section>
+    <section class="section soft" aria-labelledby="contact-title"><div class="contact-band"><div class="section-head"><p class="eyebrow">Start a Build Brief</p><h2 id="contact-title">提交项目简述</h2><p>发来项目背景、现有系统、目标用户、需要集成的平台、预算范围和期望上线时间。</p><div class="cta-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="mailto:contact@icojf.com">Email</a></div></div></div></section></main>
   <footer class="footer">
     <p><strong>ICOJF Studio</strong> 软件产品工作室、API 集成与业务自动化开发</p>
     <nav class="footer-links" aria-label="页脚导航">
       <a href="/api-integration-development/">API 集成</a>
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
       <a href="/case-notes/">案例笔记</a>
       <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
       <a href="/terms">服务条款</a>
       <a href="/privacy">隐私政策</a>
       <a href="/contact/">联系</a>

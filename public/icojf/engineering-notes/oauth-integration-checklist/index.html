@@ -7,41 +7,128 @@
   <meta name="description" content="A practical OAuth integration checklist covering scopes, redirect URIs, token refresh, permission boundaries, production separation, logging, and handover.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/engineering-notes/oauth-integration-checklist/">
+  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/engineering-notes/oauth-integration-checklist/">
+  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-content">
-  <meta property="og:title" content="OAuth Integration Checklist | ICOJF Studio">
-  <meta property="og:description" content="Scopes, redirect URIs, token refresh, production separation, logging, and handover.">
-  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <meta property="og:title" content="OAuth Integration Checklist | Permissions, Tokens and Handover | ICOJF Studio">
+  <meta property="og:description" content="A practical OAuth integration checklist covering scopes, redirect URIs, token refresh, permission boundaries, production separation, logging, and handover.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://icojf.com/engineering-notes/oauth-integration-checklist/">
+  <meta name="theme-color" content="#0f172a">
   <script type="application/ld+json">
-  { "@context": "https://schema.org", "@graph": [
-    { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
-    { "@type": "Article", "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#article", "headline": "OAuth Integration Checklist", "url": "https://icojf.com/engineering-notes/oauth-integration-checklist/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "en" },
-    { "@type": "BreadcrumbList", "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#breadcrumb", "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://icojf.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Engineering Notes", "item": "https://icojf.com/engineering-notes/" },
-      { "@type": "ListItem", "position": 3, "name": "OAuth Integration Checklist", "item": "https://icojf.com/engineering-notes/oauth-integration-checklist/" }
-    ] }
-  ] }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#article",
+      "headline": "OAuth Integration Checklist",
+      "description": "A practical OAuth integration checklist covering scopes, redirect URIs, token refresh, permission boundaries, production separation, logging, and handover.",
+      "url": "https://icojf.com/engineering-notes/oauth-integration-checklist/",
+      "author": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "inLanguage": "en",
+      "about": [
+        "API integration",
+        "SaaS MVP",
+        "workflow automation",
+        "software handover"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://icojf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Engineering Notes",
+          "item": "https://icojf.com/engineering-notes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "OAuth Integration Checklist",
+          "item": "https://icojf.com/engineering-notes/oauth-integration-checklist/"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
-  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio home"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="/engineering-notes/">Engineering Notes</a><a href="/api-integration-development/">API Integration</a><a class="nav-cta" href="/contact/">Project Brief</a></nav></header>
-  <main>
-    <section class="subpage-hero"><p class="eyebrow">Engineering Note</p><h1>OAuth Integration Checklist</h1><p>OAuth work should be scoped as a production handover problem, not only as a login screen or one successful token exchange.</p></section>
-    <section class="section"><div class="content-layout"><article class="article-body">
-      <h2>Before development</h2>
-      <ul><li>Confirm the provider, app owner, callback domain, redirect URI, and whether a sandbox account exists.</li><li>List required scopes and remove permissions that are not needed for the first release.</li><li>Separate test credentials from production credentials and document who can rotate them.</li></ul>
-      <h2>Token handling</h2>
-      <p>The integration should record token expiry, refresh behavior, error codes, and revoked-access states. A runbook should explain how to reconnect an account without editing source code.</p>
-      <h2>Security boundary</h2>
-      <p>Secrets should live in environment variables or a managed secret store. Logs should keep request IDs and error classes, not raw access tokens or unnecessary personal data.</p>
-      <h2>Acceptance examples</h2>
-      <ul><li>First authorization succeeds with the correct redirect URI.</li><li>Refresh works after access-token expiry.</li><li>Revoked access creates a clear reconnect state.</li><li>Wrong scopes fail with a readable error.</li></ul>
-      <h2>Handover</h2>
-      <p>Final delivery should include source code, deployment notes, environment variable names, provider dashboard settings, callback URL list, log fields, and a short recovery guide.</p>
-    </article><aside class="side-panel"><h2>Related service</h2><p><a href="/api-integration-development/">API Integration development</a></p><p>Useful for CRM, payment, ERP, logistics, messaging, data, and internal-tool integrations.</p></aside></div></section>
-  </main>
-  <footer class="footer"><p><strong>ICOJF Studio</strong> API integration and software product delivery</p><nav class="footer-links" aria-label="Footer navigation"><a href="/engineering-notes/">Engineering Notes</a><a href="/contact/">Contact</a></nav></footer>
+  <header class="site-header">
+    <a class="brand" href="/en/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/en/api-integration-development/">API</a>
+      <a href="/en/saas-mvp-development/">SaaS MVP</a>
+      <a href="/en/workflow-automation-development/">Automation</a>
+      <a href="/engineering-notes/">Notes</a>
+      <a href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Start a brief</a>
+    </nav>
+  </header>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/engineering-notes/">Engineering Notes</a></nav><p class="eyebrow">Engineering Note</p><h1>OAuth Integration Checklist</h1><p class="hero-lede">OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.</p><section><h2>Before development</h2><p>Start by listing the product surface that truly needs OAuth access. The integration should identify the provider, application type, redirect URI, requested scopes, account owner, test account, production owner and revocation path. If the scope list is broad because the team is unsure what the workflow needs, pause and reduce the requested access. A maintainable OAuth integration asks for the minimum practical permission set and records why each scope exists.</p></section><section><h2>Token handling</h2><p>Token storage and refresh behavior should be designed before the first production authorization. The system needs to know where access tokens are stored, how refresh tokens are rotated, how expiry is detected, what happens when refresh fails and who receives the reauthorization alert. Do not treat a successful callback as completion. The accepted workflow should include initial authorization, refresh, revoked access, expired tokens, invalid scopes and provider downtime.</p></section><section><h2>Security boundary</h2><p>OAuth secrets should stay in server-side environment variables or a managed secret store. Redirect URIs should be exact, production and test applications should be separated when the provider supports it and logs should avoid writing tokens or authorization codes. The handover notes should state who owns the provider application, who can rotate credentials and how to disable access if the integration is no longer used.</p></section><section><h2>Acceptance examples</h2><p>Useful acceptance tests include authorizing a test account, calling the minimum required endpoint, refreshing an expired token, handling a revoked token, rejecting an unexpected callback state, logging provider errors and showing the reauthorization message. These tests prove the lifecycle around OAuth, not only the first happy path.</p></section><section><h2>Handover</h2><p>A clean handover includes source code, environment variable names, provider dashboard notes, redirect URI list, requested scopes, token storage notes, refresh behavior, log fields, reauthorization steps and an owner checklist. If a future operator can rotate credentials and restore access without guessing, the OAuth work is maintainable.</p></section><section><h2>Related service</h2><p>These notes support ICOJF Studio service pages for API integration, SaaS MVP development and workflow automation.</p><div class="policy-links"><a href="/en/api-integration-development/">API Integration Development</a><a href="/en/saas-mvp-development/">SaaS MVP Development</a><a href="/en/workflow-automation-development/">Workflow Automation Development</a></div></section></article></section></main>
+  <footer class="footer">
+    <p><strong>ICOJF Studio</strong> software product studio for SaaS MVPs, API integrations, workflow automation and internal tools</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/en/">English</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
+  </footer>
 </body>
 </html>
