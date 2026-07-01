@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OAuth Integration Checklist | Permissions, Tokens and Handover | ICOJF Studio</title>
+  <meta name="description" content="A practical OAuth integration checklist covering scopes, redirect URIs, token refresh, permission boundaries, production separation, logging, and handover.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://icojf.com/engineering-notes/oauth-integration-checklist/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css?v=20260702-content">
+  <meta property="og:title" content="OAuth Integration Checklist | ICOJF Studio">
+  <meta property="og:description" content="Scopes, redirect URIs, token refresh, production separation, logging, and handover.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://icojf.com/engineering-notes/oauth-integration-checklist/">
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@graph": [
+    { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
+    { "@type": "Article", "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#article", "headline": "OAuth Integration Checklist", "url": "https://icojf.com/engineering-notes/oauth-integration-checklist/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "en" },
+    { "@type": "BreadcrumbList", "@id": "https://icojf.com/engineering-notes/oauth-integration-checklist/#breadcrumb", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://icojf.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Engineering Notes", "item": "https://icojf.com/engineering-notes/" },
+      { "@type": "ListItem", "position": 3, "name": "OAuth Integration Checklist", "item": "https://icojf.com/engineering-notes/oauth-integration-checklist/" }
+    ] }
+  ] }
+  </script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio home"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="/engineering-notes/">Engineering Notes</a><a href="/api-integration-development/">API Integration</a><a class="nav-cta" href="/contact/">Project Brief</a></nav></header>
+  <main>
+    <section class="subpage-hero"><p class="eyebrow">Engineering Note</p><h1>OAuth Integration Checklist</h1><p>OAuth work should be scoped as a production handover problem, not only as a login screen or one successful token exchange.</p></section>
+    <section class="section"><div class="content-layout"><article class="article-body">
+      <h2>Before development</h2>
+      <ul><li>Confirm the provider, app owner, callback domain, redirect URI, and whether a sandbox account exists.</li><li>List required scopes and remove permissions that are not needed for the first release.</li><li>Separate test credentials from production credentials and document who can rotate them.</li></ul>
+      <h2>Token handling</h2>
+      <p>The integration should record token expiry, refresh behavior, error codes, and revoked-access states. A runbook should explain how to reconnect an account without editing source code.</p>
+      <h2>Security boundary</h2>
+      <p>Secrets should live in environment variables or a managed secret store. Logs should keep request IDs and error classes, not raw access tokens or unnecessary personal data.</p>
+      <h2>Acceptance examples</h2>
+      <ul><li>First authorization succeeds with the correct redirect URI.</li><li>Refresh works after access-token expiry.</li><li>Revoked access creates a clear reconnect state.</li><li>Wrong scopes fail with a readable error.</li></ul>
+      <h2>Handover</h2>
+      <p>Final delivery should include source code, deployment notes, environment variable names, provider dashboard settings, callback URL list, log fields, and a short recovery guide.</p>
+    </article><aside class="side-panel"><h2>Related service</h2><p><a href="/api-integration-development/">API Integration development</a></p><p>Useful for CRM, payment, ERP, logistics, messaging, data, and internal-tool integrations.</p></aside></div></section>
+  </main>
+  <footer class="footer"><p><strong>ICOJF Studio</strong> API integration and software product delivery</p><nav class="footer-links" aria-label="Footer navigation"><a href="/engineering-notes/">Engineering Notes</a><a href="/contact/">Contact</a></nav></footer>
+</body>
+</html>

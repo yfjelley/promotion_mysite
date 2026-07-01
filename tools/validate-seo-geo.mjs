@@ -296,6 +296,33 @@ const softwareRobots = readFileSync(join(softwareDir, "robots.txt"), "utf8");
   "Sitemap: https://icojf.com/sitemap.xml"
 ].forEach((needle) => requireText("icojf/robots.txt", softwareRobots, needle));
 
+const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
+[
+  "ICOJF Studio",
+  "Last updated: 2026-07-02",
+  "AI-citable factual summary",
+  "https://icojf.com/api-integration-development/",
+  "https://icojf.com/case-notes/api-data-sync/",
+  "https://icojf.com/case-notes/saas-mvp-handover/",
+  "https://icojf.com/case-notes/workflow-automation-review/",
+  "https://icojf.com/engineering-notes/oauth-integration-checklist/",
+  "https://icojf.com/engineering-notes/webhook-retry-idempotency/",
+  "https://icojf.com/engineering-notes/saas-mvp-scope-control/",
+  "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
+  "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
+].forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
+
+[
+  "https://icojf.com/case-notes/api-data-sync/",
+  "https://icojf.com/case-notes/saas-mvp-handover/",
+  "https://icojf.com/case-notes/workflow-automation-review/",
+  "https://icojf.com/engineering-notes/oauth-integration-checklist/",
+  "https://icojf.com/engineering-notes/webhook-retry-idempotency/",
+  "https://icojf.com/engineering-notes/saas-mvp-scope-control/",
+  "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
+  "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
+].forEach((needle) => requireText("icojf/sitemap.xml", softwareSitemap, needle));
+
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",

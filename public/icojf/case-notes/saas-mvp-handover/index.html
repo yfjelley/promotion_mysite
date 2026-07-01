@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SaaS MVP 交接案例笔记 | 后台、权限、部署与运行手册 | ICOJF Studio</title>
+  <meta name="description" content="ICOJF Studio SaaS MVP 脱敏案例笔记，展示用户角色、后台管理、核心流程、部署文档、运行手册和验收清单。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://icojf.com/case-notes/saas-mvp-handover/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css?v=20260702-content">
+  <meta property="og:title" content="SaaS MVP 交接案例笔记 | ICOJF Studio">
+  <meta property="og:description" content="脱敏案例：早期 SaaS 第一版的范围控制、后台、权限和交接。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://icojf.com/case-notes/saas-mvp-handover/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
+      { "@type": "Article", "@id": "https://icojf.com/case-notes/saas-mvp-handover/#article", "headline": "SaaS MVP 交接案例笔记", "url": "https://icojf.com/case-notes/saas-mvp-handover/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "zh-CN" },
+      { "@type": "BreadcrumbList", "@id": "https://icojf.com/case-notes/saas-mvp-handover/#breadcrumb", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://icojf.com/" },
+        { "@type": "ListItem", "position": 2, "name": "案例笔记", "item": "https://icojf.com/case-notes/" },
+        { "@type": "ListItem", "position": 3, "name": "SaaS MVP 交接", "item": "https://icojf.com/case-notes/saas-mvp-handover/" }
+      ] }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio 首页"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="主导航"><a href="/">首页</a><a href="/case-notes/">案例笔记</a><a href="/mvp-saas-development/">SaaS MVP</a><a class="nav-cta" href="/contact/">项目评估</a></nav></header>
+  <main>
+    <section class="subpage-hero"><p class="eyebrow">Case Note</p><h1>SaaS MVP 交接案例笔记</h1><p>脱敏项目类型：把一个早期产品方向做成可演示、可试用、可继续迭代的第一版，同时保留源码、部署和验收资料。</p></section>
+    <section class="section">
+      <div class="content-layout">
+        <article class="article-body">
+          <h2>背景</h2>
+          <p>项目开始时只有业务流程、参考页面和表格字段，没有完整产品规格。第一阶段目标是跑通一个核心角色的提交、审核、状态更新和后台管理。</p>
+          <h2>范围收敛</h2>
+          <p>首版没有把长期路线图全部放进开发范围，而是先定义目标用户、核心对象、必须页面、管理员动作和验收清单。可选报表、复杂权限和多语言后台留到第二阶段。</p>
+          <h2>系统组成</h2>
+          <ul>
+            <li>前端页面、登录状态、核心表单和详情页。</li>
+            <li>后台管理、角色权限、状态流转和操作记录。</li>
+            <li>数据库字段说明、文件存储配置、邮件通知和错误日志。</li>
+          </ul>
+          <h2>交付物</h2>
+          <p>交付包含源码、部署文档、运行手册、环境变量清单、测试账号、基础维护建议和验收清单。交接时按用户视角和管理员视角分别演示核心流程。</p>
+          <h2>验收方式</h2>
+          <p>验收不按功能数量堆叠，而是按闭环流程确认：用户能提交资料，管理员能审核处理，状态能被查询，异常输入能被提示，部署环境和日志说明能被接手。</p>
+        </article>
+        <aside class="side-panel"><h2>适合参考</h2><ul class="evidence-list"><li>早期 SaaS、客户门户、订单后台或任务系统。</li><li>需要第一版上线但不希望范围失控的项目。</li><li>需要源码、运行手册和后续迭代边界的交付。</li></ul></aside>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><p><strong>ICOJF Studio</strong> SaaS MVP 与软件产品开发</p><nav class="footer-links" aria-label="页脚导航"><a href="/case-notes/">案例笔记</a><a href="/engineering-notes/saas-mvp-scope-control/">MVP 范围笔记</a><a href="/contact/">联系</a></nav></footer>
+</body>
+</html>

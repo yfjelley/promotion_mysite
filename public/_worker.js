@@ -48,6 +48,16 @@ const ICOJF_PATH_REDIRECTS = new Map([
   ["/api-integration-development", "/api-integration-development/"],
   ["/mvp-saas-development", "/mvp-saas-development/"],
   ["/business-process-automation", "/business-process-automation/"],
+  ["/case-notes", "/case-notes/"],
+  ["/case-notes/api-data-sync", "/case-notes/api-data-sync/"],
+  ["/case-notes/saas-mvp-handover", "/case-notes/saas-mvp-handover/"],
+  ["/case-notes/workflow-automation-review", "/case-notes/workflow-automation-review/"],
+  ["/engineering-notes", "/engineering-notes/"],
+  ["/engineering-notes/oauth-integration-checklist", "/engineering-notes/oauth-integration-checklist/"],
+  ["/engineering-notes/webhook-retry-idempotency", "/engineering-notes/webhook-retry-idempotency/"],
+  ["/engineering-notes/saas-mvp-scope-control", "/engineering-notes/saas-mvp-scope-control/"],
+  ["/engineering-notes/workflow-automation-human-approval", "/engineering-notes/workflow-automation-human-approval/"],
+  ["/engineering-notes/api-integration-handover-checklist", "/engineering-notes/api-integration-handover-checklist/"],
   ["/privacy.html", "/privacy"],
   ["/privacy/", "/privacy"],
   ["/terms.html", "/terms"],
@@ -89,8 +99,11 @@ function icojfAssetPath(pathname) {
   if (pathname === "/terms") return "/icojf/terms.html";
   if (pathname === "/robots.txt") return "/icojf/robots.txt";
   if (pathname === "/sitemap.xml") return "/icojf/sitemap.xml";
+  if (pathname === "/llms.txt") return "/icojf/llms.txt";
   if (pathname === "/favicon.svg") return "/icojf/favicon.svg";
   if (pathname === "/styles.css") return "/icojf/styles.css";
+  if (pathname.endsWith("/")) return `/icojf${pathname}index.html`;
+  if (/\.[a-z0-9]+$/i.test(pathname)) return `/icojf${pathname}`;
   return null;
 }
 

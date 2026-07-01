@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Integration Handover Checklist | Source, Runbook and Acceptance | ICOJF Studio</title>
+  <meta name="description" content="API integration handover checklist covering source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://icojf.com/engineering-notes/api-integration-handover-checklist/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css?v=20260702-content">
+  <meta property="og:title" content="API Integration Handover Checklist | ICOJF Studio">
+  <meta property="og:description" content="Source code, deployment docs, environment variables, logs, runbook, acceptance examples, and maintenance ownership.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://icojf.com/engineering-notes/api-integration-handover-checklist/">
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@graph": [
+    { "@type": "Organization", "@id": "https://icojf.com/#organization", "name": "ICOJF Studio", "url": "https://icojf.com/", "email": "contact@icojf.com" },
+    { "@type": "Article", "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#article", "headline": "API Integration Handover Checklist", "url": "https://icojf.com/engineering-notes/api-integration-handover-checklist/", "author": { "@id": "https://icojf.com/#organization" }, "publisher": { "@id": "https://icojf.com/#organization" }, "inLanguage": "en" },
+    { "@type": "BreadcrumbList", "@id": "https://icojf.com/engineering-notes/api-integration-handover-checklist/#breadcrumb", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://icojf.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Engineering Notes", "item": "https://icojf.com/engineering-notes/" },
+      { "@type": "ListItem", "position": 3, "name": "API Integration Handover Checklist", "item": "https://icojf.com/engineering-notes/api-integration-handover-checklist/" }
+    ] }
+  ] }
+  </script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/" aria-label="ICOJF Studio home"><span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span></a><nav class="nav" aria-label="Main navigation"><a href="/">Home</a><a href="/engineering-notes/">Engineering Notes</a><a href="/api-integration-development/">API Integration</a><a class="nav-cta" href="/contact/">Project Brief</a></nav></header>
+  <main>
+    <section class="subpage-hero"><p class="eyebrow">Engineering Note</p><h1>API Integration Handover Checklist</h1><p>The end of an integration project should leave the owner with a runnable system, clear operational notes, and examples that prove the main paths and failure paths.</p></section>
+    <section class="section"><div class="content-layout"><article class="article-body">
+      <h2>Delivery assets</h2>
+      <ul><li>Source code and repository notes.</li><li>Deployment documentation and service dependencies.</li><li>Environment variable names and where each value comes from.</li><li>Webhook URLs, callback domains, provider dashboard settings, and scope notes.</li></ul>
+      <h2>Operational notes</h2>
+      <p>The runbook should explain normal operation, token rotation, retry behavior, queue inspection, manual replay, common errors, and when to contact the third-party provider.</p>
+      <h2>Logs and audit fields</h2>
+      <p>Useful logs include request ID, provider event ID, status code, error class, processing state, object ID, and timestamp. They should avoid raw secrets and unnecessary sensitive data.</p>
+      <h2>Acceptance examples</h2>
+      <ul><li>Normal event or sync path.</li><li>Duplicate event or repeated sync page.</li><li>Rate-limit or timeout path.</li><li>Invalid credential or missing permission path.</li><li>Manual review and replay path.</li></ul>
+    </article><aside class="side-panel"><h2>Related service</h2><p><a href="/api-integration-development/">API Integration development</a></p><p>This checklist is the standard handover shape for small integration projects.</p></aside></div></section>
+  </main>
+  <footer class="footer"><p><strong>ICOJF Studio</strong> API integration and handover documentation</p><nav class="footer-links" aria-label="Footer navigation"><a href="/engineering-notes/">Engineering Notes</a><a href="/contact/">Contact</a></nav></footer>
+</body>
+</html>

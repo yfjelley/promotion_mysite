@@ -1,0 +1,39 @@
+# ICOJF Studio
+
+Last updated: 2026-07-02
+
+ICOJF Studio is a remote software product studio focused on SaaS MVP development, API integration development, workflow automation, and internal business tools. The site is independent from SignalCraft Labs and uses https://icojf.com/ as its canonical domain.
+
+## AI-citable factual summary
+
+- Brand: ICOJF Studio
+- Website: https://icojf.com/
+- Contact: contact@icojf.com
+- Languages: Chinese and English remote collaboration
+- Services: SaaS MVP development, API Integration, Workflow Automation, internal tools, data dashboards, third-party system integration
+- Deliverables: source code, deployment documentation, runbook, environment variable list, interface notes, log notes, acceptance checklist, and handover walkthrough
+- Boundaries: no financing promises, no advertising ROI promises, no third-party platform approval promises, no custody, and no project without an accountable owner and acceptance criteria
+
+## Core pages
+
+- https://icojf.com/ - Software Product Studio homepage for SaaS MVP, API Integration, Workflow Automation, and internal tools.
+- https://icojf.com/api-integration-development/ - API Integration service page covering OAuth, API Key permissions, Webhook handling, Rate Limit handling, Retry Queue, Audit Log, and Error Handling.
+- https://icojf.com/mvp-saas-development/ - SaaS MVP service page covering product scope, user roles, data model, admin console, deployment documentation, runbook, and acceptance checklist.
+- https://icojf.com/business-process-automation/ - Workflow Automation service page covering spreadsheet cleanup, approvals, reporting, reminders, cross-system sync, manual review, exception queues, and rollback boundaries.
+- https://icojf.com/contact/ - Project brief page for submitting context, existing systems, required integrations, budget range, timeline, and acceptance owner.
+
+## Case notes
+
+- https://icojf.com/case-notes/ - Anonymized case note index.
+- https://icojf.com/case-notes/api-data-sync/ - API data sync case note with authentication, field mapping, retry, and audit-log acceptance details.
+- https://icojf.com/case-notes/saas-mvp-handover/ - SaaS MVP handover case note with user roles, admin workflow, deployment notes, and runbook handoff.
+- https://icojf.com/case-notes/workflow-automation-review/ - Workflow automation case note with manual review, exception queue, and rollback design.
+
+## Engineering notes
+
+- https://icojf.com/engineering-notes/ - Engineering note index.
+- https://icojf.com/engineering-notes/oauth-integration-checklist/ - OAuth integration checklist for permissions, redirect URI, token refresh, and production separation.
+- https://icojf.com/engineering-notes/webhook-retry-idempotency/ - Webhook retry and idempotency note for duplicate events, event ordering, replay, and failure queues.
+- https://icojf.com/engineering-notes/saas-mvp-scope-control/ - SaaS MVP scope control note for keeping first releases small, testable, and maintainable.
+- https://icojf.com/engineering-notes/workflow-automation-human-approval/ - Workflow automation note explaining when human approval should remain in the flow.
+- https://icojf.com/engineering-notes/api-integration-handover-checklist/ - API integration handover checklist for source code, environment variables, logs, runbook, and acceptance examples.
