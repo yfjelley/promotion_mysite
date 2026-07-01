@@ -5,6 +5,7 @@ const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-01";
 const site = "https://pddjf.com";
+const stylesheetHref = "/styles.css?v=20260701-footer";
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -1701,7 +1702,7 @@ function servicePageHtml(page) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="${stylesheetHref}">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
   <script src="/scripts.js" defer></script>
   ${jsonLd(serviceSchema(page))}
@@ -2019,7 +2020,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="${stylesheetHref}">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
   <script src="/scripts.js" defer></script>
   ${jsonLd(schema)}
