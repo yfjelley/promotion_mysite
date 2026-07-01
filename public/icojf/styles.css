@@ -656,6 +656,57 @@ h3 {
   border-top: 4px solid var(--amber);
 }
 
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.fact-strip > div {
+  background: #fff;
+  padding: 18px;
+}
+
+.fact-strip strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+
+.fact-strip span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.detail-card,
+.faq-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 22px;
+}
+
+.detail-card p,
+.faq-card p {
+  color: var(--muted);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
 @media (max-width: 980px) {
   .site-header {
     position: static;
@@ -676,6 +727,12 @@ h3 {
 
   .studio-hero,
   .system-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fact-strip,
+  .detail-grid,
+  .faq-grid {
     grid-template-columns: 1fr;
   }
 
