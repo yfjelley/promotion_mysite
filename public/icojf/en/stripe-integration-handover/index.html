@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stripe Integration Handover | Billing Webhooks and Runbooks | ICOJF Studio</title>
+  <meta name="description" content="Stripe integration handover for SaaS MVPs covering billing scope, checkout, customer records, webhooks, environment variables, logs and acceptance tests.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://icojf.com/en/stripe-integration-handover/">
+  <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css?v=20260702-ui2">
+  <meta property="og:title" content="Stripe Integration Handover | Billing Webhooks and Runbooks | ICOJF Studio">
+  <meta property="og:description" content="Stripe integration handover for SaaS MVPs covering billing scope, checkout, customer records, webhooks, environment variables, logs and acceptance tests.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://icojf.com/en/stripe-integration-handover/">
+  <meta name="theme-color" content="#0f172a">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://icojf.com/#organization",
+      "name": "ICOJF Studio",
+      "url": "https://icojf.com/",
+      "logo": "https://icojf.com/favicon.svg",
+      "email": "contact@icojf.com",
+      "sameAs": [
+        "https://github.com/yfjelley",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "knowsAbout": [
+        "SaaS MVP development",
+        "API integration",
+        "workflow automation",
+        "internal tools",
+        "data dashboards",
+        "software product handover"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@icojf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://icojf.com/en/stripe-integration-handover/#webpage",
+      "url": "https://icojf.com/en/stripe-integration-handover/",
+      "name": "Stripe Integration Handover",
+      "description": "Stripe integration handover for SaaS MVPs covering billing scope, checkout, customer records, webhooks, environment variables, logs and acceptance tests.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://icojf.com/#website"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://icojf.com/en/stripe-integration-handover/#service",
+      "name": "Stripe Integration Handover",
+      "description": "Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.",
+      "serviceType": "API Integration Development",
+      "provider": {
+        "@id": "https://icojf.com/#organization"
+      },
+      "areaServed": [
+        "Remote",
+        "Hong Kong",
+        "Singapore",
+        "Taiwan",
+        "United States"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://icojf.com/en/stripe-integration-handover/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you define the pricing model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The client should define pricing and billing policy. The implementation can reflect the agreed products, prices and workflow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are webhooks required?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For most SaaS billing workflows, webhooks are required because browser redirects alone do not reliably represent payment state."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is included in handover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Environment variables, Stripe dashboard notes, webhook event list, test card examples, log fields and common support actions should be included."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this be part of an MVP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if billing is essential to the first release and the scope is kept small enough to test."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://icojf.com/en/stripe-integration-handover/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://icojf.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Solution Pages",
+          "item": "https://icojf.com/en/solutions/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Stripe Integration Handover",
+          "item": "https://icojf.com/en/stripe-integration-handover/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/en/" aria-label="ICOJF Studio home">
+      <span class="brand-mark" aria-hidden="true">I</span><span>ICOJF Studio</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/en/api-integration-development/">API</a>
+      <a href="/en/saas-mvp-development/">SaaS MVP</a>
+      <a href="/en/workflow-automation-development/">Automation</a>
+      <a href="/en/solutions/">Solutions</a>
+      <a href="/en/how-we-work/">How</a>
+      <a href="/about/">About</a>
+      <a class="nav-cta" href="/contact/">Start a brief</a>
+    </nav>
+  </header>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/en/">Home</a><span>/</span><a href="/en/solutions/">Solution Pages</a></nav><p class="eyebrow">Solution Page</p><h1>Stripe Integration Handover</h1><p class="hero-lede">Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.</p><div class="hero-actions"><a class="button primary" href="/contact/">Start a brief</a><a class="button secondary" href="/en/api-integration-development/">Related service</a></div></section>
+  <section class="section soft"><div class="section-head"><p class="eyebrow">Delivery Facts</p><h2>Inputs, deliverables and acceptance</h2></div><table class="facts-table"><tbody><tr><th>Related service</th><td>API Integration Development</td></tr><tr><th>Typical inputs</th><td>billing model, Stripe account owner, products and prices, test mode access, webhook events, fulfillment rules</td></tr><tr><th>Delivery assets</th><td>checkout or billing flow, customer and subscription mapping, webhook handling, test mode checklist, runbook, handover notes</td></tr><tr><th>Acceptance checks</th><td>complete test checkout, handle failed payment event, sync subscription status, verify webhook signature, document key rotation</td></tr><tr><th>Boundary</th><td>The work covers software delivery and handover, not growth guarantees, platform approvals or third-party API availability.</td></tr></tbody></table></section>
+  <section class="section content-band"><article class="technical-article"><p class="article-summary">Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.</p><section><h2>Scope before code</h2><p>Stripe work should start with the billing model, products, prices, tax assumptions, account owner and fulfillment rules. The integration should not invent business policy while implementing checkout.</p></section><section><h2>Webhook and status</h2><p>Payment and subscription state should be updated from trusted Stripe events, not only from browser redirects. The application needs a safe path for duplicate events, delayed events and failed downstream updates.</p></section><section><h2>Environment separation</h2><p>Test mode and production credentials should be separated. The handover should explain which keys exist, where webhook secrets live, who owns the Stripe account and how to rotate credentials.</p></section><section><h2>Acceptance tests</h2><p>Acceptance should include test checkout, canceled checkout, failed payment, subscription update, duplicate webhook and operator verification in logs or admin screens.</p></section><section><h2>Related pages</h2><div class="policy-links"><a href="/en/api-integration-development/">API Integration Development</a><a href="/engineering-notes/">Engineering notes</a><a href="/contact/">Project brief</a></div></section></article></section>
+  <section id="faq" class="section faq-section"><div class="section-head centered"><p class="eyebrow">FAQ</p><h2>Common questions</h2></div><div class="faq-list"><article><h3>Do you define the pricing model?</h3><p>The client should define pricing and billing policy. The implementation can reflect the agreed products, prices and workflow.</p></article><article><h3>Are webhooks required?</h3><p>For most SaaS billing workflows, webhooks are required because browser redirects alone do not reliably represent payment state.</p></article><article><h3>What is included in handover?</h3><p>Environment variables, Stripe dashboard notes, webhook event list, test card examples, log fields and common support actions should be included.</p></article><article><h3>Can this be part of an MVP?</h3><p>Yes, if billing is essential to the first release and the scope is kept small enough to test.</p></article></div></section></main>
+  <footer class="footer">
+    <p><strong>ICOJF Studio</strong> software product studio for SaaS MVPs, API integrations, workflow automation and internal tools</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/api-integration-development/">API 集成</a>
+      <a href="/mvp-saas-development/">SaaS MVP</a>
+      <a href="/business-process-automation/">业务自动化</a>
+      <a href="/how-we-work/">工作方式</a>
+      <a href="/en/">English</a>
+      <a href="/en/how-we-work/">How we work</a>
+      <a href="/en/solutions/">Solution pages</a>
+      <a href="/case-notes/">案例笔记</a>
+      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/about/">关于</a>
+      <a href="/terms">服务条款</a>
+      <a href="/privacy">隐私政策</a>
+      <a href="/contact/">联系</a>
+    </nav>
+  </footer>
+</body>
+</html>

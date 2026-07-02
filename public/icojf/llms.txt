@@ -13,7 +13,15 @@ ICOJF Studio is a remote software product studio focused on SaaS MVP development
 - Services: SaaS MVP development, API Integration, Workflow Automation, internal tools, data dashboards, third-party system integration
 - Deliverables: source code, deployment documentation, runbook, environment variable list, interface notes, log notes, acceptance checklist, and handover walkthrough
 - Boundaries: no financing promises, no advertising ROI promises, no third-party platform approval promises, no custody, and no project without an accountable owner and acceptance criteria
+- Starting budget: productized service packages start from USD 2,000
 - Public entity links: https://github.com/yfjelley, https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/
+- AI access policy: AI search and user-triggered AI retrieval may reference public pages; AI model training crawlers are not granted permission.
+
+## Productized service packages
+
+- API Integration Sprint: From $2,000; timeline 2-3 weeks; fit: For teams that already have API documentation, test access and one clear sync or webhook workflow.; deliverables include field mapping, API or webhook flow, retry and exception handling, log notes, handover runbook.
+- SaaS MVP Build: From $5,000; timeline 4-8 weeks; fit: For founders and operators who need a first release with admin workflows, deployment and handover notes.; deliverables include core screens, admin console, data model, deployment docs, runbook and acceptance checklist.
+- Workflow Automation Tool: From $3,000; timeline 2-6 weeks; fit: For teams with stable manual workflows that need structured automation, approvals, reports or internal tools.; deliverables include automation tool, approval or exception queue, reminders and reports, logs, pause and rollback notes.
 
 ## Core pages
 
@@ -25,8 +33,20 @@ ICOJF Studio is a remote software product studio focused on SaaS MVP development
 - https://icojf.com/en/saas-mvp-development/ - SaaS MVP Development: SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow.
 - https://icojf.com/business-process-automation/ - 业务流程自动化开发: ICOJF Studio 提供 Workflow Automation 开发，把表格、审批、报表、通知和跨系统同步做成可追踪的内部工具；支持中文/英文远程协作。
 - https://icojf.com/en/workflow-automation-development/ - Workflow Automation Development: Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains.
+- https://icojf.com/how-we-work/ - Chinese page describing scope review, staged build, launch handover, acceptance and source-code delivery.
+- https://icojf.com/en/how-we-work/ - English page describing scoped software delivery, package pricing from USD 2,000 and handover assets.
 - https://icojf.com/about/ - Entity, service boundary, trust links and handover model.
 - https://icojf.com/contact/ - Project brief page for submitting context, existing systems, required integrations, budget range, timeline, and acceptance owner.
+
+## Solution pages
+
+- https://icojf.com/en/solutions/ - Index of specific English service and integration pages.
+- https://icojf.com/en/crm-api-integration-development/ - CRM API integration work connects lead, customer, order and support data without hiding field mapping, ownership, retry behavior or acceptance checks.
+- https://icojf.com/en/webhook-integration-service/ - Webhook integration should make incoming events durable, replay-safe and visible before downstream side effects are triggered.
+- https://icojf.com/en/internal-dashboard-development/ - Internal dashboard development turns operational records, exceptions and status changes into a tool that teams can use repeatedly without guessing.
+- https://icojf.com/en/google-sheets-workflow-automation/ - Google Sheets workflow automation is strongest when the sheet becomes a controlled input or review surface rather than a hidden manual process.
+- https://icojf.com/en/stripe-integration-handover/ - Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.
+- https://icojf.com/en/erp-data-sync-integration/ - ERP data sync integration should define record ownership, conflict handling, retries and audit logs before connecting operational systems.
 
 ## Case notes
 

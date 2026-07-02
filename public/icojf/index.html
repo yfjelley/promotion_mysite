@@ -11,7 +11,7 @@
   <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
   <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <link rel="stylesheet" href="/styles.css?v=20260702-ui2">
   <meta property="og:title" content="软件产品工作室 | SaaS MVP、API 集成与业务自动化 | ICOJF Studio">
   <meta property="og:description" content="ICOJF Studio 是软件产品工作室，提供 SaaS MVP、API Integration、Workflow Automation 和企业内部工具开发；支持中文/英文远程协作。">
   <meta property="og:type" content="website">
@@ -80,36 +80,45 @@
         "SaaS MVP Development",
         "Workflow Automation Development"
       ],
-      "priceRange": "USD 2,000 - 20,000",
+      "priceRange": "From USD 2,000",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "ICOJF Studio service catalog",
         "itemListElement": [
           {
             "@type": "Offer",
+            "name": "API Integration Sprint",
+            "priceCurrency": "USD",
+            "price": "2000",
             "itemOffered": {
               "@type": "Service",
-              "name": "API Integration Development",
+              "name": "API Integration Sprint",
               "url": "https://icojf.com/api-integration-development/",
-              "description": "API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work."
+              "description": "For teams that already have API documentation, test access and one clear sync or webhook workflow."
             }
           },
           {
             "@type": "Offer",
+            "name": "SaaS MVP Build",
+            "priceCurrency": "USD",
+            "price": "5000",
             "itemOffered": {
               "@type": "Service",
-              "name": "SaaS MVP Development",
+              "name": "SaaS MVP Build",
               "url": "https://icojf.com/mvp-saas-development/",
-              "description": "SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow."
+              "description": "For founders and operators who need a first release with admin workflows, deployment and handover notes."
             }
           },
           {
             "@type": "Offer",
+            "name": "Workflow Automation Tool",
+            "priceCurrency": "USD",
+            "price": "3000",
             "itemOffered": {
               "@type": "Service",
-              "name": "Workflow Automation Development",
+              "name": "Workflow Automation Tool",
               "url": "https://icojf.com/business-process-automation/",
-              "description": "Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains."
+              "description": "For teams with stable manual workflows that need structured automation, approvals, reports or internal tools."
             }
           }
         ]
@@ -129,39 +138,142 @@
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
       <a href="/case-notes/">案例笔记</a>
-      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/how-we-work/">工作方式</a>
       <a href="/about/">关于</a>
       <a class="nav-cta" href="/contact/">提交项目简述</a>
     </nav>
   </header>
   <main><section class="hero studio-hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Software Product Studio</p>
-        <h1 id="hero-title">交付可上线、可验收、可维护的软件产品。</h1>
+        <h1 id="hero-title">软件交付，先做到上线、验收和维护都清楚。</h1>
         <p class="hero-lede">ICOJF Studio 提供 SaaS MVP、API Integration、Workflow Automation 与企业内部工具开发，支持中文/英文远程协作。重点不是堆功能，而是交付能运行、可验收、可维护的系统。</p>
         <div class="hero-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="#capabilities">查看服务能力</a></div>
+        <div class="hero-facts" aria-label="项目事实">
+          <span><strong>$2,000 起</strong><em>API 集成起步服务</em></span>
+          <span><strong>2-8 周</strong><em>按可验收切片交付</em></span>
+          <span><strong>源码 + 运行手册</strong><em>包含交接资产</em></span>
+        </div>
         <div class="hero-tags" aria-label="Core services"><span>SaaS MVP</span><span>API Integration</span><span>Workflow Automation</span><span>Internal Tools</span></div>
       </div>
-      <div class="build-system-panel premium-panel" aria-label="Delivery model">
-        <div class="panel-head"><strong>项目交付模型</strong><span class="status">Scoped handover</span></div>
-        <div class="system-preview-grid"><div class="workflow-card signal-card"><span class="mini-label">Workflow</span><div class="workflow-lane"><span>01</span>需求拆解与原型</div><div class="workflow-lane"><span>02</span>API / 数据流程设计</div><div class="workflow-lane"><span>03</span>上线、文档、交接</div></div><div class="handover-card deliverable-card"><span class="mini-label">交付范围</span><div class="progress-track"><span style="width:72%"></span></div><p>MVP / 4-8 weeks</p><div class="artifact-list"><span><strong>Source Code</strong>源码</span><span><strong>Deploy Docs</strong>部署文档</span><span><strong>Runbook</strong>运行手册</span><span><strong>Acceptance</strong>验收清单</span></div></div></div>
+      <div class="build-system-panel workbench-panel" aria-label="交付工作台预览">
+    <div class="panel-head"><div><strong>交付工作台</strong><small>后台 + API 日志 + 验收清单</small></div><span class="status">可交接</span></div>
+    <div class="workbench-body">
+      <div class="workbench-main">
+        <div class="workbench-toolbar"><span class="active">后台管理</span><span>API 日志</span><span>验收</span></div>
+        <div class="workbench-table">
+          <div class="workbench-table-head"><span>记录</span><span>状态</span><span>负责人</span><span>下一步</span></div>
+          <div class="workbench-table-row"><strong>订单</strong><span>已映射</span><span>Ops</span><span>复核</span></div><div class="workbench-table-row"><strong>Webhook</strong><span>可重试</span><span>Dev</span><span>回放</span></div><div class="workbench-table-row"><strong>后台</strong><span>就绪</span><span>Owner</span><span>权限</span></div><div class="workbench-table-row"><strong>验收</strong><span>待确认</span><span>Client</span><span>用例</span></div>
+        </div>
       </div>
+      <div class="workbench-side">
+        <div class="workbench-side-block">
+          <span class="mini-label">API 重试日志</span>
+          <div class="api-log-row"><strong>evt_1432</strong><span>重复</span><em>200</em></div><div class="api-log-row"><strong>evt_1439</strong><span>限频</span><em>重试</em></div><div class="api-log-row"><strong>crm_882</strong><span>缺字段</span><em>复核</em></div>
+        </div>
+        <div class="workbench-side-block">
+          <span class="mini-label">验收清单</span>
+          <div class="checkline"><i></i><span>样本同步通过</span></div><div class="checkline"><i></i><span>重复事件不重复写入</span></div><div class="checkline"><i></i><span>运行手册负责人已确认</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="launch-steps"><span><strong>范围评估</strong></span><span><strong>原型或接口验证</strong></span><span><strong>分阶段开发</strong></span><span><strong>上线和交接</strong></span></div>
+  </div>
     </section>
     <section id="capabilities" class="section" aria-labelledby="capabilities-title">
-      <div class="section-head"><p class="eyebrow">Capabilities</p><h2 id="capabilities-title">服务能力</h2><p>每个项目先确认业务目标、系统边界、客户需提供资料和验收方式，再进入原型或开发。</p></div>
-      <div class="service-grid"><article class="service-card accent-blue"><span class="card-index">01</span><h3>API 集成开发</h3><p>把支付、CRM、ERP、邮件短信、物流、数据平台和内部系统串接成可追踪、可交接、可维护的业务流程。项目会先确认接口权限、数据字段、失败路径和验收方式，再进入开发。</p><a href="/api-integration-development/">查看服务</a></article><article class="service-card accent-green"><span class="card-index">02</span><h3>SaaS MVP 开发</h3><p>把早期产品做成可演示、可试用、可继续迭代的第一版。重点不是一次做完所有功能，而是确认核心用户、核心流程、数据模型、后台权限和第一阶段验收。</p><a href="/mvp-saas-development/">查看服务</a></article><article class="service-card accent-amber"><span class="card-index">03</span><h3>业务流程自动化开发</h3><p>把重复性的表格、审批、提醒、报表和跨系统同步做成可追踪的内部工具。适合已经有稳定流程，但人工复制、催办、汇总或检查成本过高的团队。</p><a href="/business-process-automation/">查看服务</a></article></div>
+      <div class="section-head"><p class="eyebrow">Service Packages</p><h2 id="capabilities-title">从 $2,000 起的产品化服务包</h2><p>每个服务包都提前说明适合对象、客户需提供资料、交付物、周期、起步预算和验收方式。</p></div>
+      <div class="package-grid"><article class="package-card">
+    <div class="package-top"><span class="mini-label">服务包</span><strong class="price-anchor">$2,000 起</strong></div>
+    <h3>API Integration Sprint</h3>
+    <p>适合已经有接口文档、测试账号和明确同步对象的 API、Webhook、CRM、ERP 或支付集成。</p>
+    <div class="package-meta"><span>周期: 2-3 weeks</span><span>预算: $2,000 起</span></div>
+    <div class="package-columns"><div><strong>客户需提供</strong><ul class="compact-list"><li>接口文档</li><li>测试账号</li><li>字段样本</li><li>权限范围</li><li>验收负责人</li></ul></div><div><strong>交付物</strong><ul class="compact-list"><li>字段映射</li><li>接口或 webhook 流程</li><li>重试和异常处理</li><li>日志说明</li><li>交接运行手册</li></ul></div></div>
+    <div class="acceptance-line"><strong>验收:</strong> 样本数据同步成功、重复事件不重复写入、失败原因可见、凭证轮换有说明</div>
+    <a href="/api-integration-development/">查看服务细节</a>
+  </article><article class="package-card">
+    <div class="package-top"><span class="mini-label">服务包</span><strong class="price-anchor">$5,000 起</strong></div>
+    <h3>SaaS MVP Build</h3>
+    <p>适合需要第一版可上线产品、后台管理、权限边界、部署和交接文档的创业团队或业务负责人。</p>
+    <div class="package-meta"><span>周期: 4-8 weeks</span><span>预算: $5,000 起</span></div>
+    <div class="package-columns"><div><strong>客户需提供</strong><ul class="compact-list"><li>目标用户</li><li>核心流程</li><li>数据对象</li><li>角色权限</li><li>上线窗口</li></ul></div><div><strong>交付物</strong><ul class="compact-list"><li>核心页面</li><li>后台管理</li><li>数据模型</li><li>部署文档</li><li>运行手册和验收清单</li></ul></div></div>
+    <div class="acceptance-line"><strong>验收:</strong> 主流程端到端可跑、后台能处理记录、权限可验证、部署重启后可恢复</div>
+    <a href="/mvp-saas-development/">查看服务细节</a>
+  </article><article class="package-card">
+    <div class="package-top"><span class="mini-label">服务包</span><strong class="price-anchor">$3,000 起</strong></div>
+    <h3>Workflow Automation Tool</h3>
+    <p>适合已经有稳定人工流程，但表格整理、提醒、审批、报表或跨系统同步占用大量时间的团队。</p>
+    <div class="package-meta"><span>周期: 2-6 weeks</span><span>预算: $3,000 起</span></div>
+    <div class="package-columns"><div><strong>客户需提供</strong><ul class="compact-list"><li>当前表格或系统</li><li>流程规则</li><li>审批人</li><li>异常样本</li><li>报表格式</li></ul></div><div><strong>交付物</strong><ul class="compact-list"><li>自动化工具</li><li>审批或异常队列</li><li>提醒和报表</li><li>日志</li><li>暂停和回滚说明</li></ul></div></div>
+    <div class="acceptance-line"><strong>验收:</strong> 正常样本自动处理、异常进入人工队列、报表可复核、高风险动作保留确认</div>
+    <a href="/business-process-automation/">查看服务细节</a>
+  </article></div>
     </section>
-    <section class="section soft" aria-labelledby="facts-title"><div class="section-head"><p class="eyebrow">Service Facts</p><h2 id="facts-title">项目事实摘要</h2></div><table class="facts-table"><tbody><tr><th>服务对象</th><td>支持中文/英文远程协作；适合创业团队、运营团队、中小企业和需要外部产品开发能力的业务负责人。</td></tr><tr><th>主要交付物</th><td>源码、部署文档、运行手册、接口说明、环境变量清单、日志说明、验收清单和远程交付讲解。</td></tr><tr><th>常见项目</th><td>SaaS MVP、API Integration、Workflow Automation、企业内部工具、数据看板和第三方系统串接。</td></tr><tr><th>不承诺事项</th><td>不承诺融资、拉新、广告 ROI、平台审核结果、第三方 API 永久可用或没有验收标准的纯想法落地。</td></tr></tbody></table></section>
+    <section class="section soft" aria-labelledby="samples-title"><div class="section-head"><p class="eyebrow">Delivery Samples</p><h2 id="samples-title">用可检查的交付样例建立专业感</h2><p>样例不展示客户隐私，但让访客看到后台、字段映射、Webhook 队列、运行手册和验收清单这些真实交付资产。</p></div><div class="sample-grid"><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Admin table</strong><span>脱敏样例</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>记录</th><th>状态</th><th>负责人</th><th>下一步</th></tr></thead>
+        <tbody><tr><td>订单同步</td><td>待验收</td><td>Ops</td><td>复核样本</td></tr><tr><td>异常记录</td><td>处理中</td><td>Admin</td><td>补字段</td></tr><tr><td>客户导出</td><td>可用</td><td>Owner</td><td>下载</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>内部后台样例</h3>
+    <p>展示列表、状态、负责人、异常队列和导出入口，说明交付不是只有前台页面。</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Mapping table</strong><span>脱敏样例</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>来源字段</th><th>目标字段</th><th>规则</th><th>失败处理</th></tr></thead>
+        <tbody><tr><td>source_id</td><td>external_id</td><td>原样写入</td><td>拒绝空值</td></tr><tr><td>amount</td><td>amount_cents</td><td>乘以 100</td><td>进入队列</td></tr><tr><td>status</td><td>lifecycle</td><td>枚举映射</td><td>人工复核</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>API 字段映射样例</h3>
+    <p>把来源字段、目标字段、转换规则、必填项和失败处理写清楚，减少后续维护猜测。</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Retry log</strong><span>脱敏样例</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>事件</th><th>结果</th><th>重试</th><th>说明</th></tr></thead>
+        <tbody><tr><td>evt_1432</td><td>accepted</td><td>0</td><td>写入成功</td></tr><tr><td>evt_1432</td><td>duplicate</td><td>0</td><td>已忽略</td></tr><tr><td>evt_1439</td><td>retrying</td><td>2</td><td>限频中</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>Webhook / Retry 样例</h3>
+    <p>展示事件状态、重复事件、重试次数、错误分类和人工复核入口。</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Runbook</strong><span>脱敏样例</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>步骤</th><th>负责人</th><th>证据</th><th>状态</th></tr></thead>
+        <tbody><tr><td>部署</td><td>Dev</td><td>Release log</td><td>完成</td></tr><tr><td>环境变量</td><td>Owner</td><td>Secret list</td><td>已交接</td></tr><tr><td>回滚</td><td>Dev</td><td>Runbook</td><td>可执行</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>交接运行手册样例</h3>
+    <p>记录部署、环境变量、日志字段、第三方账号归属、暂停和恢复步骤。</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Acceptance</strong><span>脱敏样例</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>用例</th><th>输入</th><th>预期</th><th>结果</th></tr></thead>
+        <tbody><tr><td>正常样本</td><td>完整字段</td><td>写入成功</td><td>通过</td></tr><tr><td>缺字段</td><td>无 email</td><td>提示错误</td><td>通过</td></tr><tr><td>重复事件</td><td>同 ID</td><td>不重复写</td><td>通过</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>验收清单样例</h3>
+    <p>用可复现路径验收：正常样本、缺字段、重复事件、权限错误和重启恢复。</p>
+  </article></div></section>
+    <section class="section" aria-labelledby="how-title"><div class="section-head"><p class="eyebrow">How We Work</p><h2 id="how-title">先定范围，再做开发</h2><p>流程目标是让项目小到可上线、可验收、可维护，而不是一次性堆满功能。</p></div><div class="timeline-grid"><article><span>1</span><h3>1. 范围评估</h3><p>确认业务目标、现有系统、负责人、预算范围、上线窗口和第一阶段验收标准。</p></article><article><span>2</span><h3>2. 原型或接口验证</h3><p>把页面流程、数据对象、字段映射、权限、异常路径和客户需提供资料固定下来。</p></article><article><span>3</span><h3>3. 分阶段开发</h3><p>按可验收切片交付，保留演示环境、变更记录、日志说明和样本验收路径。</p></article><article><span>4</span><h3>4. 上线和交接</h3><p>交付源码、部署文档、环境变量、运行手册、验收清单和远程讲解。</p></article></div><div class="section-link"><a href="/how-we-work/">查看完整工作方式</a></div></section>
+    <section class="section" aria-labelledby="solution-title"><div class="section-head"><p class="eyebrow">Long-tail Pages</p><h2 id="solution-title">英文长尾服务入口</h2><p>这些英文页面把常见搜索和 AI 问答意图对应到更具体的交付边界。</p></div><div class="article-grid"><article class="article-card"><h3>CRM API Integration Development</h3><p>CRM API integration work connects lead, customer, order and support data without hiding field mapping, ownership, retry behavior or acceptance checks.</p><a href="/en/crm-api-integration-development/">查看英文页</a></article><article class="article-card"><h3>Webhook Integration Service</h3><p>Webhook integration should make incoming events durable, replay-safe and visible before downstream side effects are triggered.</p><a href="/en/webhook-integration-service/">查看英文页</a></article><article class="article-card"><h3>Internal Dashboard Development</h3><p>Internal dashboard development turns operational records, exceptions and status changes into a tool that teams can use repeatedly without guessing.</p><a href="/en/internal-dashboard-development/">查看英文页</a></article><article class="article-card"><h3>Google Sheets Workflow Automation</h3><p>Google Sheets workflow automation is strongest when the sheet becomes a controlled input or review surface rather than a hidden manual process.</p><a href="/en/google-sheets-workflow-automation/">查看英文页</a></article><article class="article-card"><h3>Stripe Integration Handover</h3><p>Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.</p><a href="/en/stripe-integration-handover/">查看英文页</a></article><article class="article-card"><h3>ERP Data Sync Integration</h3><p>ERP data sync integration should define record ownership, conflict handling, retries and audit logs before connecting operational systems.</p><a href="/en/erp-data-sync-integration/">查看英文页</a></article></div></section>
+    <section class="section soft" aria-labelledby="facts-title"><div class="section-head"><p class="eyebrow">Service Facts</p><h2 id="facts-title">项目事实摘要</h2></div><table class="facts-table"><tbody><tr><th>服务对象</th><td>支持中文/英文远程协作；适合创业团队、运营团队、中小企业和需要外部产品开发能力的业务负责人。</td></tr><tr><th>起步预算</th><td>产品化服务包从 USD $2,000 起。</td></tr><tr><th>主要交付物</th><td>源码、部署文档、运行手册、接口说明、环境变量清单、日志说明、验收清单和远程交付讲解。</td></tr><tr><th>常见项目</th><td>SaaS MVP、API Integration、Workflow Automation、企业内部工具、数据看板和第三方系统串接。</td></tr><tr><th>不承诺事项</th><td>不承诺融资、拉新、广告 ROI、平台审核结果、第三方 API 永久可用或没有验收标准的纯想法落地。</td></tr></tbody></table></section>
     <section class="section" aria-labelledby="entity-title"><div class="section-head"><p class="eyebrow">Trust & Entity</p><h2 id="entity-title">公开实体与交付边界</h2><p>ICOJF 在品牌、canonical、sitemap、robots 和页面内容上保持独立的软件产品服务定位。</p></div><div class="check-grid"><article class="check-card"><h3>GitHub</h3><p>公开工程资料信号，用于支撑软件交付和源码交接能力。</p><a href="https://github.com/yfjelley" rel="me noopener" target="_blank">GitHub profile</a></article><article class="check-card"><h3>LinkedIn</h3><p>站外身份资料，用于保持远程协作和服务边界口径一致。</p><a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="me noopener" target="_blank">LinkedIn profile</a></article><article class="check-card"><h3>关于 ICOJF</h3><p>服务范围、交付资产、适合项目和不适合项目的明确说明。</p><a href="/about/">查看关于页</a></article></div></section>
     <section class="section soft" aria-labelledby="notes-title"><div class="section-head"><p class="eyebrow">Engineering Notes</p><h2 id="notes-title">工程笔记</h2><p>用英文工程文章解释 API 集成、Webhook、SaaS MVP 和业务自动化里的真实边界。</p></div><div class="article-grid"><article class="article-card"><h3>OAuth Integration Checklist</h3><p>OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.</p><a href="/engineering-notes/oauth-integration-checklist/">Read note</a></article><article class="article-card"><h3>Webhook Retry and Idempotency</h3><p>A webhook receiver should expect duplicate, delayed, reordered and retried events, then make every accepted, rejected and replayed event visible in logs.</p><a href="/engineering-notes/webhook-retry-idempotency/">Read note</a></article><article class="article-card"><h3>SaaS MVP Scope Control</h3><p>A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.</p><a href="/engineering-notes/saas-mvp-scope-control/">Read note</a></article></div></section>
-    <section class="section soft" aria-labelledby="contact-title"><div class="contact-band"><div class="section-head"><p class="eyebrow">Start a Build Brief</p><h2 id="contact-title">提交项目简述</h2><p>发来项目背景、现有系统、目标用户、需要集成的平台、预算范围和期望上线时间。</p><div class="cta-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="mailto:contact@icojf.com">Email</a></div></div></div></section></main>
+    <section class="section soft" aria-labelledby="contact-title"><div class="contact-band"><div class="section-head"><p class="eyebrow">Start a Build Brief</p><h2 id="contact-title">提交项目简述</h2><p>发来项目背景、现有系统、目标用户、需要集成的平台、$2,000 起的预算范围和期望上线时间。</p><div class="cta-actions"><a class="button primary" href="/contact/">提交项目简述</a><a class="button secondary" href="mailto:contact@icojf.com?subject=ICOJF%20Studio%20%E9%A1%B9%E7%9B%AE%E7%AE%80%E8%BF%B0&body=%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%0A%E7%8E%B0%E6%9C%89%E7%B3%BB%E7%BB%9F%E6%88%96%E7%BD%91%E7%AB%99%EF%BC%9A%0A%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A%0A%E7%9B%AE%E6%A0%87%E7%94%A8%E6%88%B7%E6%88%96%E5%86%85%E9%83%A8%E4%BD%BF%E7%94%A8%E8%80%85%EF%BC%9A%0A%E9%9C%80%E8%A6%81%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0%2FAPI%EF%BC%9A%0A%E5%B7%B2%E6%9C%89%E8%B5%84%E6%96%99%EF%BC%9A%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%20%2F%20%E6%B5%8B%E8%AF%95%E8%B4%A6%E5%8F%B7%20%2F%20%E6%A0%B7%E6%9C%AC%E6%95%B0%E6%8D%AE%20%2F%20%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E%0A%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%BF%85%E9%A1%BB%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%9A%0A%E9%A2%84%E7%AE%97%E8%8C%83%E5%9B%B4%EF%BC%9A%242%2C000%20%E8%B5%B7%EF%BC%8C%E8%AF%B7%E5%86%99%E5%8F%AF%E6%8E%A5%E5%8F%97%E5%8C%BA%E9%97%B4%0A%E6%9C%9F%E6%9C%9B%E4%B8%8A%E7%BA%BF%E6%97%B6%E9%97%B4%EF%BC%9A%0A%E9%AA%8C%E6%94%B6%E8%B4%9F%E8%B4%A3%E4%BA%BA%EF%BC%9A%0A%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E%EF%BC%9A">Email template</a></div></div></div></section></main>
   <footer class="footer">
     <p><strong>ICOJF Studio</strong> 软件产品工作室、API 集成与业务自动化开发</p>
     <nav class="footer-links" aria-label="页脚导航">
       <a href="/api-integration-development/">API 集成</a>
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
+      <a href="/how-we-work/">工作方式</a>
       <a href="/en/">English</a>
+      <a href="/en/how-we-work/">How we work</a>
+      <a href="/en/solutions/">Solution pages</a>
       <a href="/case-notes/">案例笔记</a>
       <a href="/engineering-notes/">工程笔记</a>
       <a href="/about/">关于</a>

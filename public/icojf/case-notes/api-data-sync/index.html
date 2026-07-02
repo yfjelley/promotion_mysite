@@ -7,11 +7,9 @@
   <meta name="description" content="ICOJF Studio 脱敏 API 数据同步案例笔记，说明第三方系统串接中的鉴权、字段映射、限频、失败重试、日志和验收方式。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://icojf.com/case-notes/api-data-sync/">
-  <link rel="alternate" hreflang="zh-CN" href="https://icojf.com/case-notes/api-data-sync/">
-  <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
   <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <link rel="stylesheet" href="/styles.css?v=20260702-ui2">
   <meta property="og:title" content="API 数据同步案例笔记 | 鉴权、字段映射与失败重试 | ICOJF Studio">
   <meta property="og:description" content="ICOJF Studio 脱敏 API 数据同步案例笔记，说明第三方系统串接中的鉴权、字段映射、限频、失败重试、日志和验收方式。">
   <meta property="og:type" content="website">
@@ -104,19 +102,22 @@
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
       <a href="/case-notes/">案例笔记</a>
-      <a href="/engineering-notes/">工程笔记</a>
+      <a href="/how-we-work/">工作方式</a>
       <a href="/about/">关于</a>
       <a class="nav-cta" href="/contact/">提交项目简述</a>
     </nav>
   </header>
-  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">首页</a><span>/</span><a href="/case-notes/">案例笔记</a></nav><p class="eyebrow">Case Note</p><h1>API 数据同步案例笔记</h1><p class="hero-lede">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p><section><h2>背景</h2><p>客户已经有第三方订单系统和内部后台，但订单、客户资料和状态变更需要人工导出、清洗和导入。人工流程可以运行，但容易出现字段遗漏、重复处理、状态不同步和问题难追踪。项目目标不是替换所有系统，而是把一个稳定的数据同步路径先做成可监控、可回放、可交接的工具。</p></section><section><h2>限制</h2><p>第三方 API 有权限范围、限频、分页、字段命名差异和失败返回格式。内部后台也有必填字段、枚举值和历史脏数据。开发前必须先确认测试账号、接口文档、样本数据、字段解释和负责人。没有这些资料时，项目只能停留在方案评估。</p></section><section><h2>方案</h2><p>第一步建立字段映射表，明确每个字段来自哪里、如何转换、缺失时如何处理。第二步实现增量拉取或 webhook 接收，并用外部 ID 做幂等写入。第三步加入重试队列、错误分类、人工复核队列和审计日志。所有失败都要能看到原因，而不是只返回一个同步失败。</p></section><section><h2>交付物</h2><p>交付包括源码、环境变量样例、接口说明、字段映射表、失败重试说明、日志字段说明、部署文档和验收脚本。客户可以看到哪些记录已同步、哪些记录被跳过、哪些记录等待人工处理。</p></section><section><h2>验收方式</h2><p>验收不看业务增长结果，而看样本数据能否稳定完成新增、更新、重复事件、缺失字段、接口超时、限频和人工复核路径。只有这些路径都能复现，系统才具备继续扩展到更多字段或更多接口的基础。</p></section><section><h2>适合参考</h2><p>这类笔记适合用于判断项目范围、验收方式和交付边界，不展示客户身份、商业结果或不可验证承诺。</p></section></article></section></main>
+  <main><section class="content-hero compact"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">首页</a><span>/</span><a href="/case-notes/">案例笔记</a></nav><p class="eyebrow">Case Note</p><h1>API 数据同步案例笔记</h1><p class="hero-lede">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p></section><section class="section content-band"><article class="technical-article"><p class="article-summary">一个典型 API 数据同步项目不是简单调用接口，而是把鉴权、字段映射、限频、失败重试、日志和交接边界做成可验收流程。</p><section><h2>复盘摘要</h2><table class="facts-table"><tbody><tr><th>项目类型</th><td>第三方 API 数据同步</td></tr><tr><th>主要风险</th><td>鉴权范围、字段映射、重复事件、限频和失败重试。</td></tr><tr><th>交付资产</th><td>字段映射表、同步流程、异常队列、审计日志、部署文档和验收脚本。</td></tr><tr><th>可复用经验</th><td>先把一个记录类型做成可回放、可观测、可交接的闭环，再扩展到更多字段或系统。</td></tr></tbody></table></section><section><h2>背景</h2><p>客户已经有第三方订单系统和内部后台，但订单、客户资料和状态变更需要人工导出、清洗和导入。人工流程可以运行，但容易出现字段遗漏、重复处理、状态不同步和问题难追踪。项目目标不是替换所有系统，而是把一个稳定的数据同步路径先做成可监控、可回放、可交接的工具。</p></section><section><h2>限制</h2><p>第三方 API 有权限范围、限频、分页、字段命名差异和失败返回格式。内部后台也有必填字段、枚举值和历史脏数据。开发前必须先确认测试账号、接口文档、样本数据、字段解释和负责人。没有这些资料时，项目只能停留在方案评估。</p></section><section><h2>方案</h2><p>第一步建立字段映射表，明确每个字段来自哪里、如何转换、缺失时如何处理。第二步实现增量拉取或 webhook 接收，并用外部 ID 做幂等写入。第三步加入重试队列、错误分类、人工复核队列和审计日志。所有失败都要能看到原因，而不是只返回一个同步失败。</p></section><section><h2>交付物</h2><p>交付包括源码、环境变量样例、接口说明、字段映射表、失败重试说明、日志字段说明、部署文档和验收脚本。客户可以看到哪些记录已同步、哪些记录被跳过、哪些记录等待人工处理。</p></section><section><h2>验收方式</h2><p>验收不看业务增长结果，而看样本数据能否稳定完成新增、更新、重复事件、缺失字段、接口超时、限频和人工复核路径。只有这些路径都能复现，系统才具备继续扩展到更多字段或更多接口的基础。</p></section><section><h2>验收清单</h2><ul class="check-list"><li>新增记录同步</li><li>重复事件幂等</li><li>缺失字段进入人工队列</li><li>接口超时后可重试</li><li>日志能定位失败原因</li></ul></section><section><h2>适合参考</h2><p>这类笔记适合用于判断项目范围、验收方式和交付边界，不展示客户身份、商业结果或不可验证承诺。</p></section></article></section></main>
   <footer class="footer">
     <p><strong>ICOJF Studio</strong> 软件产品工作室、API 集成与业务自动化开发</p>
     <nav class="footer-links" aria-label="页脚导航">
       <a href="/api-integration-development/">API 集成</a>
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
+      <a href="/how-we-work/">工作方式</a>
       <a href="/en/">English</a>
+      <a href="/en/how-we-work/">How we work</a>
+      <a href="/en/solutions/">Solution pages</a>
       <a href="/case-notes/">案例笔记</a>
       <a href="/engineering-notes/">工程笔记</a>
       <a href="/about/">关于</a>

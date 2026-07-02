@@ -11,7 +11,7 @@
   <link rel="alternate" hreflang="en" href="https://icojf.com/en/">
   <link rel="alternate" hreflang="x-default" href="https://icojf.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=20260702-geo">
+  <link rel="stylesheet" href="/styles.css?v=20260702-ui2">
   <meta property="og:title" content="Software Product Studio | SaaS MVP, API Integration and Workflow Automation | ICOJF Studio">
   <meta property="og:description" content="ICOJF Studio builds SaaS MVPs, API integrations, workflow automation and internal tools with source code, runbooks, deployment notes and acceptance checklists.">
   <meta property="og:type" content="website">
@@ -80,36 +80,45 @@
         "SaaS MVP Development",
         "Workflow Automation Development"
       ],
-      "priceRange": "USD 2,000 - 20,000",
+      "priceRange": "From USD 2,000",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "ICOJF Studio service catalog",
         "itemListElement": [
           {
             "@type": "Offer",
+            "name": "API Integration Sprint",
+            "priceCurrency": "USD",
+            "price": "2000",
             "itemOffered": {
               "@type": "Service",
-              "name": "API Integration Development",
+              "name": "API Integration Sprint",
               "url": "https://icojf.com/en/api-integration-development/",
-              "description": "API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work."
+              "description": "For teams that already have API documentation, test access and one clear sync or webhook workflow."
             }
           },
           {
             "@type": "Offer",
+            "name": "SaaS MVP Build",
+            "priceCurrency": "USD",
+            "price": "5000",
             "itemOffered": {
               "@type": "Service",
-              "name": "SaaS MVP Development",
+              "name": "SaaS MVP Build",
               "url": "https://icojf.com/en/saas-mvp-development/",
-              "description": "SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow."
+              "description": "For founders and operators who need a first release with admin workflows, deployment and handover notes."
             }
           },
           {
             "@type": "Offer",
+            "name": "Workflow Automation Tool",
+            "priceCurrency": "USD",
+            "price": "3000",
             "itemOffered": {
               "@type": "Service",
-              "name": "Workflow Automation Development",
+              "name": "Workflow Automation Tool",
               "url": "https://icojf.com/en/workflow-automation-development/",
-              "description": "Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains."
+              "description": "For teams with stable manual workflows that need structured automation, approvals, reports or internal tools."
             }
           }
         ]
@@ -128,39 +137,143 @@
       <a href="/en/api-integration-development/">API</a>
       <a href="/en/saas-mvp-development/">SaaS MVP</a>
       <a href="/en/workflow-automation-development/">Automation</a>
-      <a href="/engineering-notes/">Notes</a>
+      <a href="/en/solutions/">Solutions</a>
+      <a href="/en/how-we-work/">How</a>
       <a href="/about/">About</a>
       <a class="nav-cta" href="/contact/">Start a brief</a>
     </nav>
   </header>
   <main><section class="hero studio-hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Software Product Studio</p>
-        <h1 id="hero-title">Build software that can launch, be accepted, and be maintained.</h1>
+        <h1 id="hero-title">Software delivery with clear launch, acceptance, and handover.</h1>
         <p class="hero-lede">ICOJF Studio builds SaaS MVPs, API integrations, workflow automation and internal tools for remote Chinese and English collaboration. The work focuses on scoped delivery, operational handover and acceptance evidence.</p>
         <div class="hero-actions"><a class="button primary" href="/contact/">Start a build brief</a><a class="button secondary" href="/en/api-integration-development/">View services</a></div>
+        <div class="hero-facts" aria-label="Project facts">
+          <span><strong>From $2,000</strong><em>API sprint entry point</em></span>
+          <span><strong>2-8 weeks</strong><em>Scoped delivery slices</em></span>
+          <span><strong>Source + runbook</strong><em>Handover assets included</em></span>
+        </div>
         <div class="hero-tags" aria-label="Core services"><span>SaaS MVP</span><span>API Integration</span><span>Workflow Automation</span><span>Internal Tools</span></div>
       </div>
-      <div class="build-system-panel premium-panel" aria-label="Delivery model">
-        <div class="panel-head"><strong>Delivery model</strong><span class="status">Scoped handover</span></div>
-        <div class="system-preview-grid"><div class="workflow-card signal-card"><span class="mini-label">Workflow</span><div class="workflow-lane"><span>01</span>Scope and prototype</div><div class="workflow-lane"><span>02</span>API / data flow</div><div class="workflow-lane"><span>03</span>Launch and handover</div></div><div class="handover-card deliverable-card"><span class="mini-label">Assets</span><div class="progress-track"><span style="width:72%"></span></div><p>MVP / 4-8 weeks</p><div class="artifact-list"><span><strong>Source Code</strong>Code</span><span><strong>Deploy Docs</strong>Docs</span><span><strong>Runbook</strong>Runbook</span><span><strong>Acceptance</strong>Checklist</span></div></div></div>
+      <div class="build-system-panel workbench-panel" aria-label="Delivery workbench preview">
+    <div class="panel-head"><div><strong>Delivery workspace</strong><small>Admin dashboard + API logs + acceptance checklist</small></div><span class="status">Client-ready</span></div>
+    <div class="workbench-body">
+      <div class="workbench-main">
+        <div class="workbench-toolbar"><span class="active">Admin dashboard</span><span>API logs</span><span>Acceptance</span></div>
+        <div class="workbench-table">
+          <div class="workbench-table-head"><span>Record</span><span>Status</span><span>Owner</span><span>Next action</span></div>
+          <div class="workbench-table-row"><strong>Order sync</strong><span>Mapped</span><span>Ops</span><span>Review</span></div><div class="workbench-table-row"><strong>Webhook</strong><span>Retry safe</span><span>Dev</span><span>Replay</span></div><div class="workbench-table-row"><strong>Admin</strong><span>Ready</span><span>Owner</span><span>Roles</span></div><div class="workbench-table-row"><strong>Acceptance</strong><span>Open</span><span>Client</span><span>Cases</span></div>
+        </div>
       </div>
+      <div class="workbench-side">
+        <div class="workbench-side-block">
+          <span class="mini-label">API retry log</span>
+          <div class="api-log-row"><strong>evt_1432</strong><span>duplicate</span><em>200</em></div><div class="api-log-row"><strong>evt_1439</strong><span>rate limit</span><em>retry</em></div><div class="api-log-row"><strong>crm_882</strong><span>missing</span><em>review</em></div>
+        </div>
+        <div class="workbench-side-block">
+          <span class="mini-label">Acceptance checks</span>
+          <div class="checkline"><i></i><span>Sample sync passes</span></div><div class="checkline"><i></i><span>Duplicate event is safe</span></div><div class="checkline"><i></i><span>Runbook owner confirmed</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="launch-steps"><span><strong>Scope review</strong></span><span><strong>Prototype or API validation</strong></span><span><strong>Staged build</strong></span><span><strong>Launch and handover</strong></span></div>
+  </div>
     </section>
     <section id="capabilities" class="section" aria-labelledby="capabilities-title">
-      <div class="section-head"><p class="eyebrow">Capabilities</p><h2 id="capabilities-title">Services</h2><p>Each project starts with business context, system boundaries, customer inputs and acceptance criteria.</p></div>
-      <div class="service-grid"><article class="service-card accent-blue"><span class="card-index">01</span><h3>API Integration Development</h3><p>API integration projects connect third-party systems without hiding permission boundaries, rate limits, retries or handover work.</p><a href="/en/api-integration-development/">View service</a></article><article class="service-card accent-green"><span class="card-index">02</span><h3>SaaS MVP Development</h3><p>SaaS MVP development should make the first release small enough to launch, test and hand over without losing the core workflow.</p><a href="/en/saas-mvp-development/">View service</a></article><article class="service-card accent-amber"><span class="card-index">03</span><h3>Workflow Automation Development</h3><p>Workflow automation should remove repeated manual work while keeping human approval, exception queues and rollback paths where risk remains.</p><a href="/en/workflow-automation-development/">View service</a></article></div>
+      <div class="section-head"><p class="eyebrow">Service Packages</p><h2 id="capabilities-title">Productized packages from $2,000.</h2><p>Each package states fit, inputs, deliverables, timeline, starting budget and acceptance checks before development starts.</p></div>
+      <div class="package-grid"><article class="package-card">
+    <div class="package-top"><span class="mini-label">Service package</span><strong class="price-anchor">From $2,000</strong></div>
+    <h3>API Integration Sprint</h3>
+    <p>For teams that already have API documentation, test access and one clear sync or webhook workflow.</p>
+    <div class="package-meta"><span>Timeline: 2-3 weeks</span><span>Budget: From $2,000</span></div>
+    <div class="package-columns"><div><strong>Inputs</strong><ul class="compact-list"><li>API docs</li><li>test account</li><li>sample payloads</li><li>permission scope</li><li>acceptance owner</li></ul></div><div><strong>Deliverables</strong><ul class="compact-list"><li>field mapping</li><li>API or webhook flow</li><li>retry and exception handling</li><li>log notes</li><li>handover runbook</li></ul></div></div>
+    <div class="acceptance-line"><strong>Acceptance:</strong> sample sync works, duplicates are safe, failure reasons are visible, credential rotation is documented</div>
+    <a href="/en/api-integration-development/">View package details</a>
+  </article><article class="package-card">
+    <div class="package-top"><span class="mini-label">Service package</span><strong class="price-anchor">From $5,000</strong></div>
+    <h3>SaaS MVP Build</h3>
+    <p>For founders and operators who need a first release with admin workflows, deployment and handover notes.</p>
+    <div class="package-meta"><span>Timeline: 4-8 weeks</span><span>Budget: From $5,000</span></div>
+    <div class="package-columns"><div><strong>Inputs</strong><ul class="compact-list"><li>target user</li><li>core workflow</li><li>data objects</li><li>roles</li><li>launch window</li></ul></div><div><strong>Deliverables</strong><ul class="compact-list"><li>core screens</li><li>admin console</li><li>data model</li><li>deployment docs</li><li>runbook and acceptance checklist</li></ul></div></div>
+    <div class="acceptance-line"><strong>Acceptance:</strong> core flow runs end to end, admin can process records, roles are testable, restart and deploy checks pass</div>
+    <a href="/en/saas-mvp-development/">View package details</a>
+  </article><article class="package-card">
+    <div class="package-top"><span class="mini-label">Service package</span><strong class="price-anchor">From $3,000</strong></div>
+    <h3>Workflow Automation Tool</h3>
+    <p>For teams with stable manual workflows that need structured automation, approvals, reports or internal tools.</p>
+    <div class="package-meta"><span>Timeline: 2-6 weeks</span><span>Budget: From $3,000</span></div>
+    <div class="package-columns"><div><strong>Inputs</strong><ul class="compact-list"><li>current sheet or system</li><li>workflow rules</li><li>approver</li><li>exception examples</li><li>report format</li></ul></div><div><strong>Deliverables</strong><ul class="compact-list"><li>automation tool</li><li>approval or exception queue</li><li>reminders and reports</li><li>logs</li><li>pause and rollback notes</li></ul></div></div>
+    <div class="acceptance-line"><strong>Acceptance:</strong> normal samples process, exceptions enter a review queue, reports are reviewable, high-risk actions keep approval</div>
+    <a href="/en/workflow-automation-development/">View package details</a>
+  </article></div>
     </section>
-    <section class="section soft" aria-labelledby="facts-title"><div class="section-head"><p class="eyebrow">Service Facts</p><h2 id="facts-title">Project facts summary</h2></div><table class="facts-table"><tbody><tr><th>Service model</th><td>Remote software product studio for SaaS MVPs, API integrations, workflow automation and internal tools.</td></tr><tr><th>Deliverables</th><td>Source code, deployment documentation, runbook, interface notes, log notes, acceptance checklist and handover walkthrough.</td></tr><tr><th>Boundaries</th><td>No financing promises, advertising ROI promises, platform approval promises, custody or ownerless projects.</td></tr><tr><th>Languages</th><td>Chinese and English remote collaboration.</td></tr></tbody></table></section>
+    <section class="section soft" aria-labelledby="samples-title"><div class="section-head"><p class="eyebrow">Delivery Samples</p><h2 id="samples-title">Concrete assets make the studio feel inspectable.</h2><p>Sanitized samples show the kind of operational artifacts clients should expect, without exposing client data.</p></div><div class="sample-grid"><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Admin table</strong><span>Sanitized</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>Record</th><th>Status</th><th>Owner</th><th>Next</th></tr></thead>
+        <tbody><tr><td>Order sync</td><td>Review</td><td>Ops</td><td>Sample</td></tr><tr><td>Exception</td><td>Open</td><td>Admin</td><td>Fix field</td></tr><tr><td>Export</td><td>Ready</td><td>Owner</td><td>Download</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>Internal dashboard sample</h3>
+    <p>Shows records, statuses, owners, exception queues and export paths so the handover is operational.</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Mapping table</strong><span>Sanitized</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>Source</th><th>Target</th><th>Rule</th><th>Failure</th></tr></thead>
+        <tbody><tr><td>source_id</td><td>external_id</td><td>copy</td><td>reject null</td></tr><tr><td>amount</td><td>amount_cents</td><td>x100</td><td>queue</td></tr><tr><td>status</td><td>lifecycle</td><td>enum map</td><td>review</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>API mapping sample</h3>
+    <p>Makes source fields, destination fields, transforms, required values and failure handling explicit.</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Retry log</strong><span>Sanitized</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>Event</th><th>Result</th><th>Retry</th><th>Note</th></tr></thead>
+        <tbody><tr><td>evt_1432</td><td>accepted</td><td>0</td><td>stored</td></tr><tr><td>evt_1432</td><td>duplicate</td><td>0</td><td>ignored</td></tr><tr><td>evt_1439</td><td>retrying</td><td>2</td><td>rate limit</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>Webhook and retry sample</h3>
+    <p>Shows event states, duplicate handling, retry count, error classes and manual review paths.</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Runbook</strong><span>Sanitized</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>Step</th><th>Owner</th><th>Evidence</th><th>State</th></tr></thead>
+        <tbody><tr><td>Deploy</td><td>Dev</td><td>Release log</td><td>Done</td></tr><tr><td>Env vars</td><td>Owner</td><td>Secret list</td><td>Handover</td></tr><tr><td>Rollback</td><td>Dev</td><td>Runbook</td><td>Ready</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>Runbook sample</h3>
+    <p>Documents deploy steps, environment variables, log fields, account ownership and recovery steps.</p>
+  </article><article class="sample-card">
+    <div class="sample-window" aria-hidden="true">
+      <div class="sample-window-head"><strong>Acceptance</strong><span>Sanitized</span></div>
+      <div class="sample-window-body"><table class="sample-table">
+        <thead><tr><th>Case</th><th>Input</th><th>Expected</th><th>Result</th></tr></thead>
+        <tbody><tr><td>Happy path</td><td>full fields</td><td>stored</td><td>pass</td></tr><tr><td>Missing field</td><td>no email</td><td>error</td><td>pass</td></tr><tr><td>Duplicate</td><td>same ID</td><td>no duplicate</td><td>pass</td></tr></tbody>
+      </table></div>
+    </div>
+    <h3>Acceptance checklist sample</h3>
+    <p>Uses repeatable paths: happy path, missing fields, duplicate events, permission errors and restart checks.</p>
+  </article></div></section>
+    <section class="section" aria-labelledby="how-title"><div class="section-head"><p class="eyebrow">How We Work</p><h2 id="how-title">A scoped workflow before implementation.</h2><p>The process keeps projects small enough to launch, accept and maintain.</p></div><div class="timeline-grid"><article><span>1</span><h3>1. Scope review</h3><p>Confirm business goal, existing systems, owner, budget range, launch window and first-release acceptance.</p></article><article><span>2</span><h3>2. Prototype or API validation</h3><p>Fix screens, data objects, field mapping, permissions, exception paths and client-side inputs.</p></article><article><span>3</span><h3>3. Staged build</h3><p>Deliver in accepted slices with demo environment, change notes, log notes and sample acceptance paths.</p></article><article><span>4</span><h3>4. Launch and handover</h3><p>Hand over source code, deployment docs, environment variables, runbook, acceptance checklist and walkthrough.</p></article></div><div class="section-link"><a href="/en/how-we-work/">Read the full workflow</a></div></section>
+    <section class="section" aria-labelledby="solution-title"><div class="section-head"><p class="eyebrow">Long-tail Pages</p><h2 id="solution-title">Specific integration and automation pages</h2><p>These pages map common search and AI-answer queries to concrete delivery boundaries.</p></div><div class="article-grid"><article class="article-card"><h3>CRM API Integration Development</h3><p>CRM API integration work connects lead, customer, order and support data without hiding field mapping, ownership, retry behavior or acceptance checks.</p><a href="/en/crm-api-integration-development/">Read page</a></article><article class="article-card"><h3>Webhook Integration Service</h3><p>Webhook integration should make incoming events durable, replay-safe and visible before downstream side effects are triggered.</p><a href="/en/webhook-integration-service/">Read page</a></article><article class="article-card"><h3>Internal Dashboard Development</h3><p>Internal dashboard development turns operational records, exceptions and status changes into a tool that teams can use repeatedly without guessing.</p><a href="/en/internal-dashboard-development/">Read page</a></article><article class="article-card"><h3>Google Sheets Workflow Automation</h3><p>Google Sheets workflow automation is strongest when the sheet becomes a controlled input or review surface rather than a hidden manual process.</p><a href="/en/google-sheets-workflow-automation/">Read page</a></article><article class="article-card"><h3>Stripe Integration Handover</h3><p>Stripe integration handover should document billing scope, webhook behavior, environment separation and operator checks before payments become business-critical.</p><a href="/en/stripe-integration-handover/">Read page</a></article><article class="article-card"><h3>ERP Data Sync Integration</h3><p>ERP data sync integration should define record ownership, conflict handling, retries and audit logs before connecting operational systems.</p><a href="/en/erp-data-sync-integration/">Read page</a></article></div></section>
+    <section class="section soft" aria-labelledby="facts-title"><div class="section-head"><p class="eyebrow">Service Facts</p><h2 id="facts-title">Project facts summary</h2></div><table class="facts-table"><tbody><tr><th>Service model</th><td>Remote software product studio for SaaS MVPs, API integrations, workflow automation and internal tools.</td></tr><tr><th>Starting budget</th><td>Productized service packages start from USD 2,000.</td></tr><tr><th>Deliverables</th><td>Source code, deployment documentation, runbook, interface notes, log notes, acceptance checklist and handover walkthrough.</td></tr><tr><th>Boundaries</th><td>No financing promises, advertising ROI promises, platform approval promises, custody or ownerless projects.</td></tr><tr><th>Languages</th><td>Chinese and English remote collaboration.</td></tr></tbody></table></section>
     <section class="section" aria-labelledby="entity-title"><div class="section-head"><p class="eyebrow">Trust & Entity</p><h2 id="entity-title">Public entity and delivery boundary</h2><p>ICOJF keeps its own brand, canonical URLs, sitemap, robots policy and page copy for software product services.</p></div><div class="check-grid"><article class="check-card"><h3>GitHub</h3><p>Public engineering profile signal for software delivery and source handover expectations.</p><a href="https://github.com/yfjelley" rel="me noopener" target="_blank">GitHub profile</a></article><article class="check-card"><h3>LinkedIn</h3><p>External identity reference for remote collaboration and service boundary consistency.</p><a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="me noopener" target="_blank">LinkedIn profile</a></article><article class="check-card"><h3>About ICOJF</h3><p>Service scope, handover assets, project fit and what the studio does not accept.</p><a href="/about/">Read about page</a></article></div></section>
     <section class="section soft" aria-labelledby="notes-title"><div class="section-head"><p class="eyebrow">Engineering Notes</p><h2 id="notes-title">Engineering notes for AI and search extraction</h2><p>Long-form notes explain how the studio handles integration boundaries, handover and acceptance.</p></div><div class="article-grid"><article class="article-card"><h3>OAuth Integration Checklist</h3><p>OAuth integration work should be scoped around permissions, token lifecycle, environment separation, error handling and operational handover, not only the first successful authorization.</p><a href="/engineering-notes/oauth-integration-checklist/">Read note</a></article><article class="article-card"><h3>Webhook Retry and Idempotency</h3><p>A webhook receiver should expect duplicate, delayed, reordered and retried events, then make every accepted, rejected and replayed event visible in logs.</p><a href="/engineering-notes/webhook-retry-idempotency/">Read note</a></article><article class="article-card"><h3>SaaS MVP Scope Control</h3><p>A useful SaaS MVP ships a small complete workflow with clear users, data objects, admin actions and handover notes instead of a broad unfinished feature list.</p><a href="/engineering-notes/saas-mvp-scope-control/">Read note</a></article></div></section>
-    <section class="section soft" aria-labelledby="contact-title"><div class="contact-band"><div class="section-head"><p class="eyebrow">Start a Build Brief</p><h2 id="contact-title">Send the project context first.</h2><p>Share existing systems, users, integrations, budget range, timeline and acceptance owner.</p><div class="cta-actions"><a class="button primary" href="/contact/">Start a brief</a><a class="button secondary" href="mailto:contact@icojf.com">Email</a></div></div></div></section></main>
+    <section class="section soft" aria-labelledby="contact-title"><div class="contact-band"><div class="section-head"><p class="eyebrow">Start a Build Brief</p><h2 id="contact-title">Send the project context first.</h2><p>Share existing systems, users, integrations, budget range from $2,000, timeline and acceptance owner.</p><div class="cta-actions"><a class="button primary" href="/contact/">Start a brief</a><a class="button secondary" href="mailto:contact@icojf.com?subject=ICOJF%20Studio%20project%20brief&body=Project%20type%3A%0AExisting%20system%20or%20website%3A%0AProblem%20to%20solve%3A%0ATarget%20user%20or%20internal%20user%3A%0ARequired%20platforms%20or%20APIs%3A%0AAvailable%20materials%3A%20docs%20%2F%20test%20account%20%2F%20sample%20data%20%2F%20field%20notes%0AFirst-release%20must-haves%3A%0ABudget%20range%3A%20from%20%242%2C000%2C%20please%20share%20your%20acceptable%20range%0ATarget%20launch%20window%3A%0AAcceptance%20owner%3A%0ANotes%3A">Email template</a></div></div></div></section></main>
   <footer class="footer">
     <p><strong>ICOJF Studio</strong> software product studio for SaaS MVPs, API integrations, workflow automation and internal tools</p>
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="/api-integration-development/">API 集成</a>
       <a href="/mvp-saas-development/">SaaS MVP</a>
       <a href="/business-process-automation/">业务自动化</a>
+      <a href="/how-we-work/">工作方式</a>
       <a href="/en/">English</a>
+      <a href="/en/how-we-work/">How we work</a>
+      <a href="/en/solutions/">Solution pages</a>
       <a href="/case-notes/">案例笔记</a>
       <a href="/engineering-notes/">工程笔记</a>
       <a href="/about/">关于</a>

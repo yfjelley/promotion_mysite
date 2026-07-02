@@ -1,4 +1,5 @@
 User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference
 Allow: /
 
 User-agent: OAI-SearchBot
@@ -15,5 +16,23 @@ Allow: /
 
 User-agent: PerplexityBot
 Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
 
 Sitemap: https://icojf.com/sitemap.xml

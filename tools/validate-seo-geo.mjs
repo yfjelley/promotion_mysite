@@ -173,50 +173,140 @@ for (const file of softwareHtmlFiles) {
   const isCoreSoftwarePage =
     !isSoftware404 &&
     [
-      "/index.html",
-      "/api-integration-development/index.html",
-      "/mvp-saas-development/index.html",
-      "/business-process-automation/index.html",
-      "/contact/index.html"
-    ].includes(softwareRoute);
+	      "/index.html",
+	      "/api-integration-development/index.html",
+	      "/mvp-saas-development/index.html",
+	      "/business-process-automation/index.html",
+	      "/how-we-work/index.html",
+	      "/contact/index.html"
+	    ].includes(softwareRoute);
   const isEnglishSoftwarePage =
     !isSoftware404 &&
     [
-      "/en/index.html",
-      "/en/api-integration-development/index.html",
+	      "/en/index.html",
+	      "/en/how-we-work/index.html",
+	      "/en/api-integration-development/index.html",
+	      "/en/saas-mvp-development/index.html",
+	      "/en/workflow-automation-development/index.html"
+	    ].includes(softwareRoute);
+	  const isAboutSoftwarePage = softwareRoute === "/about/index.html";
+	  const isContactSoftwarePage = softwareRoute === "/contact/index.html";
+	  const isHowWeWorkSoftwarePage = softwareRoute === "/how-we-work/index.html" || softwareRoute === "/en/how-we-work/index.html";
+	  const isIcojfServicePageRoute = [
+	    "/api-integration-development/index.html",
+	    "/mvp-saas-development/index.html",
+	    "/business-process-automation/index.html",
+	    "/en/api-integration-development/index.html",
+	    "/en/saas-mvp-development/index.html",
+	    "/en/workflow-automation-development/index.html"
+	  ].includes(softwareRoute);
+  const isIcojfCasePage = softwareRoute.startsWith("/case-notes/") && softwareRoute !== "/case-notes/index.html";
+  const isIcojfLongTailPage =
+    softwareRoute.startsWith("/en/") &&
+    ![
+	      "/en/index.html",
+	      "/en/how-we-work/index.html",
+	      "/en/solutions/index.html",
+	      "/en/api-integration-development/index.html",
       "/en/saas-mvp-development/index.html",
       "/en/workflow-automation-development/index.html"
     ].includes(softwareRoute);
-  const isAboutSoftwarePage = softwareRoute === "/about/index.html";
 
   if (isCoreSoftwarePage) {
     [
-      "ICOJF Studio",
-      "支持中文/英文远程协作",
-      "Software Product Studio"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
+	      "ICOJF Studio",
+	      "支持中文/英文远程协作",
+	      "Software Product Studio",
+	      "$2,000"
+	    ].forEach((needle) => requireText(rel, html, needle));
+	  }
 
   if (isEnglishSoftwarePage) {
     [
       "ICOJF Studio",
       "Software Product Studio",
-      "Source code",
-      "deployment documentation",
-      "runbook",
-      "acceptance checklist"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
+	      "Source code",
+	      "deployment documentation",
+	      "runbook",
+	      "acceptance checklist",
+	      "$2,000"
+	    ].forEach((needle) => requireText(rel, html, needle));
+	  }
 
-  if (isAboutSoftwarePage) {
-    [
-      "公开实体资料",
-      "GitHub",
+	  if (isIcojfServicePageRoute) {
+	    [
+	      "Service Package",
+	      "Delivery Samples",
+	      "$2,000"
+	    ].forEach((needle) => requireText(rel, html, needle));
+	    requireText(rel, html, softwareRoute.startsWith("/en/") ? "Starting budget" : "起步预算");
+	  }
+
+	  if (isAboutSoftwarePage) {
+	    [
+	      "公开实体资料",
+	      "Founder / Builder",
+	      "Full-stack product delivery",
+	      "可检查的交付样例",
+	      "起步预算",
+	      "工作方式",
+	      "适合与不适合的项目",
+	      "GitHub",
       "LinkedIn",
       "源码",
       "部署文档",
       "运行手册",
       "验收清单"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
+	  if (isContactSoftwarePage) {
+	    [
+	      "Project Brief",
+	      "使用邮件模板",
+	      "项目类型",
+	      "$2,000",
+	      "可选择的服务包",
+	      "建议按这个结构发送",
+	      "交付流程",
+	      "联系前常见问题",
+      "源码",
+      "部署文档",
+      "运行手册",
+	      "验收清单"
+	    ].forEach((needle) => requireText(rel, html, needle));
+	  }
+
+	  if (isHowWeWorkSoftwarePage) {
+	    [
+	      "How We Work",
+	      "Service Packages",
+	      "Delivery Assets",
+	      "Acceptance Boundary",
+	      "$2,000",
+	      "Source Code",
+	      "runbook"
+	    ].forEach((needle) => requireText(rel, html, needle));
+	  }
+
+  if (isIcojfCasePage) {
+    [
+      "复盘摘要",
+      "主要风险",
+      "交付资产",
+      "验收清单",
+      "可复用经验"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
+  if (isIcojfLongTailPage) {
+    [
+      "Solution Page",
+      "Delivery Facts",
+      "Inputs, deliverables and acceptance",
+      "Common questions",
+      "Related pages",
+      "Start a brief"
     ].forEach((needle) => requireText(rel, html, needle));
   }
 
@@ -273,6 +363,10 @@ for (const file of softwareHtmlFiles) {
       if (isIcojfServicePage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 5)) {
         errors.push(`${rel}: ICOJF service page FAQPage should contain at least 5 questions`);
       }
+
+      if (isIcojfLongTailPage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 4)) {
+        errors.push(`${rel}: ICOJF long-tail page FAQPage should contain at least 4 questions`);
+      }
     } catch (error) {
       errors.push(`${rel}: invalid JSON-LD: ${error.message}`);
     }
@@ -324,22 +418,45 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 
 const softwareRobots = readFileSync(join(softwareDir, "robots.txt"), "utf8");
 [
-  "User-agent: *\nAllow: /",
+  "User-agent: *",
+  "Allow: /",
+  "Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference",
   "User-agent: OAI-SearchBot\nAllow: /",
   "User-agent: ChatGPT-User\nAllow: /",
   "User-agent: OAI-AdsBot\nAllow: /",
   "User-agent: Cloudflare-AI-Search\nAllow: /",
+  "User-agent: PerplexityBot\nAllow: /",
+  "User-agent: Claude-SearchBot\nAllow: /",
+  "User-agent: GPTBot\nDisallow: /",
+  "User-agent: ClaudeBot\nDisallow: /",
+  "User-agent: Google-Extended\nDisallow: /",
   "Sitemap: https://icojf.com/sitemap.xml"
 ].forEach((needle) => requireText("icojf/robots.txt", softwareRobots, needle));
+
+const softwareLongTailUrls = [
+  "https://icojf.com/en/solutions/",
+  "https://icojf.com/en/crm-api-integration-development/",
+  "https://icojf.com/en/webhook-integration-service/",
+  "https://icojf.com/en/internal-dashboard-development/",
+  "https://icojf.com/en/google-sheets-workflow-automation/",
+  "https://icojf.com/en/stripe-integration-handover/",
+  "https://icojf.com/en/erp-data-sync-integration/"
+];
 
 const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
 [
   "ICOJF Studio",
   "Last updated: 2026-07-02",
-  "AI-citable factual summary",
-  "Public entity links",
-  "https://icojf.com/en/",
-  "https://icojf.com/api-integration-development/",
+	  "AI-citable factual summary",
+	  "AI access policy",
+	  "Productized service packages",
+	  "Starting budget",
+	  "From $2,000",
+	  "Public entity links",
+	  "https://icojf.com/en/",
+	  "https://icojf.com/how-we-work/",
+	  "https://icojf.com/en/how-we-work/",
+	  "https://icojf.com/api-integration-development/",
   "https://icojf.com/en/api-integration-development/",
   "https://icojf.com/en/saas-mvp-development/",
   "https://icojf.com/en/workflow-automation-development/",
@@ -353,10 +470,13 @@ const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
   "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
   "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
 ].forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
+softwareLongTailUrls.forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
 
 [
-  "https://icojf.com/en/",
-  "https://icojf.com/en/api-integration-development/",
+	  "https://icojf.com/en/",
+	  "https://icojf.com/how-we-work/",
+	  "https://icojf.com/en/how-we-work/",
+	  "https://icojf.com/en/api-integration-development/",
   "https://icojf.com/en/saas-mvp-development/",
   "https://icojf.com/en/workflow-automation-development/",
   "https://icojf.com/about/",
@@ -369,6 +489,7 @@ const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
   "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
   "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
 ].forEach((needle) => requireText("icojf/sitemap.xml", softwareSitemap, needle));
+softwareLongTailUrls.forEach((needle) => requireText("icojf/sitemap.xml", softwareSitemap, needle));
 
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
