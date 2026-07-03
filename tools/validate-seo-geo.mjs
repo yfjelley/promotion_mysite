@@ -4,8 +4,6 @@ import { join, relative, sep } from "node:path";
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const site = "https://pddjf.com";
-const softwareDir = join(publicDir, "icojf");
-const softwareSite = "https://icojf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const errors = [];
@@ -38,19 +36,6 @@ function fileForPath(pathname) {
   return join(publicDir, pathname);
 }
 
-function softwareFileForPath(pathname) {
-  if (pathname === "/") return join(softwareDir, "index.html");
-  if (pathname.endsWith("/")) return join(softwareDir, pathname, "index.html");
-
-  const htmlFile = join(softwareDir, `${pathname}.html`);
-  if (existsSync(htmlFile)) return htmlFile;
-
-  const indexFile = join(softwareDir, pathname, "index.html");
-  if (existsSync(indexFile)) return indexFile;
-
-  return join(softwareDir, pathname);
-}
-
 function requireText(label, value, needle) {
   if (!value.includes(needle)) errors.push(`${label}: missing ${needle.replaceAll("\n", " ")}`);
 }
@@ -59,7 +44,7 @@ function readServiceManifest() {
   const manifestPath = join(publicDir, "service-pages.json");
   if (!existsSync(manifestPath)) {
     errors.push("service-pages.json: missing generated service manifest");
-    return { generatedServiceRoutes: [], coreServiceUrls: [] };
+    return { generatedServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
   }
 
   try {
@@ -81,17 +66,16 @@ function readServiceManifest() {
     return { generatedServiceRoutes, coreServiceUrls, externalTrustLinks, articleUrls };
   } catch (error) {
     errors.push(`service-pages.json: invalid JSON: ${error.message}`);
-    return { generatedServiceRoutes: [], coreServiceUrls: [] };
+    return { generatedServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
   }
 }
 
 const htmlFiles = walk(publicDir).filter((file) => file.endsWith(".html"));
 const pddjfHtmlFiles = htmlFiles.filter((file) => !relative(publicDir, file).replaceAll(sep, "/").startsWith("icojf/"));
-const softwareHtmlFiles = htmlFiles.filter((file) => relative(publicDir, file).replaceAll(sep, "/").startsWith("icojf/"));
 const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
-const externalTrustLinks = Array.isArray(serviceManifest.externalTrustLinks) ? serviceManifest.externalTrustLinks : [];
-const articleUrls = Array.isArray(serviceManifest.articleUrls) ? serviceManifest.articleUrls : [];
+const externalTrustLinks = serviceManifest.externalTrustLinks;
+const articleUrls = serviceManifest.articleUrls;
 
 for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
@@ -159,230 +143,6 @@ for (const file of pddjfHtmlFiles) {
   }
 }
 
-for (const file of softwareHtmlFiles) {
-  const html = readFileSync(file, "utf8");
-  const rel = relative(root, file);
-  const is404 = rel === "public/icojf/404.html";
-
-  if (html.includes("https://pddjf.com") || html.includes("SignalCraft Labs")) {
-    errors.push(`${rel}: must stay separate from pddjf.com brand/domain`);
-  }
-
-  const softwareRoute = `/${relative(softwareDir, file).replaceAll(sep, "/")}`;
-  const isSoftware404 = rel === "public/icojf/404.html";
-  const isCoreSoftwarePage =
-    !isSoftware404 &&
-    [
-	      "/index.html",
-	      "/api-integration-development/index.html",
-	      "/mvp-saas-development/index.html",
-	      "/business-process-automation/index.html",
-	      "/how-we-work/index.html",
-	      "/contact/index.html"
-	    ].includes(softwareRoute);
-  const isEnglishSoftwarePage =
-    !isSoftware404 &&
-    [
-	      "/en/index.html",
-	      "/en/how-we-work/index.html",
-	      "/en/api-integration-development/index.html",
-	      "/en/saas-mvp-development/index.html",
-	      "/en/workflow-automation-development/index.html"
-	    ].includes(softwareRoute);
-	  const isAboutSoftwarePage = softwareRoute === "/about/index.html";
-	  const isContactSoftwarePage = softwareRoute === "/contact/index.html";
-	  const isHowWeWorkSoftwarePage = softwareRoute === "/how-we-work/index.html" || softwareRoute === "/en/how-we-work/index.html";
-	  const isIcojfServicePageRoute = [
-	    "/api-integration-development/index.html",
-	    "/mvp-saas-development/index.html",
-	    "/business-process-automation/index.html",
-	    "/en/api-integration-development/index.html",
-	    "/en/saas-mvp-development/index.html",
-	    "/en/workflow-automation-development/index.html"
-	  ].includes(softwareRoute);
-  const isIcojfCasePage = softwareRoute.startsWith("/case-notes/") && softwareRoute !== "/case-notes/index.html";
-  const isIcojfLongTailPage =
-    softwareRoute.startsWith("/en/") &&
-    ![
-	      "/en/index.html",
-	      "/en/how-we-work/index.html",
-	      "/en/solutions/index.html",
-	      "/en/api-integration-development/index.html",
-      "/en/saas-mvp-development/index.html",
-      "/en/workflow-automation-development/index.html"
-    ].includes(softwareRoute);
-
-  if (isCoreSoftwarePage) {
-    [
-	      "ICOJF Studio",
-	      "支持中文/英文远程协作",
-	      "Software Product Studio",
-	      "$2,000"
-	    ].forEach((needle) => requireText(rel, html, needle));
-	  }
-
-  if (isEnglishSoftwarePage) {
-    [
-      "ICOJF Studio",
-      "Software Product Studio",
-	      "Source code",
-	      "deployment documentation",
-	      "runbook",
-	      "acceptance checklist",
-	      "$2,000"
-	    ].forEach((needle) => requireText(rel, html, needle));
-	  }
-
-	  if (isIcojfServicePageRoute) {
-	    [
-	      "Service Package",
-	      "Delivery Samples",
-	      "$2,000"
-	    ].forEach((needle) => requireText(rel, html, needle));
-	    requireText(rel, html, softwareRoute.startsWith("/en/") ? "Starting budget" : "起步预算");
-	  }
-
-	  if (isAboutSoftwarePage) {
-	    [
-	      "公开实体资料",
-	      "Founder / Builder",
-	      "Full-stack product delivery",
-	      "可检查的交付样例",
-	      "起步预算",
-	      "工作方式",
-	      "适合与不适合的项目",
-	      "GitHub",
-      "LinkedIn",
-      "源码",
-      "部署文档",
-      "运行手册",
-      "验收清单"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
-
-	  if (isContactSoftwarePage) {
-	    [
-	      "Project Brief",
-	      "使用邮件模板",
-	      "项目类型",
-	      "$2,000",
-	      "可选择的服务包",
-	      "建议按这个结构发送",
-	      "交付流程",
-	      "联系前常见问题",
-      "源码",
-      "部署文档",
-      "运行手册",
-	      "验收清单"
-	    ].forEach((needle) => requireText(rel, html, needle));
-	  }
-
-	  if (isHowWeWorkSoftwarePage) {
-	    [
-	      "How We Work",
-	      "Service Packages",
-	      "Delivery Assets",
-	      "Acceptance Boundary",
-	      "$2,000",
-	      "Source Code",
-	      "runbook"
-	    ].forEach((needle) => requireText(rel, html, needle));
-	  }
-
-  if (isIcojfCasePage) {
-    [
-      "复盘摘要",
-      "主要风险",
-      "交付资产",
-      "验收清单",
-      "可复用经验"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
-
-  if (isIcojfLongTailPage) {
-    [
-      "Solution Page",
-      "Delivery Facts",
-      "Inputs, deliverables and acceptance",
-      "Common questions",
-      "Related pages",
-      "Start a brief"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
-
-  [
-    "美国",
-    "中国大陆",
-    "低价开发",
-    "快速仿站",
-    "包满意",
-    "保证增长",
-    "保证融资",
-    "保证转化"
-  ].forEach((needle) => {
-    if (isCoreSoftwarePage && html.includes(needle)) {
-      errors.push(`${rel}: contains disallowed ICOJF positioning text: ${needle}`);
-    }
-  });
-
-  if (isCoreSoftwarePage) {
-    [
-      "源码",
-      "部署文档",
-      "运行手册",
-      "验收清单"
-    ].forEach((needle) => requireText(rel, html, needle));
-  }
-
-  if (!is404) {
-    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
-    const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
-
-    if (!canonical) errors.push(`${rel}: missing canonical`);
-    if (canonical && !canonical.startsWith(softwareSite)) errors.push(`${rel}: canonical not icojf: ${canonical}`);
-    if (!ogUrl) errors.push(`${rel}: missing og:url`);
-    if (ogUrl && !ogUrl.startsWith(softwareSite)) errors.push(`${rel}: og:url not icojf: ${ogUrl}`);
-  }
-
-  const ldBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-  if (!is404 && ldBlocks.length === 0) errors.push(`${rel}: missing JSON-LD`);
-  for (const [, raw] of ldBlocks) {
-    try {
-      const parsed = JSON.parse(raw);
-      const graph = Array.isArray(parsed["@graph"]) ? parsed["@graph"] : [];
-      const faqNode = graph.find((node) => node["@type"] === "FAQPage");
-      const isIcojfServicePage = [
-        "public/icojf/api-integration-development/index.html",
-        "public/icojf/mvp-saas-development/index.html",
-        "public/icojf/business-process-automation/index.html",
-        "public/icojf/en/api-integration-development/index.html",
-        "public/icojf/en/saas-mvp-development/index.html",
-        "public/icojf/en/workflow-automation-development/index.html"
-      ].includes(rel);
-
-      if (isIcojfServicePage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 5)) {
-        errors.push(`${rel}: ICOJF service page FAQPage should contain at least 5 questions`);
-      }
-
-      if (isIcojfLongTailPage && (!faqNode || !Array.isArray(faqNode.mainEntity) || faqNode.mainEntity.length < 4)) {
-        errors.push(`${rel}: ICOJF long-tail page FAQPage should contain at least 4 questions`);
-      }
-    } catch (error) {
-      errors.push(`${rel}: invalid JSON-LD: ${error.message}`);
-    }
-  }
-
-  for (const [, attr, href] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
-    if (!href.startsWith("/") || href.startsWith("//")) continue;
-    const [pathOnly] = href.split("#");
-    const [pathname] = pathOnly.split("?");
-    if (!pathname || pathname === "/") continue;
-
-    const target = softwareFileForPath(pathname);
-    if (!existsSync(target)) errors.push(`${rel}: ${attr} target missing: ${href}`);
-  }
-}
-
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 for (const loc of locs) {
@@ -391,105 +151,28 @@ for (const loc of locs) {
   if (!existsSync(target)) errors.push(`sitemap loc has no file: ${loc}`);
 }
 
-const softwareSitemap = readFileSync(join(softwareDir, "sitemap.xml"), "utf8");
-const softwareLocs = [...softwareSitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-for (const loc of softwareLocs) {
-  if (!loc.startsWith(softwareSite)) errors.push(`icojf sitemap non-icojf loc: ${loc}`);
-  const target = softwareFileForPath(new URL(loc).pathname);
-  if (!existsSync(target)) errors.push(`icojf sitemap loc has no file: ${loc}`);
-}
-
 const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 [
-  "User-agent: OAI-SearchBot\nAllow: /",
-  "User-agent: ChatGPT-User\nAllow: /",
-  "User-agent: OAI-AdsBot\nAllow: /",
-  "Sitemap: https://pddjf.com/sitemap.xml"
-].forEach((needle) => requireText("robots.txt", robots, needle));
-
-[
-  "Content-Signal:",
-  "User-agent: GPTBot",
-  "User-agent: Google-Extended",
-  "User-agent: ClaudeBot"
-].forEach((needle) => {
-  if (robots.includes(needle)) errors.push(`robots.txt: duplicates Cloudflare managed policy: ${needle}`);
-});
-
-const softwareRobots = readFileSync(join(softwareDir, "robots.txt"), "utf8");
-[
   "User-agent: *",
-  "Allow: /",
   "Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference",
   "User-agent: OAI-SearchBot\nAllow: /",
   "User-agent: ChatGPT-User\nAllow: /",
   "User-agent: OAI-AdsBot\nAllow: /",
   "User-agent: Cloudflare-AI-Search\nAllow: /",
   "User-agent: PerplexityBot\nAllow: /",
+  "User-agent: Perplexity-User\nAllow: /",
   "User-agent: Claude-SearchBot\nAllow: /",
+  "User-agent: Claude-User\nAllow: /",
   "User-agent: GPTBot\nDisallow: /",
   "User-agent: ClaudeBot\nDisallow: /",
   "User-agent: Google-Extended\nDisallow: /",
-  "Sitemap: https://icojf.com/sitemap.xml"
-].forEach((needle) => requireText("icojf/robots.txt", softwareRobots, needle));
-
-const softwareLongTailUrls = [
-  "https://icojf.com/en/solutions/",
-  "https://icojf.com/en/crm-api-integration-development/",
-  "https://icojf.com/en/webhook-integration-service/",
-  "https://icojf.com/en/internal-dashboard-development/",
-  "https://icojf.com/en/google-sheets-workflow-automation/",
-  "https://icojf.com/en/stripe-integration-handover/",
-  "https://icojf.com/en/erp-data-sync-integration/"
-];
-
-const softwareLlms = readFileSync(join(softwareDir, "llms.txt"), "utf8");
-[
-  "ICOJF Studio",
-  "Last updated: 2026-07-02",
-	  "AI-citable factual summary",
-	  "AI access policy",
-	  "Productized service packages",
-	  "Starting budget",
-	  "From $2,000",
-	  "Public entity links",
-	  "https://icojf.com/en/",
-	  "https://icojf.com/how-we-work/",
-	  "https://icojf.com/en/how-we-work/",
-	  "https://icojf.com/api-integration-development/",
-  "https://icojf.com/en/api-integration-development/",
-  "https://icojf.com/en/saas-mvp-development/",
-  "https://icojf.com/en/workflow-automation-development/",
-  "https://icojf.com/about/",
-  "https://icojf.com/case-notes/api-data-sync/",
-  "https://icojf.com/case-notes/saas-mvp-handover/",
-  "https://icojf.com/case-notes/workflow-automation-review/",
-  "https://icojf.com/engineering-notes/oauth-integration-checklist/",
-  "https://icojf.com/engineering-notes/webhook-retry-idempotency/",
-  "https://icojf.com/engineering-notes/saas-mvp-scope-control/",
-  "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
-  "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
-].forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
-softwareLongTailUrls.forEach((needle) => requireText("icojf/llms.txt", softwareLlms, needle));
-
-[
-	  "https://icojf.com/en/",
-	  "https://icojf.com/how-we-work/",
-	  "https://icojf.com/en/how-we-work/",
-	  "https://icojf.com/en/api-integration-development/",
-  "https://icojf.com/en/saas-mvp-development/",
-  "https://icojf.com/en/workflow-automation-development/",
-  "https://icojf.com/about/",
-  "https://icojf.com/case-notes/api-data-sync/",
-  "https://icojf.com/case-notes/saas-mvp-handover/",
-  "https://icojf.com/case-notes/workflow-automation-review/",
-  "https://icojf.com/engineering-notes/oauth-integration-checklist/",
-  "https://icojf.com/engineering-notes/webhook-retry-idempotency/",
-  "https://icojf.com/engineering-notes/saas-mvp-scope-control/",
-  "https://icojf.com/engineering-notes/workflow-automation-human-approval/",
-  "https://icojf.com/engineering-notes/api-integration-handover-checklist/"
-].forEach((needle) => requireText("icojf/sitemap.xml", softwareSitemap, needle));
-softwareLongTailUrls.forEach((needle) => requireText("icojf/sitemap.xml", softwareSitemap, needle));
+  "User-agent: Applebot-Extended\nDisallow: /",
+  "User-agent: Amazonbot\nDisallow: /",
+  "User-agent: Bytespider\nDisallow: /",
+  "User-agent: CCBot\nDisallow: /",
+  "User-agent: meta-externalagent\nDisallow: /",
+  "Sitemap: https://pddjf.com/sitemap.xml"
+].forEach((needle) => requireText("robots.txt", robots, needle));
 
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
@@ -581,7 +264,7 @@ const riskyTerms = [
 ].map((parts) => parts.join(""));
 
 const scanFiles = [
-  ...walk(join(root, "public")).filter((file) => /\.(html|js|css|txt|xml|svg)$/.test(file)),
+  ...walk(publicDir).filter((file) => /\.(html|js|css|txt|xml|svg)$/.test(file)),
   ...walk(join(root, "promotion", "templates")).filter((file) => /\.(html|css|js)$/.test(file)),
   join(root, "README.md")
 ];
@@ -599,4 +282,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-process.stdout.write(`SEO/GEO validation ok: ${pddjfHtmlFiles.length} pddjf html files, ${locs.length} pddjf sitemap URLs, ${softwareHtmlFiles.length} icojf html files, ${softwareLocs.length} icojf sitemap URLs\n`);
+process.stdout.write(`SEO/GEO validation ok: ${pddjfHtmlFiles.length} pddjf html files, ${locs.length} pddjf sitemap URLs\n`);

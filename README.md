@@ -12,17 +12,10 @@ Public website and entity reference assets for SignalCraft Labs:
 Static Google Ads landing page for Cloudflare Pages. No VPS is required for the
 current site because the production artifact is static HTML, CSS, and JS.
 
-This repository now serves two clearly separated public websites from the same
-Cloudflare Pages project:
-
-- `https://pddjf.com/` is the SignalCraft Labs automated trading engineering
-  site.
-- `https://icojf.com/` is an independent software outsourcing, API integration,
-  SaaS MVP, and business automation site under `public/icojf/`.
-
-Do not use `icojf.com` as a redirect alias for `pddjf.com`, and do not reuse
-the trading automation copy, canonical URLs, sitemap, or JSON-LD on the
-software outsourcing site.
+This repository now serves only `https://pddjf.com/`, the SignalCraft Labs
+automated trading engineering site. The independent ICOJF software product
+studio site lives in `/Users/yfjelley/workspace/icojf_site` and deploys to the
+separate Cloudflare Pages project `icojf-site`.
 
 The primary conversion pages are:
 
@@ -62,11 +55,12 @@ AI-search support:
   profile copy, LinkedIn copy, and technical blog draft used to keep public
   entity references consistent across platforms.
 
-Production robots policy assumes Cloudflare Managed Robots.txt remains enabled.
-Cloudflare prepends the general search/training policy in production, while
-this repo's `public/robots.txt` avoids repeating those managed blocks. If this
-site is served outside Cloudflare Pages or Managed Robots.txt is disabled,
-re-add explicit training-bot blocks before deployment.
+This repo's `public/robots.txt` is the source of truth for the site-specific
+robots policy: search and user-triggered AI retrieval are allowed, AI training
+is not, and training-oriented crawlers are explicitly disallowed. If
+Cloudflare Managed Robots.txt remains enabled, Cloudflare may prepend its
+managed Content-Signal block in production; keep the dashboard setting aligned
+with the same policy.
 
 ## Generate and validate content
 
@@ -81,8 +75,7 @@ node tools/validate-seo-geo.mjs
 Run both commands after changing page slugs, service copy, prices, structured
 data, robots policy, or contact details. The validator checks pddjf canonical
 URLs, JSON-LD parsing, sitemap file coverage, internal links, `robots.txt`,
-`llms.txt`, the independent `icojf.com` canonical URLs, the separate
-`public/icojf/sitemap.xml`, and risky positioning terms.
+`llms.txt`, and risky positioning terms.
 
 ## Deploy
 
@@ -97,11 +90,9 @@ Cloudflare Pages deployment.
 
 `public/_worker.js` is part of the Pages deployment and is the runtime source of
 truth for canonical host redirects and path aliases. It keeps `pddjf.com` as the
-canonical host for the trading automation site, redirects `www.pddjf.com` and
-the `promotion-mysite.pages.dev` preview hosts to `pddjf.com`, serves
-`icojf.com` from `public/icojf/`, and redirects `www.icojf.com` to
-`icojf.com`. The two production domains must remain separate for Ads, SEO,
-canonical URLs, sitemaps, and structured data.
+canonical host, redirects `www.pddjf.com` and the `promotion-mysite.pages.dev`
+preview hosts to `pddjf.com`, and returns the PDDJF 404 for stale `/icojf`
+paths.
 
 If old immutable Pages deployment hashes must also be closed after they were
 created with an earlier Worker bundle, configure a Cloudflare account-level Bulk

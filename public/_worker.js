@@ -1,8 +1,6 @@
 const PRIMARY_HOST = "pddjf.com";
-const SOFTWARE_HOST = "icojf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ICOJF_CANONICAL_HOSTS = new Set(["www.icojf.com"]);
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -42,42 +40,6 @@ const PATH_REDIRECTS = new Map([
   ["/risk-disclaimer", "/risk-disclaimer/"]
 ]);
 
-const ICOJF_PATH_REDIRECTS = new Map([
-  ["/index.html", "/"],
-  ["/about", "/about/"],
-  ["/en", "/en/"],
-  ["/how-we-work", "/how-we-work/"],
-  ["/en/how-we-work", "/en/how-we-work/"],
-  ["/en/api-integration-development", "/en/api-integration-development/"],
-  ["/en/saas-mvp-development", "/en/saas-mvp-development/"],
-  ["/en/workflow-automation-development", "/en/workflow-automation-development/"],
-  ["/en/solutions", "/en/solutions/"],
-  ["/en/crm-api-integration-development", "/en/crm-api-integration-development/"],
-  ["/en/webhook-integration-service", "/en/webhook-integration-service/"],
-  ["/en/internal-dashboard-development", "/en/internal-dashboard-development/"],
-  ["/en/google-sheets-workflow-automation", "/en/google-sheets-workflow-automation/"],
-  ["/en/stripe-integration-handover", "/en/stripe-integration-handover/"],
-  ["/en/erp-data-sync-integration", "/en/erp-data-sync-integration/"],
-  ["/contact", "/contact/"],
-  ["/api-integration-development", "/api-integration-development/"],
-  ["/mvp-saas-development", "/mvp-saas-development/"],
-  ["/business-process-automation", "/business-process-automation/"],
-  ["/case-notes", "/case-notes/"],
-  ["/case-notes/api-data-sync", "/case-notes/api-data-sync/"],
-  ["/case-notes/saas-mvp-handover", "/case-notes/saas-mvp-handover/"],
-  ["/case-notes/workflow-automation-review", "/case-notes/workflow-automation-review/"],
-  ["/engineering-notes", "/engineering-notes/"],
-  ["/engineering-notes/oauth-integration-checklist", "/engineering-notes/oauth-integration-checklist/"],
-  ["/engineering-notes/webhook-retry-idempotency", "/engineering-notes/webhook-retry-idempotency/"],
-  ["/engineering-notes/saas-mvp-scope-control", "/engineering-notes/saas-mvp-scope-control/"],
-  ["/engineering-notes/workflow-automation-human-approval", "/engineering-notes/workflow-automation-human-approval/"],
-  ["/engineering-notes/api-integration-handover-checklist", "/engineering-notes/api-integration-handover-checklist/"],
-  ["/privacy.html", "/privacy"],
-  ["/privacy/", "/privacy"],
-  ["/terms.html", "/terms"],
-  ["/terms/", "/terms"]
-]);
-
 const SECURITY_HEADERS = {
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
@@ -85,11 +47,18 @@ const SECURITY_HEADERS = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()"
 };
 
-function withSecurityHeaders(response, status = response.status) {
+const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
+const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
+
+function withSecurityHeaders(response, status = response.status, assetPath = "") {
   const withHeaders = new Response(response.body, response);
 
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
     withHeaders.headers.set(name, value);
+  }
+
+  if (STATIC_ASSET_PATTERN.test(assetPath)) {
+    withHeaders.headers.set("Cache-Control", STATIC_ASSET_CACHE_CONTROL);
   }
 
   if (status !== response.status) {
@@ -101,24 +70,6 @@ function withSecurityHeaders(response, status = response.status) {
   }
 
   return withHeaders;
-}
-
-function icojfAssetPath(pathname) {
-  if (pathname === "/" || pathname === "") return "/icojf/index.html";
-  if (pathname === "/contact/") return "/icojf/contact/index.html";
-  if (pathname === "/api-integration-development/") return "/icojf/api-integration-development/index.html";
-  if (pathname === "/mvp-saas-development/") return "/icojf/mvp-saas-development/index.html";
-  if (pathname === "/business-process-automation/") return "/icojf/business-process-automation/index.html";
-  if (pathname === "/privacy") return "/icojf/privacy.html";
-  if (pathname === "/terms") return "/icojf/terms.html";
-  if (pathname === "/robots.txt") return "/icojf/robots.txt";
-  if (pathname === "/sitemap.xml") return "/icojf/sitemap.xml";
-  if (pathname === "/llms.txt") return "/icojf/llms.txt";
-  if (pathname === "/favicon.svg") return "/icojf/favicon.svg";
-  if (pathname === "/styles.css") return "/icojf/styles.css";
-  if (pathname.endsWith("/")) return `/icojf${pathname}index.html`;
-  if (/\.[a-z0-9]+$/i.test(pathname)) return `/icojf${pathname}`;
-  return null;
 }
 
 async function fetchAsset(env, request, pathname, statusOverride) {
@@ -137,16 +88,7 @@ async function fetchAsset(env, request, pathname, statusOverride) {
 
   const response = new Response(assetResponse.body, assetResponse);
   response.headers.delete("Location");
-  return withSecurityHeaders(response, statusOverride ?? response.status);
-}
-
-async function fetchIcojfAsset(request, env, url) {
-  const assetPath = icojfAssetPath(url.pathname);
-  if (!assetPath) return fetchAsset(env, request, "/icojf/404.html", 404);
-
-  const response = await fetchAsset(env, request, assetPath);
-  if (response.status === 404) return fetchAsset(env, request, "/icojf/404.html", 404);
-  return response;
+  return withSecurityHeaders(response, statusOverride ?? response.status, pathname);
 }
 
 export default {
@@ -157,8 +99,6 @@ export default {
     const isPagesPreviewHost =
       url.hostname === PAGES_PREVIEW_HOST || url.hostname.endsWith(`.${PAGES_PREVIEW_HOST}`);
     const isPddjfHost = url.hostname === PRIMARY_HOST || PDDJF_CANONICAL_HOSTS.has(url.hostname);
-    const isIcojfHost = url.hostname === SOFTWARE_HOST || ICOJF_CANONICAL_HOSTS.has(url.hostname);
-    const isKnownHost = isPddjfHost || isIcojfHost;
 
     if (PDDJF_CANONICAL_HOSTS.has(url.hostname) || isPagesPreviewHost) {
       target.hostname = PRIMARY_HOST;
@@ -166,18 +106,12 @@ export default {
       shouldRedirect = true;
     }
 
-    if (ICOJF_CANONICAL_HOSTS.has(url.hostname)) {
-      target.hostname = SOFTWARE_HOST;
+    if (isPddjfHost && url.protocol !== "https:") {
       target.protocol = "https:";
       shouldRedirect = true;
     }
 
-    if (isKnownHost && url.protocol !== "https:") {
-      target.protocol = "https:";
-      shouldRedirect = true;
-    }
-
-    const redirectedPath = isIcojfHost ? ICOJF_PATH_REDIRECTS.get(url.pathname) : PATH_REDIRECTS.get(url.pathname);
+    const redirectedPath = PATH_REDIRECTS.get(url.pathname);
     if (redirectedPath) {
       target.pathname = redirectedPath;
       shouldRedirect = true;
@@ -187,15 +121,15 @@ export default {
       return Response.redirect(target.toString(), 301);
     }
 
-    if (url.hostname === SOFTWARE_HOST) {
-      return fetchIcojfAsset(request, env, url);
+    if (!isPddjfHost && !isPagesPreviewHost) {
+      return fetchAsset(env, request, "/404.html", 404);
     }
 
-    if (url.hostname === PRIMARY_HOST && (url.pathname === "/icojf" || url.pathname.startsWith("/icojf/"))) {
+    if (url.pathname === "/icojf" || url.pathname.startsWith("/icojf/")) {
       return fetchAsset(env, request, "/404.html", 404);
     }
 
     const response = await env.ASSETS.fetch(request);
-    return withSecurityHeaders(response);
+    return withSecurityHeaders(response, response.status, url.pathname);
   }
 };
