@@ -1996,6 +1996,67 @@ h3 {
   white-space: pre-wrap;
 }
 
+.brief-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.brief-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.brief-form input,
+.brief-form select,
+.brief-form textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f7fbfb;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+
+.brief-form textarea {
+  min-height: 116px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.brief-form input:focus,
+.brief-form select:focus,
+.brief-form textarea:focus {
+  outline: 2px solid rgba(32, 199, 177, 0.22);
+  border-color: var(--teal);
+  background: #fff;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.brief-form .button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 .package-hints a {
   display: inline-flex;
   margin-top: 10px;
@@ -2573,6 +2634,10 @@ h3 {
 
   .package-hints {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 
   .case-grid {

@@ -64,6 +64,54 @@ function reportContactClick(method, isLead = false) {
   }
 }
 
+function fieldRows(form) {
+  return Array.from(form.querySelectorAll("[data-brief-label]"))
+    .map((control) => {
+      const label = control.getAttribute("data-brief-label");
+      const value = (control.value || "").trim();
+      return label && value ? `${label}: ${value}` : "";
+    })
+    .filter(Boolean);
+}
+
+function trackingRows() {
+  const params = new URLSearchParams(window.location.search);
+  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+  const rows = keys
+    .filter((key) => params.get(key))
+    .map((key) => `${key}: ${params.get(key)}`);
+  rows.push(`landing_page: ${window.location.href}`);
+  if (document.referrer) rows.push(`referrer: ${document.referrer}`);
+  return rows;
+}
+
+function qualificationFor(form) {
+  let score = 0;
+  const budget = form.elements.budget?.value || "";
+  const permission = form.elements.permissionStatus?.value || "";
+  const risk = form.elements.riskBoundary?.value || "";
+  const deployment = form.elements.deploymentTarget?.value || "";
+  if (budget && budget !== "还在评估") score += 1;
+  if (permission && permission !== "还没有 API 权限") score += 1;
+  if (risk.trim().length >= 12) score += 1;
+  if (deployment && deployment !== "还不确定") score += 1;
+  if (score >= 3) return "ready";
+  if (score >= 2) return "needs-docs";
+  return "not-fit";
+}
+
+function mailtoFromBrief(form) {
+  const rows = fieldRows(form);
+  rows.push(`qualification: ${qualificationFor(form)}`);
+  rows.push("");
+  rows.push("Tracking context:");
+  rows.push(...trackingRows());
+
+  const recipient = form.getAttribute("data-mailto-recipient") || "contact@pddjf.com";
+  const subject = form.getAttribute("data-mailto-subject") || "SignalCraft Labs project brief";
+  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rows.join("\n"))}`;
+}
+
 async function copyText(value) {
   if (navigator.clipboard && window.isSecureContext) {
     try {
@@ -115,6 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
           status.textContent = "复制失败，请手动复制页面上的联系方式。";
         }
       }
+    });
+  });
+
+  document.querySelectorAll("form[data-mailto-brief]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const status = statusFor(form);
+      if (status) {
+        status.textContent = "已生成结构化 Brief，并打开邮件客户端。这个有效提交会计入咨询转化。";
+      }
+      reportContactClick(form.dataset.contact || "structured_brief_submit", true);
+      window.location.href = mailtoFromBrief(form);
     });
   });
 

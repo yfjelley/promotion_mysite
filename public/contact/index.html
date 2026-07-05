@@ -13,9 +13,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/contact/">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260701-footer">
+  <link rel="stylesheet" href="/styles.css?v=20260705-brief">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="/scripts.js?v=20260705-case-links" defer></script>
+  <script src="/scripts.js?v=20260705-brief" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -121,8 +121,76 @@
     </section>
     <section class="section content-band"><div class="answer-grid contact-brief-grid">
       <article>
-        <h3>项目 Brief 模板</h3>
-        <p>可以直接复制下面的结构，通过邮件、微信或 Telegram 发来。</p>
+        <h3>结构化 Brief 表单</h3>
+        <p>先用表单整理项目类型、信号来源、API 权限、风控边界、部署环境、预算档位和联系方式。只有有效提交会计入咨询转化。</p>
+        <form class="brief-form" data-mailto-brief data-mailto-recipient="contact@pddjf.com" data-mailto-subject="SignalCraft Labs project brief" data-contact="structured_brief_submit">
+      <div class="form-grid">
+        <label>项目类型
+          <select name="projectType" data-brief-label="Project type" required>
+            <option value="">请选择</option>
+            <option>TradingView webhook automation</option>
+            <option>Broker API integration</option>
+            <option>Order execution API system</option>
+            <option>Risk / monitoring dashboard</option>
+            <option>Private deployment / handoff</option>
+          </select>
+        </label>
+        <label>信号来源
+          <input name="signalSource" data-brief-label="Signal source" required placeholder="TradingView Alert / 研究脚本 / 人工确认">
+        </label>
+        <label>API 平台和权限状态
+          <input name="apiPlatform" data-brief-label="API platform" required placeholder="IBKR / Alpaca / FIX / 交易所 API">
+        </label>
+        <label>权限状态
+          <select name="permissionStatus" data-brief-label="Permission status" required>
+            <option value="">请选择</option>
+            <option>已有测试环境或 paper 权限</option>
+            <option>已有读取权限，交易权限待确认</option>
+            <option>已有完整 API 文档，权限申请中</option>
+            <option>还没有 API 权限</option>
+          </select>
+        </label>
+        <label>预算档位
+          <select name="budget" data-brief-label="Budget range" required>
+            <option value="">请选择</option>
+            <option>API Starter Package - 2000 美金起</option>
+            <option>Execution System Package - 5000 美金起</option>
+            <option>Private Infrastructure Package - 10000 美金起</option>
+            <option>还在评估</option>
+          </select>
+        </label>
+        <label>部署环境
+          <select name="deploymentTarget" data-brief-label="Deployment target" required>
+            <option value="">请选择</option>
+            <option>客户 VPS / Docker</option>
+            <option>客户本地服务器</option>
+            <option>云服务器 + 远程交付</option>
+            <option>还不确定</option>
+          </select>
+        </label>
+        <label>期望时间线
+          <input name="timeline" data-brief-label="Timeline" required placeholder="例如 2 周内评估 / 4-8 周上线">
+        </label>
+        <label>联系方式
+          <input name="contactMethod" data-brief-label="Preferred contact method" required placeholder="邮箱 / 微信 / Telegram">
+        </label>
+      </div>
+      <label>风控边界
+        <textarea name="riskBoundary" data-brief-label="Risk boundary" required placeholder="最大仓位、单笔风险、只减仓、暂停开关、价格偏离、告警和人工确认边界。"></textarea>
+      </label>
+      <label>补充说明
+        <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
+      </label>
+      <div class="form-actions">
+        <button class="button primary" type="submit">生成邮件并提交 Brief</button>
+        <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制空白模板</button>
+      </div>
+      <p class="copy-status" aria-live="polite"></p>
+    </form>
+      </article>
+      <article>
+        <h3>空白 Brief 模板</h3>
+        <p>如果暂时不想填表，也可以复制下面的结构，通过邮件、微信或 Telegram 发来。</p>
         <pre id="project-brief-template" class="brief-template">项目目标：
 信号来源：
 API 平台和权限状态：
@@ -132,10 +200,6 @@ API 平台和权限状态：
 是否需要后台、告警、源码交付或私有部署：
 目标交付包和预算档位：
 期望时间线：</pre>
-        <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制 Brief 模板</button>
-        <p class="copy-status" aria-live="polite"></p>
-      </article>
-      <article>
         <h3>请附上这些信息</h3>
         <ul class="check-list"><li>信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。</li><li>接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。</li><li>交易规则：入场、出场、仓位、止损止盈、撤单和异常处理。</li><li>部署要求：客户服务器、VPS、Docker、日志、告警、后台或权限系统。</li><li>目标交付包：API Starter、Execution System 或 Private Infrastructure。</li><li>预算档位：2000 / 5000 / 10000 美金起，或说明还在评估阶段。</li></ul>
       </article>

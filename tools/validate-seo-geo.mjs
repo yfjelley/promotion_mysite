@@ -132,6 +132,20 @@ for (const file of pddjfHtmlFiles) {
     requiredServiceNeedles.forEach((needle) => requireText(rel, html, needle));
   }
 
+  if (routeFor(file) === "/contact/") {
+    [
+      "结构化 Brief 表单",
+      "生成邮件并提交 Brief",
+      "data-mailto-brief",
+      "data-brief-label=\"Project type\"",
+      "data-brief-label=\"Permission status\"",
+      "data-brief-label=\"Risk boundary\"",
+      "data-brief-label=\"Deployment target\"",
+      "data-contact=\"structured_brief_submit\"",
+      "复制空白模板"
+    ].forEach((needle) => requireText(rel, html, needle));
+  }
+
   for (const [, attr, href] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
     if (!href.startsWith("/") || href.startsWith("//")) continue;
     const [pathOnly] = href.split("#");
@@ -177,7 +191,7 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
-  "Last updated: 2026-07-01",
+  "Last updated: 2026-07-05",
   "TradingView Webhook automation",
   "IBKR API automation",
   "AI-citable factual summary",
@@ -191,6 +205,17 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "10000 美金",
   "We do not provide investment advice"
 ].forEach((needle) => requireText("llms.txt", llms, needle));
+
+const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
+[
+  "function fieldRows(form)",
+  "function qualificationFor(form)",
+  "function mailtoFromBrief(form)",
+  "form[data-mailto-brief]",
+  "structured_brief_submit",
+  "Tracking context:",
+  "gclid"
+].forEach((needle) => requireText("scripts.js", scripts, needle));
 
 for (const entry of serviceManifest.coreServiceUrls) {
   if (!entry || typeof entry !== "object") {
