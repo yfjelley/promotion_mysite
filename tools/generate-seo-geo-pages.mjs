@@ -6,6 +6,7 @@ const publicDir = join(root, "public");
 const today = "2026-07-01";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260701-footer";
+const scriptHref = "/scripts.js?v=20260705-case-links";
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -32,10 +33,16 @@ const officialReferenceLinks = [
 ];
 
 const offers = [
-  { name: "Starter", price: "2000", label: "2000 美金起", description: "单接口、单工作流、基础风控和部署文档。" },
-  { name: "Professional", price: "5000", label: "5000 美金起", description: "多规则、风控引擎、监控日志和灰度联调。" },
-  { name: "Private Infrastructure", price: "10000", label: "10000 美金起", description: "多接口、后台、权限、审计和私有化部署。" }
+  { name: "API Starter Package", price: "2000", label: "2000 美金起", description: "单一信号源、单一 API、基础风控、日志和测试环境执行链路。" },
+  { name: "Execution System Package", price: "5000", label: "5000 美金起", description: "多规则、多品种、订单路由、风控引擎、监控日志和异常告警。" },
+  { name: "Private Infrastructure Package", price: "10000", label: "10000 美金起", description: "多接口、多账户、后台、权限、审计日志、私有化部署和运维交接。" }
 ];
+
+const packageDescriptionsEn = {
+  "API Starter Package": "Single signal source, single API, basic risk checks, logs and test execution path.",
+  "Execution System Package": "Multiple rules and instruments, order routing, risk engine, monitoring logs and exception alerts.",
+  "Private Infrastructure Package": "Multiple APIs and accounts, dashboard, permissions, audit logs, private deployment and operations handoff."
+};
 
 const baseInputRows = [
   ["信号来源", "TradingView Alert、研究脚本、人工确认、组合规则或外部事件。"],
@@ -681,7 +688,7 @@ const servicePages = [
     limits: [
       "私有化部署不等于全托管运维，长期运维需单独约定范围。",
       "客户应自行保管服务器账号、API Key 和账户安全。",
-      "云服务、域名、短信、行情、券商或交易所费用不包含在开发报价内。"
+      "云服务、域名、短信、行情、券商或交易所费用不包含在工程交付包内。"
     ],
     faq: [
       ["必须买服务器吗？", "纯展示站不需要服务器；自动交易执行系统通常需要客户控制的 VPS 或云环境。"],
@@ -703,12 +710,12 @@ const faqPage = {
   breadcrumb: "常见问题",
   eyebrow: "FAQ",
   title: "自动交易系统开发常见问题 | Webhook、券商 API、风控和部署",
-  description: "SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、预算、交付和风险边界。",
+  description: "SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、交付包、预算和风险边界。",
   h1: "自动交易系统开发常见问题",
   intro: "这里集中回答客户在咨询前最常问的问题。所有回答都以技术开发和系统交付为边界，不构成投资建议。",
   questions: [
     ["你们是卖策略还是做系统开发？", "我们做自动交易系统和交易 API 定制开发，不出售收益承诺型策略，不代管资金，也不替客户做投资判断。"],
-    ["项目预算为什么是 2000 / 5000 / 10000 美金三档？", "2000 美金通常适合单接口验证，5000 美金适合多规则和风控监控，10000 美金适合多接口、后台、权限和私有部署。最终报价以需求清单为准。"],
+    ["交付包为什么是 2000 / 5000 / 10000 美金三档？", "2000 美金通常适合 API Starter Package，5000 美金适合 Execution System Package，10000 美金适合 Private Infrastructure Package。最终范围以输入条件、交付物和验收清单为准。"],
     ["TradingView Webhook 自动化需要什么资料？", "需要 Alert 文案、信号变量、品种、周期、方向、仓位规则、止损止盈和异常处理方式。"],
     ["券商 API 项目前最需要确认什么？", "需要确认账户 API 权限、地区限制、订单类型、交易品种、数据权限和是否有测试环境。"],
     ["你们会接触客户资金吗？", "不会。我们建议使用最小权限 API Key，不需要提现权限，不代管账户或资金。"],
@@ -724,34 +731,46 @@ const caseStudiesPage = {
   slug: "case-studies",
   breadcrumb: "匿名案例",
   eyebrow: "Anonymous Case Studies",
-  title: "自动交易系统匿名项目复盘 | Webhook、券商 API、风控和私有部署",
-  description: "SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。",
-  h1: "自动交易系统匿名项目复盘",
-  intro: "以下是匿名化的工程交付场景，只说明问题、系统方案和可验证交付物，不公开客户身份，不展示收益曲线，也不构成投资建议。",
+  title: "交易自动化工程匿名案例 | Webhook、券商 API、风控和私有部署",
+  description: "SignalCraft Labs 匿名工程案例，展示 TradingView Webhook、券商 API、交易所 API、风控和私有化部署的交付方式，不展示收益承诺。",
+  h1: "交易自动化工程匿名案例",
+  intro: "以下是匿名化的工程交付场景，按问题、约束、解决方案、交付物、验收方式和不包含事项说明。不公开客户身份，不展示收益曲线，也不构成投资建议。",
   studies: [
     {
-      title: "TradingView 信号去重与订单路由",
-      context: "客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。",
-      constraints: "不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。",
-      architecture: "TradingView Alert -> Webhook 接收 -> 签名校验 -> 去重/冷却 -> 风控 -> 订单路由 -> 告警和日志。",
-      deliverables: "Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。",
-      boundary: "不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。"
+      title: "TradingView Webhook 去重与风控执行链路",
+      problem: "客户已有 Pine Script 信号，但 Alert 重复、网络重试和手工下单造成执行不一致，无法稳定复盘每一次信号的处理结果。",
+      constraints: "不改客户策略逻辑；保留人工暂停开关；API Key 不包含提现权限；每个信号必须有可追踪的 event_id 和处理状态。",
+      solution: "TradingView Alert -> 签名校验 -> event_id 幂等去重 -> 冷却窗口 -> 风控规则 -> 订单路由 -> 审计日志和 Telegram 告警。",
+      deliverables: "Webhook 接收服务、payload 模板、风控配置、订单路由模块、脱敏日志字段、部署说明和灰度上线清单。",
+      acceptance: "回放重复 payload、延迟 payload、错误签名、暂停开关、只减仓和超限数量，验证系统只产生一次明确结果：执行、拒绝或人工处理。",
+      exclusions: "不评价信号盈利能力，不提供跟单服务，不保证成交价格、滑点、胜率或收益。"
     },
     {
-      title: "券商 API 组合再平衡工作流",
-      context: "客户需要按目标权重生成订单计划，并保留人工确认点。",
-      constraints: "账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。",
-      architecture: "持仓同步 -> 目标权重计算 -> 订单计划 -> 人工确认 -> 券商 API -> 执行回报 -> 审计日志。",
-      deliverables: "组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。",
-      boundary: "客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。"
+      title: "券商 API 订单计划与人工确认",
+      problem: "客户希望把目标权重、持仓同步和订单生成串起来，但订单发送前仍需要人工确认和审计记录。",
+      constraints: "券商权限、订单类型和可交易品种以平台为准；发送订单前必须展示现金约束、敞口变化和潜在拒单原因。",
+      solution: "持仓同步 -> 目标权重输入 -> 订单计划 -> 交易前风险摘要 -> 人工确认 -> 券商 API -> 执行回报同步 -> 审计日志。",
+      deliverables: "订单计划脚本或轻后台、券商 API adapter、确认节点、执行回报映射、日志字段说明、测试样例和交接文档。",
+      acceptance: "用 paper 或小额测试路径验证计划生成、确认前不下单、拒单/撤单/成交状态同步、日志留痕和权限最小化。",
+      exclusions: "不提供荐股、调仓建议、投资组合建议或账户托管；客户自行确认订单和承担投资决策。"
     },
     {
-      title: "多接口私有化部署与告警",
-      context: "客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。",
-      constraints: "客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。",
-      architecture: "VPS/Docker -> 环境变量 -> 执行服务 -> 日志轮转 -> 告警渠道 -> 备份和恢复说明。",
-      deliverables: "源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。",
-      boundary: "交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。"
+      title: "交易所 API DCA/Grid 执行与异常熔断",
+      problem: "客户已有 DCA 或 Grid 规则，希望系统按配置执行，并在接口异常、精度错误或风险超限时自动停下。",
+      constraints: "交易所限频、价格精度、数量精度、最小名义金额和市场状态会影响订单；API Key 仍采用最小必要权限。",
+      solution: "规则配置 -> 数量和精度标准化 -> 风控检查 -> 订单状态监听 -> 重试上限 -> 异常熔断 -> 告警和运行日志。",
+      deliverables: "规则配置样例、交易所 connector、风控拒单原因表、状态日志、告警配置、部署 runbook 和上线验收脚本。",
+      acceptance: "模拟最大层数、冷却窗口、价格保护、API 超时、部分成交和接口拒单，验证暂停、重试、熔断和日志行为。",
+      exclusions: "不承诺套利机会、交易收益、手续费优势或滑点结果；不需要提现、划转或账户管理员权限。"
+    },
+    {
+      title: "私有化部署、监控告警与交接",
+      problem: "客户希望源码、配置、日志和告警都运行在自己控制的 VPS 或云环境中，并能在交接后自行重启和排障。",
+      constraints: "服务器、密钥和第三方账户由客户保管；初始交付不包含无限期运维；重启、回滚、密钥轮换和日志位置必须清楚。",
+      solution: "Docker 或进程守护 -> 环境变量 -> 服务健康检查 -> 日志轮转 -> 告警渠道 -> 备份/回滚说明 -> 远程交接。",
+      deliverables: "源码、.env.example、部署配置、进程守护配置、日志路径、告警设置、incident checklist 和远程讲解记录。",
+      acceptance: "从干净环境完成部署，演示重启、回滚、告警测试、日志查询、密钥轮换检查和暂停开关。",
+      exclusions: "不代管客户账户、服务器、API Key 或日常交易决策；长期运维、服务器管理和策略修改需另行确认范围。"
     }
   ]
 };
@@ -1211,13 +1230,13 @@ const aboutPage = {
   slug: "about",
   breadcrumb: "关于",
   eyebrow: "About SignalCraft Labs",
-  title: "关于 SignalCraft Labs | 自动交易系统与交易 API 定制开发工作室",
-  description: "SignalCraft Labs 是自动交易系统与交易 API 定制开发工作室，提供 TradingView Webhook、券商 API、交易所 API、风控和私有化部署服务。",
+  title: "关于 SignalCraft Labs | 交易自动化数字产品与定制工程服务工作室",
+  description: "SignalCraft Labs 是交易自动化数字产品与定制工程服务工作室，提供 Webhook 执行包、API 集成评估、券商/交易所 API、风控监控和私有化部署服务。",
   h1: "关于 SignalCraft Labs",
-  intro: "SignalCraft Labs 专注自动交易系统与交易 API 工程落地。我们服务已有规则但缺少工程实现的交易者、研究团队和小型技术团队，通过远程方式完成评估、开发、部署和交付讲解。",
+  intro: "SignalCraft Labs 专注交易自动化方向的数字产品和定制工程交付。我们服务已有规则但缺少工程实现的交易者、研究团队和小型技术团队，通过远程方式完成评估、原型验证、开发、部署和交付讲解。",
   facts: [
-    ["服务方式", "远程需求评估、远程开发、私有化部署、源码和文档交付。"],
-    ["技术方向", "TradingView Webhook、券商 API、交易所 API、FIX、风控引擎、日志审计和告警。"],
+    ["服务方式", "远程需求评估、数字产品化交付包、远程开发、私有化部署、源码和文档交付。"],
+    ["技术方向", "TradingView Webhook、券商 API、交易所 API、FIX、风控引擎、日志审计、监控告警和部署蓝图。"],
     ["常见技术栈", "Python、Node.js、REST/WebSocket、FIX、SQLite/PostgreSQL、Docker、VPS、Cloudflare、Telegram/Email 告警。"],
     ["交付样例", "源码仓库、环境变量样例、部署文档、运行日志、告警截图说明、灰度测试清单和远程交付讲解。"],
     ["验收方式", "按功能清单、接口路径、测试环境、日志、告警、文档和灰度流程验收，不按交易收益验收。"],
@@ -1230,24 +1249,65 @@ const aboutPage = {
 
 const contactPage = {
   slug: "contact",
-  breadcrumb: "联系",
-  eyebrow: "Contact",
-  title: "联系 SignalCraft Labs | 自动交易系统开发需求评估",
-  description: "联系 SignalCraft Labs 评估 TradingView Webhook、券商 API、交易所 API、风控引擎和私有化部署需求。",
-  h1: "联系 SignalCraft Labs 评估你的自动交易系统需求",
-  intro: "请尽量一次性提供信号来源、交易平台、API 权限、品种、订单类型、仓位和风控规则。信息越清楚，越容易判断可行性、预算和交付路径。",
+  breadcrumb: "项目 Brief",
+  eyebrow: "Project Brief",
+  title: "提交项目 Brief | SignalCraft Labs 交付包评估",
+  description: "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
+  h1: "项目 Brief 交付包评估",
+  intro: "请把信号来源、API 平台、权限状态、交易规则、风控边界、部署要求和预算档位整理成一个 Brief。资料越具体，越容易判断先做数字产品、API 可行性评估，还是进入定制工程交付包。",
   checklist: [
     "信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。",
     "接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。",
     "交易规则：入场、出场、仓位、止损止盈、撤单和异常处理。",
     "部署要求：客户服务器、VPS、Docker、日志、告警、后台或权限系统。",
-    "预算范围：2000 美金、5000 美金或 10000 美金档位。"
+    "目标交付包：API Starter、Execution System 或 Private Infrastructure。",
+    "预算档位：2000 / 5000 / 10000 美金起，或说明还在评估阶段。"
+  ],
+  briefTemplate: [
+    "项目目标：",
+    "信号来源：",
+    "API 平台和权限状态：",
+    "交易品种、订单类型和仓位规则：",
+    "风控边界：",
+    "部署环境：",
+    "是否需要后台、告警、源码交付或私有部署：",
+    "目标交付包和预算档位：",
+    "期望时间线："
+  ].join("\n"),
+  packageHints: [
+    ["API Starter Package", "适合单一信号源、单一 API、基础风控、日志和测试环境执行链路。"],
+    ["Execution System Package", "适合多规则、多品种、订单路由、风控引擎、监控日志和异常告警。"],
+    ["Private Infrastructure Package", "适合多接口、多账户、后台、权限、审计日志、私有化部署和运维交接。"]
   ],
   facts: [
-    ["回复时间", "资料完整时通常 1 个工作日内回复初步可行性判断。"],
-    ["合作前置条件", "客户需提供平台、权限、规则、风控边界和预算范围；没有权限时只能做方案评估。"],
+    ["回复时间", "资料完整时通常 1 个工作日内回复初步适配判断。"],
+    ["先判断什么", "先判断接口权限、规则完整度、交付包范围、验收方式和明显不可做项。"],
     ["服务地区", "香港、新加坡、台湾、美国及其他可远程协作地区。"],
-    ["不需要提供", "不需要提现权限、资金托管权限、账户主密码或无关个人资料。"]
+    ["不要发送", "不要发送提现权限、账户主密码、资金托管权限、完整 API Secret 或无关个人资料。"]
+  ]
+};
+
+const cryptoReportingPage = {
+  slug: "crypto-asset-reporting",
+  breadcrumb: "Crypto Asset Reporting",
+  eyebrow: "Private Crypto Asset Reporting",
+  title: "Crypto Asset Reporting | 私有加密资产记录整理与月度报告工作流",
+  description: "为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。",
+  h1: "Crypto Asset Reporting and Reconciliation Workflows",
+  intro: "把分散在交易所、钱包、DeFi、OTC 和衍生品账户里的加密资产记录，整理成可复核、可交接、可月度运行的私有报告工作流。",
+  facts: [
+    ["适合对象", "高净值加密资产持有人、私人客户顾问、家族办公室式运营团队，以及需要整理多账户记录的数字资产运营负责人。"],
+    ["输入资料", "交易所导出、钱包地址、DeFi 记录、OTC 台账、衍生品成交/资金费记录、人工表格和只读访问边界。"],
+    ["交付内容", "资产和场所可见性表、缺口清单、异常复核队列、月度对账流程、报告模板、数据访问说明和交接 runbook。"],
+    ["工作边界", "不提供投资建议、税务建议、法律建议、资金托管、交易授权、代客操作、Token 推荐或收益承诺。"],
+    ["启动方式", "先做付费诊断：梳理当前数据源、报告使用者、人工流程、访问权限边界，以及 1-2 周 reporting sprint 是否值得做。"]
+  ],
+  checklist: [
+    "当前使用哪些交易所、钱包、DeFi 协议、OTC 渠道和衍生品账户。",
+    "已有导出文件、API 只读权限、地址列表或人工记录的可用程度。",
+    "报告面向谁：本人、顾问、家庭办公室、会计、合规或内部运营人员。",
+    "需要月度净资产、场所暴露、异常交易、稳定币流动、资金费或对账缺口中的哪些视图。",
+    "哪些数据不能共享、只能远程查看，或必须由客户本地保管。"
   ]
 };
 
@@ -1276,20 +1336,23 @@ const allGeneratedPages = [
   ...articlePages,
   aboutPage,
   contactPage,
+  cryptoReportingPage,
   riskDisclaimerPage
 ];
 
 const navLinks = [
-  ["/tradingview-webhook-automation/", "TradingView"],
+  ["/#products", "数字产品"],
+  ["/#services", "定制工程"],
   ["/broker/api/", "券商 API"],
-  ["/articles/", "技术资料"],
-  ["/faq/", "FAQ"],
+  ["/#packages", "交付包"],
+  ["/articles/", "资料"],
   ["/case-studies/", "案例"],
   ["/about/", "关于"],
   ["/contact/", "联系"]
 ];
 
 const footerServiceLinks = [
+  ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
   ["/tradingview-webhook-automation/", "TradingView Webhook"],
   ["/exchange-api-trading-bot-development/", "交易所 API"],
   ["/broker/api/", "券商 API"],
@@ -1310,9 +1373,10 @@ const footerServiceLinks = [
 ];
 
 const navLinksEn = [
-  ["/tradingview-webhook-developer/", "TradingView Developer"],
-  ["/ibkr-api-automation-developer/", "IBKR Developer"],
-  ["/fix-api-order-routing-developer/", "FIX Developer"],
+  ["/#products", "Products"],
+  ["/#services", "Custom Engineering"],
+  ["/broker/api/", "Broker API"],
+  ["/#packages", "Packages"],
   ["/articles/", "Articles"],
   ["/case-studies/", "Cases"],
   ["/about/", "About"],
@@ -1320,6 +1384,7 @@ const navLinksEn = [
 ];
 
 const footerServiceLinksEn = [
+  ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
   ["/tradingview-webhook-developer/", "TradingView Webhook Developer"],
   ["/ibkr-api-automation-developer/", "IBKR API Automation Developer"],
   ["/fix-api-order-routing-developer/", "FIX API Order Routing Developer"],
@@ -1377,6 +1442,7 @@ function serviceManifest() {
     generatedAt: today,
     generatedServiceRoutes: servicePages.map((page) => routeForSlug(page.slug)),
     coreServiceUrls: [
+      { label: "Crypto Asset Reporting", url: canonical(cryptoReportingPage.slug), summary: cryptoReportingPage.description },
       ...servicePages.slice(0, 2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug), summary: page.description })),
       { label: "Broker API automation", url: `${site}/broker/api/`, summary: "Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment." },
       ...servicePages.slice(2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug), summary: page.description }))
@@ -1401,7 +1467,7 @@ function header(activeLabel = "", language = "zh-CN") {
     </a>
     <nav class="nav" aria-label="${english ? "Main navigation" : "主导航"}">
       ${links.map(([href, label]) => `<a${label === activeLabel ? ' aria-current="page"' : ""} href="${href}">${label}</a>`).join("\n      ")}
-      <a class="nav-cta" href="/contact/" data-contact="nav_contact">${english ? "Request assessment" : "免费评估"}</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">${english ? "Send brief" : "提交 Brief"}</a>
     </nav>
   </header>`;
 }
@@ -1410,7 +1476,7 @@ function footer(language = "zh-CN") {
   const english = isEnglish(language);
   const serviceLinks = english ? footerServiceLinksEn : footerServiceLinks;
   return `<footer class="site-footer">
-    <p><strong>SignalCraft Labs</strong> ${english ? "custom automated trading systems and trading API development studio" : "自动交易系统与交易 API 定制开发工作室"}</p>
+    <p><strong>SignalCraft Labs</strong> ${english ? "trading automation digital products and custom engineering studio" : "交易自动化数字产品与定制工程服务工作室"}</p>
     <nav aria-label="${english ? "Service page navigation" : "服务页导航"}">
       ${serviceLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
     </nav>
@@ -1421,7 +1487,7 @@ function footer(language = "zh-CN") {
   </footer>
 
   <div class="mobile-contact-bar" role="group" aria-label="${english ? "Mobile quick contact" : "移动端快捷联系"}">
-    <a href="/contact/" data-contact="mobile_contact">${english ? "Assessment" : "免费评估"}</a>
+    <a href="/contact/" data-contact="mobile_contact">${english ? "Brief" : "项目 Brief"}</a>
     <button type="button" data-copy="${contact.wechat}" data-contact="mobile_wechat_copy">${english ? "Copy WeChat" : "复制微信"}</button>
   </div>`;
 }
@@ -1503,7 +1569,7 @@ function serviceSchema(page) {
         "areaServed": ["香港", "新加坡", "台湾", "美国", "全球远程"],
         "offers": {
           "@type": "OfferCatalog",
-          "name": "自动交易系统开发预算区间",
+          "name": "自动交易系统工程交付包",
           "itemListElement": offers.map((offer) => ({
             "@type": "Offer",
             "name": offer.name,
@@ -1534,7 +1600,7 @@ function summaryRows(page) {
       ["Who it fits", page.fit.join(" ")],
       ["Deliverables", page.deliverables.join(" ")],
       ["What we do not do", "No investment advice, signals, managed accounts, custody, withdrawal permission management or return promises."],
-      ["Budget range", "USD 2,000 / 5,000 / 10,000 depending on API count, risk complexity, dashboard scope and deployment requirements."],
+      ["Delivery packages", "API Starter, Execution System and Private Infrastructure packages; scope depends on API count, risk complexity, dashboard scope and deployment requirements."],
       ["Contact", `${contact.email} / WeChat ${contact.wechat} / Telegram ${contact.telegram}`]
     ];
   }
@@ -1544,7 +1610,7 @@ function summaryRows(page) {
     ["服务对象", page.fit.join(" ")],
     ["交付物", page.deliverables.join(" ")],
     ["不做什么", "不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。"],
-    ["预算范围", "2000 / 5000 / 10000 美金，按接口数量、风控复杂度、后台和部署范围评估。"],
+    ["交付包", "API Starter、Execution System、Private Infrastructure 三档，按接口数量、风控复杂度、后台和部署范围评估。"],
     ["联系方式", `${contact.email} / 微信 ${contact.wechat} / Telegram ${contact.telegram}`]
   ];
 }
@@ -1566,7 +1632,7 @@ function aiSummarySection(page) {
       <div class="section-head">
         <p class="eyebrow">Service Facts</p>
         <h2 id="ai-summary-title">${english ? "Service facts summary" : "服务事实摘要"}</h2>
-        <p>${english ? "A concise project-assessment summary covering fit, deliverables, budget range and exclusions." : "用项目评估语言快速说明服务对象、交付物、预算范围和不做事项。"}</p>
+        <p>${english ? "A concise project-assessment summary covering fit, deliverables, delivery package and exclusions." : "用项目评估语言快速说明服务对象、交付物、交付包和不做事项。"}</p>
       </div>
       <div class="summary-list">
         ${summaryRows(page).map(([label, value]) => `<div><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>`).join("")}
@@ -1579,17 +1645,20 @@ function deliverableSamplesSection() {
       <div class="section-head centered">
         <p class="eyebrow">Delivery Samples</p>
         <h2 id="deliverable-samples-title">匿名交付物样例</h2>
-        <p>以下是脱敏示意，展示交付中常见的日志、Webhook 流程和验收清单，不包含客户账户、策略参数或真实订单。</p>
+        <p>以下是脱敏示意，展示交付中常见的 payload、日志、runbook、权限边界和验收清单，不包含客户账户、策略参数或真实订单。</p>
       </div>
       <div class="sample-artifact-grid">
-        <article class="sample-artifact log-sample">
-          <div class="sample-head"><span>运行日志样例</span><em>masked log</em></div>
-          <div class="log-window" role="img" aria-label="脱敏运行日志样例">
-            <div><strong>09:31:04</strong><span>webhook.received</span><em>symbol=BTCUSDT action=reduce_only</em></div>
-            <div><strong>09:31:04</strong><span>risk.checked</span><em>max_position ok, cooldown ok</em></div>
-            <div><strong>09:31:05</strong><span>order.routed</span><em>exchange_api latency=218ms</em></div>
-            <div><strong>09:31:05</strong><span>alert.sent</span><em>telegram delivery confirmed</em></div>
-          </div>
+        <article class="sample-artifact payload-sample wide-artifact">
+          <div class="sample-head"><span>Webhook payload 样例</span><em>masked payload</em></div>
+          <pre class="payload-window" aria-label="脱敏 Webhook payload 样例"><code>{
+  "event_id": "tv-demo-20260705-093104",
+  "strategy": "mean-reversion-v3",
+  "symbol": "BTCUSDT",
+  "action": "reduce_only",
+  "bar_time": "2026-07-05T01:30:00Z",
+  "risk_profile": "starter",
+  "secret": "masked"
+}</code></pre>
         </article>
         <article class="sample-artifact flow-sample">
           <div class="sample-head"><span>Webhook 流程图样例</span><em>handoff diagram</em></div>
@@ -1600,6 +1669,33 @@ function deliverableSamplesSection() {
             <span>风控规则</span>
             <span>订单路由</span>
             <span>日志与告警</span>
+          </div>
+        </article>
+        <article class="sample-artifact log-sample wide-artifact">
+          <div class="sample-head"><span>风控拒单日志样例</span><em>risk log</em></div>
+          <div class="log-window" role="img" aria-label="脱敏运行日志样例">
+            <div><strong>09:31:04</strong><span>webhook.received</span><em>symbol=BTCUSDT action=reduce_only</em></div>
+            <div><strong>09:31:04</strong><span>risk.checked</span><em>max_position ok, cooldown ok</em></div>
+            <div><strong>09:31:05</strong><span>risk.rejected</span><em>reason=price_deviation_limit exceeded, order not sent</em></div>
+            <div><strong>09:31:05</strong><span>alert.sent</span><em>telegram delivery confirmed, manual review requested</em></div>
+          </div>
+        </article>
+        <article class="sample-artifact runbook-sample">
+          <div class="sample-head"><span>部署 runbook 目录</span><em>handoff doc</em></div>
+          <ol class="runbook-list">
+            <li>环境变量和密钥最小权限检查</li>
+            <li>启动、停止、重启和健康检查命令</li>
+            <li>日志位置、告警渠道和异常分类</li>
+            <li>回滚步骤、暂停开关和联系人边界</li>
+          </ol>
+        </article>
+        <article class="sample-artifact permission-sample wide-artifact">
+          <div class="sample-head"><span>API 权限边界表</span><em>permission scope</em></div>
+          <div class="sample-table" role="table" aria-label="API 权限边界样例">
+            <div role="row"><strong role="columnheader">权限</strong><span role="columnheader">建议</span><em role="columnheader">用途</em></div>
+            <div role="row"><strong>读取持仓</strong><span>按项目需要开启</span><em>同步余额、持仓和订单状态</em></div>
+            <div role="row"><strong>交易下单</strong><span>仅在执行包中开启</span><em>发送已通过风控的订单</em></div>
+            <div role="row"><strong>提现/划转</strong><span>不需要</span><em>不进入软件交付范围</em></div>
           </div>
         </article>
         <article class="sample-artifact checklist-sample">
@@ -1617,28 +1713,23 @@ function deliverableSamplesSection() {
 
 function evidenceTablesSection(page) {
   const english = isEnglish(page);
-  const budgetDescriptionsEn = {
-    Starter: "Single-interface validation, basic risk checks and deployment notes.",
-    Professional: "Multiple rules, risk engine, monitoring logs and staged integration.",
-    "Private Infrastructure": "Multiple APIs, dashboard, permissions, audit logs and private deployment."
-  };
-  const budgetRows = offers.map((offer) => [english ? offer.label.replace(" 美金起", " USD+") : offer.label, english ? budgetDescriptionsEn[offer.name] : offer.description]);
+  const packageRows = offers.map((offer) => [english ? offer.label.replace(" 美金起", " USD+") : offer.label, english ? packageDescriptionsEn[offer.name] : offer.description]);
   const detailSlug = page.platformDetailSlug || page.slug;
   const platformRows = english ? platformDetailRowsEn[detailSlug] : platformDetailRows[detailSlug];
   const shouldShowBrokerComparison = page.slug.startsWith("broker-api/") || page.slug.includes("ibkr-api") || page.slug.includes("fix-api");
   const tables = [
-    platformRows ? comparisonTable(english ? "Platform integration details" : "平台接入细节", english ? "These facts often affect scope, acceptance tests and go-live timing." : "这些是该平台项目更容易影响报价、验收和上线节奏的关键事实。", platformRows, english ? ["Topic", "Project focus", "Acceptance focus"] : ["主题", "项目要点", "验收关注"]) : null,
+    platformRows ? comparisonTable(english ? "Platform integration details" : "平台接入细节", english ? "These facts often affect scope, acceptance tests and go-live timing." : "这些是该平台项目更容易影响交付包、验收和上线节奏的关键事实。", platformRows, english ? ["Topic", "Project focus", "Acceptance focus"] : ["主题", "项目要点", "验收关注"]) : null,
     shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", english ? "A quick comparison of broker/API workflow fit, integration focus and common constraints." : "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", english ? brokerComparisonRowsEn : brokerComparisonRows, english ? ["Interface", "Best fit", "Integration focus", "Common limits"] : ["接口", "适合场景", "接入重点", "常见限制"]) : null,
-    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确报价或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows),
+    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确判断交付包或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows),
     comparisonTable(english ? "API key minimum permission guidance" : "API Key 最小权限建议", english ? "Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access." : "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", english ? permissionRowsEn : permissionRows, english ? ["Permission", "Recommendation", "Reason"] : ["权限", "建议", "原因"]),
-    comparisonTable(english ? "Budget range breakdown" : "预算范围拆解", english ? "Budget depends on API count, risk complexity, dashboard scope, deployment and integration work." : "预算不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度报价。", budgetRows, english ? ["Budget tier", "Suitable scope"] : ["预算档", "适合范围"]),
+    comparisonTable(english ? "Delivery package breakdown" : "交付包范围拆解", english ? "Package scope depends on API count, risk complexity, dashboard scope, deployment and integration work." : "交付包不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度确认范围。", packageRows, english ? ["Package tier", "Suitable scope"] : ["交付包", "适合范围"]),
     comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", english ? acceptanceRowsEn : acceptanceRows)
   ].filter(Boolean).join("\n        ");
 
   return `<section class="section evidence-section" aria-labelledby="evidence-title">
       <div class="section-head">
         <p class="eyebrow">Checklists & Tables</p>
-        <h2 id="evidence-title">${english ? "Inputs, permissions, budget and acceptance tables" : "资料、权限、预算和验收表"}</h2>
+        <h2 id="evidence-title">${english ? "Inputs, permissions, package and acceptance tables" : "资料、权限、交付包和验收表"}</h2>
         <p>${english ? "Formal projects turn these tables into a scoped requirements and acceptance checklist." : "正式项目会把这些表转成需求清单和验收清单，减少范围歧义。"}</p>
       </div>
       <div class="evidence-grid">
@@ -1704,7 +1795,7 @@ function servicePageHtml(page) {
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="/scripts.js" defer></script>
+  <script src="${scriptHref}" defer></script>
   ${jsonLd(serviceSchema(page))}
 </head>
 <body class="content-page">
@@ -1716,7 +1807,7 @@ function servicePageHtml(page) {
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
       <div class="hero-actions">
-        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${english ? "Request assessment" : "免费评估需求"}</a>
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${english ? "Send project brief" : "提交项目 Brief"}</a>
         <a class="button secondary" href="#deliverables">${english ? "View deliverables" : "查看交付内容"}</a>
       </div>
       <nav class="mobile-quick-links" aria-label="${english ? "Mobile quick links" : "移动端快速入口"}">
@@ -1725,8 +1816,8 @@ function servicePageHtml(page) {
         <a href="#faq">FAQ</a>
         <a href="/contact/">${english ? "Contact" : "联系"}</a>
       </nav>
-      <div class="fact-strip" aria-label="项目预算和服务边界">
-        <span>${english ? "Budget: USD 2,000 / 5,000 / 10,000" : "预算：2000 / 5000 / 10000 美金"}</span>
+      <div class="fact-strip" aria-label="项目交付包和服务边界">
+        <span>${english ? "Packages: USD 2,000 / 5,000 / 10,000+" : "交付包：2000 / 5000 / 10000 美金起"}</span>
         <span>${english ? "Source delivery" : "源码交付"}</span>
         <span>${english ? "Private deployment" : "私有部署"}</span>
         <span>${english ? "No custody" : "不代管资金"}</span>
@@ -1757,7 +1848,7 @@ function servicePageHtml(page) {
       <div class="section-head">
         <p class="eyebrow">Deliverables</p>
         <h2>${english ? "Deliverables" : "交付内容清单"}</h2>
-        <p>${english ? "A formal quote turns features, APIs, acceptance paths and handoff items into a clear scope." : "正式报价会把功能、接口、验收路径和交付物写清楚。"}</p>
+        <p>${english ? "A formal delivery package turns features, APIs, acceptance paths and handoff items into a clear scope." : "正式交付包会把功能、接口、验收路径和交付物写清楚。"}</p>
       </div>
       <div class="detail-grid">${page.deliverables.map((item) => `<article><h3>${escapeHtml(leadText(item))}</h3><p>${escapeHtml(item)}</p></article>`).join("")}</div>
     </section>
@@ -1772,11 +1863,11 @@ function servicePageHtml(page) {
 
     <section class="section budget-section">
       <div class="section-head centered dark">
-        <p class="eyebrow">Budget</p>
-        <h2>${english ? "Budget range" : "预算区间"}</h2>
-        <p>${english ? "Budget depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "预算取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"}</p>
+        <p class="eyebrow">Delivery Packages</p>
+        <h2>${english ? "Productized delivery packages" : "产品化交付包"}</h2>
+        <p>${english ? "Package scope depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "交付包范围取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"}</p>
       </div>
-      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Professional" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? (offer.name === "Starter" ? "Single-interface validation, basic risk checks and deployment notes." : offer.name === "Professional" ? "Multiple rules, risk engine, monitoring logs and staged integration." : "Multiple APIs, dashboard, permissions, audit logs and private deployment.") : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Professional" ? "primary" : "secondary"}" href="/contact/" data-contact="content_budget_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Request quote" : "咨询报价"}</a></article>`).join("")}</div>
+      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Execution System Package" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? packageDescriptionsEn[offer.name] : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Execution System Package" ? "primary" : "secondary"}" href="/contact/" data-contact="content_package_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Assess this package" : "评估这个交付包"}</a></article>`).join("")}</div>
     </section>
 
     <section class="section risk-section">
@@ -1795,13 +1886,15 @@ function servicePageHtml(page) {
             <li>${english ? "Platform, account permissions and API documentation or interface notes" : "平台、账户权限和 API 文档或接口说明"}</li>
             <li>${english ? "Signal source, instruments, order types and trading hours" : "信号来源、品种、订单类型和交易时段"}</li>
             <li>${english ? "Sizing, risk limits, pause rules, alerts and acceptance criteria" : "仓位、风控、暂停、告警和验收标准"}</li>
-            <li>${english ? "Budget tier and preferred deployment environment" : "预算档位和期望部署环境"}</li>
+            <li>${english ? "Target delivery package and preferred deployment environment" : "目标交付包和期望部署环境"}</li>
           </ul>
         </article>
       </div>
     </section>
 
     ${evidenceTablesSection(page)}
+
+    ${caseBridgeSection(page.lang)}
 
     ${externalTrustSection(page.lang)}
 
@@ -1832,9 +1925,9 @@ function ctaBlock(language = "zh-CN") {
   const english = isEnglish(language);
   return `<section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
-        <p class="eyebrow">Request Assessment</p>
-        <h2 id="content-contact-title">${english ? "Send the rule and API workflow first, then we assess feasibility" : "发来你的规则和 API 工作流，先判断能不能做"}</h2>
-        <p>${english ? "Share the signal source, API platform, account permissions, instruments, order types, sizing and risk rules. A first feasibility reply usually follows within one business day when the brief is complete." : "请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。"}</p>
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">${english ? "Send the brief first, then we assess the right package" : "先发项目 Brief，再判断适合哪个交付包"}</h2>
+        <p>${english ? "Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete." : "请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位、风控规则和部署目标。资料完整时通常 1 个工作日内回复初步适配判断。"}</p>
         <div class="contact-row">
           <a href="mailto:${contact.email}" data-contact="content_email" data-lead-contact="true">${contact.email}</a>
           <button type="button" data-copy="${contact.wechat}" data-contact="content_wechat_copy">${english ? "Copy WeChat" : "复制微信"} ${contact.wechat}</button>
@@ -1848,8 +1941,35 @@ function ctaBlock(language = "zh-CN") {
           <li>${english ? "Signal and trading rules" : "信号和交易规则"}</li>
           <li>${english ? "API platform and permission status" : "API 平台和权限状态"}</li>
           <li>${english ? "Risk, alert and deployment requirements" : "风控、告警和部署要求"}</li>
-          <li>${english ? "Budget tier: USD 2,000 / 5,000 / 10,000" : "预算档位：2000 / 5000 / 10000 美金"}</li>
+          <li>${english ? "Target package and budget band" : "目标交付包和预算档位"}</li>
         </ul>
+      </div>
+    </section>`;
+}
+
+function caseBridgeSection(language = "zh-CN") {
+  const english = isEnglish(language);
+  const cases = english ? [
+    ["TradingView Webhook", "Signal intake, signature checks, idempotency, risk rules, order routing and alert handoff."],
+    ["Broker API workflow", "Position sync, order plan generation, manual confirmation, execution reports and audit logs."],
+    ["Private deployment", "Source delivery, environment files, process supervision, logs, alerts, runbook and handoff."]
+  ] : [
+    ["TradingView Webhook", "信号接收、签名校验、幂等去重、风控规则、订单路由和告警交接。"],
+    ["券商 / 交易所 API", "持仓同步、订单计划、人工确认、执行回报、审计日志和异常处理。"],
+    ["私有化部署", "源码交付、环境配置、进程守护、日志告警、部署 runbook 和远程交接。"]
+  ];
+  return `<section class="section case-bridge-section" aria-labelledby="case-bridge-title">
+      <div class="section-head">
+        <p class="eyebrow">Case Proof</p>
+        <h2 id="case-bridge-title">${english ? "Match your brief to an anonymous case" : "把你的 Brief 对齐到一个匿名案例"}</h2>
+        <p>${english ? "The case page shows problem, constraints, solution, deliverables, acceptance and exclusions. Use it to describe what your project resembles before requesting a package assessment." : "案例页已经按问题、约束、解决方案、交付物、验收方式和不包含事项拆解。提交 Brief 前，可以先说明你的项目更像哪一类案例。"}</p>
+      </div>
+      <div class="case-bridge-grid">
+        ${cases.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}
+      </div>
+      <div class="case-bridge-actions">
+        <a class="button primary" href="/case-studies/" data-contact="service_case_bridge">${english ? "View case studies" : "查看匿名案例"}</a>
+        <a class="button secondary" href="/contact/" data-contact="service_case_brief">${english ? "Send a similar brief" : "按类似案例发 Brief"}</a>
       </div>
     </section>`;
 }
@@ -1883,12 +2003,12 @@ function casesHtml(page) {
         "@type": "CreativeWork",
         "@id": `${canonical(page.slug)}#case-${index + 1}`,
         "name": study.title,
-        "description": `${study.context} ${study.constraints} ${study.architecture} ${study.deliverables} ${study.boundary}`,
+        "description": `${study.problem} ${study.constraints} ${study.solution} ${study.deliverables} ${study.acceptance} ${study.exclusions}`,
         "isPartOf": { "@id": `${canonical(page.slug)}#webpage` }
       }))
     ]
   };
-  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>项目背景</strong><p>${escapeHtml(study.context)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>架构</strong><p>${escapeHtml(study.architecture)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>边界</strong><p>${escapeHtml(study.boundary)}</p></article>`).join("")}</div>
+  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article id="case-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>问题</strong><p>${escapeHtml(study.problem)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>解决方案</strong><p>${escapeHtml(study.solution)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>验收方式</strong><p>${escapeHtml(study.acceptance)}</p><strong>不包含什么</strong><p>${escapeHtml(study.exclusions)}</p><a class="case-link" href="/contact/" data-contact="case_study_${index + 1}">用这个案例发 Brief</a></article>`).join("")}</div>
     <section class="embedded-section">
       <h2>公开脱敏资料</h2>
       <p>案例只描述工程约束和交付方式；公开 GitHub 资料提供脱敏 demo、权限建议和验收清单，便于独立检查交付口径。</p>
@@ -1988,12 +2108,73 @@ function aboutHtml(page) {
 
 function contactHtml(page) {
   const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "ContactPage") };
-  const body = `<div class="answer-grid">
-      <article><h3>联系渠道</h3><div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="contact_page_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="contact_page_wechat_copy">复制微信 ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="contact_page_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div><p class="copy-status" aria-live="polite"></p></article>
-      <article><h3>请附上这些信息</h3><ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>
+  const body = `<div class="answer-grid contact-brief-grid">
+      <article>
+        <h3>项目 Brief 模板</h3>
+        <p>可以直接复制下面的结构，通过邮件、微信或 Telegram 发来。</p>
+        <pre id="project-brief-template" class="brief-template">${escapeHtml(page.briefTemplate)}</pre>
+        <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制 Brief 模板</button>
+        <p class="copy-status" aria-live="polite"></p>
+      </article>
+      <article>
+        <h3>请附上这些信息</h3>
+        <ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      </article>
+    </div>
+    <div class="detail-grid package-hints">${page.packageHints.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p><a href="/#packages">查看交付包</a></article>`).join("")}</div>
+    <div class="case-brief-panel">
+      <div>
+        <p class="eyebrow">Case Reference</p>
+        <h2>不确定怎么写？先选一个最接近的匿名案例</h2>
+        <p>可以在 Brief 里直接写“类似 TradingView Webhook 案例”或“类似私有化部署案例”，再补充你的平台、权限、风控和验收要求。</p>
+      </div>
+      <div class="case-brief-links">
+        <a href="/case-studies/" data-contact="contact_case_reference">查看匿名案例</a>
+        <a href="/case-studies/#case-1" data-contact="contact_case_webhook">Webhook 案例</a>
+        <a href="/case-studies/#case-2" data-contact="contact_case_broker">券商 API 案例</a>
+        <a href="/case-studies/#case-4" data-contact="contact_case_private">私有化部署案例</a>
+      </div>
+    </div>
+    <div class="answer-grid contact-channel-grid">
+      <article><h3>发送渠道</h3><div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="contact_page_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="contact_page_wechat_copy">复制微信 ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="contact_page_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div><p class="copy-status" aria-live="polite"></p></article>
+      <article><h3>安全边界</h3><ul class="plain-list"><li>不需要提现权限、资金托管权限或账户主密码。</li><li>API Secret 可等范围确认后再通过你认可的方式处理。</li><li>可以先隐藏账户号、真实订单、策略参数和客户敏感信息。</li><li>初步判断只需要足够说明接口、规则、风控和验收路径。</li></ul></article>
     </div>
     <div class="detail-grid contact-facts">${page.facts.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>`;
   return infoPageHtml(page, "联系", body, schema, false);
+}
+
+function cryptoReportingHtml(page) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "Service"),
+      {
+        "@type": "Service",
+        "@id": `${canonical(page.slug)}#service`,
+        "name": page.h1,
+        "description": page.description,
+        "serviceType": "Private crypto asset reporting and reconciliation workflow setup",
+        "provider": { "@id": `${site}/#organization` },
+        "areaServed": ["香港", "新加坡", "台湾", "美国", "全球远程"],
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "HNW crypto holders, advisors, family offices, digital asset operations"
+        }
+      }
+    ]
+  };
+  const body = `<div class="detail-grid">${page.facts.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>
+    <section class="embedded-section">
+      <h2>诊断前请准备</h2>
+      <ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+    </section>
+    <section class="embedded-section">
+      <h2>联系入口</h2>
+      <p>请先发送一个简短说明，包含数据源数量、报告使用者、当前表格或导出文件状态，以及是否只能使用只读数据。我们会先判断是否适合做付费诊断。</p>
+      <div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="crypto_reporting_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="crypto_reporting_wechat_copy">复制微信 ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="crypto_reporting_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div>
+      <p class="copy-status" aria-live="polite"></p>
+    </section>`;
+  return infoPageHtml(page, "Crypto Reporting", body, schema, false);
 }
 
 function riskHtml(page) {
@@ -2022,7 +2203,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="/scripts.js" defer></script>
+  <script src="${scriptHref}" defer></script>
   ${jsonLd(schema)}
 </head>
 <body class="content-page">
@@ -2055,10 +2236,12 @@ for (const page of articlePages) {
 }
 writePublicFile(pagePath(aboutPage.slug), aboutHtml(aboutPage));
 writePublicFile(pagePath(contactPage.slug), contactHtml(contactPage));
+writePublicFile(pagePath(cryptoReportingPage.slug), cryptoReportingHtml(cryptoReportingPage));
 writePublicFile(pagePath(riskDisclaimerPage.slug), riskHtml(riskDisclaimerPage));
 
 const sitemapUrls = [
   ["/", "weekly", "1.0"],
+  ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],
   ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8"]),
   ["/faq/", "weekly", "0.75"],
@@ -2103,9 +2286,9 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${label}
 - Public engineering notes: ${engineeringNotesUrl}
 - LinkedIn profile: ${linkedinProfileUrl}
 - Service regions: Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
-- Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
+- Delivery packages: API Starter Package (2000 美金起), Execution System Package (5000 美金起), Private Infrastructure Package (10000 美金起), depending on scope.
 - Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
-- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
+- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, delivery package breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
 - We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
 - Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
 

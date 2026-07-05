@@ -6,6 +6,7 @@ Last updated: 2026-07-01
 
 ## Core services
 
+- Crypto Asset Reporting: https://pddjf.com/crypto-asset-reporting/ — 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
 - TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
 - Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
 - Broker API automation: https://pddjf.com/broker/api/ — Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
@@ -28,9 +29,9 @@ Last updated: 2026-07-01
 - Public engineering notes: https://github.com/yfjelley/signalcraft-labs-engineering-notes
 - LinkedIn profile: https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/
 - Service regions: Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
-- Budget ranges: 2000 美金, 5000 美金, 10000 美金 depending on scope.
+- Delivery packages: API Starter Package (2000 美金起), Execution System Package (5000 美金起), Private Infrastructure Package (10000 美金起), depending on scope.
 - Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
-- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, budget breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
+- Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, delivery package breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
 - We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
 - Third-party platforms mentioned on the site are integration targets only; SignalCraft Labs does not claim official partnership, authorization, or endorsement unless explicitly stated in writing.
 
@@ -64,6 +65,7 @@ Last updated: 2026-07-01
 
 ## Page summaries
 
+- https://pddjf.com/crypto-asset-reporting/ — Crypto Asset Reporting: 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
 - https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook automation: TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
 - https://pddjf.com/exchange-api-trading-bot-development/ — Exchange API trading bot development: 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
 - https://pddjf.com/broker/api/ — Broker API automation: Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.

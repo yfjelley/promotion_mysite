@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>自动交易系统匿名项目复盘 | Webhook、券商 API、风控和私有部署</title>
-  <meta name="description" content="SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。">
+  <title>交易自动化工程匿名案例 | Webhook、券商 API、风控和私有部署</title>
+  <meta name="description" content="SignalCraft Labs 匿名工程案例，展示 TradingView Webhook、券商 API、交易所 API、风控和私有化部署的交付方式，不展示收益承诺。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/case-studies/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="自动交易系统匿名项目复盘">
-  <meta property="og:description" content="SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。">
+  <meta property="og:title" content="交易自动化工程匿名案例">
+  <meta property="og:description" content="SignalCraft Labs 匿名工程案例，展示 TradingView Webhook、券商 API、交易所 API、风控和私有化部署的交付方式，不展示收益承诺。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/case-studies/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260701-footer">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="/scripts.js" defer></script>
+  <script src="/scripts.js?v=20260705-case-links" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -57,8 +57,8 @@
       "@type": "CollectionPage",
       "@id": "https://pddjf.com/case-studies/#webpage",
       "url": "https://pddjf.com/case-studies/",
-      "name": "自动交易系统匿名项目复盘",
-      "description": "SignalCraft Labs 匿名项目复盘，展示 TradingView Webhook、券商 API、风控引擎和私有部署的工程交付方式，不展示收益承诺。",
+      "name": "交易自动化工程匿名案例",
+      "description": "SignalCraft Labs 匿名工程案例，展示 TradingView Webhook、券商 API、交易所 API、风控和私有化部署的交付方式，不展示收益承诺。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -88,8 +88,8 @@
     {
       "@type": "CreativeWork",
       "@id": "https://pddjf.com/case-studies/#case-1",
-      "name": "TradingView 信号去重与订单路由",
-      "description": "客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。 不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。 TradingView Alert -> Webhook 接收 -> 签名校验 -> 去重/冷却 -> 风控 -> 订单路由 -> 告警和日志。 Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。 不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。",
+      "name": "TradingView Webhook 去重与风控执行链路",
+      "description": "客户已有 Pine Script 信号，但 Alert 重复、网络重试和手工下单造成执行不一致，无法稳定复盘每一次信号的处理结果。 不改客户策略逻辑；保留人工暂停开关；API Key 不包含提现权限；每个信号必须有可追踪的 event_id 和处理状态。 TradingView Alert -> 签名校验 -> event_id 幂等去重 -> 冷却窗口 -> 风控规则 -> 订单路由 -> 审计日志和 Telegram 告警。 Webhook 接收服务、payload 模板、风控配置、订单路由模块、脱敏日志字段、部署说明和灰度上线清单。 回放重复 payload、延迟 payload、错误签名、暂停开关、只减仓和超限数量，验证系统只产生一次明确结果：执行、拒绝或人工处理。 不评价信号盈利能力，不提供跟单服务，不保证成交价格、滑点、胜率或收益。",
       "isPartOf": {
         "@id": "https://pddjf.com/case-studies/#webpage"
       }
@@ -97,8 +97,8 @@
     {
       "@type": "CreativeWork",
       "@id": "https://pddjf.com/case-studies/#case-2",
-      "name": "券商 API 组合再平衡工作流",
-      "description": "客户需要按目标权重生成订单计划，并保留人工确认点。 账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。 持仓同步 -> 目标权重计算 -> 订单计划 -> 人工确认 -> 券商 API -> 执行回报 -> 审计日志。 组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。 客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。",
+      "name": "券商 API 订单计划与人工确认",
+      "description": "客户希望把目标权重、持仓同步和订单生成串起来，但订单发送前仍需要人工确认和审计记录。 券商权限、订单类型和可交易品种以平台为准；发送订单前必须展示现金约束、敞口变化和潜在拒单原因。 持仓同步 -> 目标权重输入 -> 订单计划 -> 交易前风险摘要 -> 人工确认 -> 券商 API -> 执行回报同步 -> 审计日志。 订单计划脚本或轻后台、券商 API adapter、确认节点、执行回报映射、日志字段说明、测试样例和交接文档。 用 paper 或小额测试路径验证计划生成、确认前不下单、拒单/撤单/成交状态同步、日志留痕和权限最小化。 不提供荐股、调仓建议、投资组合建议或账户托管；客户自行确认订单和承担投资决策。",
       "isPartOf": {
         "@id": "https://pddjf.com/case-studies/#webpage"
       }
@@ -106,8 +106,17 @@
     {
       "@type": "CreativeWork",
       "@id": "https://pddjf.com/case-studies/#case-3",
-      "name": "多接口私有化部署与告警",
-      "description": "客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。 客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。 VPS/Docker -> 环境变量 -> 执行服务 -> 日志轮转 -> 告警渠道 -> 备份和恢复说明。 源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。 交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。",
+      "name": "交易所 API DCA/Grid 执行与异常熔断",
+      "description": "客户已有 DCA 或 Grid 规则，希望系统按配置执行，并在接口异常、精度错误或风险超限时自动停下。 交易所限频、价格精度、数量精度、最小名义金额和市场状态会影响订单；API Key 仍采用最小必要权限。 规则配置 -> 数量和精度标准化 -> 风控检查 -> 订单状态监听 -> 重试上限 -> 异常熔断 -> 告警和运行日志。 规则配置样例、交易所 connector、风控拒单原因表、状态日志、告警配置、部署 runbook 和上线验收脚本。 模拟最大层数、冷却窗口、价格保护、API 超时、部分成交和接口拒单，验证暂停、重试、熔断和日志行为。 不承诺套利机会、交易收益、手续费优势或滑点结果；不需要提现、划转或账户管理员权限。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/case-studies/#webpage"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://pddjf.com/case-studies/#case-4",
+      "name": "私有化部署、监控告警与交接",
+      "description": "客户希望源码、配置、日志和告警都运行在自己控制的 VPS 或云环境中，并能在交接后自行重启和排障。 服务器、密钥和第三方账户由客户保管；初始交付不包含无限期运维；重启、回滚、密钥轮换和日志位置必须清楚。 Docker 或进程守护 -> 环境变量 -> 服务健康检查 -> 日志轮转 -> 告警渠道 -> 备份/回滚说明 -> 远程交接。 源码、.env.example、部署配置、进程守护配置、日志路径、告警设置、incident checklist 和远程讲解记录。 从干净环境完成部署，演示重启、回滚、告警测试、日志查询、密钥轮换检查和暂停开关。 不代管客户账户、服务器、API Key 或日常交易决策；长期运维、服务器管理和策略修改需另行确认范围。",
       "isPartOf": {
         "@id": "https://pddjf.com/case-studies/#webpage"
       }
@@ -123,14 +132,15 @@
       <span>SignalCraft Labs</span>
     </a>
     <nav class="nav" aria-label="主导航">
-      <a href="/tradingview-webhook-automation/">TradingView</a>
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
       <a href="/broker/api/">券商 API</a>
-      <a href="/articles/">技术资料</a>
-      <a href="/faq/">FAQ</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
       <a aria-current="page" href="/case-studies/">案例</a>
       <a href="/about/">关于</a>
       <a href="/contact/">联系</a>
-      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
     </nav>
   </header>
   <main>
@@ -141,11 +151,11 @@
       <span>匿名案例</span>
     </nav>
       <p class="eyebrow">Anonymous Case Studies</p>
-      <h1>自动交易系统匿名项目复盘</h1>
-      <p class="hero-lede">以下是匿名化的工程交付场景，只说明问题、系统方案和可验证交付物，不公开客户身份，不展示收益曲线，也不构成投资建议。</p>
+      <h1>交易自动化工程匿名案例</h1>
+      <p class="hero-lede">以下是匿名化的工程交付场景，按问题、约束、解决方案、交付物、验收方式和不包含事项说明。不公开客户身份，不展示收益曲线，也不构成投资建议。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
-    <section class="section content-band"><div class="case-study-grid expanded-cases"><article><span>01</span><h3>TradingView 信号去重与订单路由</h3><strong>项目背景</strong><p>客户已有 Pine Script 信号，但重复 Alert 和手工下单导致执行不一致。</p><strong>约束</strong><p>不能改客户策略逻辑；必须保留人工暂停；API Key 不包含提现权限。</p><strong>架构</strong><p>TradingView Alert -&gt; Webhook 接收 -&gt; 签名校验 -&gt; 去重/冷却 -&gt; 风控 -&gt; 订单路由 -&gt; 告警和日志。</p><strong>交付物</strong><p>Webhook 服务、配置样例、风控规则、订单状态日志、Telegram 告警和部署文档。</p><strong>边界</strong><p>不评价信号盈利能力，不保证成交价格；验收只看信号解析、拒单、下单和告警链路。</p></article><article><span>02</span><h3>券商 API 组合再平衡工作流</h3><strong>项目背景</strong><p>客户需要按目标权重生成订单计划，并保留人工确认点。</p><strong>约束</strong><p>账户权限和可交易品种以券商为准；订单发送前必须展示现金约束和敞口变化。</p><strong>架构</strong><p>持仓同步 -&gt; 目标权重计算 -&gt; 订单计划 -&gt; 人工确认 -&gt; 券商 API -&gt; 执行回报 -&gt; 审计日志。</p><strong>交付物</strong><p>组合计算脚本、订单计划输出、人工确认节点、日志字段说明和测试样例。</p><strong>边界</strong><p>客户确认订单和承担投资决策；系统不提供荐股、调仓建议或收益目标。</p></article><article><span>03</span><h3>多接口私有化部署与告警</h3><strong>项目背景</strong><p>客户需要把信号源、交易 API、日志和告警部署在自己控制的服务器上。</p><strong>约束</strong><p>客户保管服务器和密钥；长期运维不包含在初始开发范围；必须支持重启和回滚。</p><strong>架构</strong><p>VPS/Docker -&gt; 环境变量 -&gt; 执行服务 -&gt; 日志轮转 -&gt; 告警渠道 -&gt; 备份和恢复说明。</p><strong>交付物</strong><p>源码、配置样例、进程守护配置、日志路径、告警配置、部署文档和远程讲解。</p><strong>边界</strong><p>交付私有化运行能力，不代管客户账户、服务器、API Key 或日常交易决策。</p></article></div>
+    <section class="section content-band"><div class="case-study-grid expanded-cases"><article id="case-1"><span>01</span><h3>TradingView Webhook 去重与风控执行链路</h3><strong>问题</strong><p>客户已有 Pine Script 信号，但 Alert 重复、网络重试和手工下单造成执行不一致，无法稳定复盘每一次信号的处理结果。</p><strong>约束</strong><p>不改客户策略逻辑；保留人工暂停开关；API Key 不包含提现权限；每个信号必须有可追踪的 event_id 和处理状态。</p><strong>解决方案</strong><p>TradingView Alert -&gt; 签名校验 -&gt; event_id 幂等去重 -&gt; 冷却窗口 -&gt; 风控规则 -&gt; 订单路由 -&gt; 审计日志和 Telegram 告警。</p><strong>交付物</strong><p>Webhook 接收服务、payload 模板、风控配置、订单路由模块、脱敏日志字段、部署说明和灰度上线清单。</p><strong>验收方式</strong><p>回放重复 payload、延迟 payload、错误签名、暂停开关、只减仓和超限数量，验证系统只产生一次明确结果：执行、拒绝或人工处理。</p><strong>不包含什么</strong><p>不评价信号盈利能力，不提供跟单服务，不保证成交价格、滑点、胜率或收益。</p><a class="case-link" href="/contact/" data-contact="case_study_1">用这个案例发 Brief</a></article><article id="case-2"><span>02</span><h3>券商 API 订单计划与人工确认</h3><strong>问题</strong><p>客户希望把目标权重、持仓同步和订单生成串起来，但订单发送前仍需要人工确认和审计记录。</p><strong>约束</strong><p>券商权限、订单类型和可交易品种以平台为准；发送订单前必须展示现金约束、敞口变化和潜在拒单原因。</p><strong>解决方案</strong><p>持仓同步 -&gt; 目标权重输入 -&gt; 订单计划 -&gt; 交易前风险摘要 -&gt; 人工确认 -&gt; 券商 API -&gt; 执行回报同步 -&gt; 审计日志。</p><strong>交付物</strong><p>订单计划脚本或轻后台、券商 API adapter、确认节点、执行回报映射、日志字段说明、测试样例和交接文档。</p><strong>验收方式</strong><p>用 paper 或小额测试路径验证计划生成、确认前不下单、拒单/撤单/成交状态同步、日志留痕和权限最小化。</p><strong>不包含什么</strong><p>不提供荐股、调仓建议、投资组合建议或账户托管；客户自行确认订单和承担投资决策。</p><a class="case-link" href="/contact/" data-contact="case_study_2">用这个案例发 Brief</a></article><article id="case-3"><span>03</span><h3>交易所 API DCA/Grid 执行与异常熔断</h3><strong>问题</strong><p>客户已有 DCA 或 Grid 规则，希望系统按配置执行，并在接口异常、精度错误或风险超限时自动停下。</p><strong>约束</strong><p>交易所限频、价格精度、数量精度、最小名义金额和市场状态会影响订单；API Key 仍采用最小必要权限。</p><strong>解决方案</strong><p>规则配置 -&gt; 数量和精度标准化 -&gt; 风控检查 -&gt; 订单状态监听 -&gt; 重试上限 -&gt; 异常熔断 -&gt; 告警和运行日志。</p><strong>交付物</strong><p>规则配置样例、交易所 connector、风控拒单原因表、状态日志、告警配置、部署 runbook 和上线验收脚本。</p><strong>验收方式</strong><p>模拟最大层数、冷却窗口、价格保护、API 超时、部分成交和接口拒单，验证暂停、重试、熔断和日志行为。</p><strong>不包含什么</strong><p>不承诺套利机会、交易收益、手续费优势或滑点结果；不需要提现、划转或账户管理员权限。</p><a class="case-link" href="/contact/" data-contact="case_study_3">用这个案例发 Brief</a></article><article id="case-4"><span>04</span><h3>私有化部署、监控告警与交接</h3><strong>问题</strong><p>客户希望源码、配置、日志和告警都运行在自己控制的 VPS 或云环境中，并能在交接后自行重启和排障。</p><strong>约束</strong><p>服务器、密钥和第三方账户由客户保管；初始交付不包含无限期运维；重启、回滚、密钥轮换和日志位置必须清楚。</p><strong>解决方案</strong><p>Docker 或进程守护 -&gt; 环境变量 -&gt; 服务健康检查 -&gt; 日志轮转 -&gt; 告警渠道 -&gt; 备份/回滚说明 -&gt; 远程交接。</p><strong>交付物</strong><p>源码、.env.example、部署配置、进程守护配置、日志路径、告警设置、incident checklist 和远程讲解记录。</p><strong>验收方式</strong><p>从干净环境完成部署，演示重启、回滚、告警测试、日志查询、密钥轮换检查和暂停开关。</p><strong>不包含什么</strong><p>不代管客户账户、服务器、API Key 或日常交易决策；长期运维、服务器管理和策略修改需另行确认范围。</p><a class="case-link" href="/contact/" data-contact="case_study_4">用这个案例发 Brief</a></article></div>
     <section class="embedded-section">
       <h2>公开脱敏资料</h2>
       <p>案例只描述工程约束和交付方式；公开 GitHub 资料提供脱敏 demo、权限建议和验收清单，便于独立检查交付口径。</p>
@@ -157,17 +167,20 @@
       <div class="section-head centered">
         <p class="eyebrow">Delivery Samples</p>
         <h2 id="deliverable-samples-title">匿名交付物样例</h2>
-        <p>以下是脱敏示意，展示交付中常见的日志、Webhook 流程和验收清单，不包含客户账户、策略参数或真实订单。</p>
+        <p>以下是脱敏示意，展示交付中常见的 payload、日志、runbook、权限边界和验收清单，不包含客户账户、策略参数或真实订单。</p>
       </div>
       <div class="sample-artifact-grid">
-        <article class="sample-artifact log-sample">
-          <div class="sample-head"><span>运行日志样例</span><em>masked log</em></div>
-          <div class="log-window" role="img" aria-label="脱敏运行日志样例">
-            <div><strong>09:31:04</strong><span>webhook.received</span><em>symbol=BTCUSDT action=reduce_only</em></div>
-            <div><strong>09:31:04</strong><span>risk.checked</span><em>max_position ok, cooldown ok</em></div>
-            <div><strong>09:31:05</strong><span>order.routed</span><em>exchange_api latency=218ms</em></div>
-            <div><strong>09:31:05</strong><span>alert.sent</span><em>telegram delivery confirmed</em></div>
-          </div>
+        <article class="sample-artifact payload-sample wide-artifact">
+          <div class="sample-head"><span>Webhook payload 样例</span><em>masked payload</em></div>
+          <pre class="payload-window" aria-label="脱敏 Webhook payload 样例"><code>{
+  "event_id": "tv-demo-20260705-093104",
+  "strategy": "mean-reversion-v3",
+  "symbol": "BTCUSDT",
+  "action": "reduce_only",
+  "bar_time": "2026-07-05T01:30:00Z",
+  "risk_profile": "starter",
+  "secret": "masked"
+}</code></pre>
         </article>
         <article class="sample-artifact flow-sample">
           <div class="sample-head"><span>Webhook 流程图样例</span><em>handoff diagram</em></div>
@@ -178,6 +191,33 @@
             <span>风控规则</span>
             <span>订单路由</span>
             <span>日志与告警</span>
+          </div>
+        </article>
+        <article class="sample-artifact log-sample wide-artifact">
+          <div class="sample-head"><span>风控拒单日志样例</span><em>risk log</em></div>
+          <div class="log-window" role="img" aria-label="脱敏运行日志样例">
+            <div><strong>09:31:04</strong><span>webhook.received</span><em>symbol=BTCUSDT action=reduce_only</em></div>
+            <div><strong>09:31:04</strong><span>risk.checked</span><em>max_position ok, cooldown ok</em></div>
+            <div><strong>09:31:05</strong><span>risk.rejected</span><em>reason=price_deviation_limit exceeded, order not sent</em></div>
+            <div><strong>09:31:05</strong><span>alert.sent</span><em>telegram delivery confirmed, manual review requested</em></div>
+          </div>
+        </article>
+        <article class="sample-artifact runbook-sample">
+          <div class="sample-head"><span>部署 runbook 目录</span><em>handoff doc</em></div>
+          <ol class="runbook-list">
+            <li>环境变量和密钥最小权限检查</li>
+            <li>启动、停止、重启和健康检查命令</li>
+            <li>日志位置、告警渠道和异常分类</li>
+            <li>回滚步骤、暂停开关和联系人边界</li>
+          </ol>
+        </article>
+        <article class="sample-artifact permission-sample wide-artifact">
+          <div class="sample-head"><span>API 权限边界表</span><em>permission scope</em></div>
+          <div class="sample-table" role="table" aria-label="API 权限边界样例">
+            <div role="row"><strong role="columnheader">权限</strong><span role="columnheader">建议</span><em role="columnheader">用途</em></div>
+            <div role="row"><strong>读取持仓</strong><span>按项目需要开启</span><em>同步余额、持仓和订单状态</em></div>
+            <div role="row"><strong>交易下单</strong><span>仅在执行包中开启</span><em>发送已通过风控的订单</em></div>
+            <div role="row"><strong>提现/划转</strong><span>不需要</span><em>不进入软件交付范围</em></div>
           </div>
         </article>
         <article class="sample-artifact checklist-sample">
@@ -194,9 +234,9 @@
 
     <section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
-        <p class="eyebrow">Request Assessment</p>
-        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
-        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">先发项目 Brief，再判断适合哪个交付包</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位、风控规则和部署目标。资料完整时通常 1 个工作日内回复初步适配判断。</p>
         <div class="contact-row">
           <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
           <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">复制微信 btc1688</button>
@@ -210,14 +250,15 @@
           <li>信号和交易规则</li>
           <li>API 平台和权限状态</li>
           <li>风控、告警和部署要求</li>
-          <li>预算档位：2000 / 5000 / 10000 美金</li>
+          <li>目标交付包和预算档位</li>
         </ul>
       </div>
     </section>
   </main>
   <footer class="site-footer">
-    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
       <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
       <a href="/exchange-api-trading-bot-development/">交易所 API</a>
       <a href="/broker/api/">券商 API</a>
@@ -247,7 +288,7 @@
   </footer>
 
   <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
-    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
     <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
   </div>
 </body>

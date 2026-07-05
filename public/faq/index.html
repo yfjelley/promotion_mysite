@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>自动交易系统开发常见问题 | Webhook、券商 API、风控和部署</title>
-  <meta name="description" content="SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、预算、交付和风险边界。">
+  <meta name="description" content="SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、交付包、预算和风险边界。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/faq/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="自动交易系统开发常见问题">
-  <meta property="og:description" content="SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、预算、交付和风险边界。">
+  <meta property="og:description" content="SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、交付包、预算和风险边界。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/faq/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260701-footer">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="/scripts.js" defer></script>
+  <script src="/scripts.js?v=20260705-case-links" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -58,7 +58,7 @@
       "@id": "https://pddjf.com/faq/#webpage",
       "url": "https://pddjf.com/faq/",
       "name": "自动交易系统开发常见问题",
-      "description": "SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、预算、交付和风险边界。",
+      "description": "SignalCraft Labs 自动交易系统开发常见问题，覆盖 TradingView Webhook、券商 API、交易所 API、风控、交付包、预算和风险边界。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -99,10 +99,10 @@
         },
         {
           "@type": "Question",
-          "name": "项目预算为什么是 2000 / 5000 / 10000 美金三档？",
+          "name": "交付包为什么是 2000 / 5000 / 10000 美金三档？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "2000 美金通常适合单接口验证，5000 美金适合多规则和风控监控，10000 美金适合多接口、后台、权限和私有部署。最终报价以需求清单为准。"
+            "text": "2000 美金通常适合 API Starter Package，5000 美金适合 Execution System Package，10000 美金适合 Private Infrastructure Package。最终范围以输入条件、交付物和验收清单为准。"
           }
         },
         {
@@ -182,14 +182,15 @@
       <span>SignalCraft Labs</span>
     </a>
     <nav class="nav" aria-label="主导航">
-      <a href="/tradingview-webhook-automation/">TradingView</a>
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
       <a href="/broker/api/">券商 API</a>
-      <a href="/articles/">技术资料</a>
-      <a aria-current="page" href="/faq/">FAQ</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
       <a href="/case-studies/">案例</a>
       <a href="/about/">关于</a>
       <a href="/contact/">联系</a>
-      <a class="nav-cta" href="/contact/" data-contact="nav_contact">免费评估</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
     </nav>
   </header>
   <main>
@@ -204,13 +205,13 @@
       <p class="hero-lede">这里集中回答客户在咨询前最常问的问题。所有回答都以技术开发和系统交付为边界，不构成投资建议。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
-    <section class="section content-band"><div class="faq-list wide-faq"><article><h3>你们是卖策略还是做系统开发？</h3><p>我们做自动交易系统和交易 API 定制开发，不出售收益承诺型策略，不代管资金，也不替客户做投资判断。</p></article><article><h3>项目预算为什么是 2000 / 5000 / 10000 美金三档？</h3><p>2000 美金通常适合单接口验证，5000 美金适合多规则和风控监控，10000 美金适合多接口、后台、权限和私有部署。最终报价以需求清单为准。</p></article><article><h3>TradingView Webhook 自动化需要什么资料？</h3><p>需要 Alert 文案、信号变量、品种、周期、方向、仓位规则、止损止盈和异常处理方式。</p></article><article><h3>券商 API 项目前最需要确认什么？</h3><p>需要确认账户 API 权限、地区限制、订单类型、交易品种、数据权限和是否有测试环境。</p></article><article><h3>你们会接触客户资金吗？</h3><p>不会。我们建议使用最小权限 API Key，不需要提现权限，不代管账户或资金。</p></article><article><h3>项目如何验收？</h3><p>以双方确认的功能清单、接口平台、测试路径、日志、告警、源码和部署文档为准，盈利结果不作为软件验收标准。</p></article><article><h3>能不能做全自动交易？</h3><p>技术上可以做自动执行，但建议保留风控、限额、人工确认、暂停开关和小资金灰度流程。</p></article><article><h3>多久能交付？</h3><p>取决于接口平台、规则复杂度和是否需要后台。单接口验证通常更快，多接口和私有化系统需要分阶段评估。</p></article><article><h3>后续可以扩展吗？</h3><p>可以。建议先做最小可验证版本，再扩展到多策略、多接口、后台、权限和更完整的运维流程。</p></article><article><h3>如果第三方 API 政策变化怎么办？</h3><p>第三方平台的 API、费用、权限和地区限制由平台决定。若变化影响项目，需要重新评估替代方案或范围。</p></article></div></section>
+    <section class="section content-band"><div class="faq-list wide-faq"><article><h3>你们是卖策略还是做系统开发？</h3><p>我们做自动交易系统和交易 API 定制开发，不出售收益承诺型策略，不代管资金，也不替客户做投资判断。</p></article><article><h3>交付包为什么是 2000 / 5000 / 10000 美金三档？</h3><p>2000 美金通常适合 API Starter Package，5000 美金适合 Execution System Package，10000 美金适合 Private Infrastructure Package。最终范围以输入条件、交付物和验收清单为准。</p></article><article><h3>TradingView Webhook 自动化需要什么资料？</h3><p>需要 Alert 文案、信号变量、品种、周期、方向、仓位规则、止损止盈和异常处理方式。</p></article><article><h3>券商 API 项目前最需要确认什么？</h3><p>需要确认账户 API 权限、地区限制、订单类型、交易品种、数据权限和是否有测试环境。</p></article><article><h3>你们会接触客户资金吗？</h3><p>不会。我们建议使用最小权限 API Key，不需要提现权限，不代管账户或资金。</p></article><article><h3>项目如何验收？</h3><p>以双方确认的功能清单、接口平台、测试路径、日志、告警、源码和部署文档为准，盈利结果不作为软件验收标准。</p></article><article><h3>能不能做全自动交易？</h3><p>技术上可以做自动执行，但建议保留风控、限额、人工确认、暂停开关和小资金灰度流程。</p></article><article><h3>多久能交付？</h3><p>取决于接口平台、规则复杂度和是否需要后台。单接口验证通常更快，多接口和私有化系统需要分阶段评估。</p></article><article><h3>后续可以扩展吗？</h3><p>可以。建议先做最小可验证版本，再扩展到多策略、多接口、后台、权限和更完整的运维流程。</p></article><article><h3>如果第三方 API 政策变化怎么办？</h3><p>第三方平台的 API、费用、权限和地区限制由平台决定。若变化影响项目，需要重新评估替代方案或范围。</p></article></div></section>
 
     <section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
-        <p class="eyebrow">Request Assessment</p>
-        <h2 id="content-contact-title">发来你的规则和 API 工作流，先判断能不能做</h2>
-        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位和风控规则。通常 1 个工作日内回复初步方案。</p>
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">先发项目 Brief，再判断适合哪个交付包</h2>
+        <p>请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位、风控规则和部署目标。资料完整时通常 1 个工作日内回复初步适配判断。</p>
         <div class="contact-row">
           <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
           <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">复制微信 btc1688</button>
@@ -224,14 +225,15 @@
           <li>信号和交易规则</li>
           <li>API 平台和权限状态</li>
           <li>风控、告警和部署要求</li>
-          <li>预算档位：2000 / 5000 / 10000 美金</li>
+          <li>目标交付包和预算档位</li>
         </ul>
       </div>
     </section>
   </main>
   <footer class="site-footer">
-    <p><strong>SignalCraft Labs</strong> 自动交易系统与交易 API 定制开发工作室</p>
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
       <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
       <a href="/exchange-api-trading-bot-development/">交易所 API</a>
       <a href="/broker/api/">券商 API</a>
@@ -261,7 +263,7 @@
   </footer>
 
   <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
-    <a href="/contact/" data-contact="mobile_contact">免费评估</a>
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
     <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
   </div>
 </body>

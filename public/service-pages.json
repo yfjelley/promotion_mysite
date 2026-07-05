@@ -16,6 +16,11 @@
   ],
   "coreServiceUrls": [
     {
+      "label": "Crypto Asset Reporting",
+      "url": "https://pddjf.com/crypto-asset-reporting/",
+      "summary": "为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。"
+    },
+    {
       "label": "TradingView Webhook automation",
       "url": "https://pddjf.com/tradingview-webhook-automation/",
       "summary": "TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。"

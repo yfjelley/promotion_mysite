@@ -13,13 +13,14 @@ Static Google Ads landing page for Cloudflare Pages. No VPS is required for the
 current site because the production artifact is static HTML, CSS, and JS.
 
 This repository now serves only `https://pddjf.com/`, the SignalCraft Labs
-automated trading engineering site. The independent ICOJF software product
-studio site lives in `/Users/yfjelley/workspace/icojf_site` and deploys to the
-separate Cloudflare Pages project `icojf-site`.
+trading-automation digital products and custom engineering service site. The
+independent ICOJF software product studio site lives in
+`/Users/yfjelley/workspace/icojf_site` and deploys to the separate Cloudflare
+Pages project `icojf-site`.
 
 The primary conversion pages are:
 
-- `/` for the broader automated trading system offer.
+- `/` for the broader digital products and custom engineering offer.
 - `/broker/api` for the broker API automation ad group.
 
 SEO and GEO content pages:
@@ -72,10 +73,10 @@ node tools/generate-seo-geo-pages.mjs
 node tools/validate-seo-geo.mjs
 ```
 
-Run both commands after changing page slugs, service copy, prices, structured
-data, robots policy, or contact details. The validator checks pddjf canonical
-URLs, JSON-LD parsing, sitemap file coverage, internal links, `robots.txt`,
-`llms.txt`, and risky positioning terms.
+Run both commands after changing page slugs, service copy, delivery packages,
+structured data, robots policy, or contact details. The validator checks pddjf
+canonical URLs, JSON-LD parsing, sitemap file coverage, internal links,
+`robots.txt`, `llms.txt`, and risky positioning terms.
 
 ## Deploy
 
