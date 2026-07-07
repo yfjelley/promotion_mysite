@@ -161,7 +161,7 @@
     },
     {
       "label": "API Key Permission Safety for Trading Bots",
-      "url": "https://pddjf.com/articles/api-key-permission-safety-for-trading-bots/",
+      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
       "summary": "Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps."
     },
     {

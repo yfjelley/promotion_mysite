@@ -1265,7 +1265,7 @@ const articlePages = [
     ]
   },
   {
-    slug: "articles/api-key-permission-safety-for-trading-bots",
+    slug: "articles/trading-bot-api-key-permission-safety",
     lang: "en",
     breadcrumb: "API Key Permission Safety",
     eyebrow: "API Safety",
