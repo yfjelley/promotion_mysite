@@ -62,6 +62,9 @@ Last updated: 2026-07-07
 - https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/ — A trading bot private deployment runbook should document VPS or cloud ownership, Docker or process setup, environment variables, logs, health checks, alerts, pause controls, backup and rollback.
 - https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/ — A crypto asset reporting reconciliation checklist should identify wallets, exchange exports, read-only data sources, balance snapshots, transaction evidence, exception queues and report handover boundaries.
 - https://pddjf.com/articles/hire-trading-api-developer-scope-checklist/ — Before hiring a trading API developer, define the signal source, target broker or exchange API, permission state, order flow, risk controls, logs, deployment target, budget tier and acceptance owner.
+- https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/ — A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.
+- https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/ — A Binance API trading bot risk checklist should review API key permissions, product scope, rate limits, order filters, position limits, idempotency, logs, alerts and key rotation.
+- https://pddjf.com/articles/broker-api-order-reconciliation-checklist/ — Broker API order reconciliation should connect signals, order intents, broker order IDs, fills, cancels, rejects, positions, exception queues and exportable audit logs.
 
 ## Official reference links
 
@@ -70,6 +73,7 @@ Last updated: 2026-07-07
 - Schwab Trader API: https://developer.schwab.com/products/trader-api--individual — Charles Schwab 官方 Trader API 产品入口。
 - Alpaca Docs: https://docs.alpaca.markets/us/ — Alpaca 官方 API 文档入口。
 - FIX Trading Community: https://fixtrading.org/standards/fix-protocol/ — FIX Trading Community 的 FIX Protocol 标准介绍。
+- Binance Developer Docs: https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information — Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。
 
 ## Page summaries
 

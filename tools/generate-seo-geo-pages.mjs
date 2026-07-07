@@ -29,7 +29,8 @@ const officialReferenceLinks = [
   ["IBKR API documentation", "https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/", "Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。"],
   ["Schwab Trader API", "https://developer.schwab.com/products/trader-api--individual", "Charles Schwab 官方 Trader API 产品入口。"],
   ["Alpaca Docs", "https://docs.alpaca.markets/us/", "Alpaca 官方 API 文档入口。"],
-  ["FIX Trading Community", "https://fixtrading.org/standards/fix-protocol/", "FIX Trading Community 的 FIX Protocol 标准介绍。"]
+  ["FIX Trading Community", "https://fixtrading.org/standards/fix-protocol/", "FIX Trading Community 的 FIX Protocol 标准介绍。"],
+  ["Binance Developer Docs", "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information", "Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。"]
 ];
 
 const offers = [
@@ -1543,6 +1544,130 @@ const articlePages = [
       officialReferenceLinks[0],
       officialReferenceLinks[1],
       officialReferenceLinks[4],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/tradingview-webhook-to-ibkr-order-workflow",
+    lang: "en",
+    breadcrumb: "TradingView to IBKR Workflow",
+    eyebrow: "TradingView + IBKR",
+    title: "TradingView Webhook to IBKR Order Workflow | Payload, Gateway and Risk Checks",
+    description: "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
+    h1: "TradingView Webhook to IBKR Order Workflow",
+    intro: "A TradingView alert can trigger an IBKR automation workflow, but the project is not only a webhook and an order call. The delivery needs a payload contract, IBKR runtime choice, account permission review, risk gates and replayable acceptance evidence.",
+    summary: "A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.",
+    sections: [
+      {
+        title: "Define the alert payload as a contract",
+        body: "The TradingView alert should carry enough fields to describe one intended action: strategy, version, symbol, action, timeframe, signal time, size model and event ID inputs. Without that contract, the IBKR side cannot reliably decide whether a request is new, duplicated, stale or unsafe.",
+        bullets: ["Use stable fields for event ID generation.", "Keep shared secrets out of public code and screenshots.", "Version the payload when the TradingView script changes."]
+      },
+      {
+        title: "Choose the IBKR runtime deliberately",
+        body: "IBKR automation may involve TWS Gateway, TWS API, Client Portal or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.",
+        bullets: ["Validate account permissions before building order routing.", "Log connection state and reconnect events.", "Pause new routing until positions and open orders are reconciled after restart."]
+      },
+      {
+        title: "Accept the workflow with order-state evidence",
+        body: "Acceptance should prove duplicate webhook handling, manual pause, max size checks, order preview, submitted orders, rejected orders, cancel flow and position sync. A single successful demo order is not enough for a maintainable delivery.",
+        bullets: ["Replay sample alerts before live routing.", "Store signal, risk decision, order intent and broker response together.", "Set acceptance on observable behavior, not trading outcome."]
+      }
+    ],
+    checklistTitle: "TradingView to IBKR scope checklist",
+    checklist: [
+      "Alert payload fields and event ID inputs are documented.",
+      "IBKR connection model, account permissions and order types are confirmed.",
+      "Manual pause, duplicate checks, max size and trading-hour checks run before order routing.",
+      "Submitted, rejected, canceled and partially filled order states are logged.",
+      "The handover includes environment variables, runtime notes, restart steps and acceptance examples."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      officialReferenceLinks[1],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/binance-api-trading-bot-risk-checklist",
+    lang: "en",
+    breadcrumb: "Binance API Risk Checklist",
+    eyebrow: "Exchange API",
+    title: "Binance API Trading Bot Risk Checklist | Keys, Limits, Orders and Logs",
+    description: "Binance API trading bot risk checklist covering API key permissions, product scope, rate limits, order filters, position limits, logs, alerts and handover.",
+    h1: "Binance API Trading Bot Risk Checklist",
+    intro: "A Binance API trading bot scope should start with permissions, product boundaries and operational checks. The engineering task is to make order behavior, risk decisions, API errors and handover evidence visible before any higher-permission rollout.",
+    summary: "A Binance API trading bot risk checklist should review API key permissions, product scope, rate limits, order filters, position limits, idempotency, logs, alerts and key rotation.",
+    sections: [
+      {
+        title: "Start with permissions and product scope",
+        body: "The project should identify whether the workflow touches spot, margin, futures or another product before implementation. API keys should use the minimum permissions needed for the first scope, and withdrawal or transfer authority should stay outside the automation path.",
+        bullets: ["Separate read-only evaluation from trade permission.", "Document product scope and symbols before routing orders.", "Use dedicated project keys where the platform and account policy allow it."]
+      },
+      {
+        title: "Design around filters, limits and retries",
+        body: "Exchange APIs can reject orders because of precision, minimum notional, order type, rate limits, trading status or account constraints. The system should normalize inputs, classify rejects and avoid blind retry loops that repeat unsafe orders.",
+        bullets: ["Validate quantity, price precision and minimum notional before sending.", "Classify rate_limit, filter_reject, permission_error and api_error separately.", "Cap retries and send alerts when human review is needed."]
+      },
+      {
+        title: "Make every risk decision reviewable",
+        body: "The operator should be able to review which signal arrived, what the system intended to do, which risk rule passed or rejected it, and what the exchange returned. Logs and alerts are part of the core delivery, not an optional afterthought.",
+        bullets: ["Store signal ID, client order ID, symbol, side, size and risk decision.", "Use manual pause above order routing.", "Document key rotation and emergency revoke steps in the handover."]
+      }
+    ],
+    checklistTitle: "Exchange API acceptance checklist",
+    checklist: [
+      "Product scope, symbols, order types and permissions are documented.",
+      "Withdrawal, transfer and unrelated admin permissions are excluded.",
+      "Precision, minimum notional, rate limit and unsupported-order cases are tested.",
+      "Duplicate signal, stale signal, risk reject and API reject paths are logged.",
+      "The client receives runbook notes for pause, key rotation, restart and alert review."
+    ],
+    references: [
+      officialReferenceLinks[5],
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/broker-api-order-reconciliation-checklist",
+    lang: "en",
+    breadcrumb: "Broker API Order Reconciliation",
+    eyebrow: "Broker API",
+    title: "Broker API Order Reconciliation Checklist | Signals, Orders, Fills and Positions",
+    description: "Broker API order reconciliation checklist for matching strategy signals, order intents, broker responses, fills, positions, rejects and audit exports.",
+    h1: "Broker API Order Reconciliation Checklist",
+    intro: "Broker API automation is not finished when an order request is accepted. A maintainable system reconciles the original signal, order intent, broker order ID, execution reports, fills, rejects, cancels and current positions.",
+    summary: "Broker API order reconciliation should connect signals, order intents, broker order IDs, fills, cancels, rejects, positions, exception queues and exportable audit logs.",
+    sections: [
+      {
+        title: "Link signals to broker order records",
+        body: "Every order path should preserve the chain from signal to order intent to broker response. Without stable identifiers and timestamps, later support work becomes guesswork when a client asks why a position changed.",
+        bullets: ["Keep signal ID, order intent ID and broker order ID together.", "Record account, symbol, side, quantity model and request time.", "Avoid overwriting intermediate states when a later fill arrives."]
+      },
+      {
+        title: "Reconcile fills, rejects and cancels",
+        body: "Accepted orders can be partially filled, canceled, rejected after validation or remain open longer than expected. The reconciliation process should make those states visible and separate broker-side rejects from internal risk rejects.",
+        bullets: ["Classify submitted, open, partially_filled, filled, canceled and rejected states.", "Store raw broker response where safe.", "Queue unresolved mismatches for human review."]
+      },
+      {
+        title: "Use reconciliation as an acceptance requirement",
+        body: "Before production use, the client should see normal order, duplicate signal, rejected order, cancel, partial fill, reconnect and position-sync examples. This evidence is more useful than a screenshot of one successful order.",
+        bullets: ["Export order lifecycle rows for review.", "Verify positions after restart before routing new orders.", "Document who resolves reconciliation exceptions."]
+      }
+    ],
+    checklistTitle: "Order reconciliation handover checklist",
+    checklist: [
+      "Signal, order intent, broker order ID and fill records can be linked.",
+      "Submitted, rejected, canceled, partial fill and filled states are visible.",
+      "Position sync after restart is tested before new routing resumes.",
+      "Mismatch and missing-status cases enter a review queue or alert path.",
+      "The handover includes log fields, export format, owner and replay examples."
+    ],
+    references: [
+      officialReferenceLinks[1],
+      officialReferenceLinks[3],
       ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
     ]
   }

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API Key Permission Safety for Trading Bots | Read, Trade and Withdrawal Boundaries</title>
-  <meta name="description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <title>Broker API Order Reconciliation Checklist | Signals, Orders, Fills and Positions</title>
+  <meta name="description" content="Broker API order reconciliation checklist for matching strategy signals, order intents, broker responses, fills, positions, rejects and audit exports.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <link rel="canonical" href="https://pddjf.com/articles/broker-api-order-reconciliation-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="API Key Permission Safety for Trading Bots">
-  <meta property="og:description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <meta property="og:title" content="Broker API Order Reconciliation Checklist">
+  <meta property="og:description" content="Broker API order reconciliation checklist for matching strategy signals, order intents, broker responses, fills, positions, rejects and audit exports.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <meta property="og:url" content="https://pddjf.com/articles/broker-api-order-reconciliation-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#webpage",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
-      "name": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
+      "@id": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/#webpage",
+      "url": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/",
+      "name": "Broker API Order Reconciliation Checklist",
+      "description": "Broker API order reconciliation checklist for matching strategy signals, order intents, broker responses, fills, positions, rejects and audit exports.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#breadcrumb",
+      "@id": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "API Key Permission Safety",
-          "item": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/"
+          "name": "Broker API Order Reconciliation",
+          "item": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#article",
-      "headline": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
+      "@id": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/#article",
+      "headline": "Broker API Order Reconciliation Checklist",
+      "description": "Broker API order reconciliation checklist for matching strategy signals, order intents, broker responses, fills, positions, rejects and audit exports.",
+      "url": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>API Key Permission Safety</span>
+      <span>Broker API Order Reconciliation</span>
     </nav>
-      <p class="eyebrow">API Safety</p>
-      <h1>API Key Permission Safety for Trading Bots</h1>
-      <p class="hero-lede">API permission design is part of trading automation delivery. A client should understand which permissions are needed, which permissions should be avoided and how keys are rotated after handover.</p>
+      <p class="eyebrow">Broker API</p>
+      <h1>Broker API Order Reconciliation Checklist</h1>
+      <p class="hero-lede">Broker API automation is not finished when an order request is accepted. A maintainable system reconciles the original signal, order intent, broker order ID, execution reports, fills, rejects, cancels and current positions.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+      <p class="article-summary">Broker API order reconciliation should connect signals, order intents, broker order IDs, fills, cancels, rejects, positions, exception queues and exportable audit logs.</p>
       <section>
-        <h2>Separate read-only evaluation from live routing</h2>
-        <p>Many projects can start with read-only permission to inspect balances, positions, open orders and account capability. Live trade permission should be added only after the workflow, risk limits, logs and acceptance tests are clear.</p>
-        <ul class="check-list"><li>Read-only access is enough for many feasibility checks.</li><li>Trade access should be tied to a specific scope.</li><li>Admin, withdrawal and transfer permissions should stay out of the software delivery path.</li></ul>
+        <h2>Link signals to broker order records</h2>
+        <p>Every order path should preserve the chain from signal to order intent to broker response. Without stable identifiers and timestamps, later support work becomes guesswork when a client asks why a position changed.</p>
+        <ul class="check-list"><li>Keep signal ID, order intent ID and broker order ID together.</li><li>Record account, symbol, side, quantity model and request time.</li><li>Avoid overwriting intermediate states when a later fill arrives.</li></ul>
       </section><section>
-        <h2>Constrain the execution key</h2>
-        <p>When trade permission is needed, the key should be restricted wherever the platform allows it. IP allowlists, product allowlists, subaccount isolation, symbol limits and order-size limits reduce the blast radius of mistakes.</p>
-        <ul class="check-list"><li>Use a dedicated key for one project when possible.</li><li>Avoid sharing personal master credentials.</li><li>Document which account owner can revoke or rotate the key.</li></ul>
+        <h2>Reconcile fills, rejects and cancels</h2>
+        <p>Accepted orders can be partially filled, canceled, rejected after validation or remain open longer than expected. The reconciliation process should make those states visible and separate broker-side rejects from internal risk rejects.</p>
+        <ul class="check-list"><li>Classify submitted, open, partially_filled, filled, canceled and rejected states.</li><li>Store raw broker response where safe.</li><li>Queue unresolved mismatches for human review.</li></ul>
       </section><section>
-        <h2>Make rotation part of handover</h2>
-        <p>A finished project should not leave key handling as informal chat history. The runbook should explain environment variable names, key owner, rotation timing, revoke path, alert owner and which logs prove a key was changed.</p>
-        <ul class="check-list"><li>Never write secrets into public logs or screenshots.</li><li>Rotate keys after external delivery when the client requires it.</li><li>Keep secret names in docs, not secret values.</li></ul>
+        <h2>Use reconciliation as an acceptance requirement</h2>
+        <p>Before production use, the client should see normal order, duplicate signal, rejected order, cancel, partial fill, reconnect and position-sync examples. This evidence is more useful than a screenshot of one successful order.</p>
+        <ul class="check-list"><li>Export order lifecycle rows for review.</li><li>Verify positions after restart before routing new orders.</li><li>Document who resolves reconciliation exceptions.</li></ul>
       </section>
       <section>
-        <h2>API key handover checklist</h2>
-        <ul class="check-list"><li>Read, trade, transfer, withdrawal and admin permissions are documented separately.</li><li>Withdrawal and transfer permissions are not required for the automation scope.</li><li>IP allowlists, symbol limits or subaccount boundaries are reviewed where available.</li><li>Environment variable names and key ownership are included in the runbook.</li><li>Rotation, revocation and emergency pause steps are documented.</li></ul>
+        <h2>Order reconciliation handover checklist</h2>
+        <ul class="check-list"><li>Signal, order intent, broker order ID and fill records can be linked.</li><li>Submitted, rejected, canceled, partial fill and filled states are visible.</li><li>Position sync after restart is tested before new routing resumes.</li><li>Mismatch and missing-status cases enter a review queue or alert path.</li><li>The handover includes log fields, export format, owner and replay examples.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
+      <a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://docs.alpaca.markets/us/" rel="noopener" target="_blank"><strong>Alpaca Docs</strong><span>Alpaca 官方 API 文档入口。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API Key Permission Safety for Trading Bots | Read, Trade and Withdrawal Boundaries</title>
-  <meta name="description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <title>TradingView Webhook to IBKR Order Workflow | Payload, Gateway and Risk Checks</title>
+  <meta name="description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="API Key Permission Safety for Trading Bots">
-  <meta property="og:description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <meta property="og:title" content="TradingView Webhook to IBKR Order Workflow">
+  <meta property="og:description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#webpage",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
-      "name": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#webpage",
+      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
+      "name": "TradingView Webhook to IBKR Order Workflow",
+      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#breadcrumb",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "API Key Permission Safety",
-          "item": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/"
+          "name": "TradingView to IBKR Workflow",
+          "item": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#article",
-      "headline": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
+      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#article",
+      "headline": "TradingView Webhook to IBKR Order Workflow",
+      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
+      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>API Key Permission Safety</span>
+      <span>TradingView to IBKR Workflow</span>
     </nav>
-      <p class="eyebrow">API Safety</p>
-      <h1>API Key Permission Safety for Trading Bots</h1>
-      <p class="hero-lede">API permission design is part of trading automation delivery. A client should understand which permissions are needed, which permissions should be avoided and how keys are rotated after handover.</p>
+      <p class="eyebrow">TradingView + IBKR</p>
+      <h1>TradingView Webhook to IBKR Order Workflow</h1>
+      <p class="hero-lede">A TradingView alert can trigger an IBKR automation workflow, but the project is not only a webhook and an order call. The delivery needs a payload contract, IBKR runtime choice, account permission review, risk gates and replayable acceptance evidence.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+      <p class="article-summary">A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.</p>
       <section>
-        <h2>Separate read-only evaluation from live routing</h2>
-        <p>Many projects can start with read-only permission to inspect balances, positions, open orders and account capability. Live trade permission should be added only after the workflow, risk limits, logs and acceptance tests are clear.</p>
-        <ul class="check-list"><li>Read-only access is enough for many feasibility checks.</li><li>Trade access should be tied to a specific scope.</li><li>Admin, withdrawal and transfer permissions should stay out of the software delivery path.</li></ul>
+        <h2>Define the alert payload as a contract</h2>
+        <p>The TradingView alert should carry enough fields to describe one intended action: strategy, version, symbol, action, timeframe, signal time, size model and event ID inputs. Without that contract, the IBKR side cannot reliably decide whether a request is new, duplicated, stale or unsafe.</p>
+        <ul class="check-list"><li>Use stable fields for event ID generation.</li><li>Keep shared secrets out of public code and screenshots.</li><li>Version the payload when the TradingView script changes.</li></ul>
       </section><section>
-        <h2>Constrain the execution key</h2>
-        <p>When trade permission is needed, the key should be restricted wherever the platform allows it. IP allowlists, product allowlists, subaccount isolation, symbol limits and order-size limits reduce the blast radius of mistakes.</p>
-        <ul class="check-list"><li>Use a dedicated key for one project when possible.</li><li>Avoid sharing personal master credentials.</li><li>Document which account owner can revoke or rotate the key.</li></ul>
+        <h2>Choose the IBKR runtime deliberately</h2>
+        <p>IBKR automation may involve TWS Gateway, TWS API, Client Portal or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.</p>
+        <ul class="check-list"><li>Validate account permissions before building order routing.</li><li>Log connection state and reconnect events.</li><li>Pause new routing until positions and open orders are reconciled after restart.</li></ul>
       </section><section>
-        <h2>Make rotation part of handover</h2>
-        <p>A finished project should not leave key handling as informal chat history. The runbook should explain environment variable names, key owner, rotation timing, revoke path, alert owner and which logs prove a key was changed.</p>
-        <ul class="check-list"><li>Never write secrets into public logs or screenshots.</li><li>Rotate keys after external delivery when the client requires it.</li><li>Keep secret names in docs, not secret values.</li></ul>
+        <h2>Accept the workflow with order-state evidence</h2>
+        <p>Acceptance should prove duplicate webhook handling, manual pause, max size checks, order preview, submitted orders, rejected orders, cancel flow and position sync. A single successful demo order is not enough for a maintainable delivery.</p>
+        <ul class="check-list"><li>Replay sample alerts before live routing.</li><li>Store signal, risk decision, order intent and broker response together.</li><li>Set acceptance on observable behavior, not trading outcome.</li></ul>
       </section>
       <section>
-        <h2>API key handover checklist</h2>
-        <ul class="check-list"><li>Read, trade, transfer, withdrawal and admin permissions are documented separately.</li><li>Withdrawal and transfer permissions are not required for the automation scope.</li><li>IP allowlists, symbol limits or subaccount boundaries are reviewed where available.</li><li>Environment variable names and key ownership are included in the runbook.</li><li>Rotation, revocation and emergency pause steps are documented.</li></ul>
+        <h2>TradingView to IBKR scope checklist</h2>
+        <ul class="check-list"><li>Alert payload fields and event ID inputs are documented.</li><li>IBKR connection model, account permissions and order types are confirmed.</li><li>Manual pause, duplicate checks, max size and trading-hour checks run before order routing.</li><li>Submitted, rejected, canceled and partially filled order states are logged.</li><li>The handover includes environment variables, runtime notes, restart steps and acceptance examples.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
+      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API Key Permission Safety for Trading Bots | Read, Trade and Withdrawal Boundaries</title>
-  <meta name="description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <title>Binance API Trading Bot Risk Checklist | Keys, Limits, Orders and Logs</title>
+  <meta name="description" content="Binance API trading bot risk checklist covering API key permissions, product scope, rate limits, order filters, position limits, logs, alerts and handover.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <link rel="canonical" href="https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="API Key Permission Safety for Trading Bots">
-  <meta property="og:description" content="API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.">
+  <meta property="og:title" content="Binance API Trading Bot Risk Checklist">
+  <meta property="og:description" content="Binance API trading bot risk checklist covering API key permissions, product scope, rate limits, order filters, position limits, logs, alerts and handover.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/trading-bot-api-key-permission-safety/">
+  <meta property="og:url" content="https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#webpage",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
-      "name": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
+      "@id": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/#webpage",
+      "url": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/",
+      "name": "Binance API Trading Bot Risk Checklist",
+      "description": "Binance API trading bot risk checklist covering API key permissions, product scope, rate limits, order filters, position limits, logs, alerts and handover.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#breadcrumb",
+      "@id": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "API Key Permission Safety",
-          "item": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/"
+          "name": "Binance API Risk Checklist",
+          "item": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/#article",
-      "headline": "API Key Permission Safety for Trading Bots",
-      "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
-      "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
+      "@id": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/#article",
+      "headline": "Binance API Trading Bot Risk Checklist",
+      "description": "Binance API trading bot risk checklist covering API key permissions, product scope, rate limits, order filters, position limits, logs, alerts and handover.",
+      "url": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>API Key Permission Safety</span>
+      <span>Binance API Risk Checklist</span>
     </nav>
-      <p class="eyebrow">API Safety</p>
-      <h1>API Key Permission Safety for Trading Bots</h1>
-      <p class="hero-lede">API permission design is part of trading automation delivery. A client should understand which permissions are needed, which permissions should be avoided and how keys are rotated after handover.</p>
+      <p class="eyebrow">Exchange API</p>
+      <h1>Binance API Trading Bot Risk Checklist</h1>
+      <p class="hero-lede">A Binance API trading bot scope should start with permissions, product boundaries and operational checks. The engineering task is to make order behavior, risk decisions, API errors and handover evidence visible before any higher-permission rollout.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+      <p class="article-summary">A Binance API trading bot risk checklist should review API key permissions, product scope, rate limits, order filters, position limits, idempotency, logs, alerts and key rotation.</p>
       <section>
-        <h2>Separate read-only evaluation from live routing</h2>
-        <p>Many projects can start with read-only permission to inspect balances, positions, open orders and account capability. Live trade permission should be added only after the workflow, risk limits, logs and acceptance tests are clear.</p>
-        <ul class="check-list"><li>Read-only access is enough for many feasibility checks.</li><li>Trade access should be tied to a specific scope.</li><li>Admin, withdrawal and transfer permissions should stay out of the software delivery path.</li></ul>
+        <h2>Start with permissions and product scope</h2>
+        <p>The project should identify whether the workflow touches spot, margin, futures or another product before implementation. API keys should use the minimum permissions needed for the first scope, and withdrawal or transfer authority should stay outside the automation path.</p>
+        <ul class="check-list"><li>Separate read-only evaluation from trade permission.</li><li>Document product scope and symbols before routing orders.</li><li>Use dedicated project keys where the platform and account policy allow it.</li></ul>
       </section><section>
-        <h2>Constrain the execution key</h2>
-        <p>When trade permission is needed, the key should be restricted wherever the platform allows it. IP allowlists, product allowlists, subaccount isolation, symbol limits and order-size limits reduce the blast radius of mistakes.</p>
-        <ul class="check-list"><li>Use a dedicated key for one project when possible.</li><li>Avoid sharing personal master credentials.</li><li>Document which account owner can revoke or rotate the key.</li></ul>
+        <h2>Design around filters, limits and retries</h2>
+        <p>Exchange APIs can reject orders because of precision, minimum notional, order type, rate limits, trading status or account constraints. The system should normalize inputs, classify rejects and avoid blind retry loops that repeat unsafe orders.</p>
+        <ul class="check-list"><li>Validate quantity, price precision and minimum notional before sending.</li><li>Classify rate_limit, filter_reject, permission_error and api_error separately.</li><li>Cap retries and send alerts when human review is needed.</li></ul>
       </section><section>
-        <h2>Make rotation part of handover</h2>
-        <p>A finished project should not leave key handling as informal chat history. The runbook should explain environment variable names, key owner, rotation timing, revoke path, alert owner and which logs prove a key was changed.</p>
-        <ul class="check-list"><li>Never write secrets into public logs or screenshots.</li><li>Rotate keys after external delivery when the client requires it.</li><li>Keep secret names in docs, not secret values.</li></ul>
+        <h2>Make every risk decision reviewable</h2>
+        <p>The operator should be able to review which signal arrived, what the system intended to do, which risk rule passed or rejected it, and what the exchange returned. Logs and alerts are part of the core delivery, not an optional afterthought.</p>
+        <ul class="check-list"><li>Store signal ID, client order ID, symbol, side, size and risk decision.</li><li>Use manual pause above order routing.</li><li>Document key rotation and emergency revoke steps in the handover.</li></ul>
       </section>
       <section>
-        <h2>API key handover checklist</h2>
-        <ul class="check-list"><li>Read, trade, transfer, withdrawal and admin permissions are documented separately.</li><li>Withdrawal and transfer permissions are not required for the automation scope.</li><li>IP allowlists, symbol limits or subaccount boundaries are reviewed where available.</li><li>Environment variable names and key ownership are included in the runbook.</li><li>Rotation, revocation and emergency pause steps are documented.</li></ul>
+        <h2>Exchange API acceptance checklist</h2>
+        <ul class="check-list"><li>Product scope, symbols, order types and permissions are documented.</li><li>Withdrawal, transfer and unrelated admin permissions are excluded.</li><li>Precision, minimum notional, rate limit and unsupported-order cases are tested.</li><li>Duplicate signal, stale signal, risk reject and API reject paths are logged.</li><li>The client receives runbook notes for pause, key rotation, restart and alert review.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
+      <a href="https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information" rel="noopener" target="_blank"><strong>Binance Developer Docs</strong><span>Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>

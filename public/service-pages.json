@@ -193,6 +193,21 @@
       "label": "Hire a Trading API Developer: Scope Checklist",
       "url": "https://pddjf.com/articles/hire-trading-api-developer-scope-checklist/",
       "summary": "Before hiring a trading API developer, define the signal source, target broker or exchange API, permission state, order flow, risk controls, logs, deployment target, budget tier and acceptance owner."
+    },
+    {
+      "label": "TradingView Webhook to IBKR Order Workflow",
+      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
+      "summary": "A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs."
+    },
+    {
+      "label": "Binance API Trading Bot Risk Checklist",
+      "url": "https://pddjf.com/articles/binance-api-trading-bot-risk-checklist/",
+      "summary": "A Binance API trading bot risk checklist should review API key permissions, product scope, rate limits, order filters, position limits, idempotency, logs, alerts and key rotation."
+    },
+    {
+      "label": "Broker API Order Reconciliation Checklist",
+      "url": "https://pddjf.com/articles/broker-api-order-reconciliation-checklist/",
+      "summary": "Broker API order reconciliation should connect signals, order intents, broker order IDs, fills, cancels, rejects, positions, exception queues and exportable audit logs."
     }
   ]
 }
