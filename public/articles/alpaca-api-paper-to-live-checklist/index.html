@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
-  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <title>Alpaca API Paper to Live Checklist | Orders, Data, Risk and Handover</title>
+  <meta name="description" content="Alpaca API paper-to-live automation checklist covering API keys, base URLs, market data, order status streams, risk limits, logs and rollout.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <link rel="canonical" href="https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
-  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <meta property="og:title" content="Alpaca API Paper to Live Checklist">
+  <meta property="og:description" content="Alpaca API paper-to-live automation checklist covering API keys, base URLs, market data, order status streams, risk limits, logs and rollout.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <meta property="og:url" content="https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
-      "name": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "@id": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/#webpage",
+      "url": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/",
+      "name": "Alpaca API Paper to Live Checklist",
+      "description": "Alpaca API paper-to-live automation checklist covering API keys, base URLs, market data, order status streams, risk limits, logs and rollout.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
+      "@id": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Automated Strategy Risk Checklist",
-          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
+          "name": "Alpaca API Paper to Live Checklist",
+          "item": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
-      "headline": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "@id": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/#article",
+      "headline": "Alpaca API Paper to Live Checklist",
+      "description": "Alpaca API paper-to-live automation checklist covering API keys, base URLs, market data, order status streams, risk limits, logs and rollout.",
+      "url": "https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Automated Strategy Risk Checklist</span>
+      <span>Alpaca API Paper to Live Checklist</span>
     </nav>
-      <p class="eyebrow">Risk Controls</p>
-      <h1>Automated Trading Strategy Risk Checklist</h1>
-      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
+      <p class="eyebrow">Alpaca API</p>
+      <h1>Alpaca API Paper to Live Checklist</h1>
+      <p class="hero-lede">Alpaca API automation often starts in paper trading, but a paper workflow is not automatically ready for live execution. The transition needs explicit checks around keys, base URLs, market data, order behavior, risk rules and operator handoff.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+      <p class="article-summary">An Alpaca API paper-to-live checklist should verify key separation, base URLs, data permissions, order types, market hours, order status streams, risk limits, logs and manual pause behavior.</p>
       <section>
-        <h2>Set hard limits before strategy logic</h2>
-        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
-        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
+        <h2>Separate environments deliberately</h2>
+        <p>Paper and live environments should use different keys, base URLs, logs and deployment notes. The system should make the active environment visible so the operator does not confuse a test run with live routing.</p>
+        <ul class="check-list"><li>Name environment variables clearly.</li><li>Log paper or live mode in every order-intent record.</li><li>Keep deployment and rollback steps separate for each environment.</li></ul>
       </section><section>
-        <h2>Turn failure modes into tests</h2>
-        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
-        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
+        <h2>Verify order and data behavior</h2>
+        <p>Before live routing, confirm the asset class, market data permission, order types, trading hours, order precision and status stream behavior. A paper order acceptance does not prove every live order path will behave the same.</p>
+        <ul class="check-list"><li>Test submitted, filled, canceled, rejected and partially filled states.</li><li>Check market-open and market-closed behavior.</li><li>Confirm WebSocket reconnect and status reconciliation.</li></ul>
       </section><section>
-        <h2>Handoff should include operations, not only code</h2>
-        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
-        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
+        <h2>Use staged authority</h2>
+        <p>The live transition should begin with limited symbols, limited size, manual pause and a small set of acceptance cases. Only increase authority after logs, alerts, restart and rollback paths are proven.</p>
+        <ul class="check-list"><li>Manual pause should block routing before API calls.</li><li>Risk rejects should show a visible reason.</li><li>Returns are not the acceptance criterion.</li></ul>
       </section>
       <section>
-        <h2>Pre-launch risk acceptance checklist</h2>
-        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
+        <h2>Paper-to-live readiness checklist</h2>
+        <ul class="check-list"><li>Paper and live API keys, base URLs and logs are separated.</li><li>Market data, asset class, order type and trading-hour constraints are known.</li><li>Submitted, filled, rejected, canceled and partial-fill states are tested.</li><li>Manual pause, max size and symbol allowlist rules are active.</li><li>Restart, rollback, alert delivery and key rotation are in the handover.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a>
+      <a href="https://docs.alpaca.markets/us/" rel="noopener" target="_blank"><strong>Alpaca Docs</strong><span>Alpaca 官方 API 文档入口。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>

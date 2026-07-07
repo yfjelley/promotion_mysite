@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
-  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <title>FIX API UAT Checklist Before Production | Sessions, Reports and Recovery</title>
+  <meta name="description" content="FIX API UAT checklist before production, covering Logon, Heartbeat, NewOrderSingle, ExecutionReport, Reject, reconnects, sequence recovery and audit logs.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <link rel="canonical" href="https://pddjf.com/articles/fix-api-uat-checklist-before-production/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
-  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <meta property="og:title" content="FIX API UAT Checklist Before Production">
+  <meta property="og:description" content="FIX API UAT checklist before production, covering Logon, Heartbeat, NewOrderSingle, ExecutionReport, Reject, reconnects, sequence recovery and audit logs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <meta property="og:url" content="https://pddjf.com/articles/fix-api-uat-checklist-before-production/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
-      "name": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "@id": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/#webpage",
+      "url": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/",
+      "name": "FIX API UAT Checklist Before Production",
+      "description": "FIX API UAT checklist before production, covering Logon, Heartbeat, NewOrderSingle, ExecutionReport, Reject, reconnects, sequence recovery and audit logs.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
+      "@id": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Automated Strategy Risk Checklist",
-          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
+          "name": "FIX API UAT Checklist",
+          "item": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
-      "headline": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "@id": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/#article",
+      "headline": "FIX API UAT Checklist Before Production",
+      "description": "FIX API UAT checklist before production, covering Logon, Heartbeat, NewOrderSingle, ExecutionReport, Reject, reconnects, sequence recovery and audit logs.",
+      "url": "https://pddjf.com/articles/fix-api-uat-checklist-before-production/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Automated Strategy Risk Checklist</span>
+      <span>FIX API UAT Checklist</span>
     </nav>
-      <p class="eyebrow">Risk Controls</p>
-      <h1>Automated Trading Strategy Risk Checklist</h1>
-      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
+      <p class="eyebrow">FIX API</p>
+      <h1>FIX API UAT Checklist Before Production</h1>
+      <p class="hero-lede">FIX API production readiness depends on UAT evidence. The system should prove session behavior, message mapping, order lifecycle, rejects, disconnect recovery, sequence handling and audit logs before live order flow.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+      <p class="article-summary">A FIX API UAT checklist should validate Logon, Heartbeat, NewOrderSingle, Cancel, ExecutionReport, Reject, disconnect recovery, sequence behavior, raw message logs and operator pause.</p>
       <section>
-        <h2>Set hard limits before strategy logic</h2>
-        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
-        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
+        <h2>Test session lifecycle first</h2>
+        <p>Before order routing, UAT should cover Logon, Heartbeat, TestRequest, Logout, disconnect, reconnect, sequence recovery and any counterparty-specific session rules. Session evidence reduces production ambiguity.</p>
+        <ul class="check-list"><li>Record SenderCompID, TargetCompID and sequence behavior.</li><li>Know when sequence reset is allowed.</li><li>Pause routing until session state is reconciled.</li></ul>
       </section><section>
-        <h2>Turn failure modes into tests</h2>
-        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
-        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
+        <h2>Map order messages and reports</h2>
+        <p>NewOrderSingle and Cancel messages should be matched to ExecutionReport, Reject and CancelReject responses. Internal order state should be driven by reports, not only by local socket writes.</p>
+        <ul class="check-list"><li>Link ClOrdID, OrderID, ExecID, OrdStatus and ExecType.</li><li>Store raw FIX messages and normalized order state.</li><li>Make rejects and cancel failures visible to operators.</li></ul>
       </section><section>
-        <h2>Handoff should include operations, not only code</h2>
-        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
-        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
+        <h2>Rehearse production support</h2>
+        <p>A UAT package should include sample logs, reject examples, restart steps, pause behavior, runbook notes and exportable audit records. The client should know how to inspect an order lifecycle without reading raw code.</p>
+        <ul class="check-list"><li>Export raw messages for support when needed.</li><li>Classify session errors separately from order rejects.</li><li>Keep certificates and network details in secure handover notes.</li></ul>
       </section>
       <section>
-        <h2>Pre-launch risk acceptance checklist</h2>
-        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
+        <h2>FIX UAT acceptance checklist</h2>
+        <ul class="check-list"><li>Logon, Heartbeat, TestRequest, Logout and reconnect paths are tested.</li><li>NewOrderSingle, Cancel, ExecutionReport, Reject and CancelReject are mapped.</li><li>Sequence recovery and resend behavior are demonstrated.</li><li>Raw messages and normalized order logs are linked by order ID.</li><li>Manual pause, restart and production support notes are included.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a>
+      <a href="https://fixtrading.org/standards/fix-protocol/" rel="noopener" target="_blank"><strong>FIX Trading Community</strong><span>FIX Trading Community 的 FIX Protocol 标准介绍。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>FIX platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a>
     </div>
       </section>
       <section>

@@ -3,10 +3,10 @@ import { dirname, join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
-const today = "2026-07-05";
+const today = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260705-brief";
-const scriptHref = "/scripts.js?v=20260705-brief";
+const stylesheetHref = "/styles.css?v=20260707-organic";
+const scriptHref = "/scripts.js?v=20260707-organic";
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -1222,6 +1222,328 @@ const articlePages = [
       officialReferenceLinks[1],
       officialReferenceLinks[4],
       ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
+  },
+  {
+    slug: "articles/tradingview-alert-payload-template",
+    lang: "en",
+    breadcrumb: "TradingView Alert Payload Template",
+    eyebrow: "Payload Template",
+    title: "TradingView Alert Payload Template | Webhook Fields for Safe Automation",
+    description: "A TradingView alert payload template for webhook automation, covering strategy version, symbol, action, event ID, secret validation, risk profile and audit logs.",
+    h1: "TradingView Alert Payload Template",
+    intro: "A TradingView alert payload should be designed like an interface contract. If the payload only says buy or sell, the receiver cannot reliably prevent duplicates, route orders, apply risk checks or explain what happened later.",
+    summary: "A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, shared secret, risk profile and audit fields.",
+    sections: [
+      {
+        title: "Fields that make a signal auditable",
+        body: "The receiver needs enough context to understand one trading intent. Include strategy name, strategy version, symbol, action, side, size model, timeframe, signal time, bar time and a customer-visible risk profile. These fields allow the system to produce an event log that a client can review.",
+        bullets: ["Use explicit actions such as enter_long, exit_long, reduce_only or cancel.", "Include strategy_version when the Pine Script or rule set changes.", "Keep account identifiers and secrets out of public examples."]
+      },
+      {
+        title: "Fields that prevent duplicate execution",
+        body: "The payload should provide stable inputs for an event ID. A common pattern combines strategy, symbol, action, timeframe and bar time, then stores the result before order routing. The system can then treat repeated delivery as a duplicate event instead of a new order.",
+        bullets: ["Do not generate a random ID inside every retry.", "Group cooldown rules by strategy, symbol and action.", "Log duplicate events with a duplicate_signal reason."]
+      },
+      {
+        title: "Fields that support risk review",
+        body: "Risk controls need visible context. The payload should allow the receiver to compare intended size, current position, max position, reduce-only status, price protection and manual pause state before any third-party API call is made.",
+        bullets: ["Use size_model instead of hard-coding every quantity in the service.", "Record risk_profile and rule version in logs.", "Never make profit results the software acceptance criterion."]
+      }
+    ],
+    checklistTitle: "Payload fields to include",
+    checklist: [
+      "strategy, strategy_version, symbol, timeframe and signal_time are present.",
+      "action, side and size_model are explicit enough for order-intent generation.",
+      "bar_time or equivalent event ID input is stable across retries.",
+      "secret validation is configured, but secrets are not logged or published.",
+      "risk_profile, customer note and alert version are visible in audit logs."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
+  },
+  {
+    slug: "articles/api-key-permission-safety-for-trading-bots",
+    lang: "en",
+    breadcrumb: "API Key Permission Safety",
+    eyebrow: "API Safety",
+    title: "API Key Permission Safety for Trading Bots | Read, Trade and Withdrawal Boundaries",
+    description: "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
+    h1: "API Key Permission Safety for Trading Bots",
+    intro: "API permission design is part of trading automation delivery. A client should understand which permissions are needed, which permissions should be avoided and how keys are rotated after handover.",
+    summary: "Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.",
+    sections: [
+      {
+        title: "Separate read-only evaluation from live routing",
+        body: "Many projects can start with read-only permission to inspect balances, positions, open orders and account capability. Live trade permission should be added only after the workflow, risk limits, logs and acceptance tests are clear.",
+        bullets: ["Read-only access is enough for many feasibility checks.", "Trade access should be tied to a specific scope.", "Admin, withdrawal and transfer permissions should stay out of the software delivery path."]
+      },
+      {
+        title: "Constrain the execution key",
+        body: "When trade permission is needed, the key should be restricted wherever the platform allows it. IP allowlists, product allowlists, subaccount isolation, symbol limits and order-size limits reduce the blast radius of mistakes.",
+        bullets: ["Use a dedicated key for one project when possible.", "Avoid sharing personal master credentials.", "Document which account owner can revoke or rotate the key."]
+      },
+      {
+        title: "Make rotation part of handover",
+        body: "A finished project should not leave key handling as informal chat history. The runbook should explain environment variable names, key owner, rotation timing, revoke path, alert owner and which logs prove a key was changed.",
+        bullets: ["Never write secrets into public logs or screenshots.", "Rotate keys after external delivery when the client requires it.", "Keep secret names in docs, not secret values."]
+      }
+    ],
+    checklistTitle: "API key handover checklist",
+    checklist: [
+      "Read, trade, transfer, withdrawal and admin permissions are documented separately.",
+      "Withdrawal and transfer permissions are not required for the automation scope.",
+      "IP allowlists, symbol limits or subaccount boundaries are reviewed where available.",
+      "Environment variable names and key ownership are included in the runbook.",
+      "Rotation, revocation and emergency pause steps are documented."
+    ],
+    references: [
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/alpaca-api-paper-to-live-checklist",
+    lang: "en",
+    breadcrumb: "Alpaca API Paper to Live Checklist",
+    eyebrow: "Alpaca API",
+    title: "Alpaca API Paper to Live Checklist | Orders, Data, Risk and Handover",
+    description: "Alpaca API paper-to-live automation checklist covering API keys, base URLs, market data, order status streams, risk limits, logs and rollout.",
+    h1: "Alpaca API Paper to Live Checklist",
+    intro: "Alpaca API automation often starts in paper trading, but a paper workflow is not automatically ready for live execution. The transition needs explicit checks around keys, base URLs, market data, order behavior, risk rules and operator handoff.",
+    summary: "An Alpaca API paper-to-live checklist should verify key separation, base URLs, data permissions, order types, market hours, order status streams, risk limits, logs and manual pause behavior.",
+    sections: [
+      {
+        title: "Separate environments deliberately",
+        body: "Paper and live environments should use different keys, base URLs, logs and deployment notes. The system should make the active environment visible so the operator does not confuse a test run with live routing.",
+        bullets: ["Name environment variables clearly.", "Log paper or live mode in every order-intent record.", "Keep deployment and rollback steps separate for each environment."]
+      },
+      {
+        title: "Verify order and data behavior",
+        body: "Before live routing, confirm the asset class, market data permission, order types, trading hours, order precision and status stream behavior. A paper order acceptance does not prove every live order path will behave the same.",
+        bullets: ["Test submitted, filled, canceled, rejected and partially filled states.", "Check market-open and market-closed behavior.", "Confirm WebSocket reconnect and status reconciliation."]
+      },
+      {
+        title: "Use staged authority",
+        body: "The live transition should begin with limited symbols, limited size, manual pause and a small set of acceptance cases. Only increase authority after logs, alerts, restart and rollback paths are proven.",
+        bullets: ["Manual pause should block routing before API calls.", "Risk rejects should show a visible reason.", "Returns are not the acceptance criterion."]
+      }
+    ],
+    checklistTitle: "Paper-to-live readiness checklist",
+    checklist: [
+      "Paper and live API keys, base URLs and logs are separated.",
+      "Market data, asset class, order type and trading-hour constraints are known.",
+      "Submitted, filled, rejected, canceled and partial-fill states are tested.",
+      "Manual pause, max size and symbol allowlist rules are active.",
+      "Restart, rollback, alert delivery and key rotation are in the handover."
+    ],
+    references: [
+      officialReferenceLinks[3],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/schwab-trader-api-oauth-automation-checklist",
+    lang: "en",
+    breadcrumb: "Schwab Trader API OAuth Checklist",
+    eyebrow: "Schwab API",
+    title: "Schwab Trader API OAuth Automation Checklist | Tokens, Accounts and Order Logs",
+    description: "Schwab Trader API automation checklist for OAuth, token refresh, account scope, order requests, status sync, error handling and handover.",
+    h1: "Schwab Trader API OAuth Automation Checklist",
+    intro: "Schwab Trader API automation should be scoped around authorization, account visibility, token lifecycle, order capability, status sync and handover. A first successful token exchange is only the beginning.",
+    summary: "A Schwab Trader API automation checklist should confirm OAuth scopes, token refresh, account visibility, order capability, reject handling, logs, reauthorization and operator ownership.",
+    sections: [
+      {
+        title: "Confirm authorization ownership",
+        body: "OAuth work should identify the account owner, app owner, redirect URI, requested scopes, token storage, refresh behavior and reauthorization path. The operator needs to know who can reconnect the integration when authorization expires.",
+        bullets: ["Separate test and production app notes where possible.", "Do not log access tokens or authorization codes.", "Document token expiry and reauthorization alerts."]
+      },
+      {
+        title: "Map account and order capability",
+        body: "The project should confirm which accounts are visible, which instruments and order types are intended, and which endpoints are available to the customer's account. Do not assume every desired workflow is available until tested.",
+        bullets: ["List account identifiers without exposing them publicly.", "Test order preview or order request behavior in the agreed scope.", "Record reject and error fields in logs."]
+      },
+      {
+        title: "Build a handoff-friendly lifecycle",
+        body: "A maintainable automation should make authorization state, order state, rejects, token failures and restart steps visible. The client should be able to understand whether a problem is authorization, permission, order validation or platform availability.",
+        bullets: ["Classify auth_error, permission_error, order_reject and api_error separately.", "Keep manual pause above order routing.", "Include revoke and reconnect steps in the runbook."]
+      }
+    ],
+    checklistTitle: "Schwab API automation checklist",
+    checklist: [
+      "OAuth app owner, redirect URI, scopes and token storage are documented.",
+      "Account visibility, target instruments and order types are confirmed.",
+      "Refresh failure, revoked authorization and reauthorization are tested.",
+      "Order rejects and API errors are classified in logs.",
+      "Manual pause, restart and credential rotation steps are included in handover."
+    ],
+    references: [
+      officialReferenceLinks[2],
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/fix-api-uat-checklist-before-production",
+    lang: "en",
+    breadcrumb: "FIX API UAT Checklist",
+    eyebrow: "FIX API",
+    title: "FIX API UAT Checklist Before Production | Sessions, Reports and Recovery",
+    description: "FIX API UAT checklist before production, covering Logon, Heartbeat, NewOrderSingle, ExecutionReport, Reject, reconnects, sequence recovery and audit logs.",
+    h1: "FIX API UAT Checklist Before Production",
+    intro: "FIX API production readiness depends on UAT evidence. The system should prove session behavior, message mapping, order lifecycle, rejects, disconnect recovery, sequence handling and audit logs before live order flow.",
+    summary: "A FIX API UAT checklist should validate Logon, Heartbeat, NewOrderSingle, Cancel, ExecutionReport, Reject, disconnect recovery, sequence behavior, raw message logs and operator pause.",
+    sections: [
+      {
+        title: "Test session lifecycle first",
+        body: "Before order routing, UAT should cover Logon, Heartbeat, TestRequest, Logout, disconnect, reconnect, sequence recovery and any counterparty-specific session rules. Session evidence reduces production ambiguity.",
+        bullets: ["Record SenderCompID, TargetCompID and sequence behavior.", "Know when sequence reset is allowed.", "Pause routing until session state is reconciled."]
+      },
+      {
+        title: "Map order messages and reports",
+        body: "NewOrderSingle and Cancel messages should be matched to ExecutionReport, Reject and CancelReject responses. Internal order state should be driven by reports, not only by local socket writes.",
+        bullets: ["Link ClOrdID, OrderID, ExecID, OrdStatus and ExecType.", "Store raw FIX messages and normalized order state.", "Make rejects and cancel failures visible to operators."]
+      },
+      {
+        title: "Rehearse production support",
+        body: "A UAT package should include sample logs, reject examples, restart steps, pause behavior, runbook notes and exportable audit records. The client should know how to inspect an order lifecycle without reading raw code.",
+        bullets: ["Export raw messages for support when needed.", "Classify session errors separately from order rejects.", "Keep certificates and network details in secure handover notes."]
+      }
+    ],
+    checklistTitle: "FIX UAT acceptance checklist",
+    checklist: [
+      "Logon, Heartbeat, TestRequest, Logout and reconnect paths are tested.",
+      "NewOrderSingle, Cancel, ExecutionReport, Reject and CancelReject are mapped.",
+      "Sequence recovery and resend behavior are demonstrated.",
+      "Raw messages and normalized order logs are linked by order ID.",
+      "Manual pause, restart and production support notes are included."
+    ],
+    references: [
+      officialReferenceLinks[4],
+      ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/trading-bot-private-deployment-vps-docker-runbook",
+    lang: "en",
+    breadcrumb: "Private Deployment Runbook",
+    eyebrow: "Private Deployment",
+    title: "Trading Bot Private Deployment Runbook | VPS, Docker, Logs and Alerts",
+    description: "Private deployment runbook for trading bot systems, covering VPS setup, Docker, environment variables, logs, health checks, alerts, rollback and handover.",
+    h1: "Trading Bot Private Deployment Runbook",
+    intro: "Private deployment is valuable only if the client can operate the system after handover. The runbook should explain where the service runs, how it starts, how logs are reviewed, how alerts fire and how to stop or roll back safely.",
+    summary: "A trading bot private deployment runbook should document VPS or cloud ownership, Docker or process setup, environment variables, logs, health checks, alerts, pause controls, backup and rollback.",
+    sections: [
+      {
+        title: "Start with ownership and access boundaries",
+        body: "The client should own the server, cloud account and third-party accounts. The delivery should avoid requiring permanent developer access to production secrets unless a separate support scope exists.",
+        bullets: ["Document who owns the VPS or cloud account.", "Keep API secrets in environment variables or approved secret storage.", "Avoid sending master credentials through casual chat."]
+      },
+      {
+        title: "Make operations repeatable",
+        body: "The runbook should include installation, environment variables, start, stop, restart, health check, log location, alert destination, backup and rollback steps. A new operator should not need to reverse engineer the deployment.",
+        bullets: ["Use clear service names and paths.", "Document what healthy logs look like.", "Keep pause and rollback commands easy to find."]
+      },
+      {
+        title: "Accept the deployment with failure paths",
+        body: "Deployment acceptance should test restart, alert delivery, bad configuration, API failure, manual pause and rollback. The system is not ready if it only works once on the developer's machine.",
+        bullets: ["Test from a clean or documented environment.", "Verify logs after restart.", "Confirm the client can find alerts and runbook steps."]
+      }
+    ],
+    checklistTitle: "Private deployment handover checklist",
+    checklist: [
+      "Server owner, domain, process model and access boundary are documented.",
+      "Environment variables, service commands and log paths are written down.",
+      "Health checks, alerts, manual pause and restart behavior are tested.",
+      "Backup, rollback and key rotation steps are included.",
+      "The client receives source code, runbook and acceptance evidence."
+    ],
+    references: [
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."]
+    ]
+  },
+  {
+    slug: "articles/crypto-asset-reporting-reconciliation-checklist",
+    lang: "en",
+    breadcrumb: "Crypto Asset Reporting Checklist",
+    eyebrow: "Crypto Reporting",
+    title: "Crypto Asset Reporting Reconciliation Checklist | Wallets, Exchanges and Evidence",
+    description: "Crypto asset reporting reconciliation checklist for wallets, exchanges, CSV exports, read-only data, evidence trails, review workflows and private reporting.",
+    h1: "Crypto Asset Reporting Reconciliation Checklist",
+    intro: "Crypto asset reporting work should start with data sources and evidence boundaries. A useful reporting workflow reconciles wallets, exchange exports, balances, transactions and exceptions without asking for custody or trading authority.",
+    summary: "A crypto asset reporting reconciliation checklist should identify wallets, exchange exports, read-only data sources, balance snapshots, transaction evidence, exception queues and report handover boundaries.",
+    sections: [
+      {
+        title: "Inventory the data sources",
+        body: "The first step is listing wallets, exchanges, custodians, CSV exports, API exports, reporting periods and responsible reviewers. Each source needs an owner and a refresh method.",
+        bullets: ["Use read-only access or exports where possible.", "Record source, date range and snapshot time.", "Do not require withdrawal, transfer or custody permission."]
+      },
+      {
+        title: "Separate reconciliation from advice",
+        body: "A reporting system can organize evidence, detect missing records, compare balances and prepare review outputs. It should not be positioned as tax, legal, investment or custody advice unless qualified professionals are explicitly involved.",
+        bullets: ["Flag missing cost basis, missing transfer link or unmatched transaction.", "Keep manual review states visible.", "State the reporting boundary in the handover."]
+      },
+      {
+        title: "Make the output reviewable",
+        body: "Reports should show source files, transformation rules, balance snapshots, exception reasons and reviewer notes. The client should be able to trace a number back to its source without developer-only knowledge.",
+        bullets: ["Preserve raw exports separately from processed tables.", "Log import time, file name and row counts.", "Use exception queues for unmatched or ambiguous records."]
+      }
+    ],
+    checklistTitle: "Reporting workflow checklist",
+    checklist: [
+      "Wallets, exchange accounts, exports and reporting periods are listed.",
+      "Only read-only data, exports or customer-provided files are required.",
+      "Raw files, transformed tables and exception records are traceable.",
+      "Missing records, duplicate transfers and unmatched balances are reviewable.",
+      "The handover states reporting boundaries and reviewer ownership."
+    ],
+    references: [
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."],
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."]
+    ]
+  },
+  {
+    slug: "articles/hire-trading-api-developer-scope-checklist",
+    lang: "en",
+    breadcrumb: "Hire Trading API Developer Checklist",
+    eyebrow: "Buyer Checklist",
+    title: "Hire a Trading API Developer | Scope Checklist Before You Start",
+    description: "A buyer checklist for hiring a trading API developer, covering signal source, broker or exchange API, permissions, risk controls, logs, deployment and handover.",
+    h1: "Hire a Trading API Developer: Scope Checklist",
+    intro: "Hiring a trading API developer goes better when the project brief separates strategy logic, API capability, risk controls, deployment and handover. A clear brief prevents the work from turning into vague automation.",
+    summary: "Before hiring a trading API developer, define the signal source, target broker or exchange API, permission state, order flow, risk controls, logs, deployment target, budget tier and acceptance owner.",
+    sections: [
+      {
+        title: "Define the signal and execution boundary",
+        body: "The developer needs to know whether the signal comes from TradingView, research code, manual approval, a spreadsheet, a portfolio model or another system. The brief should say what becomes an order intent and what remains manual.",
+        bullets: ["List signal source, fields and trigger conditions.", "Separate strategy design from execution engineering.", "State whether the first release is dry-run, paper or limited live."]
+      },
+      {
+        title: "Confirm API and permission reality",
+        body: "Broker and exchange APIs differ by region, account type, order type, market data, rate limit and approval process. A serious scope starts from real account capability, not a generic claim that an API exists.",
+        bullets: ["Name the target API and account status.", "Document read, trade and excluded permissions.", "List order types, assets and trading hours."]
+      },
+      {
+        title: "Require handover assets",
+        body: "The project should end with source code, configuration examples, logs, runbook, restart steps, alert notes and acceptance cases. If the client cannot operate or inspect the system after delivery, the automation is incomplete.",
+        bullets: ["Ask for event logs, order logs and risk reject reasons.", "Require manual pause and rollback notes.", "Set acceptance on behavior, not returns."]
+      }
+    ],
+    checklistTitle: "Developer hiring brief checklist",
+    checklist: [
+      "Signal source, payload fields and trigger rules are documented.",
+      "Target broker, exchange or FIX API and permission state are known.",
+      "Risk rules, manual pause and order-size limits are defined.",
+      "Deployment target, logs, alerts and runbook expectations are clear.",
+      "Budget tier, timeline and acceptance owner are included in the brief."
+    ],
+    references: [
+      officialReferenceLinks[0],
+      officialReferenceLinks[1],
+      officialReferenceLinks[4],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
     ]
   }
 ];

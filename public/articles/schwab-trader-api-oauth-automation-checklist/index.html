@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
-  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <title>Schwab Trader API OAuth Automation Checklist | Tokens, Accounts and Order Logs</title>
+  <meta name="description" content="Schwab Trader API automation checklist for OAuth, token refresh, account scope, order requests, status sync, error handling and handover.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <link rel="canonical" href="https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
-  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <meta property="og:title" content="Schwab Trader API OAuth Automation Checklist">
+  <meta property="og:description" content="Schwab Trader API automation checklist for OAuth, token refresh, account scope, order requests, status sync, error handling and handover.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <meta property="og:url" content="https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
-      "name": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "@id": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/#webpage",
+      "url": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/",
+      "name": "Schwab Trader API OAuth Automation Checklist",
+      "description": "Schwab Trader API automation checklist for OAuth, token refresh, account scope, order requests, status sync, error handling and handover.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
+      "@id": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Automated Strategy Risk Checklist",
-          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
+          "name": "Schwab Trader API OAuth Checklist",
+          "item": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
-      "headline": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "@id": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/#article",
+      "headline": "Schwab Trader API OAuth Automation Checklist",
+      "description": "Schwab Trader API automation checklist for OAuth, token refresh, account scope, order requests, status sync, error handling and handover.",
+      "url": "https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Automated Strategy Risk Checklist</span>
+      <span>Schwab Trader API OAuth Checklist</span>
     </nav>
-      <p class="eyebrow">Risk Controls</p>
-      <h1>Automated Trading Strategy Risk Checklist</h1>
-      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
+      <p class="eyebrow">Schwab API</p>
+      <h1>Schwab Trader API OAuth Automation Checklist</h1>
+      <p class="hero-lede">Schwab Trader API automation should be scoped around authorization, account visibility, token lifecycle, order capability, status sync and handover. A first successful token exchange is only the beginning.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+      <p class="article-summary">A Schwab Trader API automation checklist should confirm OAuth scopes, token refresh, account visibility, order capability, reject handling, logs, reauthorization and operator ownership.</p>
       <section>
-        <h2>Set hard limits before strategy logic</h2>
-        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
-        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
+        <h2>Confirm authorization ownership</h2>
+        <p>OAuth work should identify the account owner, app owner, redirect URI, requested scopes, token storage, refresh behavior and reauthorization path. The operator needs to know who can reconnect the integration when authorization expires.</p>
+        <ul class="check-list"><li>Separate test and production app notes where possible.</li><li>Do not log access tokens or authorization codes.</li><li>Document token expiry and reauthorization alerts.</li></ul>
       </section><section>
-        <h2>Turn failure modes into tests</h2>
-        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
-        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
+        <h2>Map account and order capability</h2>
+        <p>The project should confirm which accounts are visible, which instruments and order types are intended, and which endpoints are available to the customer's account. Do not assume every desired workflow is available until tested.</p>
+        <ul class="check-list"><li>List account identifiers without exposing them publicly.</li><li>Test order preview or order request behavior in the agreed scope.</li><li>Record reject and error fields in logs.</li></ul>
       </section><section>
-        <h2>Handoff should include operations, not only code</h2>
-        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
-        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
+        <h2>Build a handoff-friendly lifecycle</h2>
+        <p>A maintainable automation should make authorization state, order state, rejects, token failures and restart steps visible. The client should be able to understand whether a problem is authorization, permission, order validation or platform availability.</p>
+        <ul class="check-list"><li>Classify auth_error, permission_error, order_reject and api_error separately.</li><li>Keep manual pause above order routing.</li><li>Include revoke and reconnect steps in the runbook.</li></ul>
       </section>
       <section>
-        <h2>Pre-launch risk acceptance checklist</h2>
-        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
+        <h2>Schwab API automation checklist</h2>
+        <ul class="check-list"><li>OAuth app owner, redirect URI, scopes and token storage are documented.</li><li>Account visibility, target instruments and order types are confirmed.</li><li>Refresh failure, revoked authorization and reauthorization are tested.</li><li>Order rejects and API errors are classified in logs.</li><li>Manual pause, restart and credential rotation steps are included in handover.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a>
+      <a href="https://developer.schwab.com/products/trader-api--individual" rel="noopener" target="_blank"><strong>Schwab Trader API</strong><span>Charles Schwab 官方 Trader API 产品入口。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>IBKR platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a>
     </div>
       </section>
       <section>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
-  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <title>Crypto Asset Reporting Reconciliation Checklist | Wallets, Exchanges and Evidence</title>
+  <meta name="description" content="Crypto asset reporting reconciliation checklist for wallets, exchanges, CSV exports, read-only data, evidence trails, review workflows and private reporting.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <link rel="canonical" href="https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
-  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <meta property="og:title" content="Crypto Asset Reporting Reconciliation Checklist">
+  <meta property="og:description" content="Crypto asset reporting reconciliation checklist for wallets, exchanges, CSV exports, read-only data, evidence trails, review workflows and private reporting.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <meta property="og:url" content="https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
-      "name": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "@id": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/#webpage",
+      "url": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/",
+      "name": "Crypto Asset Reporting Reconciliation Checklist",
+      "description": "Crypto asset reporting reconciliation checklist for wallets, exchanges, CSV exports, read-only data, evidence trails, review workflows and private reporting.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
+      "@id": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Automated Strategy Risk Checklist",
-          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
+          "name": "Crypto Asset Reporting Checklist",
+          "item": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
-      "headline": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "@id": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/#article",
+      "headline": "Crypto Asset Reporting Reconciliation Checklist",
+      "description": "Crypto asset reporting reconciliation checklist for wallets, exchanges, CSV exports, read-only data, evidence trails, review workflows and private reporting.",
+      "url": "https://pddjf.com/articles/crypto-asset-reporting-reconciliation-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,31 +134,31 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Automated Strategy Risk Checklist</span>
+      <span>Crypto Asset Reporting Checklist</span>
     </nav>
-      <p class="eyebrow">Risk Controls</p>
-      <h1>Automated Trading Strategy Risk Checklist</h1>
-      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
+      <p class="eyebrow">Crypto Reporting</p>
+      <h1>Crypto Asset Reporting Reconciliation Checklist</h1>
+      <p class="hero-lede">Crypto asset reporting work should start with data sources and evidence boundaries. A useful reporting workflow reconciles wallets, exchange exports, balances, transactions and exceptions without asking for custody or trading authority.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+      <p class="article-summary">A crypto asset reporting reconciliation checklist should identify wallets, exchange exports, read-only data sources, balance snapshots, transaction evidence, exception queues and report handover boundaries.</p>
       <section>
-        <h2>Set hard limits before strategy logic</h2>
-        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
-        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
+        <h2>Inventory the data sources</h2>
+        <p>The first step is listing wallets, exchanges, custodians, CSV exports, API exports, reporting periods and responsible reviewers. Each source needs an owner and a refresh method.</p>
+        <ul class="check-list"><li>Use read-only access or exports where possible.</li><li>Record source, date range and snapshot time.</li><li>Do not require withdrawal, transfer or custody permission.</li></ul>
       </section><section>
-        <h2>Turn failure modes into tests</h2>
-        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
-        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
+        <h2>Separate reconciliation from advice</h2>
+        <p>A reporting system can organize evidence, detect missing records, compare balances and prepare review outputs. It should not be positioned as tax, legal, investment or custody advice unless qualified professionals are explicitly involved.</p>
+        <ul class="check-list"><li>Flag missing cost basis, missing transfer link or unmatched transaction.</li><li>Keep manual review states visible.</li><li>State the reporting boundary in the handover.</li></ul>
       </section><section>
-        <h2>Handoff should include operations, not only code</h2>
-        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
-        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
+        <h2>Make the output reviewable</h2>
+        <p>Reports should show source files, transformation rules, balance snapshots, exception reasons and reviewer notes. The client should be able to trace a number back to its source without developer-only knowledge.</p>
+        <ul class="check-list"><li>Preserve raw exports separately from processed tables.</li><li>Log import time, file name and row counts.</li><li>Use exception queues for unmatched or ambiguous records.</li></ul>
       </section>
       <section>
-        <h2>Pre-launch risk acceptance checklist</h2>
-        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
+        <h2>Reporting workflow checklist</h2>
+        <ul class="check-list"><li>Wallets, exchange accounts, exports and reporting periods are listed.</li><li>Only read-only data, exports or customer-provided files are required.</li><li>Raw files, transformed tables and exception records are traceable.</li><li>Missing records, duplicate transfers and unmatched balances are reviewable.</li><li>The handover states reporting boundaries and reviewer ownership.</li></ul>
       </section>
       <section>
         <h2>References</h2>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automated Trading Strategy Risk Checklist | Before Connecting Real Order Permissions</title>
-  <meta name="description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <title>Trading Bot Private Deployment Runbook | VPS, Docker, Logs and Alerts</title>
+  <meta name="description" content="Private deployment runbook for trading bot systems, covering VPS setup, Docker, environment variables, logs, health checks, alerts, rollback and handover.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <link rel="canonical" href="https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Automated Trading Strategy Risk Checklist">
-  <meta property="og:description" content="A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.">
+  <meta property="og:title" content="Trading Bot Private Deployment Runbook">
+  <meta property="og:description" content="Private deployment runbook for trading bot systems, covering VPS setup, Docker, environment variables, logs, health checks, alerts, rollback and handover.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/automated-trading-strategy-risk-checklist/">
+  <meta property="og:url" content="https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#webpage",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
-      "name": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
+      "@id": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/#webpage",
+      "url": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/",
+      "name": "Trading Bot Private Deployment Runbook",
+      "description": "Private deployment runbook for trading bot systems, covering VPS setup, Docker, environment variables, logs, health checks, alerts, rollback and handover.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#breadcrumb",
+      "@id": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Automated Strategy Risk Checklist",
-          "item": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/"
+          "name": "Private Deployment Runbook",
+          "item": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/#article",
-      "headline": "Automated Trading Strategy Risk Checklist",
-      "description": "A pre-launch risk checklist for automated trading strategies, including API permissions, manual pause, max position, duplicate signals, market hours, alerts and rollback.",
-      "url": "https://pddjf.com/articles/automated-trading-strategy-risk-checklist/",
+      "@id": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/#article",
+      "headline": "Trading Bot Private Deployment Runbook",
+      "description": "Private deployment runbook for trading bot systems, covering VPS setup, Docker, environment variables, logs, health checks, alerts, rollback and handover.",
+      "url": "https://pddjf.com/articles/trading-bot-private-deployment-vps-docker-runbook/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>Automated Strategy Risk Checklist</span>
+      <span>Private Deployment Runbook</span>
     </nav>
-      <p class="eyebrow">Risk Controls</p>
-      <h1>Automated Trading Strategy Risk Checklist</h1>
-      <p class="hero-lede">Before a strategy gets real order permissions, the system should prove that it can reject unsafe signals, stop on command, log every decision and recover from common API failures.</p>
+      <p class="eyebrow">Private Deployment</p>
+      <h1>Trading Bot Private Deployment Runbook</h1>
+      <p class="hero-lede">Private deployment is valuable only if the client can operate the system after handover. The runbook should explain where the service runs, how it starts, how logs are reviewed, how alerts fire and how to stop or roll back safely.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+      <p class="article-summary">A trading bot private deployment runbook should document VPS or cloud ownership, Docker or process setup, environment variables, logs, health checks, alerts, pause controls, backup and rollback.</p>
       <section>
-        <h2>Set hard limits before strategy logic</h2>
-        <p>Risk checks should sit above the strategy. Even if the strategy says to enter, the system should reject requests that break max position, max order size, market hours, symbol allowlist, price protection or manual pause rules.</p>
-        <ul class="check-list"><li>Manual pause should override every strategy signal.</li><li>API keys should not include withdrawal or transfer permission.</li><li>Symbol and order-type allowlists reduce accidental routing risk.</li></ul>
+        <h2>Start with ownership and access boundaries</h2>
+        <p>The client should own the server, cloud account and third-party accounts. The delivery should avoid requiring permanent developer access to production secrets unless a separate support scope exists.</p>
+        <ul class="check-list"><li>Document who owns the VPS or cloud account.</li><li>Keep API secrets in environment variables or approved secret storage.</li><li>Avoid sending master credentials through casual chat.</li></ul>
       </section><section>
-        <h2>Turn failure modes into tests</h2>
-        <p>A launch checklist should include duplicate payloads, stale signals, wrong secrets, missing permissions, API timeout, market closed, unsupported order type, reject response and reconnect behavior.</p>
-        <ul class="check-list"><li>Every reject needs a visible risk reason.</li><li>Alerts should distinguish risk_rejected from api_error.</li><li>Sample payload replay is more useful than a vague manual review.</li></ul>
+        <h2>Make operations repeatable</h2>
+        <p>The runbook should include installation, environment variables, start, stop, restart, health check, log location, alert destination, backup and rollback steps. A new operator should not need to reverse engineer the deployment.</p>
+        <ul class="check-list"><li>Use clear service names and paths.</li><li>Document what healthy logs look like.</li><li>Keep pause and rollback commands easy to find.</li></ul>
       </section><section>
-        <h2>Handoff should include operations, not only code</h2>
-        <p>The client should receive source code, configuration examples, environment notes, restart steps, rollback steps, key rotation guidance, alert destinations and a way to inspect order and risk logs.</p>
-        <ul class="check-list"><li>Returns are not the acceptance criterion.</li><li>Start with paper, test or limited live scope where possible.</li><li>Document who can pause, restart and rotate keys.</li></ul>
+        <h2>Accept the deployment with failure paths</h2>
+        <p>Deployment acceptance should test restart, alert delivery, bad configuration, API failure, manual pause and rollback. The system is not ready if it only works once on the developer's machine.</p>
+        <ul class="check-list"><li>Test from a clean or documented environment.</li><li>Verify logs after restart.</li><li>Confirm the client can find alerts and runbook steps.</li></ul>
       </section>
       <section>
-        <h2>Pre-launch risk acceptance checklist</h2>
-        <ul class="check-list"><li>Read, trade and admin permissions are scoped separately.</li><li>Manual pause prevents order routing before any third-party API call.</li><li>Duplicate, stale and malformed signals are rejected and logged.</li><li>Max position, max order size, market-hours and price-protection checks are tested.</li><li>Restart, rollback, alert delivery and key rotation are documented.</li></ul>
+        <h2>Private deployment handover checklist</h2>
+        <ul class="check-list"><li>Server owner, domain, process model and access boundary are documented.</li><li>Environment variables, service commands and log paths are written down.</li><li>Health checks, alerts, manual pause and restart behavior are tested.</li><li>Backup, rollback and key rotation steps are included.</li><li>The client receives source code, runbook and acceptance evidence.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/api-key-permissions.md" rel="noopener" target="_blank"><strong>API key permission notes</strong><span>SignalCraft Labs public notes for minimum API key permissions.</span></a>
+      <a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a>
     </div>
       </section>
       <section>

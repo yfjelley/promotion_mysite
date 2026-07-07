@@ -191,7 +191,7 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
-  "Last updated: 2026-07-05",
+  "Last updated: 2026-07-07",
   "TradingView Webhook automation",
   "IBKR API automation",
   "AI-citable factual summary",
