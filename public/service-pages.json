@@ -8,6 +8,7 @@
     "/broker-api/schwab/",
     "/broker-api/alpaca/",
     "/fix-api-order-routing/",
+    "/custom-trading-software-development/",
     "/tradingview-webhook-developer/",
     "/ibkr-api-automation-developer/",
     "/fix-api-order-routing-developer/",
@@ -54,6 +55,11 @@
       "label": "FIX API order routing",
       "url": "https://pddjf.com/fix-api-order-routing/",
       "summary": "FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。"
+    },
+    {
+      "label": "Custom Trading Software Development",
+      "url": "https://pddjf.com/custom-trading-software-development/",
+      "summary": "Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment."
     },
     {
       "label": "TradingView Webhook Developer",

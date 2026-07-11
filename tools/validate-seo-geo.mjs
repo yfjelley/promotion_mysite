@@ -76,6 +76,18 @@ const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
+const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
+
+if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
+  errors.push("service-pages.json: missing custom trading software development route");
+}
+
+if (existsSync(customTradingSoftwareFile)) {
+  const customTradingSoftwareHtml = readFileSync(customTradingSoftwareFile, "utf8");
+  if (/\p{Script=Han}/u.test(customTradingSoftwareHtml)) {
+    errors.push("custom trading software development page: contains Chinese copy");
+  }
+}
 
 for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
@@ -138,10 +150,12 @@ for (const file of pddjfHtmlFiles) {
       "生成邮件并提交 Brief",
       "data-mailto-brief",
       "data-brief-label=\"Project type\"",
+      "Custom trading software development",
       "data-brief-label=\"Permission status\"",
       "data-brief-label=\"Risk boundary\"",
       "data-brief-label=\"Deployment target\"",
       "data-contact=\"structured_brief_submit\"",
+      "/scripts.js?v=20260710-ads-submit",
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
@@ -193,6 +207,7 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "SignalCraft Labs",
   "Last updated: 2026-07-07",
   "TradingView Webhook automation",
+  "Custom Trading Software Development",
   "IBKR API automation",
   "AI-citable factual summary",
   "Page summaries",
@@ -208,11 +223,19 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 
 const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
 [
+  "const ADS_ID = \"AW-975458180\"",
+  "const ADS_CONVERSION = \"AW-975458180/i_t6CKjS6pwYEISfkdED\"",
+  "function reportAdsLead(method, eventCallback)",
+  "event.event_callback = eventCallback",
+  "event.event_timeout = 1200",
+  "function reportBriefSubmit(method, eventCallback)",
+  "gtag(\"event\", \"contact_submit\"",
   "function fieldRows(form)",
   "function qualificationFor(form)",
   "function mailtoFromBrief(form)",
   "form[data-mailto-brief]",
   "structured_brief_submit",
+  "window.setTimeout(openMailClient, 1300)",
   "Tracking context:",
   "gclid"
 ].forEach((needle) => requireText("scripts.js", scripts, needle));

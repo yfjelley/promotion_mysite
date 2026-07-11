@@ -25,6 +25,7 @@ The primary conversion pages are:
 
 SEO and GEO content pages:
 
+- `/custom-trading-software-development/` for category-level English custom trading software search and Ads intent.
 - `/tradingview-webhook-automation/` for TradingView Webhook automation.
 - `/exchange-api-trading-bot-development/` for exchange API automation.
 - `/broker-api/ibkr/`, `/broker-api/schwab/`, and `/broker-api/alpaca/` for platform-specific broker API pages.
@@ -102,5 +103,14 @@ Redirect from `*.promotion-mysite.pages.dev` to `https://pddjf.com/`.
 ## Google Ads tracking
 
 The site loads the existing Google Ads and GA4 tags, but it only reports the Ads
-conversion when a visitor clicks or copies a contact method. Page views are not
-counted as leads.
+conversion when a visitor clicks or copies a contact method, or successfully
+submits the validated project Brief. The Brief handler emits the GA4
+`contact_submit` event and waits for the Google Ads conversion callback (with a
+short timeout fallback) before opening the visitor's email client. Page views
+are not counted as leads.
+
+Run the focused conversion regression test with:
+
+```bash
+node tools/test-ads-conversion.mjs
+```

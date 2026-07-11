@@ -14,6 +14,7 @@ Last updated: 2026-07-07
 - Schwab API automation: https://pddjf.com/broker-api/schwab/ — Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - Alpaca API automation: https://pddjf.com/broker-api/alpaca/ — Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - FIX API order routing: https://pddjf.com/fix-api-order-routing/ — FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- Custom Trading Software Development: https://pddjf.com/custom-trading-software-development/ — Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment.
 - TradingView Webhook Developer: https://pddjf.com/tradingview-webhook-developer/ — Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
 - IBKR API Automation Developer: https://pddjf.com/ibkr-api-automation-developer/ — Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
 - FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
@@ -85,6 +86,7 @@ Last updated: 2026-07-07
 - https://pddjf.com/broker-api/schwab/ — Schwab API automation: Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - https://pddjf.com/broker-api/alpaca/ — Alpaca API automation: Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - https://pddjf.com/fix-api-order-routing/ — FIX API order routing: FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
+- https://pddjf.com/custom-trading-software-development/ — Custom Trading Software Development: Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment.
 - https://pddjf.com/tradingview-webhook-developer/ — TradingView Webhook Developer: Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
 - https://pddjf.com/ibkr-api-automation-developer/ — IBKR API Automation Developer: Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
 - https://pddjf.com/fix-api-order-routing-developer/ — FIX API Order Routing Developer: Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.

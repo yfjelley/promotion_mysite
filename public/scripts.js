@@ -37,13 +37,20 @@ function installLinkedInInsightTag() {
   }
 }
 
-function reportAdsLead(method) {
-  gtag("event", "conversion", {
+function reportAdsLead(method, eventCallback) {
+  const event = {
     send_to: ADS_CONVERSION,
     value: ADS_LEAD_VALUE,
     currency: ADS_LEAD_CURRENCY,
     lead_method: method,
-  });
+  };
+
+  if (typeof eventCallback === "function") {
+    event.event_callback = eventCallback;
+    event.event_timeout = 1200;
+  }
+
+  gtag("event", "conversion", event);
 }
 
 function reportLinkedInLead() {
@@ -51,7 +58,7 @@ function reportLinkedInLead() {
   window.lintrk("track", { conversion_id: Number(LINKEDIN_LEAD_CONVERSION_ID) });
 }
 
-function reportContactClick(method, isLead = false) {
+function reportContactClick(method, isLead = false, eventCallback) {
   gtag("event", "contact_click", {
     method,
     event_category: isLead ? "lead" : "engagement",
@@ -59,9 +66,19 @@ function reportContactClick(method, isLead = false) {
   });
 
   if (isLead) {
-    reportAdsLead(method);
+    reportAdsLead(method, eventCallback);
     reportLinkedInLead();
   }
+}
+
+function reportBriefSubmit(method, eventCallback) {
+  gtag("event", "contact_submit", {
+    method,
+    event_category: "lead",
+    lead_action: "structured_brief",
+  });
+  reportAdsLead(method, eventCallback);
+  reportLinkedInLead();
 }
 
 function fieldRows(form) {
@@ -171,11 +188,18 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       if (!form.reportValidity()) return;
       const status = statusFor(form);
+      const destination = mailtoFromBrief(form);
+      let didNavigate = false;
+      const openMailClient = () => {
+        if (didNavigate) return;
+        didNavigate = true;
+        window.location.href = destination;
+      };
       if (status) {
         status.textContent = "已生成结构化 Brief，并打开邮件客户端。这个有效提交会计入咨询转化。";
       }
-      reportContactClick(form.dataset.contact || "structured_brief_submit", true);
-      window.location.href = mailtoFromBrief(form);
+      reportBriefSubmit(form.dataset.contact || "structured_brief_submit", openMailClient);
+      window.setTimeout(openMailClient, 1300);
     });
   });
 

@@ -1,6 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
+const ASSET_RELEASE = "20260710-ads-submit";
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -129,7 +130,11 @@ export default {
       return fetchAsset(env, request, "/404.html", 404);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    const assetUrl = new URL(request.url);
+    if (url.pathname === "/contact/") {
+      assetUrl.searchParams.set("__release", ASSET_RELEASE);
+    }
+    const response = await env.ASSETS.fetch(new Request(assetUrl, request));
     return withSecurityHeaders(response, response.status, url.pathname);
   }
 };

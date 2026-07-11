@@ -7,6 +7,7 @@ const today = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260707-organic";
 const scriptHref = "/scripts.js?v=20260707-organic";
+const contactScriptHref = "/scripts.js?v=20260710-ads-submit";
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -22,6 +23,12 @@ const externalTrustLinks = [
   ["GitHub profile", githubProfileUrl, "公开 GitHub 资料，用于连接站点品牌、工程资料和源码交付能力。"],
   ["Engineering notes", engineeringNotesUrl, "脱敏工程资料仓库，包含 Webhook 去重/风控 dry-run demo、权限安全建议、平台接入笔记和验收清单。"],
   ["LinkedIn profile", linkedinProfileUrl, "LinkedIn 公开资料，用于保持站外实体信息、服务边界和联系方式一致。"]
+];
+
+const externalTrustLinksEn = [
+  ["GitHub profile", githubProfileUrl, "Public GitHub profile connecting the SignalCraft Labs brand with engineering work and source-delivery capability."],
+  ["Engineering notes", engineeringNotesUrl, "Sanitized engineering notes covering webhook idempotency, risk dry-runs, API permissions, integration constraints and acceptance checklists."],
+  ["LinkedIn profile", linkedinProfileUrl, "Public LinkedIn profile used to keep the business identity, service boundaries and contact path consistent across the web."]
 ];
 
 const officialReferenceLinks = [
@@ -129,6 +136,11 @@ const platformDetailRows = {
 };
 
 const platformDetailRowsEn = {
+  "custom-trading-software-development": [
+    ["Architecture and interfaces", "Document signal sources, API contracts, state ownership, order lifecycle and security boundaries before implementation.", "Architecture diagram, interface contract and failure paths are reviewed against the agreed workflow."],
+    ["Execution and risk controls", "Implement validation, idempotency, submit/cancel/reject handling, position sync, exposure limits, price protection and manual pause.", "Replay covers duplicate events, rejects, partial fills, disconnects, position reconciliation and operator controls."],
+    ["Operations and handoff", "Provide structured logs, alerts, configuration, deployment files, restart and rollback procedures, and source delivery.", "The customer can deploy, observe, pause, restart and roll back the system without sharing withdrawal credentials."]
+  ],
   "broker-api/ibkr": [
     ["Connection model", "Evaluate TWS Gateway / Client Portal runtime, reconnect behavior, session lifecycle and account login flow.", "Stable connection, disconnect alerts and no duplicate routing after reconnect."],
     ["Orders and positions", "Confirm stocks, ETFs, options or portfolio order types, trading hours, cancel flow and execution report fields.", "Order requests, rejects, cancels, fills and position sync are logged."],
@@ -444,6 +456,63 @@ const servicePages = [
       ["/broker/api/", "券商 API 自动化"],
       ["/risk-engine/", "风控引擎"],
       ["/private-deployment/", "私有部署"]
+    ]
+  },
+  {
+    slug: "custom-trading-software-development",
+    lang: "en",
+    breadcrumb: "Custom Trading Software Development",
+    eyebrow: "Custom Trading Software Development",
+    title: "Custom Trading Software Development | SignalCraft Labs",
+    description: "Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment.",
+    h1: "Custom Trading Software Development",
+    intro: "Engineering for client-defined trading workflows—from signal intake and broker or exchange API integration to controlled execution, risk checks, audit logs and private deployment.",
+    serviceType: "Custom trading software development for execution, API integration and operational control",
+    llmsLabel: "Custom Trading Software Development",
+    fit: [
+      "You have documented trading or execution rules and need production engineering.",
+      "You need to connect a signal source, strategy engine or internal system to a broker, exchange or FIX API.",
+      "You need risk controls, operator actions, reconciliation, audit logs and a maintainable deployment.",
+      "You want source delivery and staged acceptance rather than a closed black-box product."
+    ],
+    notFit: [
+      "You want a guaranteed-profit bot, trading signals or outsourced investment decisions.",
+      "You want account management, custody or permanent developer control of credentials.",
+      "You want a white-label brokerage or exchange clone without a defined operational scope.",
+      "You cannot document the workflow, API permissions or acceptance criteria."
+    ],
+    deliverables: [
+      "Architecture and interface contract. Signal sources, APIs, state model, order lifecycle, failure paths and security boundaries.",
+      "Execution and integration layer. API adapters, validation, idempotency, submit, cancel and reject handling, and position synchronization.",
+      "Risk and operator controls. Position and exposure limits, trading hours, price protection, rate limits, manual pause and optional approval steps.",
+      "Operational evidence. Structured logs, reject reasons, alerts, reconciliation records and replayable test cases.",
+      "Source and handoff package. Source code, configuration examples, deployment files, runbook, restart, rollback and key-rotation notes."
+    ],
+    process: [
+      "Discovery and scope. Review the workflow, current code, API access and operational constraints.",
+      "System contract. Define state transitions, risk rules, failure cases and acceptance tests.",
+      "Implementation. Build the integration, execution, control and observability layers.",
+      "Staged validation and handoff. Validate through replay, a test environment, paper trading or limited production scope, then complete private handoff."
+    ],
+    limits: [
+      "Customers retain control of accounts, credentials, funds and final trading decisions.",
+      "API capability, order support, market data and regional availability depend on the customer's platform and account permissions.",
+      "Acceptance covers software behavior such as submit, cancel, reject, partial fill, reconnect, reconciliation, pause, restart and rollback—not strategy returns.",
+      "This is engineering delivery only, not financial advice, managed accounts, custody or performance promises."
+    ],
+    faq: [
+      ["What kinds of custom trading software can you build?", "Projects can cover signal intake, broker or exchange API integration, order lifecycle handling, risk controls, reconciliation, operational logs, alerts and private deployment."],
+      ["Can you integrate an existing strategy or codebase?", "Yes, after the current code, signal contract, dependencies, API access, state model and acceptance criteria are reviewed."],
+      ["Which broker, exchange and FIX APIs can you support?", "The right interface depends on documented API capability, customer account permissions, test access, order types and deployment constraints. TradingView, IBKR and FIX also have dedicated assessment pages."],
+      ["What is tested before deployment?", "Tests can cover validation, duplicate events, submits, cancels, rejects, partial fills, disconnects, reconnects, position sync, manual pause, alerts, restart and rollback."],
+      ["Do I receive the source code?", "Yes. The agreed delivery package can include source code, configuration examples, deployment files, test evidence, an operations runbook and remote handoff."],
+      ["Can the system run in my own cloud account or VPS?", "Yes. Private deployment can target a customer-controlled cloud account, VPS or server when the environment and operational responsibilities are defined."],
+      ["Do you provide signals, account management or guaranteed returns?", "No. SignalCraft Labs implements customer-defined workflows and does not provide signals, investment advice, custody, managed accounts or return promises."]
+    ],
+    related: [
+      ["/tradingview-webhook-developer/", "TradingView Webhook Developer"],
+      ["/ibkr-api-automation-developer/", "IBKR API Automation Developer"],
+      ["/fix-api-order-routing-developer/", "FIX API Order Routing Developer"]
     ]
   },
   {
@@ -1800,6 +1869,7 @@ const navLinks = [
 
 const footerServiceLinks = [
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
+  ["/custom-trading-software-development/", "Custom Trading Software"],
   ["/tradingview-webhook-automation/", "TradingView Webhook"],
   ["/exchange-api-trading-bot-development/", "交易所 API"],
   ["/broker/api/", "券商 API"],
@@ -1832,6 +1902,7 @@ const navLinksEn = [
 
 const footerServiceLinksEn = [
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
+  ["/custom-trading-software-development/", "Custom Trading Software Development"],
   ["/tradingview-webhook-developer/", "TradingView Webhook Developer"],
   ["/ibkr-api-automation-developer/", "IBKR API Automation Developer"],
   ["/fix-api-order-routing-developer/", "FIX API Order Routing Developer"],
@@ -1854,6 +1925,14 @@ const policyLinks = [
   ["/privacy", "隐私政策"]
 ];
 
+const policyLinksEn = [
+  ["/terms", "Terms"],
+  ["/risk-disclaimer/", "Risk disclaimer"],
+  ["/disclaimer", "Disclaimer"],
+  ["/delivery-policy", "Delivery policy"],
+  ["/privacy", "Privacy"]
+];
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -1867,7 +1946,7 @@ function isEnglish(value) {
 }
 
 function leadText(value) {
-  const [lead] = String(value).split(/[，。、]/);
+  const [lead] = String(value).split(/[，。、.:]/);
   return lead.trim() || String(value);
 }
 
@@ -1922,13 +2001,14 @@ function header(activeLabel = "", language = "zh-CN") {
 function footer(language = "zh-CN") {
   const english = isEnglish(language);
   const serviceLinks = english ? footerServiceLinksEn : footerServiceLinks;
+  const footerPolicyLinks = english ? policyLinksEn : policyLinks;
   return `<footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> ${english ? "trading automation digital products and custom engineering studio" : "交易自动化数字产品与定制工程服务工作室"}</p>
     <nav aria-label="${english ? "Service page navigation" : "服务页导航"}">
       ${serviceLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
     </nav>
     <nav aria-label="${english ? "Policy page navigation" : "政策页导航"}">
-      ${policyLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
+      ${footerPolicyLinks.map(([href, label]) => `<a href="${href}">${label}</a>`).join("\n      ")}
     </nav>
     <p>${english ? "Technical software development only. No investment advice, custody, managed accounts or return promises." : "仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。"}</p>
   </footer>
@@ -1956,6 +2036,7 @@ ${JSON.stringify(data, null, 2)}
 function baseGraph(page, type = "WebPage") {
   const url = canonical(page.slug);
   const language = page.lang || "zh-CN";
+  const english = isEnglish(page);
   return [
     {
       "@type": "Organization",
@@ -1994,7 +2075,7 @@ function baseGraph(page, type = "WebPage") {
       "@type": "BreadcrumbList",
       "@id": `${url}#breadcrumb`,
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "首页", "item": `${site}/` },
+        { "@type": "ListItem", "position": 1, "name": english ? "Home" : "首页", "item": `${site}/` },
         { "@type": "ListItem", "position": 2, "name": page.breadcrumb, "item": url }
       ]
     }
@@ -2002,6 +2083,7 @@ function baseGraph(page, type = "WebPage") {
 }
 
 function serviceSchema(page) {
+  const english = isEnglish(page);
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -2013,16 +2095,16 @@ function serviceSchema(page) {
         "description": page.description,
         "serviceType": page.serviceType,
         "provider": { "@id": `${site}/#organization` },
-        "areaServed": ["香港", "新加坡", "台湾", "美国", "全球远程"],
+        "areaServed": english ? ["United States", "Hong Kong", "Singapore", "Taiwan", "Worldwide remote delivery"] : ["香港", "新加坡", "台湾", "美国", "全球远程"],
         "offers": {
           "@type": "OfferCatalog",
-          "name": "自动交易系统工程交付包",
+          "name": english ? "Trading software engineering delivery packages" : "自动交易系统工程交付包",
           "itemListElement": offers.map((offer) => ({
             "@type": "Offer",
             "name": offer.name,
             "priceCurrency": "USD",
             "price": offer.price,
-            "description": offer.description,
+            "description": english ? packageDescriptionsEn[offer.name] : offer.description,
             "availability": "https://schema.org/InStock"
           }))
         }
@@ -2167,10 +2249,10 @@ function evidenceTablesSection(page) {
   const tables = [
     platformRows ? comparisonTable(english ? "Platform integration details" : "平台接入细节", english ? "These facts often affect scope, acceptance tests and go-live timing." : "这些是该平台项目更容易影响交付包、验收和上线节奏的关键事实。", platformRows, english ? ["Topic", "Project focus", "Acceptance focus"] : ["主题", "项目要点", "验收关注"]) : null,
     shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", english ? "A quick comparison of broker/API workflow fit, integration focus and common constraints." : "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", english ? brokerComparisonRowsEn : brokerComparisonRows, english ? ["Interface", "Best fit", "Integration focus", "Common limits"] : ["接口", "适合场景", "接入重点", "常见限制"]) : null,
-    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确判断交付包或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows),
+    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确判断交付包或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows, english ? ["Item", "Details"] : ["项目", "说明"]),
     comparisonTable(english ? "API key minimum permission guidance" : "API Key 最小权限建议", english ? "Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access." : "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", english ? permissionRowsEn : permissionRows, english ? ["Permission", "Recommendation", "Reason"] : ["权限", "建议", "原因"]),
     comparisonTable(english ? "Delivery package breakdown" : "交付包范围拆解", english ? "Package scope depends on API count, risk complexity, dashboard scope, deployment and integration work." : "交付包不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度确认范围。", packageRows, english ? ["Package tier", "Suitable scope"] : ["交付包", "适合范围"]),
-    comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", english ? acceptanceRowsEn : acceptanceRows)
+    comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", english ? acceptanceRowsEn : acceptanceRows, english ? ["Item", "Details"] : ["项目", "说明"])
   ].filter(Boolean).join("\n        ");
 
   return `<section class="section evidence-section" aria-labelledby="evidence-title">
@@ -2187,6 +2269,7 @@ function evidenceTablesSection(page) {
 
 function externalTrustSection(language = "zh-CN") {
   const english = isEnglish(language);
+  const trustLinks = english ? externalTrustLinksEn : externalTrustLinks;
   return `<section class="section external-trust-section" aria-labelledby="external-trust-title">
       <div class="section-head">
         <p class="eyebrow">External Evidence</p>
@@ -2194,7 +2277,7 @@ function externalTrustSection(language = "zh-CN") {
         <p>${english ? "These public materials help verify the brand, service boundary, engineering delivery style and sanitized technical examples." : "这些公开资料用于交叉验证品牌、服务边界、工程交付方式和脱敏技术样例。"}</p>
       </div>
       <div class="external-trust-grid">
-        ${externalTrustLinks.map(([label, href, summary]) => `<a href="${href}" rel="me noopener" target="_blank"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(summary)}</span></a>`).join("")}
+        ${trustLinks.map(([label, href, summary]) => `<a href="${href}" rel="me noopener" target="_blank"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(summary)}</span></a>`).join("")}
       </div>
     </section>`;
 }
@@ -2263,7 +2346,7 @@ function servicePageHtml(page) {
         <a href="#faq">FAQ</a>
         <a href="/contact/">${english ? "Contact" : "联系"}</a>
       </nav>
-      <div class="fact-strip" aria-label="项目交付包和服务边界">
+      <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">
         <span>${english ? "Packages: USD 2,000 / 5,000 / 10,000+" : "交付包：2000 / 5000 / 10000 美金起"}</span>
         <span>${english ? "Source delivery" : "源码交付"}</span>
         <span>${english ? "Private deployment" : "私有部署"}</span>
@@ -2348,7 +2431,7 @@ function servicePageHtml(page) {
     <section id="faq" class="section faq-section">
       <div class="section-head centered">
         <p class="eyebrow">FAQ</p>
-        <h2>常见问题</h2>
+        <h2>${english ? "Frequently asked questions" : "常见问题"}</h2>
       </div>
       <div class="faq-list">${page.faq.map(([question, answer]) => `<article><h3>${escapeHtml(question)}</h3><p>${escapeHtml(answer)}</p></article>`).join("")}</div>
     </section>
@@ -2559,6 +2642,7 @@ function leadBriefForm() {
         <label>项目类型
           <select name="projectType" data-brief-label="Project type" required>
             <option value="">请选择</option>
+            <option>Custom trading software development</option>
             <option>TradingView webhook automation</option>
             <option>Broker API integration</option>
             <option>Order execution API system</option>
@@ -2701,6 +2785,7 @@ function riskHtml(page) {
 function infoPageHtml(page, active, body, schema, includeCta = true) {
   const url = canonical(page.slug);
   const cta = includeCta ? `\n    ${ctaBlock(page.lang)}` : "";
+  const pageScriptHref = page.slug === contactPage.slug ? contactScriptHref : scriptHref;
   return `<!DOCTYPE html>
 <html lang="${page.lang || "zh-CN"}">
 <head>
@@ -2718,7 +2803,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
-  <script src="${scriptHref}" defer></script>
+  <script src="${pageScriptHref}" defer></script>
   ${jsonLd(schema)}
 </head>
 <body class="content-page">
