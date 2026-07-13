@@ -50,6 +50,12 @@ const SECURITY_HEADERS = {
 
 const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
 const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
+const HTML_CACHE_BUST_PATHS = new Set([
+  "/contact/",
+  "/articles/alpaca-websocket-order-status-reconciliation/",
+  "/articles/schwab-api-token-refresh-runbook/",
+  "/articles/fix-api-certificate-network-allowlist-checklist/"
+]);
 
 function withSecurityHeaders(response, status = response.status, assetPath = "") {
   const withHeaders = new Response(response.body, response);
@@ -131,7 +137,7 @@ export default {
     }
 
     const assetUrl = new URL(request.url);
-    if (url.pathname === "/contact/") {
+    if (HTML_CACHE_BUST_PATHS.has(url.pathname)) {
       assetUrl.searchParams.set("__release", ASSET_RELEASE);
     }
     const response = await env.ASSETS.fetch(new Request(assetUrl, request));
