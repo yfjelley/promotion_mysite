@@ -52,7 +52,7 @@ const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
 const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
 const HTML_CACHE_BUST_PATHS = new Set([
   "/contact/",
-  "/articles/alpaca-websocket-order-status-reconciliation/",
+  "/articles/alpaca-order-status-reconciliation/",
   "/articles/schwab-api-token-refresh-runbook/",
   "/articles/fix-api-certificate-network-allowlist-checklist/"
 ]);
