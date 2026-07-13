@@ -217,7 +217,7 @@
     },
     {
       "label": "Alpaca WebSocket Order Status Reconciliation",
-      "url": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/",
+      "url": "https://pddjf.com/articles/alpaca-order-status-reconciliation/",
       "summary": "Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs."
     },
     {

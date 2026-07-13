@@ -1741,7 +1741,7 @@ const articlePages = [
     ]
   },
   {
-    slug: "articles/alpaca-websocket-order-status-reconciliation",
+    slug: "articles/alpaca-order-status-reconciliation",
     lang: "en",
     breadcrumb: "Alpaca WebSocket Reconciliation",
     eyebrow: "Alpaca API",

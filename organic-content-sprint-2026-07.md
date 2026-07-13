@@ -32,7 +32,7 @@ Publish only topics scoring 75 or higher.
 
 | Day | URL | Target intent | Score | CTA |
 | --- | --- | --- | ---: | --- |
-| Mon | `/articles/alpaca-websocket-order-status-reconciliation/` | Alpaca API order status logs and replay | 82 | Submit project brief |
+| Mon | `/articles/alpaca-order-status-reconciliation/` | Alpaca API order status logs and replay | 82 | Submit project brief |
 | Wed | `/articles/schwab-api-token-refresh-runbook/` | Schwab Trader API OAuth token operations | 81 | Submit project brief |
 | Fri | `/articles/fix-api-certificate-network-allowlist-checklist/` | FIX API onboarding and UAT readiness | 83 | Submit project brief |
 
