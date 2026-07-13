@@ -28,13 +28,18 @@ Publish only topics scoring 75 or higher.
 | Wed | `/articles/binance-api-trading-bot-risk-checklist/` | Binance API trading bot risk and key checklist | 84 | Submit project brief |
 | Fri | `/articles/broker-api-order-reconciliation-checklist/` | Broker API order/fill reconciliation checklist | 86 | Submit project brief |
 
+## Week 2 published
+
+| Day | URL | Target intent | Score | CTA |
+| --- | --- | --- | ---: | --- |
+| Mon | `/articles/alpaca-websocket-order-status-reconciliation/` | Alpaca API order status logs and replay | 82 | Submit project brief |
+| Wed | `/articles/schwab-api-token-refresh-runbook/` | Schwab Trader API OAuth token operations | 81 | Submit project brief |
+| Fri | `/articles/fix-api-certificate-network-allowlist-checklist/` | FIX API onboarding and UAT readiness | 83 | Submit project brief |
+
 ## Remaining queue
 
 | Week | Topic | Target intent | Score |
 | --- | --- | --- | ---: |
-| 2 | Alpaca WebSocket order status reconciliation | Alpaca API order status logs and replay | 82 |
-| 2 | Schwab API token refresh runbook | Schwab Trader API OAuth token operations | 81 |
-| 2 | FIX API certificate and network allowlist checklist | FIX API onboarding and UAT readiness | 83 |
 | 3 | TradingView webhook secret rotation checklist | Webhook security and handover | 80 |
 | 3 | Exchange API rate limit and retry design | Crypto exchange API retry safety | 81 |
 | 3 | Portfolio rebalancing order plan with human approval | Broker API order preview and approval | 79 |
