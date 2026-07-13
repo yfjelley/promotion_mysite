@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TradingView Webhook to IBKR Order Workflow | Payload, Gateway and Risk Checks</title>
-  <meta name="description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
+  <title>FIX API Certificate and Network Allowlist Checklist | UAT Readiness</title>
+  <meta name="description" content="FIX API certificate and network allowlist checklist for UAT readiness, covering certificate ownership, source IPs, session IDs, ports, firewall rules, logs and handover.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
+  <link rel="canonical" href="https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="TradingView Webhook to IBKR Order Workflow">
-  <meta property="og:description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
+  <meta property="og:title" content="FIX API Certificate and Network Allowlist Checklist">
+  <meta property="og:description" content="FIX API certificate and network allowlist checklist for UAT readiness, covering certificate ownership, source IPs, session IDs, ports, firewall rules, logs and handover.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
+  <meta property="og:url" content="https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#webpage",
-      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
-      "name": "TradingView Webhook to IBKR Order Workflow",
-      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
+      "@id": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/#webpage",
+      "url": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/",
+      "name": "FIX API Certificate and Network Allowlist Checklist",
+      "description": "FIX API certificate and network allowlist checklist for UAT readiness, covering certificate ownership, source IPs, session IDs, ports, firewall rules, logs and handover.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#breadcrumb",
+      "@id": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "TradingView to IBKR Workflow",
-          "item": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/"
+          "name": "FIX Certificate and Allowlist Checklist",
+          "item": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#article",
-      "headline": "TradingView Webhook to IBKR Order Workflow",
-      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
-      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
+      "@id": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/#article",
+      "headline": "FIX API Certificate and Network Allowlist Checklist",
+      "description": "FIX API certificate and network allowlist checklist for UAT readiness, covering certificate ownership, source IPs, session IDs, ports, firewall rules, logs and handover.",
+      "url": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>TradingView to IBKR Workflow</span>
+      <span>FIX Certificate and Allowlist Checklist</span>
     </nav>
-      <p class="eyebrow">TradingView + IBKR</p>
-      <h1>TradingView Webhook to IBKR Order Workflow</h1>
-      <p class="hero-lede">A TradingView alert can trigger an IBKR automation workflow, but the project is not only a webhook and an order call. The delivery needs a payload contract, IBKR runtime choice, account permission review, risk gates and replayable acceptance evidence.</p>
+      <p class="eyebrow">FIX API</p>
+      <h1>FIX API Certificate and Network Allowlist Checklist</h1>
+      <p class="hero-lede">FIX API onboarding often stalls before the first order message because certificates, source IPs, ports, session identifiers and counterparty allowlists are not ready. These operational inputs should be collected before implementation is treated as blocked by code.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.</p>
+      <p class="article-summary">A FIX API certificate and network allowlist checklist should confirm certificate ownership, source IPs, ports, SenderCompID, TargetCompID, firewall rules, UAT evidence and support handover.</p>
       <section>
-        <h2>Define the alert payload as a contract</h2>
-        <p>The TradingView alert should carry enough fields to describe one intended action: strategy, version, symbol, action, timeframe, signal time, size model and event ID inputs. Without that contract, the IBKR side cannot reliably decide whether a request is new, duplicated, stale or unsafe.</p>
-        <ul class="check-list"><li>Use stable fields for event ID generation.</li><li>Keep shared secrets out of public code and screenshots.</li><li>Version the payload when the TradingView script changes.</li></ul>
+        <h2>Collect connectivity facts early</h2>
+        <p>Before building message handlers, the project should confirm the counterparty environment, hostnames, ports, source IPs, TLS or certificate requirements and session identifiers. These details often have lead times outside the developer's control.</p>
+        <ul class="check-list"><li>List UAT and production endpoints separately.</li><li>Document SenderCompID, TargetCompID and any certificate common-name requirements.</li><li>Confirm whether static IP, VPN or private network access is required.</li></ul>
       </section><section>
-        <h2>Choose the IBKR runtime deliberately</h2>
-        <p>IBKR automation may involve TWS Gateway, TWS API, Client Portal or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.</p>
-        <ul class="check-list"><li>Validate account permissions before building order routing.</li><li>Log connection state and reconnect events.</li><li>Pause new routing until positions and open orders are reconciled after restart.</li></ul>
+        <h2>Separate secret material from public logs</h2>
+        <p>Certificates, private keys and firewall rules need careful handover. The runbook can name file paths, owners and rotation steps without exposing private material in tickets, screenshots or public repositories.</p>
+        <ul class="check-list"><li>Store private keys only in approved secret locations.</li><li>Log certificate expiry and connection errors without dumping secrets.</li><li>Record who can request allowlist changes.</li></ul>
       </section><section>
-        <h2>Accept the workflow with order-state evidence</h2>
-        <p>Acceptance should prove duplicate webhook handling, manual pause, max size checks, order preview, submitted orders, rejected orders, cancel flow and position sync. A single successful demo order is not enough for a maintainable delivery.</p>
-        <ul class="check-list"><li>Replay sample alerts before live routing.</li><li>Store signal, risk decision, order intent and broker response together.</li><li>Set acceptance on observable behavior, not trading outcome.</li></ul>
+        <h2>Use connectivity as a UAT gate</h2>
+        <p>A FIX integration is not ready for order UAT until Logon, Heartbeat, TestRequest, disconnect and reconnect behavior are proven from the approved network path. Connectivity evidence should be part of the acceptance package.</p>
+        <ul class="check-list"><li>Capture successful Logon and Heartbeat evidence.</li><li>Classify network errors separately from FIX session rejects.</li><li>Keep rollback notes for certificate or IP changes.</li></ul>
       </section>
       <section>
-        <h2>TradingView to IBKR scope checklist</h2>
-        <ul class="check-list"><li>Alert payload fields and event ID inputs are documented.</li><li>IBKR connection model, account permissions and order types are confirmed.</li><li>Manual pause, duplicate checks, max size and trading-hour checks run before order routing.</li><li>Submitted, rejected, canceled and partially filled order states are logged.</li><li>The handover includes environment variables, runtime notes, restart steps and acceptance examples.</li></ul>
+        <h2>FIX connectivity readiness checklist</h2>
+        <ul class="check-list"><li>UAT and production endpoints, ports and network paths are documented.</li><li>Source IPs, allowlist owner and firewall change process are confirmed.</li><li>Certificate ownership, expiry, storage and rotation steps are written down.</li><li>SenderCompID, TargetCompID and session settings match counterparty records.</li><li>Logon, Heartbeat, disconnect and reconnect evidence is included in UAT handover.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
+      <a href="https://fixtrading.org/standards/fix-protocol/" rel="noopener" target="_blank"><strong>FIX Trading Community</strong><span>FIX Trading Community 的 FIX Protocol 标准介绍。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/platform-notes.md" rel="noopener" target="_blank"><strong>FIX platform notes</strong><span>SignalCraft Labs public notes for platform integration evaluation.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>

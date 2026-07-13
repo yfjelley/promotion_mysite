@@ -1739,6 +1739,128 @@ const articlePages = [
       officialReferenceLinks[3],
       ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
     ]
+  },
+  {
+    slug: "articles/alpaca-websocket-order-status-reconciliation",
+    lang: "en",
+    breadcrumb: "Alpaca WebSocket Reconciliation",
+    eyebrow: "Alpaca API",
+    title: "Alpaca WebSocket Order Status Reconciliation | Streams, REST Backfill and Logs",
+    description: "Alpaca WebSocket order status reconciliation checklist covering stream events, REST backfill, order IDs, partial fills, reconnects, retry behavior and handover.",
+    h1: "Alpaca WebSocket Order Status Reconciliation",
+    intro: "Alpaca order automation should not depend on a single stream message. A production-minded workflow combines WebSocket order updates, REST backfill, stable identifiers, reconnect behavior and reviewable logs so operators can explain each order state after handover.",
+    summary: "Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs.",
+    sections: [
+      {
+        title: "Treat stream events as state inputs",
+        body: "WebSocket order updates are useful for timely status changes, but the system still needs durable storage and a way to reconcile missed or repeated events. Each stream event should update a local order lifecycle record rather than replacing the full source of truth.",
+        bullets: ["Store client_order_id, Alpaca order ID, symbol, side, requested quantity and event time.", "Classify new, accepted, filled, partially filled, canceled, expired and rejected states.", "Record duplicate or out-of-order stream events instead of silently ignoring them."]
+      },
+      {
+        title: "Use REST backfill after reconnects",
+        body: "Disconnects, deploys and token changes can leave gaps. After reconnect, the workflow should query open and recent orders, compare them with local state, and pause new routing if the account state is not reconciled.",
+        bullets: ["Backfill open orders before resuming automated routing.", "Compare filled quantity and remaining quantity, not only final status.", "Alert when local state and broker state disagree."]
+      },
+      {
+        title: "Make reconciliation part of acceptance",
+        body: "The handover should prove normal fills, partial fills, canceled orders, rejects, reconnects and stale local state. A single accepted paper order does not prove that order status handling is ready for operator use.",
+        bullets: ["Export an order lifecycle row for each acceptance case.", "Keep manual pause above order submission.", "Document who reviews unresolved reconciliation exceptions."]
+      }
+    ],
+    checklistTitle: "Alpaca status reconciliation checklist",
+    checklist: [
+      "WebSocket order updates are stored with stable local and broker identifiers.",
+      "REST backfill runs after reconnect, restart and suspected stream gaps.",
+      "Partial fill, cancel, reject, expired and missing-status cases are visible.",
+      "Routing pauses when order or position state cannot be reconciled.",
+      "The runbook explains logs, alerts, replay steps and exception ownership."
+    ],
+    references: [
+      officialReferenceLinks[3],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/schwab-api-token-refresh-runbook",
+    lang: "en",
+    breadcrumb: "Schwab Token Refresh Runbook",
+    eyebrow: "Schwab API",
+    title: "Schwab API Token Refresh Runbook | OAuth Expiry, Reauthorization and Logs",
+    description: "Schwab API token refresh runbook for OAuth ownership, expiry alerts, refresh failures, reauthorization, credential storage, order pause behavior and handover.",
+    h1: "Schwab API Token Refresh Runbook",
+    intro: "Schwab API automation needs an OAuth lifecycle that the account owner can operate after delivery. Token refresh, expiry alerts, revoked authorization and reauthorization steps should be documented before order or account workflows depend on them.",
+    summary: "A Schwab API token refresh runbook should document OAuth ownership, token storage, expiry alerts, refresh failure handling, reauthorization, pause behavior and credential rotation.",
+    sections: [
+      {
+        title: "Assign OAuth ownership",
+        body: "The runbook should state who owns the developer app, redirect URI, consent flow, token store and reauthorization path. Without an owner, a token failure becomes an urgent production mystery instead of a normal operating event.",
+        bullets: ["Document app owner and account owner separately.", "Keep authorization codes, access tokens and refresh tokens out of logs.", "Use clear environment variable names without exposing secret values."]
+      },
+      {
+        title: "Fail closed on auth problems",
+        body: "When refresh fails, authorization is revoked or token state is ambiguous, the automation should stop new API actions and notify the operator. Retrying blindly can hide a permission issue and create confusing account state.",
+        bullets: ["Classify refresh_failed, revoked_authorization and scope_missing separately.", "Pause order routing before trying higher-risk actions.", "Show the operator the reconnect path and evidence needed for support."]
+      },
+      {
+        title: "Test the lifecycle before handover",
+        body: "Acceptance should include a normal refresh, simulated expired token, revoked authorization, missing scope and successful reauthorization. The client should know how to recover the integration without developer-only knowledge.",
+        bullets: ["Record the expected healthy auth status.", "Add alert recipients and escalation timing.", "Include revoke and rotate steps in the handover notes."]
+      }
+    ],
+    checklistTitle: "Schwab OAuth runbook checklist",
+    checklist: [
+      "Developer app owner, redirect URI, scopes and account owner are documented.",
+      "Token storage, refresh timing and secret redaction rules are written down.",
+      "Refresh failure, revoked authorization and missing scope cases fail closed.",
+      "Operator alerts and reauthorization steps are tested.",
+      "The handover includes revoke, rotate, restart and support evidence notes."
+    ],
+    references: [
+      officialReferenceLinks[2],
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/fix-api-certificate-network-allowlist-checklist",
+    lang: "en",
+    breadcrumb: "FIX Certificate and Allowlist Checklist",
+    eyebrow: "FIX API",
+    title: "FIX API Certificate and Network Allowlist Checklist | UAT Readiness",
+    description: "FIX API certificate and network allowlist checklist for UAT readiness, covering certificate ownership, source IPs, session IDs, ports, firewall rules, logs and handover.",
+    h1: "FIX API Certificate and Network Allowlist Checklist",
+    intro: "FIX API onboarding often stalls before the first order message because certificates, source IPs, ports, session identifiers and counterparty allowlists are not ready. These operational inputs should be collected before implementation is treated as blocked by code.",
+    summary: "A FIX API certificate and network allowlist checklist should confirm certificate ownership, source IPs, ports, SenderCompID, TargetCompID, firewall rules, UAT evidence and support handover.",
+    sections: [
+      {
+        title: "Collect connectivity facts early",
+        body: "Before building message handlers, the project should confirm the counterparty environment, hostnames, ports, source IPs, TLS or certificate requirements and session identifiers. These details often have lead times outside the developer's control.",
+        bullets: ["List UAT and production endpoints separately.", "Document SenderCompID, TargetCompID and any certificate common-name requirements.", "Confirm whether static IP, VPN or private network access is required."]
+      },
+      {
+        title: "Separate secret material from public logs",
+        body: "Certificates, private keys and firewall rules need careful handover. The runbook can name file paths, owners and rotation steps without exposing private material in tickets, screenshots or public repositories.",
+        bullets: ["Store private keys only in approved secret locations.", "Log certificate expiry and connection errors without dumping secrets.", "Record who can request allowlist changes."]
+      },
+      {
+        title: "Use connectivity as a UAT gate",
+        body: "A FIX integration is not ready for order UAT until Logon, Heartbeat, TestRequest, disconnect and reconnect behavior are proven from the approved network path. Connectivity evidence should be part of the acceptance package.",
+        bullets: ["Capture successful Logon and Heartbeat evidence.", "Classify network errors separately from FIX session rejects.", "Keep rollback notes for certificate or IP changes."]
+      }
+    ],
+    checklistTitle: "FIX connectivity readiness checklist",
+    checklist: [
+      "UAT and production endpoints, ports and network paths are documented.",
+      "Source IPs, allowlist owner and firewall change process are confirmed.",
+      "Certificate ownership, expiry, storage and rotation steps are written down.",
+      "SenderCompID, TargetCompID and session settings match counterparty records.",
+      "Logon, Heartbeat, disconnect and reconnect evidence is included in UAT handover."
+    ],
+    references: [
+      officialReferenceLinks[4],
+      ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
   }
 ];
 

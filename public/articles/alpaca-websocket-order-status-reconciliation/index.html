@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TradingView Webhook to IBKR Order Workflow | Payload, Gateway and Risk Checks</title>
-  <meta name="description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
+  <title>Alpaca WebSocket Order Status Reconciliation | Streams, REST Backfill and Logs</title>
+  <meta name="description" content="Alpaca WebSocket order status reconciliation checklist covering stream events, REST backfill, order IDs, partial fills, reconnects, retry behavior and handover.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
+  <link rel="canonical" href="https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="TradingView Webhook to IBKR Order Workflow">
-  <meta property="og:description" content="TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.">
+  <meta property="og:title" content="Alpaca WebSocket Order Status Reconciliation">
+  <meta property="og:description" content="Alpaca WebSocket order status reconciliation checklist covering stream events, REST backfill, order IDs, partial fills, reconnects, retry behavior and handover.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/">
+  <meta property="og:url" content="https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260707-organic">
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#webpage",
-      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
-      "name": "TradingView Webhook to IBKR Order Workflow",
-      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
+      "@id": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/#webpage",
+      "url": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/",
+      "name": "Alpaca WebSocket Order Status Reconciliation",
+      "description": "Alpaca WebSocket order status reconciliation checklist covering stream events, REST backfill, order IDs, partial fills, reconnects, retry behavior and handover.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#breadcrumb",
+      "@id": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "TradingView to IBKR Workflow",
-          "item": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/"
+          "name": "Alpaca WebSocket Reconciliation",
+          "item": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/#article",
-      "headline": "TradingView Webhook to IBKR Order Workflow",
-      "description": "TradingView webhook to IBKR order workflow guide covering alert payloads, IBKR runtime choices, account permissions, risk gates, duplicate handling and audit logs.",
-      "url": "https://pddjf.com/articles/tradingview-webhook-to-ibkr-order-workflow/",
+      "@id": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/#article",
+      "headline": "Alpaca WebSocket Order Status Reconciliation",
+      "description": "Alpaca WebSocket order status reconciliation checklist covering stream events, REST backfill, order IDs, partial fills, reconnects, retry behavior and handover.",
+      "url": "https://pddjf.com/articles/alpaca-websocket-order-status-reconciliation/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,36 +134,36 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>TradingView to IBKR Workflow</span>
+      <span>Alpaca WebSocket Reconciliation</span>
     </nav>
-      <p class="eyebrow">TradingView + IBKR</p>
-      <h1>TradingView Webhook to IBKR Order Workflow</h1>
-      <p class="hero-lede">A TradingView alert can trigger an IBKR automation workflow, but the project is not only a webhook and an order call. The delivery needs a payload contract, IBKR runtime choice, account permission review, risk gates and replayable acceptance evidence.</p>
+      <p class="eyebrow">Alpaca API</p>
+      <h1>Alpaca WebSocket Order Status Reconciliation</h1>
+      <p class="hero-lede">Alpaca order automation should not depend on a single stream message. A production-minded workflow combines WebSocket order updates, REST backfill, stable identifiers, reconnect behavior and reviewable logs so operators can explain each order state after handover.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.</p>
+      <p class="article-summary">Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs.</p>
       <section>
-        <h2>Define the alert payload as a contract</h2>
-        <p>The TradingView alert should carry enough fields to describe one intended action: strategy, version, symbol, action, timeframe, signal time, size model and event ID inputs. Without that contract, the IBKR side cannot reliably decide whether a request is new, duplicated, stale or unsafe.</p>
-        <ul class="check-list"><li>Use stable fields for event ID generation.</li><li>Keep shared secrets out of public code and screenshots.</li><li>Version the payload when the TradingView script changes.</li></ul>
+        <h2>Treat stream events as state inputs</h2>
+        <p>WebSocket order updates are useful for timely status changes, but the system still needs durable storage and a way to reconcile missed or repeated events. Each stream event should update a local order lifecycle record rather than replacing the full source of truth.</p>
+        <ul class="check-list"><li>Store client_order_id, Alpaca order ID, symbol, side, requested quantity and event time.</li><li>Classify new, accepted, filled, partially filled, canceled, expired and rejected states.</li><li>Record duplicate or out-of-order stream events instead of silently ignoring them.</li></ul>
       </section><section>
-        <h2>Choose the IBKR runtime deliberately</h2>
-        <p>IBKR automation may involve TWS Gateway, TWS API, Client Portal or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.</p>
-        <ul class="check-list"><li>Validate account permissions before building order routing.</li><li>Log connection state and reconnect events.</li><li>Pause new routing until positions and open orders are reconciled after restart.</li></ul>
+        <h2>Use REST backfill after reconnects</h2>
+        <p>Disconnects, deploys and token changes can leave gaps. After reconnect, the workflow should query open and recent orders, compare them with local state, and pause new routing if the account state is not reconciled.</p>
+        <ul class="check-list"><li>Backfill open orders before resuming automated routing.</li><li>Compare filled quantity and remaining quantity, not only final status.</li><li>Alert when local state and broker state disagree.</li></ul>
       </section><section>
-        <h2>Accept the workflow with order-state evidence</h2>
-        <p>Acceptance should prove duplicate webhook handling, manual pause, max size checks, order preview, submitted orders, rejected orders, cancel flow and position sync. A single successful demo order is not enough for a maintainable delivery.</p>
-        <ul class="check-list"><li>Replay sample alerts before live routing.</li><li>Store signal, risk decision, order intent and broker response together.</li><li>Set acceptance on observable behavior, not trading outcome.</li></ul>
+        <h2>Make reconciliation part of acceptance</h2>
+        <p>The handover should prove normal fills, partial fills, canceled orders, rejects, reconnects and stale local state. A single accepted paper order does not prove that order status handling is ready for operator use.</p>
+        <ul class="check-list"><li>Export an order lifecycle row for each acceptance case.</li><li>Keep manual pause above order submission.</li><li>Document who reviews unresolved reconciliation exceptions.</li></ul>
       </section>
       <section>
-        <h2>TradingView to IBKR scope checklist</h2>
-        <ul class="check-list"><li>Alert payload fields and event ID inputs are documented.</li><li>IBKR connection model, account permissions and order types are confirmed.</li><li>Manual pause, duplicate checks, max size and trading-hour checks run before order routing.</li><li>Submitted, rejected, canceled and partially filled order states are logged.</li><li>The handover includes environment variables, runtime notes, restart steps and acceptance examples.</li></ul>
+        <h2>Alpaca status reconciliation checklist</h2>
+        <ul class="check-list"><li>WebSocket order updates are stored with stable local and broker identifiers.</li><li>REST backfill runs after reconnect, restart and suspected stream gaps.</li><li>Partial fill, cancel, reject, expired and missing-status cases are visible.</li><li>Routing pauses when order or position state cannot be reconciled.</li><li>The runbook explains logs, alerts, replay steps and exception ownership.</li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
+      <a href="https://docs.alpaca.markets/us/" rel="noopener" target="_blank"><strong>Alpaca Docs</strong><span>Alpaca 官方 API 文档入口。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/docs/acceptance-checklist.md" rel="noopener" target="_blank"><strong>Acceptance checklist notes</strong><span>SignalCraft Labs public acceptance checklist for automated trading delivery.</span></a>
     </div>
       </section>
       <section>
