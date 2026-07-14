@@ -90,6 +90,7 @@
   </script>
 </head>
 <body class="content-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <header class="site-header">
     <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
       <span class="brand-mark" aria-hidden="true">S</span>
@@ -107,7 +108,7 @@
       <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
     </nav>
   </header>
-  <main>
+  <main id="main-content">
     <section class="content-hero compact">
       <nav class="breadcrumb" aria-label="面包屑">
       <a href="/">首页</a>
@@ -173,7 +174,7 @@
           <input name="timeline" data-brief-label="Timeline" required placeholder="例如 2 周内评估 / 4-8 周上线">
         </label>
         <label>联系方式
-          <input name="contactMethod" data-brief-label="Preferred contact method" required placeholder="邮箱 / 微信 / Telegram">
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
         </label>
       </div>
       <label>风控边界

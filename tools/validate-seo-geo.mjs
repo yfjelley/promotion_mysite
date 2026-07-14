@@ -97,6 +97,8 @@ for (const file of pddjfHtmlFiles) {
   if (html.includes("https://icojf.com")) errors.push(`${rel}: contains absolute icojf URL`);
 
   if (!is404) {
+    requireText(rel, html, 'class="skip-link"');
+    requireText(rel, html, 'id="main-content"');
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
     const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
 
@@ -154,6 +156,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Permission status\"",
       "data-brief-label=\"Risk boundary\"",
       "data-brief-label=\"Deployment target\"",
+      "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
       "/scripts.js?v=20260710-ads-submit",
       "复制空白模板"
@@ -170,6 +173,9 @@ for (const file of pddjfHtmlFiles) {
     if (!existsSync(target)) errors.push(`${rel}: ${attr} target missing: ${href}`);
   }
 }
+
+const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
+["field-error", 'aria-invalid', 'form.addEventListener("invalid"'].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
 
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);

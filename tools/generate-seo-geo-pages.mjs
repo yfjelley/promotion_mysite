@@ -2466,8 +2466,9 @@ function servicePageHtml(page) {
   ${jsonLd(serviceSchema(page))}
 </head>
 <body class="content-page">
+  <a class="skip-link" href="#main-content">${english ? "Skip to main content" : "跳到主要内容"}</a>
   ${header(activeLabel, page.lang)}
-  <main>
+  <main id="main-content">
     <section class="content-hero">
       ${breadcrumbs(page)}
       <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
@@ -2827,7 +2828,7 @@ function leadBriefForm() {
           <input name="timeline" data-brief-label="Timeline" required placeholder="例如 2 周内评估 / 4-8 周上线">
         </label>
         <label>联系方式
-          <input name="contactMethod" data-brief-label="Preferred contact method" required placeholder="邮箱 / 微信 / Telegram">
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
         </label>
       </div>
       <label>风控边界
@@ -2947,8 +2948,9 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   ${jsonLd(schema)}
 </head>
 <body class="content-page">
+  <a class="skip-link" href="#main-content">${page.lang === "en" ? "Skip to main content" : "跳到主要内容"}</a>
   ${header(active, page.lang)}
-  <main>
+  <main id="main-content">
     <section class="content-hero compact">
       ${breadcrumbs(page)}
       <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>

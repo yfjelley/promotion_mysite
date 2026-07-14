@@ -77,6 +77,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <header class="site-header">
     <a class="brand" href="/" aria-label="SignalCraft Labs 交易自动化数字产品与定制工程服务首页">
       <span class="brand-mark" aria-hidden="true">S</span>
@@ -95,7 +96,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="hero-positioning">面向已有策略、流程和 API 权限的交易自动化工程交付</p>
@@ -358,51 +359,6 @@
       </div>
     </section>
 
-    <section id="architecture" class="architecture" aria-labelledby="architecture-title">
-      <div class="section-head centered dark">
-        <h2 id="architecture-title">交付架构与技术方案</h2>
-        <p>从信号、风控、路由到交易 API 回报，关键链路都可审计、可测试、可替换。</p>
-      </div>
-      <div class="architecture-flow" role="group" aria-label="交付架构">
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h3l2-5 4 10 2-5h5"/></svg>
-          <strong>信号来源</strong>
-          <span>Webhook / 策略 / 组合规则</span>
-        </article>
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-          <strong>信号处理服务</strong>
-          <span>解析 / 校验 / 去重</span>
-        </article>
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-2.9 8.4-7 10-4.1-1.6-7-5.2-7-10V6l7-3z"/></svg>
-          <strong>风控引擎</strong>
-          <span>仓位 / 止损 / 权限</span>
-        </article>
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12"/><path d="M13 8l4 4-4 4"/><path d="M6 7h8"/><path d="M6 17h8"/></svg>
-          <strong>策略执行引擎</strong>
-          <span>DCA / Grid / 止盈止损</span>
-        </article>
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="M8 11h8"/><path d="M8 14h5"/></svg>
-          <strong>订单路由</strong>
-          <span>混合优化 / 限频</span>
-        </article>
-        <article>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/></svg>
-          <strong>交易 API</strong>
-          <span>下单 / 查询 / 回报</span>
-        </article>
-      </div>
-      <div class="architecture-notes">
-        <div><strong>高可用架构</strong><span>模块化设计，稳定可靠</span></div>
-        <div><strong>实时监控</strong><span>关键信号与告警通知</span></div>
-        <div><strong>安全合规</strong><span>API 权限限制与操作审计</span></div>
-        <div><strong>灵活扩展</strong><span>支持多交易所与多策略</span></div>
-      </div>
-    </section>
-
     <section id="trust" class="section trust-layer" aria-labelledby="trust-title">
       <div class="trust-overview">
         <div class="trust-summary">
@@ -412,29 +368,6 @@
             SignalCraft Labs 是交易自动化方向的数字产品与定制工程服务工作室，主要通过远程方式完成需求评估、原型验证、开发、部署和交付讲解。
             我们只做技术实现和工程交付，不代管资金，不提供投资建议，也不承诺任何交易收益。
           </p>
-          <div class="trust-meta">
-            <div><strong>服务地区</strong><span>香港、新加坡、台湾、美国及其他可远程协作地区</span></div>
-            <div><strong>业务联系</strong><span>contact@pddjf.com / 微信 btc1688 / Telegram @yf16881</span></div>
-            <div><strong>到访说明</strong><span>当前以远程交付为主，不提供客户线下到访办公地址</span></div>
-          </div>
-        </div>
-        <div class="trust-grid">
-          <article>
-            <h3>工作室信息</h3>
-            <p>专注 TradingView Webhook、交易所 API、券商 API、订单路由、风控校验、审计日志和私有化部署。</p>
-          </article>
-          <article>
-            <h3>技术栈</h3>
-            <p>常用 Python、Node.js、REST/WebSocket/FIX、PostgreSQL/SQLite、Docker、VPS、Cloudflare、告警和日志工具。</p>
-          </article>
-          <article>
-            <h3>项目流程</h3>
-            <p>先做 API 权限和规则可行性评估，再确认交付包范围、里程碑、验收标准和灰度上线方式。</p>
-          </article>
-          <article>
-            <h3>交付边界</h3>
-            <p>交付源码、配置样例、部署文档和远程讲解；策略收益、第三方 API 费用、账户权限和合规责任由客户自行承担。</p>
-          </article>
         </div>
       </div>
       <div class="trust-proof-links" aria-label="公开信任资料入口">
@@ -454,23 +387,6 @@
           <strong>技术文章</strong>
           <span>Webhook 去重、IBKR 接入、风控验收和 FIX 审计日志。</span>
         </a>
-      </div>
-      <div class="case-grid" aria-label="匿名典型交付场景">
-        <article>
-          <span>01</span>
-          <h3>TradingView 信号执行</h3>
-          <p>把 Webhook 信号接入风控、订单路由、异常重试和告警，支持模拟盘或小资金灰度。</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>券商 API 组合工作流</h3>
-          <p>围绕持仓同步、再平衡、订单状态回报和审计日志构建可追踪的执行系统。</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>多 API 私有部署</h3>
-          <p>将交易所、券商、监控和告警模块部署在客户控制的服务器或云环境中。</p>
-        </article>
       </div>
       <div class="case-proof-cta" aria-label="按匿名案例提交项目 Brief">
         <div>
@@ -544,33 +460,6 @@
             <a class="button secondary" href="#contact" data-contact="private_infrastructure_package">评估这个交付包</a>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section guardrails" aria-labelledby="guardrails-title">
-      <div class="section-head">
-        <h2 id="guardrails-title">我们做技术交付，不承诺投资收益</h2>
-        <p>自动交易系统的价值是降低手工执行误差、提升规则执行一致性。策略盈亏仍由你的规则、市场环境和资金管理决定。</p>
-      </div>
-      <div class="guardrail-grid">
-        <article>
-          <h3>适合的客户</h3>
-          <ul class="check-list">
-            <li>已经有明确入场、出场、止损、止盈规则</li>
-            <li>需要把 TradingView、券商 API 或交易所 API 接入自动执行</li>
-            <li>希望源码和部署环境掌握在自己手里</li>
-            <li>愿意做回测、模拟盘或小资金灰度</li>
-          </ul>
-        </article>
-        <article>
-          <h3>明确不提供</h3>
-          <ul class="plain-list">
-            <li>不销售收益承诺型或约定收益型策略</li>
-            <li>不代管资金，不要求交易所提现权限</li>
-            <li>不替客户做投资决策或喊单服务</li>
-            <li>不复制第三方平台品牌、界面或专有功能</li>
-          </ul>
-        </article>
       </div>
     </section>
 

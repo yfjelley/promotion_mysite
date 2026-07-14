@@ -184,6 +184,37 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll("form[data-mailto-brief]").forEach((form) => {
+    const clearFieldError = (control) => {
+      control.removeAttribute("aria-invalid");
+      const errorId = control.dataset.errorId;
+      if (!errorId) return;
+      document.getElementById(errorId)?.remove();
+      delete control.dataset.errorId;
+      control.removeAttribute("aria-describedby");
+    };
+
+    form.addEventListener("invalid", (event) => {
+      const control = event.target;
+      if (!control?.name) return;
+      clearFieldError(control);
+      const errorId = `brief-${control.name}-error`;
+      const error = document.createElement("span");
+      error.id = errorId;
+      error.className = "field-error";
+      error.textContent = control.validationMessage || "请完成此项。";
+      control.setAttribute("aria-invalid", "true");
+      control.setAttribute("aria-describedby", errorId);
+      control.dataset.errorId = errorId;
+      control.insertAdjacentElement("afterend", error);
+    }, true);
+
+    ["input", "change"].forEach((eventName) => {
+      form.addEventListener(eventName, (event) => {
+        const control = event.target;
+        if (typeof control?.checkValidity === "function" && control.checkValidity()) clearFieldError(control);
+      });
+    });
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (!form.reportValidity()) return;
