@@ -71,7 +71,10 @@ function readServiceManifest() {
 }
 
 const htmlFiles = walk(publicDir).filter((file) => file.endsWith(".html"));
-const pddjfHtmlFiles = htmlFiles.filter((file) => !relative(publicDir, file).replaceAll(sep, "/").startsWith("icojf/"));
+const pddjfHtmlFiles = htmlFiles.filter((file) => {
+  const rel = relative(publicDir, file).replaceAll(sep, "/");
+  return !rel.startsWith("icojf/") && !rel.startsWith("__release/");
+});
 const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
@@ -184,6 +187,17 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/"',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
+
+for (const [canonicalFile, releaseFile] of [
+  [join(publicDir, "index.html"), join(publicDir, "__release", "20260714-quality-pass-assets", "home.html")],
+  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260714-quality-pass-assets", "contact.html")]
+]) {
+  if (!existsSync(releaseFile)) {
+    errors.push(`${relative(publicDir, releaseFile)}: missing release asset`);
+  } else if (readFileSync(canonicalFile, "utf8") !== readFileSync(releaseFile, "utf8")) {
+    errors.push(`${relative(publicDir, releaseFile)}: release asset differs from canonical output`);
+  }
+}
 
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);

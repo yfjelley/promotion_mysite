@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
@@ -8,6 +8,7 @@ const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260714-quality-pass";
 const scriptHref = "/scripts.js?v=20260714-quality-pass";
 const contactScriptHref = scriptHref;
+const releaseAssetDir = join(publicDir, "__release", "20260714-quality-pass-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -3062,3 +3063,6 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${url} â
 - Delivery policy: https://pddjf.com/delivery-policy
 - Privacy policy: https://pddjf.com/privacy
 `);
+
+writePublicFile(join(releaseAssetDir, "home.html"), readFileSync(join(publicDir, "index.html"), "utf8"));
+writePublicFile(join(releaseAssetDir, "contact.html"), readFileSync(join(publicDir, "contact", "index.html"), "utf8"));

@@ -57,6 +57,10 @@ const HTML_CACHE_BUST_PATHS = new Set([
   "/articles/schwab-api-token-refresh-runbook/",
   "/articles/fix-api-certificate-network-allowlist-checklist/"
 ]);
+const HTML_RELEASE_ASSETS = new Map([
+  ["/", "/__release/20260714-quality-pass-assets/home.html"],
+  ["/contact/", "/__release/20260714-quality-pass-assets/contact.html"]
+]);
 
 function withSecurityHeaders(response, status = response.status, assetPath = "") {
   const withHeaders = new Response(response.body, response);
@@ -135,6 +139,15 @@ export default {
 
     if (url.pathname === "/icojf" || url.pathname.startsWith("/icojf/")) {
       return fetchAsset(env, request, "/404.html", 404);
+    }
+
+    if (url.pathname.startsWith("/__release/")) {
+      return fetchAsset(env, request, "/404.html", 404);
+    }
+
+    const releaseAssetPath = HTML_RELEASE_ASSETS.get(url.pathname);
+    if (releaseAssetPath) {
+      return fetchAsset(env, request, releaseAssetPath);
     }
 
     const assetUrl = new URL(request.url);
