@@ -1750,6 +1750,11 @@ const articlePages = [
     h1: "Alpaca WebSocket Order Status Reconciliation",
     intro: "Alpaca order automation should not depend on a single stream message. A production-minded workflow combines WebSocket order updates, REST backfill, stable identifiers, reconnect behavior and reviewable logs so operators can explain each order state after handover.",
     summary: "Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs.",
+    related: [
+      ["Alpaca broker API integration", "/broker-api/alpaca/"],
+      ["Alpaca paper-to-live checklist", "/articles/alpaca-api-paper-to-live-checklist/"],
+      ["Broker API order reconciliation checklist", "/articles/broker-api-order-reconciliation-checklist/"]
+    ],
     sections: [
       {
         title: "Treat stream events as state inputs",
@@ -1790,6 +1795,11 @@ const articlePages = [
     h1: "Schwab API Token Refresh Runbook",
     intro: "Schwab API automation needs an OAuth lifecycle that the account owner can operate after delivery. Token refresh, expiry alerts, revoked authorization and reauthorization steps should be documented before order or account workflows depend on them.",
     summary: "A Schwab API token refresh runbook should document OAuth ownership, token storage, expiry alerts, refresh failure handling, reauthorization, pause behavior and credential rotation.",
+    related: [
+      ["Schwab broker API integration", "/broker-api/schwab/"],
+      ["Schwab Trader API OAuth automation checklist", "/articles/schwab-trader-api-oauth-automation-checklist/"],
+      ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"]
+    ],
     sections: [
       {
         title: "Assign OAuth ownership",
@@ -1831,6 +1841,11 @@ const articlePages = [
     h1: "FIX API Certificate and Network Allowlist Checklist",
     intro: "FIX API onboarding often stalls before the first order message because certificates, source IPs, ports, session identifiers and counterparty allowlists are not ready. These operational inputs should be collected before implementation is treated as blocked by code.",
     summary: "A FIX API certificate and network allowlist checklist should confirm certificate ownership, source IPs, ports, SenderCompID, TargetCompID, firewall rules, UAT evidence and support handover.",
+    related: [
+      ["FIX API order routing", "/fix-api-order-routing/"],
+      ["FIX API UAT checklist", "/articles/fix-api-uat-checklist-before-production/"],
+      ["Execution report audit log design", "/articles/fix-api-execution-report-audit-log-design/"]
+    ],
     sections: [
       {
         title: "Collect connectivity facts early",
@@ -2731,7 +2746,10 @@ function articleHtml(page) {
         <h2>${escapeHtml(page.checklistTitle)}</h2>
         <ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </section>
-      <section>
+${page.related ? `      <section>
+        <h2>${english ? "Related implementation paths" : "相关实施路径"}</h2>
+        <ul class="check-list">${page.related.map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("")}</ul>
+      </section>\n` : ""}      <section>
         <h2>${english ? "References" : "参考资料"}</h2>
         ${referenceLinksList(page.references)}
       </section>
