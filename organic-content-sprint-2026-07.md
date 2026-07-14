@@ -60,3 +60,11 @@ Publish only topics scoring 75 or higher.
 - Topics become duplicated with only platform names changed.
 - Pages attract irrelevant traffic or policy-risk queries.
 - Brief/contact events do not improve after the first 12-18 pages.
+
+## Review log - 2026-07-14
+
+- Search Console coverage snapshot (report updated 2026-06-30): 4 indexed and 21 not indexed.
+- Not indexed split: 17 discovered but not indexed; 4 crawled but not indexed. The latter includes `/broker/api/` plus three legacy HTTP/www host variants that redirect to the canonical HTTPS host.
+- Week 2 pages passed live URL tests and were added to Google's priority crawl queue on 2026-07-14.
+- Added three contextual implementation links to each Week 2 page and deployed commit `8bd199c`.
+- Hold the Week 3 queue until the next review on 2026-07-17. Do not expand unless indexing, impressions, qualified clicks, or brief/contact evidence supports continuing.
