@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260710-ads-submit";
+const ASSET_RELEASE = "20260714-quality-pass-assets";
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -51,6 +51,7 @@ const SECURITY_HEADERS = {
 const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
 const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
 const HTML_CACHE_BUST_PATHS = new Set([
+  "/",
   "/contact/",
   "/articles/alpaca-order-status-reconciliation/",
   "/articles/schwab-api-token-refresh-runbook/",

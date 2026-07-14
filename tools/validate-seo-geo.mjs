@@ -178,6 +178,13 @@ for (const file of pddjfHtmlFiles) {
 const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 ["field-error", 'aria-invalid', 'form.addEventListener("invalid"'].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
 
+const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
+[
+  'const ASSET_RELEASE = "20260714-quality-pass-assets"',
+  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/"',
+  'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
+].forEach((needle) => requireText("public/_worker.js", worker, needle));
+
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 for (const loc of locs) {
