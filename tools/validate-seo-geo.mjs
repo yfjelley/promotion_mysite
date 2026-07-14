@@ -99,6 +99,7 @@ for (const file of pddjfHtmlFiles) {
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
     requireText(rel, html, 'id="main-content"');
+    requireText(rel, html, '/styles.css?v=20260714-quality-pass');
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
     const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
 
@@ -158,7 +159,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
-      "/scripts.js?v=20260710-ads-submit",
+      "/scripts.js?v=20260714-quality-pass",
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
