@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypto Exchange Fee Calculator | Compare Futures VIP Fees</title>
+  <meta name="description" content="Compare Binance, OKX, Bybit, Bitget, MEXC and Gate perpetual futures fees. Estimate VIP tier, blended fee, monthly cost and the gap to the next tier.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Crypto Exchange VIP Fee Calculator">
+  <meta property="og:description" content="Compare Binance, OKX, Bybit, Bitget, MEXC and Gate perpetual futures fees. Estimate VIP tier, blended fee, monthly cost and the gap to the next tier.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260715-fee-tool-audit-fix">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js?v=20260715-fee-tool-audit-fix" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/tools/crypto-exchange-fee-calculator/#webpage",
+      "url": "https://pddjf.com/tools/crypto-exchange-fee-calculator/",
+      "name": "Crypto Exchange VIP Fee Calculator",
+      "description": "Compare Binance, OKX, Bybit, Bitget, MEXC and Gate perpetual futures fees. Estimate VIP tier, blended fee, monthly cost and the gap to the next tier.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/tools/crypto-exchange-fee-calculator/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Crypto Exchange Fee Calculator",
+          "item": "https://pddjf.com/tools/crypto-exchange-fee-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://pddjf.com/tools/crypto-exchange-fee-calculator/#app",
+      "name": "Crypto Exchange VIP Fee Calculator",
+      "url": "https://pddjf.com/tools/crypto-exchange-fee-calculator/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "description": "Compare Binance, OKX, Bybit, Bitget, MEXC and Gate perpetual futures fees. Estimate VIP tier, blended fee, monthly cost and the gap to the next tier.",
+      "dateModified": "2026-07-15",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/tools/crypto-exchange-fee-calculator/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this calculator show my exact account fee?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It estimates fees from public global schedules. Promotions, referral discounts, token discounts, local entities, pair groups and account-specific programs can change the final rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the blended fee calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool weights the maker and taker fee rates by your selected maker share, then multiplies that blended rate by your 30-day trading volume."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do some exchanges show only a base rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A complete ladder is excluded when the official public page is client-rendered, dynamic, account-specific or split across incompatible schedules. Partial coverage is more useful than invented precision."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are funding payments included?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The estimate covers execution fees only. Funding, spread, slippage, liquidation fees, borrowing and token discounts are outside the model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a negative maker fee reduce estimated cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Where an official schedule publishes a maker rebate, the calculator treats it as a negative fee. Actual eligibility and contract group still need account-level verification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often is the data checked?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The current dataset was checked on 2026-07-15. Each exchange row links to its official source and displays its coverage level."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a aria-current="page" href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Crypto Exchange Fee Calculator</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="Language"><a href="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/" lang="zh-CN">中文</a></div>
+      <p class="eyebrow">Fee Intelligence · Updated July 15, 2026</p>
+      <h1>Crypto Exchange VIP Fee Calculator</h1>
+      <p class="hero-lede">Turn public VIP schedules into a cost estimate for your actual maker/taker mix. Compare six major exchanges, see the next tier gap, and inspect every source behind the result.</p>
+      <div class="fee-hero-proof" aria-label="Tool scope">
+        <span><strong>6</strong> exchanges</span>
+        <span><strong>3</strong> full public ladders</span>
+        <span><strong>0</strong> API keys required</span>
+        <span><strong>2026-07-15</strong> verified</span>
+      </div>
+    </section>
+
+    <section class="fee-tool-shell" data-exchange-fee-tool data-data-url="/data/exchange-fees.json" data-lang="en">
+      <noscript><p class="tool-notice error">JavaScript is required to run the calculator. The official source links remain available below.</p></noscript>
+      <form class="fee-controls" data-fee-controls>
+        <div class="fee-control-heading">
+          <div><p class="eyebrow">Your trading profile</p><h2>Estimate execution cost</h2></div>
+          <span class="market-chip">USDT perpetuals</span>
+        </div>
+        <div class="fee-control-grid">
+          <label>30-day volume (USD)
+            <input type="number" name="volume" min="0" step="100000" value="10000000" inputmode="decimal">
+          </label>
+          <label>Maker share <output data-maker-output>70%</output>
+            <input type="range" name="makerShare" min="0" max="100" step="1" value="70">
+          </label>
+          <label>Exchange asset balance (USD)
+            <input type="number" name="assets" min="0" step="10000" value="0" inputmode="decimal">
+          </label>
+          <label>API trading share
+            <select name="apiShare">
+              <option value="0">20% or less</option>
+              <option value="21">More than 20%</option>
+            </select>
+          </label>
+        </div>
+        <p class="tool-notice fee-scope-notice">Scope: global public schedules only. US, EEA and other local entities or account promotions may differ.</p>
+      </form>
+
+      <section aria-labelledby="fee-results-title" class="fee-results-section">
+        <div class="section-heading-row"><div><p class="eyebrow">Ranked estimate</p><h2 id="fee-results-title">Monthly fee comparison</h2></div><button class="button secondary compact" type="button" data-share-fee-tool>Copy share link</button></div>
+        <p class="share-status" data-share-status aria-live="polite"></p>
+        <p class="sr-only" data-fee-summary aria-live="polite"></p>
+        <div data-fee-results><p>Loading fee schedules…</p></div>
+      </section>
+
+      <section class="fee-chart-section" aria-labelledby="cost-curve-title">
+        <div class="section-heading-row"><div><p class="eyebrow">Rate curve</p><h2 id="cost-curve-title">How effective fees change with volume</h2></div><div class="fee-chart-actions"><span class="chart-key">Lower is better</span><fieldset class="chart-mode-toggle"><legend class="sr-only">Chart metric</legend><label><input type="radio" name="chartMode" value="rate" data-chart-mode checked> Effective rate (bps)</label><label><input type="radio" name="chartMode" value="cost" data-chart-mode> Fee cost (USD)</label></fieldset></div></div>
+        <div class="fee-chart-wrap"><canvas data-fee-chart width="1100" height="460" role="img" aria-label="Effective blended fee rate by trading volume"></canvas></div>
+        <p class="chart-summary" data-chart-summary></p>
+        <details class="fee-chart-data"><summary>View chart data table</summary><div class="fee-table-scroll" data-chart-table></div></details>
+      </section>
+
+      <section class="fee-ladder-section" aria-labelledby="tier-ladder-title">
+        <div class="section-heading-row"><div><p class="eyebrow">Inspect the ladder</p><h2 id="tier-ladder-title">VIP thresholds and rates</h2></div><label>Exchange <select data-ladder-exchange><option value="okx">OKX</option><option value="bybit">Bybit</option><option value="bitget">Bitget</option><option value="binance">Binance</option><option value="mexc">MEXC</option><option value="gate">Gate</option></select></label></div>
+        <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>Tier</th><th>30d volume</th><th>Asset route</th><th>Maker</th><th>Taker</th><th>Condition</th></tr></thead><tbody data-fee-ladder></tbody></table></div>
+        <p class="tool-notice" data-ladder-note></p>
+      </section>
+    </section>
+
+    <section class="section fee-method-section" id="methodology">
+      <div class="section-heading-row"><div><p class="eyebrow">Evidence, not mystery math</p><h2>Sources and methodology</h2></div><a href="/data/exchange-fees.json">Download dataset (JSON)</a></div>
+      <p>Public global fee schedules only. Estimated tier uses the highest qualifying 30-day derivatives volume or asset-balance route, subject to published API-share conditions. Exchanges with a complete modeled ladder are ranked separately from base-rate-only references. It does not inspect an account and does not include promotions, referrals, token discounts, pair-specific exceptions, liquidation fees, funding or local-entity rules.</p>
+      <div class="fee-source-grid"><article>
+      <div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge full">Full public ladder</span></div>
+      <p>Futures Group 1 / top pairs. Group 2 contracts use different VIP7-VIP9 rates.</p>
+      <ul><li><a href="https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees" rel="nofollow noopener" target="_blank">OKX VIP tier and futures fee adjustment</a><span>Checked 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Bybit</h3><span class="coverage-badge full">Full public ladder</span></div>
+      <p>Perpetual &amp; futures standard VIP; Pro 3+ uses top 72 USDT perpetual rates. Standard VIP applies when API trading is 20% or less. Pro tiers apply above 20%; Pro 3+ rates in this model use Bybit's published top 72 USDT perpetual group.</p>
+      <ul><li><a href="https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program" rel="nofollow noopener" target="_blank">Bybit VIP fee rates</a><span>Checked 2026-07-15</span></li><li><a href="https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc" rel="nofollow noopener" target="_blank">Bybit VIP qualification thresholds</a><span>Checked 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Bitget</h3><span class="coverage-badge full">Full public ladder</span></div>
+      <p>Futures standard VIP. Bitget PRO market-maker groups use a separate schedule and are not included.</p>
+      <ul><li><a href="https://www.bitget.com/support/articles/12560603830277" rel="nofollow noopener" target="_blank">Bitget VIP fee rates and thresholds</a><span>Checked 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Binance</h3><span class="coverage-badge base-only">Base rate verified</span></div>
+      <p>USDⓈ-M futures public base rate. The official ladder is client-rendered and can vary by account and discount settings. Only the public base rate is modeled until the complete ladder can be source-verified.</p>
+      <ul><li><a href="https://www.binance.com/en/fee/futureFee" rel="nofollow noopener" target="_blank">Binance USDⓈ-M futures fees</a><span>Checked 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>MEXC</h3><span class="coverage-badge base-only">Base rate verified</span></div>
+      <p>Published standard perpetual futures rate. MEXC publishes 0% maker and 0.02% taker as its standard perpetual futures rate, while noting that rates can vary by region and pair. VVIP uses a dynamic M-Score, so no deterministic next tier is modeled.</p>
+      <ul><li><a href="https://www.mexc.com/learn/article/mexc-fees-explained-complete-trading-futures-withdrawal-fees-guide/1" rel="nofollow noopener" target="_blank">MEXC futures fee guide</a><span>Checked 2026-07-15</span></li><li><a href="https://www.mexc.com/support/article/mexc-vvip-system-faq-338954841861595136" rel="nofollow noopener" target="_blank">MEXC VVIP M-Score FAQ</a><span>Checked 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Gate</h3><span class="coverage-badge base-only">Base rate verified</span></div>
+      <p>USDT futures base schedule. Gate publishes pair-group and VIP adjustments across multiple surfaces. Only the base schedule is modeled here to avoid mixing incompatible tables.</p>
+      <ul><li><a href="https://www.gate.com/pt/announcements/article/50390" rel="nofollow noopener" target="_blank">Gate futures fee adjustment</a><span>Checked 2026-07-15</span></li><li><a href="https://www.gate.com/de/blog/101880/gate-vip-program-fee-structure-benefits-cost-optimization-trading-discounts-promotions" rel="nofollow noopener" target="_blank">Gate VIP program overview</a><span>Checked 2026-07-15</span></li></ul>
+    </article></div>
+      <aside class="fee-limitations"><strong>What is excluded:</strong> funding payments, spread, slippage, liquidation fees, referral or token discounts, market-maker programs, local entity restrictions and account-specific promotions. Always confirm the final rate inside your exchange account before routing volume.</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>How to read this comparison</h2>
+      <div class="fee-faq-list"><details><summary>Does this calculator show my exact account fee?</summary><p>No. It estimates fees from public global schedules. Promotions, referral discounts, token discounts, local entities, pair groups and account-specific programs can change the final rate.</p></details><details><summary>How is the blended fee calculated?</summary><p>The tool weights the maker and taker fee rates by your selected maker share, then multiplies that blended rate by your 30-day trading volume.</p></details><details><summary>Why do some exchanges show only a base rate?</summary><p>A complete ladder is excluded when the official public page is client-rendered, dynamic, account-specific or split across incompatible schedules. Partial coverage is more useful than invented precision.</p></details><details><summary>Are funding payments included?</summary><p>No. The estimate covers execution fees only. Funding, spread, slippage, liquidation fees, borrowing and token discounts are outside the model.</p></details><details><summary>Can a negative maker fee reduce estimated cost?</summary><p>Yes. Where an official schedule publishes a maker rebate, the calculator treats it as a negative fee. Actual eligibility and contract group still need account-level verification.</p></details><details><summary>How often is the data checked?</summary><p>The current dataset was checked on 2026-07-15. Each exchange row links to its official source and displays its coverage level.</p></details></div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">Need account-exact routing logic?</p><h2>Turn fee schedules into an execution policy</h2><p>We build exchange API execution, routing, risk controls and monitoring. No custody and no withdrawal permissions.</p></div>
+      <div class="hero-actions"><a class="button primary" href="/exchange-api-trading-bot-development/" data-contact="fee_tool_exchange_api">Explore exchange API engineering</a><a class="button secondary" href="/contact/" data-contact="fee_tool_brief">Send a project brief</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software Development</a>
+      <a href="/tradingview-webhook-developer/">TradingView Webhook Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR API Automation Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX API Order Routing Developer</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

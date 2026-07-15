@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-07-07
+Last updated: 2026-07-15
 
 ## Core services
 
@@ -20,6 +20,11 @@ Last updated: 2026-07-07
 - FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
+
+## Free tools
+
+- Crypto Exchange VIP Fee Calculator: https://pddjf.com/tools/crypto-exchange-fee-calculator/ — Compare public USDT perpetual futures VIP schedules, estimate blended execution cost, inspect tier gaps, and download the source-backed dataset.
+- 中文交易所 VIP 手续费计算器: https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/ — 对比六家主流交易所的公开合约费率，估算混合手续费、VIP 等级和下一级差距。
 
 ## Facts for AI search and agents
 

@@ -1,0 +1,166 @@
+export const exchangeFeeData = {
+  schemaVersion: 1,
+  lastVerified: "2026-07-15",
+  market: "USDT perpetual futures",
+  currency: "USD",
+  methodology: "Public global fee schedules only. Estimated tier uses the highest qualifying 30-day derivatives volume or asset-balance route, subject to published API-share conditions. Exchanges with a complete modeled ladder are ranked separately from base-rate-only references. It does not inspect an account and does not include promotions, referrals, token discounts, pair-specific exceptions, liquidation fees, funding or local-entity rules.",
+  exchanges: [
+    {
+      id: "okx",
+      name: "OKX",
+      color: "#111827",
+      coverage: "full",
+      coverageLabel: "Full public ladder",
+      pairScope: "Futures Group 1 / top pairs",
+      note: "Group 2 contracts use different VIP7-VIP9 rates.",
+      source: {
+        label: "OKX VIP tier and futures fee adjustment",
+        url: "https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees",
+        effectiveDate: "2026-04-08",
+        checkedDate: "2026-07-15"
+      },
+      tiers: [
+        { name: "Regular", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.050 },
+        { name: "VIP 1", minVolume: 5000000, minAssets: 100000, maker: 0.016, taker: 0.045 },
+        { name: "VIP 2", minVolume: 10000000, minAssets: 200000, maker: 0.015, taker: 0.036 },
+        { name: "VIP 3", minVolume: 50000000, minAssets: 2000000, maker: 0.010, taker: 0.028 },
+        { name: "VIP 4", minVolume: 200000000, minAssets: 5000000, maker: 0.008, taker: 0.027 },
+        { name: "VIP 5", minVolume: 600000000, minAssets: 20000000, maker: 0.005, taker: 0.026 },
+        { name: "VIP 6", minVolume: 1000000000, minAssets: 50000000, maker: 0.000, taker: 0.025 },
+        { name: "VIP 7", minVolume: 1500000000, minAssets: 100000000, maker: -0.002, taker: 0.020 },
+        { name: "VIP 8", minVolume: 2000000000, minAssets: 250000000, maker: -0.005, taker: 0.020 },
+        { name: "VIP 9", minVolume: 20000000000, minAssets: 500000000, maker: -0.005, taker: 0.015 }
+      ]
+    },
+    {
+      id: "bybit",
+      name: "Bybit",
+      color: "#f7a600",
+      coverage: "full",
+      coverageLabel: "Full standard ladder",
+      pairScope: "Perpetual & futures standard VIP; Pro 3+ uses top 72 USDT perpetual rates",
+      note: "Standard VIP applies when API trading is 20% or less. Pro tiers apply above 20%; Pro 3+ rates in this model use Bybit's published top 72 USDT perpetual group.",
+      sources: [
+        {
+          label: "Bybit VIP fee rates",
+          url: "https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program",
+          updatedDate: "2026-06-03",
+          checkedDate: "2026-07-15"
+        },
+        {
+          label: "Bybit VIP qualification thresholds",
+          url: "https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc",
+          updatedDate: "2026-05-26",
+          checkedDate: "2026-07-15"
+        }
+      ],
+      tiers: [
+        { name: "VIP 0", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.055 },
+        { name: "VIP 1", minVolume: 10000000, minAssets: 100000, maker: 0.018, taker: 0.040 },
+        { name: "VIP 2", minVolume: 25000000, minAssets: 250000, maker: 0.016, taker: 0.0375 },
+        { name: "VIP 3", minVolume: 50000000, minAssets: 500000, maker: 0.014, taker: 0.035 },
+        { name: "VIP 4", minVolume: 100000000, minAssets: 1000000, maxApiShareForVolume: 20, maker: 0.012, taker: 0.032 },
+        { name: "Pro 1", minVolume: 100000000, minAssets: null, minApiShareForVolume: 21, maker: 0.010, taker: 0.032 },
+        { name: "VIP 5", minVolume: 250000000, minAssets: 2000000, maxApiShareForVolume: 20, maker: 0.010, taker: 0.032 },
+        { name: "Pro 2", minVolume: 250000000, minAssets: null, minApiShareForVolume: 21, maker: 0.005, taker: 0.032 },
+        { name: "Supreme VIP", minVolume: 500000000, minAssets: null, maxApiShareForVolume: 20, maker: 0.000, taker: 0.030 },
+        { name: "Pro 3", minVolume: 750000000, minAssets: null, minApiShareForVolume: 21, maker: 0.000, taker: 0.0275, rateScope: "Top 72 USDT perpetuals" },
+        { name: "Pro 4", minVolume: 1500000000, minAssets: null, minApiShareForVolume: 21, maker: 0.000, taker: 0.024, rateScope: "Top 72 USDT perpetuals" },
+        { name: "Pro 5", minVolume: 3000000000, minAssets: null, minApiShareForVolume: 21, maker: 0.000, taker: 0.021, rateScope: "Top 72 USDT perpetuals" },
+        { name: "Pro 6", minVolume: 5000000000, minAssets: null, minApiShareForVolume: 21, maker: 0.000, taker: 0.018, rateScope: "Top 72 USDT perpetuals" }
+      ]
+    },
+    {
+      id: "bitget",
+      name: "Bitget",
+      color: "#00a6a6",
+      coverage: "full",
+      coverageLabel: "Full standard ladder",
+      pairScope: "Futures standard VIP",
+      note: "Bitget PRO market-maker groups use a separate schedule and are not included.",
+      source: {
+        label: "Bitget VIP fee rates and thresholds",
+        url: "https://www.bitget.com/support/articles/12560603830277",
+        effectiveDate: "2025-07-01",
+        checkedDate: "2026-07-15"
+      },
+      tiers: [
+        { name: "VIP 0", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.060 },
+        { name: "VIP 1", minVolume: 5000000, minAssets: 30000, maker: 0.019, taker: 0.060 },
+        { name: "VIP 2", minVolume: 10000000, minAssets: 50000, maker: 0.016, taker: 0.040 },
+        { name: "VIP 3", minVolume: 20000000, minAssets: 250000, maker: 0.014, taker: 0.0375 },
+        { name: "VIP 4", minVolume: 50000000, minAssets: 750000, maker: 0.012, taker: 0.035 },
+        { name: "VIP 5", minVolume: 100000000, minAssets: 2000000, maker: 0.010, taker: 0.032 },
+        { name: "VIP 6", minVolume: 300000000, minAssets: 5000000, maxApiShareForVolume: 20, maker: 0.008, taker: 0.030 },
+        { name: "VIP 7", minVolume: 1000000000, minAssets: 10000000, maxApiShareForVolume: 20, maker: 0.000, taker: 0.020 }
+      ]
+    },
+    {
+      id: "binance",
+      name: "Binance",
+      color: "#d9a400",
+      coverage: "base-only",
+      coverageLabel: "Base rate verified",
+      pairScope: "USDⓈ-M futures public base rate",
+      note: "The official ladder is client-rendered and can vary by account and discount settings. Only the public base rate is modeled until the complete ladder can be source-verified.",
+      source: {
+        label: "Binance USDⓈ-M futures fees",
+        url: "https://www.binance.com/en/fee/futureFee",
+        checkedDate: "2026-07-15"
+      },
+      tiers: [
+        { name: "Regular", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.050 }
+      ]
+    },
+    {
+      id: "mexc",
+      name: "MEXC",
+      color: "#2f6fed",
+      coverage: "base-only",
+      coverageLabel: "Base rate verified",
+      pairScope: "Published standard perpetual futures rate",
+      note: "MEXC publishes 0% maker and 0.02% taker as its standard perpetual futures rate, while noting that rates can vary by region and pair. VVIP uses a dynamic M-Score, so no deterministic next tier is modeled.",
+      sources: [
+        {
+          label: "MEXC futures fee guide",
+          url: "https://www.mexc.com/learn/article/mexc-fees-explained-complete-trading-futures-withdrawal-fees-guide/1",
+          checkedDate: "2026-07-15"
+        },
+        {
+          label: "MEXC VVIP M-Score FAQ",
+          url: "https://www.mexc.com/support/article/mexc-vvip-system-faq-338954841861595136",
+          updatedDate: "2026-04-02",
+          checkedDate: "2026-07-15"
+        }
+      ],
+      tiers: [
+        { name: "Standard", minVolume: 0, minAssets: 0, maker: 0.000, taker: 0.020 }
+      ]
+    },
+    {
+      id: "gate",
+      name: "Gate",
+      color: "#2354e6",
+      coverage: "base-only",
+      coverageLabel: "Base rate verified",
+      pairScope: "USDT futures base schedule",
+      note: "Gate publishes pair-group and VIP adjustments across multiple surfaces. Only the base schedule is modeled here to avoid mixing incompatible tables.",
+      sources: [
+        {
+          label: "Gate futures fee adjustment",
+          url: "https://www.gate.com/pt/announcements/article/50390",
+          updatedDate: "2026-04-09",
+          checkedDate: "2026-07-15"
+        },
+        {
+          label: "Gate VIP program overview",
+          url: "https://www.gate.com/de/blog/101880/gate-vip-program-fee-structure-benefits-cost-optimization-trading-discounts-promotions",
+          checkedDate: "2026-07-15"
+        }
+      ],
+      tiers: [
+        { name: "VIP 0", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.050 }
+      ]
+    }
+  ]
+};

@@ -59,7 +59,9 @@ const HTML_CACHE_BUST_PATHS = new Set([
 ]);
 const HTML_RELEASE_ASSETS = new Map([
   ["/", "/__release/20260715-p2-ux-assets/home.html"],
-  ["/contact/", "/__release/20260715-p2-ux-assets/contact.html"]
+  ["/contact/", "/__release/20260715-p2-ux-assets/contact.html"],
+  ["/tools/crypto-exchange-fee-calculator/", "/__release/20260715-p2-ux-assets/exchange-fee-tool-i18n.html"],
+  ["/zh/tools/crypto-exchange-fee-calculator/", "/__release/20260715-p2-ux-assets/exchange-fee-tool-zh.html"]
 ]);
 
 function withSecurityHeaders(response, status = response.status, assetPath = "") {

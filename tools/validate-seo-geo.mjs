@@ -102,7 +102,9 @@ for (const file of pddjfHtmlFiles) {
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
     requireText(rel, html, 'id="main-content"');
-    requireText(rel, html, '/styles.css?v=20260715-p2-ux');
+    if (!/\/styles\.css\?v=20260715-(?:p2-ux|fee-tool-audit-fix)/.test(html)) {
+      errors.push(`${rel}: missing current stylesheet asset URL`);
+    }
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
     const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
 
@@ -162,7 +164,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
-      "/scripts.js?v=20260715-p2-ux",
+      "/scripts.js?v=20260715-fee-tool-audit-fix",
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
@@ -190,7 +192,9 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 
 for (const [canonicalFile, releaseFile] of [
   [join(publicDir, "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "home.html")],
-  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "contact.html")]
+  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "contact.html")],
+  [join(publicDir, "tools", "crypto-exchange-fee-calculator", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "exchange-fee-tool-i18n.html")],
+  [join(publicDir, "zh", "tools", "crypto-exchange-fee-calculator", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "exchange-fee-tool-zh.html")]
 ]) {
   if (!existsSync(releaseFile)) {
     errors.push(`${relative(publicDir, releaseFile)}: missing release asset`);
@@ -233,7 +237,7 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
-  "Last updated: 2026-07-07",
+  "Last updated: 2026-07-15",
   "TradingView Webhook automation",
   "Custom Trading Software Development",
   "IBKR API automation",

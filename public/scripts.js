@@ -150,9 +150,292 @@ async function copyText(value) {
   input.remove();
 }
 
+function escapeToolHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function initExchangeFeeTool() {
+  const root = document.querySelector("[data-exchange-fee-tool]");
+  if (!root) return;
+
+  const form = root.querySelector("[data-fee-controls]");
+  const results = root.querySelector("[data-fee-results]");
+  const resultsSummary = root.querySelector("[data-fee-summary]");
+  const makerOutput = root.querySelector("[data-maker-output]");
+  const ladderSelect = root.querySelector("[data-ladder-exchange]");
+  const ladderBody = root.querySelector("[data-fee-ladder]");
+  const ladderNote = root.querySelector("[data-ladder-note]");
+  const canvas = root.querySelector("[data-fee-chart]");
+  const chartSummary = root.querySelector("[data-chart-summary]");
+  const chartTable = root.querySelector("[data-chart-table]");
+  const chartModeControls = [...root.querySelectorAll("[data-chart-mode]")];
+  const shareButton = root.querySelector("[data-share-fee-tool]");
+  const shareStatus = root.querySelector("[data-share-status]");
+  const isZh = root.dataset.lang === "zh-CN";
+  const locale = isZh ? "zh-CN" : "en-US";
+  const copy = isZh ? {
+    noNext: "没有可确定的公开下一等级", highest: "已达到模型中的最高公开等级", volumeMet: "成交量路径已满足", moreVolume: (value) => `还差 ${value} 成交量`, assetMet: "资产路径已满足", moreAssets: (value) => `还差 ${value} 资产`, or: " 或 ",
+    estimated: "完整等级排名", reference: "基础费率参考", full: "完整公开等级", base: "仅基础费率", fees30d: "预计 30 天手续费", blended: "混合费率", nextTier: "下一等级", saving: (value) => `若下一等级费率直接应用于当前成交量，理论可节省 ${value}/30 天`,
+    comparableTitle: "完整等级可比排名", comparableNote: "仅在拥有完整公开费率等级的交易所之间排名。", referenceTitle: "基础费率参考", referenceNote: "以下交易所缺少可稳定核验的完整公开等级，不参与上方排名。",
+    updatedSummary: (name, cost) => `完整等级排名已更新，当前最低估算为 ${name}，30 天手续费 ${cost}。`,
+    chart: (share, mode) => `仅按成交量比较，Maker 占比为 ${share}%。当前显示${mode === "rate" ? "有效混合费率" : "预计手续费"}；成交量横轴采用对数刻度，线型用于辅助区分交易所，基础费率仅供参考。资产余额晋级路径未计入曲线。`,
+    chartAria: (mode) => mode === "rate" ? "不同成交量下的有效混合费率（基点）" : "不同成交量下的预计手续费（美元）",
+    chartValue: (value, mode) => mode === "rate" ? `${value.toFixed(2)} bps` : fullUsd.format(value),
+    unavailable: "不可用", volumeApi: (tier) => Number.isFinite(tier.minApiShareForVolume) ? `成交量路径：API 占比 ≥ ${tier.minApiShareForVolume}%` : Number.isFinite(tier.maxApiShareForVolume) ? `成交量路径：API 占比 ≤ ${tier.maxApiShareForVolume}%` : "标准条件", standard: "标准条件", separator: "。",
+    shareCopied: "分享链接已复制。", shareFailed: "无法自动复制，请从浏览器地址栏复制当前链接。", loadFailed: "费率数据加载失败，请先使用下方官方来源链接，稍后重试。",
+    scope: {
+      okx: "合约分组 1 / 主流交易对",
+      bybit: "标准 VIP；Pro 3 以上采用主流 72 个 USDT 永续合约费率",
+      bitget: "合约标准 VIP",
+      binance: "USDⓈ-M 合约公开基础费率",
+      mexc: "公开标准永续合约费率",
+      gate: "USDT 合约基础费率"
+    },
+    notes: {
+      okx: "分组 2 合约的 VIP 7 至 VIP 9 费率不同。",
+      bybit: "API 交易占比不超过 20% 时采用标准 VIP，超过 20% 时采用 Pro；Pro 3 以上按官方主流 72 个 USDT 永续合约分组建模。",
+      bitget: "Bitget PRO 做市商分组采用独立费率表，未计入本模型。",
+      binance: "官方完整等级表由客户端动态渲染，且可能受账户折扣设置影响；在完整数据可稳定核验前，仅建模公开基础费率。",
+      mexc: "公开标准永续费率为 Maker 0%、Taker 0.02%；地区、交易对和动态 M-Score VVIP 可能改变账户实际费率。",
+      gate: "Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。"
+    }
+  } : {
+    noNext: "No deterministic public next tier", highest: "Highest modeled public tier", volumeMet: "volume route met", moreVolume: (value) => `${value} more volume`, assetMet: "asset route met", moreAssets: (value) => `${value} more assets`, or: " or ",
+    estimated: "full-ladder rank", reference: "base-rate reference", full: "Full public ladder", base: "Base rate only", fees30d: "Estimated 30d fees", blended: "Blended", nextTier: "Next tier", saving: (value) => `If next-tier rates applied to current volume, theoretical saving: ${value}/30d`,
+    comparableTitle: "Comparable full-ladder ranking", comparableNote: "Ranked only among exchanges with a complete modeled public ladder.", referenceTitle: "Base-rate references", referenceNote: "These exchanges lack a stable, fully modeled public ladder and are excluded from the ranking above.",
+    updatedSummary: (name, cost) => `Full-ladder ranking updated. The lowest current estimate is ${name} at ${cost} over 30 days.`,
+    chart: (share, mode) => `Volume-only comparison at ${share}% maker share. Showing ${mode === "rate" ? "effective blended rates" : "estimated fees"}; the volume axis uses a log scale, line patterns also distinguish exchanges, and base-rate series are reference-only. Asset qualification is excluded.`,
+    chartAria: (mode) => mode === "rate" ? "Effective blended fee rate in basis points by trading volume" : "Estimated execution fees in USD by trading volume",
+    chartValue: (value, mode) => mode === "rate" ? `${value.toFixed(2)} bps` : fullUsd.format(value),
+    unavailable: "Not available", volumeApi: (tier) => Number.isFinite(tier.minApiShareForVolume) ? `Volume route: API share ≥ ${tier.minApiShareForVolume}%` : Number.isFinite(tier.maxApiShareForVolume) ? `Volume route: API share ≤ ${tier.maxApiShareForVolume}%` : "Standard", standard: "Standard", separator: ". ",
+    shareCopied: "Share link copied.", shareFailed: "Could not copy automatically. Copy the current URL from your browser.", loadFailed: "The fee dataset could not be loaded. Please use the official source links below and try again later.",
+    scope: {}, notes: {}
+  };
+  const compactUsd = new Intl.NumberFormat(locale, { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 1 });
+  const fullUsd = new Intl.NumberFormat(locale, { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  let dataset;
+
+  const numberValue = (name) => Math.max(0, Number(form.elements[name]?.value) || 0);
+  const percent = (value) => `${Number(value).toFixed(4).replace(/\.?0+$/, "") || "0"}%`;
+  const bps = (value) => `${(Number(value) * 100).toFixed(2)} bps`;
+  const volumeApiEligible = (tier, apiShare) => (
+    (!Number.isFinite(tier.minApiShareForVolume) || apiShare >= tier.minApiShareForVolume)
+    && (!Number.isFinite(tier.maxApiShareForVolume) || apiShare <= tier.maxApiShareForVolume)
+  );
+  const qualifies = (tier, volume, assets, apiShare) => {
+    const byVolume = volume >= tier.minVolume && volumeApiEligible(tier, apiShare);
+    const byAssets = tier.minAssets !== null && assets >= tier.minAssets;
+    return byVolume || byAssets;
+  };
+  const tierFor = (exchange, volume, assets, apiShare) => exchange.tiers.reduce((selected, tier) => (
+    qualifies(tier, volume, assets, apiShare) ? tier : selected
+  ), exchange.tiers[0]);
+  const costFor = (tier, volume, makerShare) => {
+    const makerWeight = makerShare / 100;
+    const blendedPercent = (tier.maker * makerWeight) + (tier.taker * (1 - makerWeight));
+    return { blendedPercent, cost: volume * blendedPercent / 100 };
+  };
+  const nextTierFor = (exchange, currentTier, apiShare) => {
+    const currentIndex = exchange.tiers.indexOf(currentTier);
+    return exchange.tiers.slice(currentIndex + 1).find((tier) => (
+      (tier.minAssets !== null || volumeApiEligible(tier, apiShare))
+      && (tier.maker < currentTier.maker || tier.taker < currentTier.taker)
+    )) || null;
+  };
+
+  function renderResults() {
+    const volume = numberValue("volume");
+    const assets = numberValue("assets");
+    const makerShare = numberValue("makerShare");
+    const apiShare = numberValue("apiShare");
+    makerOutput.value = `${makerShare}%`;
+    makerOutput.textContent = `${makerShare}%`;
+
+    const ranked = dataset.exchanges.map((exchange) => {
+      const tier = tierFor(exchange, volume, assets, apiShare);
+      const estimate = costFor(tier, volume, makerShare);
+      const nextTier = exchange.coverage === "full" ? nextTierFor(exchange, tier, apiShare) : null;
+      const nextEstimate = nextTier ? costFor(nextTier, volume, makerShare) : null;
+      const volumeGap = nextTier ? Math.max(0, nextTier.minVolume - volume) : null;
+      const assetGap = nextTier?.minAssets === null || !nextTier ? null : Math.max(0, nextTier.minAssets - assets);
+      return { exchange, tier, nextTier, nextEstimate, volumeGap, assetGap, ...estimate };
+    }).sort((a, b) => a.cost - b.cost);
+
+    const renderCards = (items, rankedGroup) => items.map((item, index) => {
+      const { exchange, tier, nextTier, nextEstimate, volumeGap, assetGap } = item;
+      const saving = nextEstimate ? Math.max(0, item.cost - nextEstimate.cost) : null;
+      let nextCopy = copy.noNext;
+      if (exchange.coverage === "full" && !nextTier) nextCopy = copy.highest;
+      if (nextTier) {
+        const routes = [];
+        const volumeRouteAvailable = volumeApiEligible(nextTier, apiShare);
+        if (volumeRouteAvailable) {
+          if (volumeGap === 0) routes.push(copy.volumeMet);
+          else routes.push(copy.moreVolume(compactUsd.format(volumeGap)));
+        }
+        if (assetGap !== null) routes.push(assetGap === 0 ? copy.assetMet : copy.moreAssets(compactUsd.format(assetGap)));
+        nextCopy = `${escapeToolHtml(nextTier.name)}: ${routes.join(copy.or)}`;
+      }
+      return `<article class="fee-result-card${rankedGroup && index === 0 ? " best" : ""}">
+        <div class="fee-card-head"><div><span class="exchange-dot" style="--exchange-color:${escapeToolHtml(exchange.color)}"></span><h3>${escapeToolHtml(exchange.name)}</h3></div><span class="coverage-badge ${escapeToolHtml(exchange.coverage)}">${escapeToolHtml(exchange.coverage === "full" ? copy.full : copy.base)}</span></div>
+        <div class="fee-rank-row"><span>${rankedGroup ? `#${index + 1} ${copy.estimated}` : copy.reference}</span><strong>${escapeToolHtml(tier.name)}</strong></div>
+        <div class="fee-primary-cost"><span>${copy.fees30d}</span><strong>${fullUsd.format(item.cost)}</strong></div>
+        <dl class="fee-metrics"><div><dt>${copy.blended}</dt><dd>${bps(item.blendedPercent)}</dd></div><div><dt>Maker</dt><dd>${percent(tier.maker)}</dd></div><div><dt>Taker</dt><dd>${percent(tier.taker)}</dd></div></dl>
+        <div class="fee-next-tier"><span>${copy.nextTier}</span><strong>${nextCopy}</strong>${saving !== null ? `<small>${copy.saving(fullUsd.format(saving))}</small>` : ""}</div>
+        <p>${escapeToolHtml(tier.rateScope || copy.scope[exchange.id] || exchange.pairScope)}</p>
+      </article>`;
+    }).join("");
+    const comparable = ranked.filter((item) => item.exchange.coverage === "full");
+    const references = ranked.filter((item) => item.exchange.coverage !== "full");
+    results.innerHTML = `<section class="fee-result-group" aria-labelledby="full-ladder-ranking-title">
+      <div class="fee-group-heading"><h3 id="full-ladder-ranking-title">${copy.comparableTitle}</h3><p>${copy.comparableNote}</p></div>
+      <div class="fee-result-cards">${renderCards(comparable, true)}</div>
+    </section>
+    <section class="fee-result-group reference" aria-labelledby="base-rate-reference-title">
+      <div class="fee-group-heading"><h3 id="base-rate-reference-title">${copy.referenceTitle}</h3><p>${copy.referenceNote}</p></div>
+      <div class="fee-result-cards">${renderCards(references, false)}</div>
+    </section>`;
+    if (resultsSummary && comparable[0]) resultsSummary.textContent = copy.updatedSummary(comparable[0].exchange.name, fullUsd.format(comparable[0].cost));
+    renderChart(makerShare, apiShare);
+  }
+
+  function renderChart(makerShare, apiShare) {
+    if (!canvas.getContext) return;
+    const chartMode = chartModeControls.find((control) => control.checked)?.value || "rate";
+    const volumes = [100000, 500000, 1000000, 5000000, 10000000, 25000000, 50000000, 100000000, 250000000, 500000000, 750000000, 1000000000, 1500000000, 2000000000, 3000000000, 5000000000, 20000000000];
+    const displayWidth = Math.max(620, canvas.parentElement.clientWidth || 900);
+    const displayHeight = displayWidth < 760 ? 390 : 460;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = displayWidth * ratio;
+    canvas.height = displayHeight * ratio;
+    canvas.style.width = `${displayWidth}px`;
+    canvas.style.height = `${displayHeight}px`;
+    const ctx = canvas.getContext("2d");
+    ctx.scale(ratio, ratio);
+    const pad = { top: 34, right: 24, bottom: 54, left: 78 };
+    const width = displayWidth - pad.left - pad.right;
+    const height = displayHeight - pad.top - pad.bottom;
+    const linePatterns = [[], [10, 5], [2, 5], [12, 4, 2, 4], [6, 4], [14, 4, 3, 4]];
+    const series = dataset.exchanges.map((exchange, index) => ({
+      exchange,
+      pattern: linePatterns[index % linePatterns.length],
+      values: volumes.map((volume) => {
+        const estimate = costFor(tierFor(exchange, volume, 0, apiShare), volume, makerShare);
+        return chartMode === "rate" ? estimate.blendedPercent * 100 : estimate.cost;
+      })
+    }));
+    const maxValue = Math.max(...series.flatMap((item) => item.values), 1);
+    const logMinVolume = Math.log10(volumes[0]);
+    const logVolumeRange = Math.log10(volumes.at(-1)) - logMinVolume;
+    const xFor = (volume) => pad.left + ((Math.log10(volume) - logMinVolume) / logVolumeRange) * width;
+    const yFor = (value) => pad.top + height - (value / maxValue) * height;
+    ctx.clearRect(0, 0, displayWidth, displayHeight);
+    ctx.font = "12px Inter, system-ui, sans-serif";
+    ctx.fillStyle = "#607086";
+    ctx.strokeStyle = "#dbe4ee";
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i += 1) {
+      const value = maxValue * i / 4;
+      const y = yFor(value);
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(displayWidth - pad.right, y); ctx.stroke();
+      ctx.fillText(chartMode === "rate" ? `${value.toFixed(2)} bps` : compactUsd.format(value), 8, y + 4);
+    }
+    const tickVolumes = displayWidth < 760 ? [100000, 10000000, 1000000000, 20000000000] : [100000, 1000000, 10000000, 100000000, 1000000000, 20000000000];
+    tickVolumes.forEach((volume) => {
+      ctx.fillText(compactUsd.format(volume).replace(".0", ""), xFor(volume) - 18, displayHeight - 26);
+    });
+    series.forEach(({ exchange, pattern, values }) => {
+      ctx.strokeStyle = exchange.color;
+      ctx.lineWidth = exchange.coverage === "full" ? 3 : 2;
+      ctx.setLineDash(pattern);
+      ctx.beginPath();
+      values.forEach((value, index) => index ? ctx.lineTo(xFor(volumes[index]), yFor(value)) : ctx.moveTo(xFor(volumes[index]), yFor(value)));
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    let legendX = pad.left;
+    series.forEach(({ exchange, pattern }) => {
+      ctx.strokeStyle = exchange.color;
+      ctx.lineWidth = exchange.coverage === "full" ? 3 : 2;
+      ctx.setLineDash(pattern);
+      ctx.beginPath(); ctx.moveTo(legendX, 12); ctx.lineTo(legendX + 15, 12); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#07111f";
+      ctx.fillText(exchange.name, legendX + 19, 16);
+      legendX += ctx.measureText(exchange.name).width + 48;
+    });
+    canvas.setAttribute("aria-label", copy.chartAria(chartMode));
+    chartSummary.textContent = copy.chart(makerShare, chartMode);
+    if (chartTable) {
+      chartTable.innerHTML = `<table class="fee-chart-table"><thead><tr><th>${isZh ? "交易所" : "Exchange"}</th>${volumes.map((volume) => `<th>${compactUsd.format(volume).replace(".0", "")}</th>`).join("")}</tr></thead><tbody>${series.map(({ exchange, values }) => `<tr><th scope="row">${escapeToolHtml(exchange.name)} · ${escapeToolHtml(exchange.coverage === "full" ? copy.full : copy.base)}</th>${values.map((value) => `<td>${escapeToolHtml(copy.chartValue(value, chartMode))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    }
+  }
+
+  function renderLadder() {
+    const exchange = dataset.exchanges.find((item) => item.id === ladderSelect.value) || dataset.exchanges[0];
+    ladderBody.innerHTML = exchange.tiers.map((tier) => `<tr><th scope="row">${escapeToolHtml(tier.name)}</th><td>${tier.minVolume ? `${compactUsd.format(tier.minVolume)}+` : "—"}</td><td>${tier.minAssets === null ? copy.unavailable : tier.minAssets ? `${compactUsd.format(tier.minAssets)}+` : "—"}</td><td>${percent(tier.maker)}</td><td>${percent(tier.taker)}</td><td>${copy.volumeApi(tier)}</td></tr>`).join("");
+    ladderNote.textContent = [exchange.coverage === "full" ? copy.full : copy.base, copy.scope[exchange.id] || exchange.pairScope, copy.notes[exchange.id] || exchange.note].join(copy.separator);
+  }
+
+  function applyQueryState() {
+    const params = new URLSearchParams(window.location.search);
+    const mappings = { v: "volume", m: "makerShare", a: "assets", api: "apiShare" };
+    Object.entries(mappings).forEach(([param, field]) => {
+      if (params.has(param) && form.elements[field]) form.elements[field].value = params.get(param);
+    });
+  }
+
+  async function shareState() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.searchParams.set("v", String(numberValue("volume")));
+    url.searchParams.set("m", String(numberValue("makerShare")));
+    url.searchParams.set("a", String(numberValue("assets")));
+    url.searchParams.set("api", String(numberValue("apiShare")));
+    try {
+      await copyText(url.toString());
+      shareStatus.textContent = copy.shareCopied;
+      gtag("event", "fee_tool_share", { event_category: "engagement" });
+    } catch (error) {
+      shareStatus.textContent = copy.shareFailed;
+    }
+  }
+
+  fetch(root.dataset.dataUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error(`Fee data request failed: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      dataset = data;
+      applyQueryState();
+      renderResults();
+      renderLadder();
+      form.addEventListener("input", renderResults);
+      form.addEventListener("change", renderResults);
+      ladderSelect.addEventListener("change", renderLadder);
+      chartModeControls.forEach((control) => control.addEventListener("change", () => renderChart(numberValue("makerShare"), numberValue("apiShare"))));
+      shareButton.addEventListener("click", shareState);
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(renderResults, 120);
+      });
+    })
+    .catch((error) => {
+      results.innerHTML = `<p class="tool-notice error">${copy.loadFailed}</p>`;
+      console.error(error);
+    });
+}
+
 installLinkedInInsightTag();
 
 document.addEventListener("DOMContentLoaded", () => {
+  initExchangeFeeTool();
   function statusFor(element) {
     const scope = element.closest("article, .contact-copy, .contact-card, section");
     return scope?.querySelector(".copy-status") || document.querySelector(".copy-status");

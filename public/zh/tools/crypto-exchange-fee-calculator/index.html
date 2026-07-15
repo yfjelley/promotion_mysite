@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>加密货币交易所手续费对比 | VIP 合约费率计算器</title>
+  <meta name="description" content="对比 Binance、OKX、Bybit、Bitget、MEXC 和 Gate 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="主流交易所 VIP 手续费计算器">
+  <meta property="og:description" content="对比 Binance、OKX、Bybit、Bitget、MEXC 和 Gate 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260715-fee-tool-audit-fix">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <script src="/scripts.js?v=20260715-fee-tool-audit-fix" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/#webpage",
+      "url": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/",
+      "name": "主流交易所 VIP 手续费计算器",
+      "description": "对比 Binance、OKX、Bybit、Bitget、MEXC 和 Gate 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "交易所 VIP 费率计算器",
+          "item": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/#app",
+      "name": "主流交易所 VIP 手续费计算器",
+      "url": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "description": "对比 Binance、OKX、Bybit、Bitget、MEXC 和 Gate 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。",
+      "dateModified": "2026-07-15",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "这个计算器显示的是我的账户实际费率吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不是。它根据全球公开费率表进行估算。活动、返佣、平台币折扣、当地实体、交易对分组和账户专属计划都可能改变最终费率。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "混合费率如何计算？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "计算器按照你选择的 Maker 占比，对 Maker 和 Taker 费率进行加权，再乘以 30 天成交量。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么部分交易所只显示基础费率？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "当官方完整等级表采用动态页面、账户专属规则、动态评分，或不同页面的数据无法可靠合并时，我们不会补填未经验证的数字。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "计算结果包含资金费率吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不包含。这里仅估算成交手续费，不包含资金费率、价差、滑点、强平费、借贷成本或平台币折扣。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "负 Maker 费率会降低估算成本吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "会。如果官方费率表明确给出 Maker 返佣，计算器会将其作为负手续费计算，但实际资格和合约分组仍需在账户内确认。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "数据多久核验一次？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "当前数据集核验日期为 2026-07-15。每家交易所均显示覆盖程度并链接到官方来源。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
+      <a aria-current="page" href="/zh/tools/crypto-exchange-fee-calculator/">费率工具</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>交易所 VIP 费率计算器</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="语言"><a href="https://pddjf.com/tools/crypto-exchange-fee-calculator/" lang="en">English</a></div>
+      <p class="eyebrow">费率情报 · 2026 年 7 月 15 日更新</p>
+      <h1>主流交易所 VIP 手续费计算器</h1>
+      <p class="hero-lede">根据你的月成交量、Maker 占比和资产余额，把公开 VIP 费率表转换为真实成本估算。一次比较六家主流交易所，并查看每项结果的官方来源。</p>
+      <div class="fee-hero-proof" aria-label="工具范围">
+        <span><strong>6</strong> 家交易所</span>
+        <span><strong>3</strong> 套完整公开等级</span>
+        <span><strong>0</strong> 无需 API Key</span>
+        <span><strong>2026-07-15</strong> 数据核验</span>
+      </div>
+    </section>
+
+    <section class="fee-tool-shell" data-exchange-fee-tool data-data-url="/data/exchange-fees.json" data-lang="zh-CN">
+      <noscript><p class="tool-notice error">需要启用 JavaScript 才能运行计算器。下方官方来源链接仍可正常查看。</p></noscript>
+      <form class="fee-controls" data-fee-controls>
+        <div class="fee-control-heading">
+          <div><p class="eyebrow">你的交易参数</p><h2>估算执行成本</h2></div>
+          <span class="market-chip">USDT 永续合约</span>
+        </div>
+        <div class="fee-control-grid">
+          <label>30 天成交量（USD）
+            <input type="number" name="volume" min="0" step="100000" value="10000000" inputmode="decimal">
+          </label>
+          <label>Maker 占比 <output data-maker-output>70%</output>
+            <input type="range" name="makerShare" min="0" max="100" step="1" value="70">
+          </label>
+          <label>交易所资产余额（USD）
+            <input type="number" name="assets" min="0" step="10000" value="0" inputmode="decimal">
+          </label>
+          <label>API 交易占比
+            <select name="apiShare">
+              <option value="0">不超过 20%</option>
+              <option value="21">超过 20%</option>
+            </select>
+          </label>
+        </div>
+        <p class="tool-notice fee-scope-notice">适用范围：仅采用全球公开费率。美国、欧洲经济区等当地实体及账户活动可能不同。</p>
+      </form>
+
+      <section aria-labelledby="fee-results-title" class="fee-results-section">
+        <div class="section-heading-row"><div><p class="eyebrow">成本排名</p><h2 id="fee-results-title">30 天手续费对比</h2></div><button class="button secondary compact" type="button" data-share-fee-tool>复制分享链接</button></div>
+        <p class="share-status" data-share-status aria-live="polite"></p>
+        <p class="sr-only" data-fee-summary aria-live="polite"></p>
+        <div data-fee-results><p>正在加载费率数据…</p></div>
+      </section>
+
+      <section class="fee-chart-section" aria-labelledby="cost-curve-title">
+        <div class="section-heading-row"><div><p class="eyebrow">费率曲线</p><h2 id="cost-curve-title">成交量变化如何影响有效费率</h2></div><div class="fee-chart-actions"><span class="chart-key">越低越好</span><fieldset class="chart-mode-toggle"><legend class="sr-only">图表指标</legend><label><input type="radio" name="chartMode" value="rate" data-chart-mode checked> 有效费率（bps）</label><label><input type="radio" name="chartMode" value="cost" data-chart-mode> 手续费（USD）</label></fieldset></div></div>
+        <div class="fee-chart-wrap"><canvas data-fee-chart width="1100" height="460" role="img" aria-label="不同成交量下的有效混合费率"></canvas></div>
+        <p class="chart-summary" data-chart-summary></p>
+        <details class="fee-chart-data"><summary>查看图表数据表</summary><div class="fee-table-scroll" data-chart-table></div></details>
+      </section>
+
+      <section class="fee-ladder-section" aria-labelledby="tier-ladder-title">
+        <div class="section-heading-row"><div><p class="eyebrow">查看等级表</p><h2 id="tier-ladder-title">VIP 门槛与费率</h2></div><label>交易所 <select data-ladder-exchange><option value="okx">OKX</option><option value="bybit">Bybit</option><option value="bitget">Bitget</option><option value="binance">Binance</option><option value="mexc">MEXC</option><option value="gate">Gate</option></select></label></div>
+        <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>30 天成交量</th><th>资产余额路径</th><th>Maker</th><th>Taker</th><th>条件</th></tr></thead><tbody data-fee-ladder></tbody></table></div>
+        <p class="tool-notice" data-ladder-note></p>
+      </section>
+    </section>
+
+    <section class="section fee-method-section" id="methodology">
+      <div class="section-heading-row"><div><p class="eyebrow">所有数字均有来源</p><h2>来源与计算方法</h2></div><a href="/data/exchange-fees.json">下载数据集（JSON）</a></div>
+      <p>仅使用全球公开费率表。系统根据 30 天衍生品成交量或资产余额路径估算可达到的最高等级，并应用已公布的 API 交易占比条件。完整等级交易所单独排名，仅有基础费率的交易所作为参考，不混入排名。计算器不会读取账户，也不包含活动、返佣、平台币折扣、特定交易对例外、强平费、资金费率或当地实体规则。</p>
+      <div class="fee-source-grid"><article>
+      <div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge full">完整公开等级</span></div>
+      <p>合约分组 1 / 主流交易对。分组 2 合约的 VIP 7 至 VIP 9 费率不同。</p>
+      <ul><li><a href="https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees" rel="nofollow noopener" target="_blank">OKX VIP tier and futures fee adjustment</a><span>核验日期 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Bybit</h3><span class="coverage-badge full">完整公开等级</span></div>
+      <p>标准 VIP；Pro 3 以上采用主流 72 个 USDT 永续合约费率。API 交易占比不超过 20% 时采用标准 VIP，超过 20% 时采用 Pro。Pro 3 以上其他 USDT 永续合约可能采用不同 Taker 费率。</p>
+      <ul><li><a href="https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program" rel="nofollow noopener" target="_blank">Bybit VIP fee rates</a><span>核验日期 2026-07-15</span></li><li><a href="https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc" rel="nofollow noopener" target="_blank">Bybit VIP qualification thresholds</a><span>核验日期 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Bitget</h3><span class="coverage-badge full">完整公开等级</span></div>
+      <p>合约标准 VIP。Bitget PRO 做市商分组采用独立费率表，未计入本模型。</p>
+      <ul><li><a href="https://www.bitget.com/support/articles/12560603830277" rel="nofollow noopener" target="_blank">Bitget VIP fee rates and thresholds</a><span>核验日期 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Binance</h3><span class="coverage-badge base-only">已验证基础费率</span></div>
+      <p>USDⓈ-M 合约公开基础费率。官方完整等级表由客户端动态渲染，且可能受账户折扣设置影响；在完整数据可稳定核验前，仅建模公开基础费率。</p>
+      <ul><li><a href="https://www.binance.com/en/fee/futureFee" rel="nofollow noopener" target="_blank">Binance USDⓈ-M futures fees</a><span>核验日期 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>MEXC</h3><span class="coverage-badge base-only">已验证基础费率</span></div>
+      <p>公开标准永续合约费率。官方资料显示标准 Maker 0%、Taker 0.02%，但地区、交易对及动态 M-Score VVIP 可能改变账户实际费率，因此不提供确定的下一等级。</p>
+      <ul><li><a href="https://www.mexc.com/learn/article/mexc-fees-explained-complete-trading-futures-withdrawal-fees-guide/1" rel="nofollow noopener" target="_blank">MEXC futures fee guide</a><span>核验日期 2026-07-15</span></li><li><a href="https://www.mexc.com/support/article/mexc-vvip-system-faq-338954841861595136" rel="nofollow noopener" target="_blank">MEXC VVIP M-Score FAQ</a><span>核验日期 2026-07-15</span></li></ul>
+    </article><article>
+      <div class="fee-source-head"><h3>Gate</h3><span class="coverage-badge base-only">已验证基础费率</span></div>
+      <p>USDT 合约基础费率。Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。</p>
+      <ul><li><a href="https://www.gate.com/pt/announcements/article/50390" rel="nofollow noopener" target="_blank">Gate futures fee adjustment</a><span>核验日期 2026-07-15</span></li><li><a href="https://www.gate.com/de/blog/101880/gate-vip-program-fee-structure-benefits-cost-optimization-trading-discounts-promotions" rel="nofollow noopener" target="_blank">Gate VIP program overview</a><span>核验日期 2026-07-15</span></li></ul>
+    </article></div>
+      <aside class="fee-limitations"><strong>未计入项目：</strong> 资金费率、买卖价差、滑点、强平费、返佣或平台币折扣、做市商计划、当地实体限制及账户专属活动。大额迁移成交量前，请在交易所账户内确认最终费率。</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">常见问题</p><h2>如何正确理解对比结果</h2>
+      <div class="fee-faq-list"><details><summary>这个计算器显示的是我的账户实际费率吗？</summary><p>不是。它根据全球公开费率表进行估算。活动、返佣、平台币折扣、当地实体、交易对分组和账户专属计划都可能改变最终费率。</p></details><details><summary>混合费率如何计算？</summary><p>计算器按照你选择的 Maker 占比，对 Maker 和 Taker 费率进行加权，再乘以 30 天成交量。</p></details><details><summary>为什么部分交易所只显示基础费率？</summary><p>当官方完整等级表采用动态页面、账户专属规则、动态评分，或不同页面的数据无法可靠合并时，我们不会补填未经验证的数字。</p></details><details><summary>计算结果包含资金费率吗？</summary><p>不包含。这里仅估算成交手续费，不包含资金费率、价差、滑点、强平费、借贷成本或平台币折扣。</p></details><details><summary>负 Maker 费率会降低估算成本吗？</summary><p>会。如果官方费率表明确给出 Maker 返佣，计算器会将其作为负手续费计算，但实际资格和合约分组仍需在账户内确认。</p></details><details><summary>数据多久核验一次？</summary><p>当前数据集核验日期为 2026-07-15。每家交易所均显示覆盖程度并链接到官方来源。</p></details></div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">需要账户级精确路由？</p><h2>把费率表变成可执行的路由策略</h2><p>我们提供交易所 API 执行、订单路由、风控与监控开发，不托管资金，也不需要提现权限。</p></div>
+      <div class="hero-actions"><a class="button primary" href="/exchange-api-trading-bot-development/" data-contact="fee_tool_exchange_api">查看交易所 API 开发</a><a class="button secondary" href="/contact/" data-contact="fee_tool_brief">提交项目 Brief</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX Developer</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>
