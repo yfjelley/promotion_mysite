@@ -102,7 +102,7 @@ for (const file of pddjfHtmlFiles) {
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
     requireText(rel, html, 'id="main-content"');
-    requireText(rel, html, '/styles.css?v=20260714-quality-pass');
+    requireText(rel, html, '/styles.css?v=20260715-p2-ux');
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
     const ogUrl = html.match(/<meta property="og:url" content="([^"]+)"/i)?.[1];
 
@@ -162,7 +162,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
-      "/scripts.js?v=20260714-quality-pass",
+      "/scripts.js?v=20260715-p2-ux",
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
@@ -179,7 +179,7 @@ for (const file of pddjfHtmlFiles) {
 }
 
 const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
-["field-error", 'aria-invalid', 'form.addEventListener("invalid"'].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
+["field-error", 'aria-invalid', 'firstSubmitError', 'brief-form-active', 'form.addEventListener("invalid"'].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [

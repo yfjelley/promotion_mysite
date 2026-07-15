@@ -184,6 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll("form[data-mailto-brief]").forEach((form) => {
+    let firstSubmitError = null;
+    let validatingSubmit = false;
+
     const clearFieldError = (control) => {
       control.removeAttribute("aria-invalid");
       const errorId = control.dataset.errorId;
@@ -193,9 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       control.removeAttribute("aria-describedby");
     };
 
-    form.addEventListener("invalid", (event) => {
-      const control = event.target;
-      if (!control?.name) return;
+    const showFieldError = (control) => {
       clearFieldError(control);
       const errorId = `brief-${control.name}-error`;
       const error = document.createElement("span");
@@ -206,18 +207,60 @@ document.addEventListener("DOMContentLoaded", () => {
       control.setAttribute("aria-describedby", errorId);
       control.dataset.errorId = errorId;
       control.insertAdjacentElement("afterend", error);
+    };
+
+    form.addEventListener("invalid", (event) => {
+      const control = event.target;
+      if (!control?.name) return;
+      event.preventDefault();
+      if (!validatingSubmit) {
+        form.querySelectorAll('[aria-invalid="true"]').forEach(clearFieldError);
+        firstSubmitError = null;
+        validatingSubmit = true;
+        window.setTimeout(() => {
+          validatingSubmit = false;
+          firstSubmitError = null;
+        }, 0);
+      }
+      if (validatingSubmit && firstSubmitError) return;
+      showFieldError(control);
+      firstSubmitError = control;
+      control.focus();
     }, true);
 
     ["input", "change"].forEach((eventName) => {
       form.addEventListener(eventName, (event) => {
         const control = event.target;
-        if (typeof control?.checkValidity === "function" && control.checkValidity()) clearFieldError(control);
+        if (control?.validity?.valid) clearFieldError(control);
       });
+    });
+
+    form.addEventListener("focusout", (event) => {
+      const control = event.target;
+      if (control?.name && control.validity && !control.validity.valid) showFieldError(control);
+    });
+
+    form.addEventListener("focusin", () => {
+      document.body.classList.add("brief-form-active");
+    });
+
+    form.addEventListener("focusout", () => {
+      window.setTimeout(() => {
+        if (!form.contains(document.activeElement)) document.body.classList.remove("brief-form-active");
+      }, 0);
     });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (!form.reportValidity()) return;
+      form.querySelectorAll('[aria-invalid="true"]').forEach(clearFieldError);
+      firstSubmitError = null;
+      validatingSubmit = true;
+      const isValid = form.reportValidity();
+      validatingSubmit = false;
+      if (!isValid) {
+        firstSubmitError?.focus();
+        return;
+      }
       const status = statusFor(form);
       const destination = mailtoFromBrief(form);
       let didNavigate = false;

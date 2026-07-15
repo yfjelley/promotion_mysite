@@ -5,8 +5,8 @@ const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260714-quality-pass";
-const scriptHref = "/scripts.js?v=20260714-quality-pass";
+const stylesheetHref = "/styles.css?v=20260715-p2-ux";
+const scriptHref = "/scripts.js?v=20260715-p2-ux";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260714-quality-pass-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
@@ -2000,7 +2000,6 @@ const navLinks = [
   ["/broker/api/", "券商 API"],
   ["/#packages", "交付包"],
   ["/articles/", "资料"],
-  ["/case-studies/", "案例"],
   ["/about/", "关于"],
   ["/contact/", "联系"]
 ];
@@ -2033,7 +2032,6 @@ const navLinksEn = [
   ["/broker/api/", "Broker API"],
   ["/#packages", "Packages"],
   ["/articles/", "Articles"],
-  ["/case-studies/", "Cases"],
   ["/about/", "About"],
   ["/contact/", "Contact"]
 ];
