@@ -183,14 +183,14 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260714-quality-pass-assets"',
+  'const ASSET_RELEASE = "20260715-p2-ux-assets"',
   'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/"',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
 
 for (const [canonicalFile, releaseFile] of [
-  [join(publicDir, "index.html"), join(publicDir, "__release", "20260714-quality-pass-assets", "home.html")],
-  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260714-quality-pass-assets", "contact.html")]
+  [join(publicDir, "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "home.html")],
+  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "contact.html")]
 ]) {
   if (!existsSync(releaseFile)) {
     errors.push(`${relative(publicDir, releaseFile)}: missing release asset`);

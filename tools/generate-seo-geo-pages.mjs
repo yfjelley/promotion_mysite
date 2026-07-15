@@ -8,7 +8,7 @@ const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260715-p2-ux";
 const scriptHref = "/scripts.js?v=20260715-p2-ux";
 const contactScriptHref = scriptHref;
-const releaseAssetDir = join(publicDir, "__release", "20260714-quality-pass-assets");
+const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";

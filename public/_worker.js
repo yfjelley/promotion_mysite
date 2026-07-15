@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260714-quality-pass-assets";
+const ASSET_RELEASE = "20260715-p2-ux-assets";
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -58,8 +58,8 @@ const HTML_CACHE_BUST_PATHS = new Set([
   "/articles/fix-api-certificate-network-allowlist-checklist/"
 ]);
 const HTML_RELEASE_ASSETS = new Map([
-  ["/", "/__release/20260714-quality-pass-assets/home.html"],
-  ["/contact/", "/__release/20260714-quality-pass-assets/contact.html"]
+  ["/", "/__release/20260715-p2-ux-assets/home.html"],
+  ["/contact/", "/__release/20260715-p2-ux-assets/contact.html"]
 ]);
 
 function withSecurityHeaders(response, status = response.status, assetPath = "") {
