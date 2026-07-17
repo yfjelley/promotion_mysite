@@ -8,7 +8,7 @@ const today = "2026-07-15";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260715-fee-tool-audit-fix";
-const scriptHref = "/scripts.js?v=20260715-fee-tool-audit-fix";
+const scriptHref = "/scripts.js?v=20260717-organic-measurement";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
@@ -161,8 +161,8 @@ const servicePages = [
     slug: "tradingview-webhook-automation",
     breadcrumb: "TradingView Webhook 自动化",
     eyebrow: "TradingView Webhook Automation",
-    title: "TradingView Webhook 自动交易系统开发 | 信号解析、风控、下单与告警",
-    description: "TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。",
+    title: "TradingView Webhook 自动交易开发 | 防重复下单、风控与私有部署",
+    description: "已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。",
     h1: "TradingView Webhook 自动交易系统开发",
     intro: "把 TradingView Alert / Pine Script 信号变成可测试、可追踪、可灰度上线的自动执行系统。重点不是卖策略，而是把你已经定义好的信号、仓位、风控和异常处理工程化。",
     serviceType: "TradingView Webhook automation development",

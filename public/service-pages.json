@@ -24,7 +24,7 @@
     {
       "label": "TradingView Webhook automation",
       "url": "https://pddjf.com/tradingview-webhook-automation/",
-      "summary": "TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。"
+      "summary": "已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。"
     },
     {
       "label": "Exchange API trading bot development",

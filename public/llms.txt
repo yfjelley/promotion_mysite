@@ -7,7 +7,7 @@ Last updated: 2026-07-15
 ## Core services
 
 - Crypto Asset Reporting: https://pddjf.com/crypto-asset-reporting/ — 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
+- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/ — 已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。
 - Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
 - Broker API automation: https://pddjf.com/broker/api/ — Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - IBKR API automation: https://pddjf.com/broker-api/ibkr/ — IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。
@@ -87,7 +87,7 @@ Last updated: 2026-07-15
 ## Page summaries
 
 - https://pddjf.com/crypto-asset-reporting/ — Crypto Asset Reporting: 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook automation: TradingView Webhook 自动交易系统开发，把 Alert 信号接入去重、风控、订单路由、日志审计、告警和私有化部署。
+- https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook automation: 已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。
 - https://pddjf.com/exchange-api-trading-bot-development/ — Exchange API trading bot development: 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
 - https://pddjf.com/broker/api/ — Broker API automation: Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - https://pddjf.com/broker-api/ibkr/ — IBKR API automation: IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。

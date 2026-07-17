@@ -175,6 +175,7 @@ function initExchangeFeeTool() {
   const chartModeControls = [...root.querySelectorAll("[data-chart-mode]")];
   const shareButton = root.querySelector("[data-share-fee-tool]");
   const shareStatus = root.querySelector("[data-share-status]");
+  const sourceLinks = [...root.querySelectorAll('.fee-source-grid a[href^="http"]')];
   const isZh = root.dataset.lang === "zh-CN";
   const locale = isZh ? "zh-CN" : "en-US";
   const copy = isZh ? {
@@ -415,9 +416,33 @@ function initExchangeFeeTool() {
       applyQueryState();
       renderResults();
       renderLadder();
-      form.addEventListener("input", renderResults);
-      form.addEventListener("change", renderResults);
-      ladderSelect.addEventListener("change", renderLadder);
+      let hasTrackedFirstUse = false;
+      const handleFeeControl = (event) => {
+        renderResults();
+        if (hasTrackedFirstUse) return;
+        hasTrackedFirstUse = true;
+        gtag("event", "fee_tool_first_use", {
+          event_category: "engagement",
+          interaction_type: event.type,
+        });
+      };
+      form.addEventListener("input", handleFeeControl);
+      form.addEventListener("change", handleFeeControl);
+      ladderSelect.addEventListener("change", () => {
+        renderLadder();
+        gtag("event", "fee_tool_exchange_select", {
+          event_category: "engagement",
+          exchange: ladderSelect.value,
+        });
+      });
+      sourceLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          gtag("event", "fee_tool_source_click", {
+            event_category: "engagement",
+            source_host: new URL(link.href).hostname,
+          });
+        });
+      });
       chartModeControls.forEach((control) => control.addEventListener("change", () => renderChart(numberValue("makerShare"), numberValue("apiShare"))));
       shareButton.addEventListener("click", shareState);
       let resizeTimer;

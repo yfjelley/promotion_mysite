@@ -164,7 +164,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
-      "/scripts.js?v=20260715-fee-tool-audit-fix",
+      "/scripts.js?v=20260717-organic-measurement",
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
@@ -267,6 +267,10 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
   "function mailtoFromBrief(form)",
   "form[data-mailto-brief]",
   "structured_brief_submit",
+  "fee_tool_first_use",
+  "fee_tool_exchange_select",
+  "fee_tool_source_click",
+  "source_host: new URL(link.href).hostname",
   "window.setTimeout(openMailClient, 1300)",
   "Tracking context:",
   "gclid"
