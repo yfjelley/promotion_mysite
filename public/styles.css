@@ -3915,6 +3915,97 @@ h3 {
   color: #b7c4d4;
 }
 
+.fee-comparison-summary,
+.fee-scenario-section,
+.fee-path-section,
+.fee-mix-section,
+.comparison-ladder,
+.fee-comparison-links {
+  padding-top: 64px;
+  padding-bottom: 20px;
+}
+
+.fee-comparison-summary > p,
+.fee-scenario-section > p,
+.fee-mix-section > p {
+  max-width: 920px;
+}
+
+.fee-comparison-table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.fee-comparison-table.compact {
+  min-width: 680px;
+}
+
+.fee-comparison-table th,
+.fee-comparison-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+}
+
+.fee-comparison-table thead th {
+  background: #eaf1f6;
+  color: #34455a;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fee-comparison-table td span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.fee-preset-actions {
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.fee-path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.fee-path-grid article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.fee-path-grid h3 {
+  margin-top: 0;
+}
+
+.fee-path-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.comparison-ladder {
+  margin: 0 auto;
+  padding-right: max(24px, calc((100% - 1240px) / 2));
+  padding-left: max(24px, calc((100% - 1240px) / 2));
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.comparison-sources {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 @media (max-width: 1050px) {
   .fee-control-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -3945,6 +4036,7 @@ h3 {
   .fee-control-grid,
   .fee-result-cards,
   .fee-source-grid,
+  .fee-path-grid,
   .fee-tool-cta {
     grid-template-columns: 1fr;
   }
@@ -3980,5 +4072,18 @@ h3 {
     gap: 24px;
     margin-bottom: 100px;
     padding: 28px 22px;
+  }
+
+  .fee-comparison-summary,
+  .fee-scenario-section,
+  .fee-path-section,
+  .fee-mix-section,
+  .fee-comparison-links {
+    padding-top: 48px;
+  }
+
+  .comparison-ladder {
+    padding-right: 14px;
+    padding-left: 14px;
   }
 }

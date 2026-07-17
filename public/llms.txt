@@ -25,6 +25,8 @@ Last updated: 2026-07-17
 
 - Crypto Exchange VIP Fee Calculator: https://pddjf.com/tools/crypto-exchange-fee-calculator/ — Compare public USDT perpetual futures VIP schedules, estimate blended execution cost, inspect tier gaps, and download the source-backed dataset.
 - 中文交易所 VIP 手续费计算器: https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/ — 对比六家主流交易所的公开合约费率，估算混合手续费、VIP 等级和下一级差距。
+- Binance vs OKX Futures Fees: https://pddjf.com/compare/binance-vs-okx-futures-fees/ — Compare Binance and OKX USDT futures maker/taker fees at $1M, $10M and $100M monthly volume, with VIP paths, API limits and official sources.
+- 币安与 OKX 合约手续费对比: https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/ — 对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。
 
 ## Facts for AI search and agents
 

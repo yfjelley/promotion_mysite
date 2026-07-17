@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=fee-comparison-20260717">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="/scripts.js?v=20260717-positioning-proof-performance" defer></script>
   <script type="application/ld+json">
@@ -281,6 +281,12 @@
     <section class="section fee-faq-section" id="faq">
       <p class="eyebrow">常见问题</p><h2>如何正确理解对比结果</h2>
       <div class="fee-faq-list"><details><summary>这个计算器显示的是我的账户实际费率吗？</summary><p>不是。它根据全球公开费率表进行估算。活动、返佣、平台币折扣、当地实体、交易对分组和账户专属计划都可能改变最终费率。</p></details><details><summary>混合费率如何计算？</summary><p>计算器按照你选择的 Maker 占比，对 Maker 和 Taker 费率进行加权，再乘以 30 天成交量。</p></details><details><summary>为什么部分交易所只显示基础费率？</summary><p>当官方完整等级表采用动态页面、账户专属规则、动态评分，或不同页面的数据无法可靠合并时，我们不会补填未经验证的数字。</p></details><details><summary>计算结果包含资金费率吗？</summary><p>不包含。这里仅估算成交手续费，不包含资金费率、价差、滑点、强平费、借贷成本或平台币折扣。</p></details><details><summary>负 Maker 费率会降低估算成本吗？</summary><p>会。如果官方费率表明确给出 Maker 返佣，计算器会将其作为负手续费计算，但实际资格和合约分组仍需在账户内确认。</p></details><details><summary>数据多久核验一次？</summary><p>当前数据集核验日期为 2026-07-15。每家交易所均显示覆盖程度并链接到官方来源。</p></details></div>
+    </section>
+
+    <section class="section fee-comparison-links" aria-labelledby="fee-comparison-links-title">
+      <p class="eyebrow">高意图对比</p>
+      <h2 id="fee-comparison-links-title">按交易所组合继续比较</h2>
+      <div class="fee-source-grid"><article><h3><a href="/zh/compare/binance-vs-okx-futures-fees/">币安与 OKX 合约手续费对比</a></h3><p>对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。</p></article></div>
     </section>
 
     <section class="fee-tool-cta">

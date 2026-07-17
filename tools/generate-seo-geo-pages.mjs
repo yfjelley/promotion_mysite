@@ -2010,6 +2010,35 @@ const exchangeFeeToolPageZh = {
   lang: "zh-CN"
 };
 
+const exchangeFeeComparisonPages = [
+  {
+    slug: "compare/binance-vs-okx-futures-fees",
+    counterpartSlug: "zh/compare/binance-vs-okx-futures-fees",
+    breadcrumb: "Binance vs OKX Futures Fees",
+    eyebrow: "Exchange fee comparison · Checked July 17, 2026",
+    title: "Binance vs OKX Futures Fees: $1M to $100M Comparison",
+    description: "Compare Binance and OKX USDT futures maker/taker fees at $1M, $10M and $100M monthly volume, with VIP paths, API limits and official sources.",
+    h1: "Binance vs OKX Futures Fees",
+    intro: "A source-bounded comparison of public USDT futures execution fees. OKX publishes a complete VIP ladder; Binance's public page did not expose a complete unauthenticated ladder during this review, so its verified base rate stays a reference rather than a VIP estimate.",
+    lang: "en",
+    exchangeA: "binance",
+    exchangeB: "okx"
+  },
+  {
+    slug: "zh/compare/binance-vs-okx-futures-fees",
+    counterpartSlug: "compare/binance-vs-okx-futures-fees",
+    breadcrumb: "币安与 OKX 合约手续费对比",
+    eyebrow: "交易所手续费对比 · 2026 年 7 月 17 日复核",
+    title: "币安与 OKX 合约手续费对比：100 万至 1 亿美元场景",
+    description: "对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。",
+    h1: "币安与 OKX 合约手续费对比",
+    intro: "只对比官方资料能够支持的 USDT 合约执行费率。OKX 提供完整 VIP 阶梯；本次复核时 Binance 公共页面未向未登录访问者展示完整阶梯，因此其已核验基础费率仅作为参考，不推算 VIP 费率。",
+    lang: "zh-CN",
+    exchangeA: "binance",
+    exchangeB: "okx"
+  }
+];
+
 const allGeneratedPages = [
   ...servicePages,
   faqPage,
@@ -2021,7 +2050,8 @@ const allGeneratedPages = [
   cryptoReportingPage,
   riskDisclaimerPage,
   exchangeFeeToolPage,
-  exchangeFeeToolPageZh
+  exchangeFeeToolPageZh,
+  ...exchangeFeeComparisonPages
 ];
 
 const navLinks = [
@@ -2952,6 +2982,7 @@ function cryptoReportingHtml(page) {
 
 function exchangeFeeToolHtml(page) {
   const url = canonical(page.slug);
+  const pageStylesheetHref = `${stylesheetHref}&scope=fee-comparison-20260717`;
   const zh = page.lang === "zh-CN";
   const englishUrl = canonical(exchangeFeeToolPage.slug);
   const chineseUrl = canonical(exchangeFeeToolPageZh.slug);
@@ -3044,6 +3075,11 @@ function exchangeFeeToolHtml(page) {
     ]
   };
 
+  const comparisonLinks = exchangeFeeComparisonPages
+    .filter((comparison) => comparison.lang === page.lang)
+    .map((comparison) => `<article><h3><a href="/${comparison.slug}/">${escapeHtml(comparison.h1)}</a></h3><p>${escapeHtml(comparison.description)}</p></article>`)
+    .join("");
+
   return `<!DOCTYPE html>
 <html lang="${page.lang}">
 <head>
@@ -3062,7 +3098,7 @@ function exchangeFeeToolHtml(page) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="${stylesheetHref}">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${scriptHref}" defer></script>
   ${jsonLd(schema)}
@@ -3145,9 +3181,212 @@ function exchangeFeeToolHtml(page) {
       <div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div>
     </section>
 
+    <section class="section fee-comparison-links" aria-labelledby="fee-comparison-links-title">
+      <p class="eyebrow">${zh ? "高意图对比" : "Focused comparisons"}</p>
+      <h2 id="fee-comparison-links-title">${zh ? "按交易所组合继续比较" : "Compare specific exchange pairs"}</h2>
+      <div class="fee-source-grid">${comparisonLinks}</div>
+    </section>
+
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${t.ctaEyebrow}</p><h2>${t.ctaTitle}</h2><p>${t.ctaCopy}</p></div>
       <div class="hero-actions"><a class="button primary" href="/exchange-api-trading-bot-development/" data-contact="fee_tool_exchange_api">${t.ctaPrimary}</a><a class="button secondary" href="/contact/" data-contact="fee_tool_brief">${t.ctaSecondary}</a></div>
+    </section>
+  </main>
+  ${footer(page.lang)}
+</body>
+</html>`;
+}
+
+function exchangeFeeComparisonHtml(page) {
+  const zh = page.lang === "zh-CN";
+  const url = canonical(page.slug);
+  const pageStylesheetHref = `${stylesheetHref}&scope=fee-comparison-20260717`;
+  const alternateUrl = canonical(page.counterpartSlug);
+  const englishUrl = zh ? alternateUrl : url;
+  const chineseUrl = zh ? url : alternateUrl;
+  const binance = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeA);
+  const okx = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeB);
+  const makerShare = 70;
+  const takerShare = 30;
+  const scenarios = [1000000, 10000000, 100000000];
+  const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const compactUsd = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+  const scenarioLabel = (volume) => `$${volume / 1000000}M`;
+  const percent = (value) => `${value.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}%`;
+  const tierForVolume = (exchange, volume) => exchange.tiers.reduce((selected, tier) => (
+    volume >= tier.minVolume && !Number.isFinite(tier.minApiShareForVolume) ? tier : selected
+  ), exchange.tiers[0]);
+  const estimate = (tier, volume) => volume * ((tier.maker * makerShare + tier.taker * takerShare) / 100) / 100;
+  const scenarioRows = scenarios.map((volume) => {
+    const binanceTier = tierForVolume(binance, volume);
+    const okxTier = tierForVolume(okx, volume);
+    const binanceCost = estimate(binanceTier, volume);
+    const okxCost = estimate(okxTier, volume);
+    const boundary = volume === 1000000
+      ? (zh ? "两边公开基础参考值相同；实际账户活动、地区和折扣仍可能改变结果。" : "The public base references are equal; account promotions, region and discounts can still change the result.")
+      : (zh ? "OKX 可按公开成交量门槛建模；Binance 完整 VIP 阶梯未知，不能据此断言 OKX 一定更便宜。" : "OKX can be modeled from its published volume tier; Binance's complete VIP ladder is unknown, so this is not proof that OKX is always cheaper.");
+    return `<tr>
+      <th scope="row">${scenarioLabel(volume)}</th>
+      <td><strong>${escapeHtml(binanceTier.name)}</strong><span>${percent(binanceTier.maker)} / ${percent(binanceTier.taker)}</span><span>${usd.format(binanceCost)} ${zh ? "基础参考" : "base reference"}</span></td>
+      <td><strong>${escapeHtml(okxTier.name)}</strong><span>${percent(okxTier.maker)} / ${percent(okxTier.taker)}</span><span>${usd.format(okxCost)} ${zh ? "模型估算" : "modeled estimate"}</span></td>
+      <td>${escapeHtml(boundary)}</td>
+    </tr>`;
+  }).join("");
+  const okxLadderRows = okx.tiers.map((tier, index) => `<tr>
+    <th scope="row">${escapeHtml(tier.name)}</th>
+    <td>${index === 0 ? `${percent(binance.tiers[0].maker)} / ${percent(binance.tiers[0].taker)}` : (zh ? "未知；公共完整表未显示" : "Unknown; complete public table not exposed")}</td>
+    <td>${tier.minVolume ? `$${compactUsd.format(tier.minVolume)}+` : "—"}</td>
+    <td>${tier.minAssets ? `$${compactUsd.format(tier.minAssets)}+` : "—"}</td>
+    <td>${percent(tier.maker)} / ${percent(tier.taker)}</td>
+  </tr>`).join("");
+  const mixRows = [
+    [100, 0, zh ? "全部 Maker" : "All maker"],
+    [70, 30, zh ? "默认混合" : "Default mix"],
+    [0, 100, zh ? "全部 Taker" : "All taker"]
+  ].map(([maker, taker, label]) => {
+    const volume = 10000000;
+    const binanceTier = binance.tiers[0];
+    const okxTier = tierForVolume(okx, volume);
+    const blendedCost = (tier) => volume * ((tier.maker * maker + tier.taker * taker) / 100) / 100;
+    return `<tr><th scope="row">${escapeHtml(label)} · ${maker}/${taker}</th><td>${usd.format(blendedCost(binanceTier))} ${zh ? "基础参考" : "base reference"}</td><td>${usd.format(blendedCost(okxTier))} · ${escapeHtml(okxTier.name)}</td></tr>`;
+  }).join("");
+  const faqs = zh ? [
+    ["1000 万美元月成交量时，Binance 还是 OKX 手续费更低？", "在 70% Maker / 30% Taker、资产余额为 0 的模型里，OKX 公开 VIP 2 费率对应约 2130 美元。Binance 只能显示约 2900 美元的基础费率参考；因为完整 VIP 阶梯未能公开核验，不能据此断言 OKX 对所有 Binance VIP 账户都更低。"],
+    ["为什么不列出 Binance VIP 1 到 VIP 9 的数字？", "Binance 官方费率页在本次未登录复核中没有展示完整表格。为了避免把旧截图、搜索摘要或第三方聚合数据当成当前费率，本页将这些等级标为未知。"],
+    ["API 交易会自动获得更低费率吗？", "本页采用的官方资料没有支持“仅因使用 API 就自动降费”的结论。API 用户仍应从账户费率页面或官方账户接口确认实际等级和折扣。"],
+    ["本页是否包含资金费率和滑点？", "不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、买卖价差、滑点、强平费、返佣、平台币折扣或活动费率。"],
+    ["OKX 的费率适用于所有合约和地区吗？", "不适用。表格按 OKX Futures Group 1 公开费率建模；Group 2 的 VIP 7 至 VIP 9 不同，并且具体交易对、当地实体和司法辖区可用性仍需在本地费率页确认。"]
+  ] : [
+    ["Which is cheaper at $10M monthly volume, Binance or OKX?", "At a 70% maker / 30% taker mix with zero qualifying assets, OKX's published VIP 2 schedule models to about $2,130. Binance shows a $2,900 base-rate reference only; because its complete VIP ladder was not publicly verifiable here, this does not prove OKX is cheaper for every Binance VIP account."],
+    ["Why are Binance VIP 1 through VIP 9 rates not listed?", "The official Binance fee page did not expose the complete table during this unauthenticated review. The page marks those tiers unknown instead of treating old screenshots, search snippets or third-party tables as current fees."],
+    ["Does API trading automatically lower fees?", "The official sources used here do not support a general claim that API use alone creates a discount. API users should confirm the effective tier and discounts on the account fee page or through an official account endpoint."],
+    ["Does this comparison include funding and slippage?", "No. The scenarios cover maker/taker execution fees only. Funding, spread, slippage, liquidation fees, referral rebates, token discounts and promotions are excluded."],
+    ["Do the OKX rates apply to every contract and region?", "No. The model uses OKX Futures Group 1. Group 2 differs at VIP 7 through VIP 9, while pair availability, local entities and jurisdiction rules must be confirmed on the applicable local fee page."]
+  ];
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "WebPage"),
+      {
+        "@type": "Dataset",
+        "@id": `${url}#dataset`,
+        "name": page.h1,
+        "description": page.description,
+        "url": url,
+        "dateModified": today,
+        "creator": { "@id": `${site}/#organization` },
+        "variableMeasured": ["30-day futures volume", "maker fee", "taker fee", "estimated execution fee"]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": faqs.map(([question, answer]) => ({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        }))
+      }
+    ]
+  };
+  const toolPath = zh ? "/zh/tools/crypto-exchange-fee-calculator/" : "/tools/crypto-exchange-fee-calculator/";
+  const calculatorCtas = scenarios.map((volume) => `<a class="button secondary compact" href="${toolPath}?v=${volume}&amp;m=${makerShare}&amp;a=0&amp;api=0">${zh ? "计算" : "Open"} ${scenarioLabel(volume)} · 70/30</a>`).join("");
+
+  return `<!DOCTYPE html>
+<html lang="${page.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="${url}">
+  <link rel="alternate" hreflang="en" href="${englishUrl}">
+  <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
+  <link rel="alternate" hreflang="x-default" href="${englishUrl}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="${scriptHref}" defer></script>
+  ${jsonLd(schema)}
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">${zh ? "跳到主要内容" : "Skip to main content"}</a>
+  ${header(zh ? "费率工具" : "Fee tool", page.lang)}
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      ${breadcrumbs(page)}
+      <div class="fee-language-switch" aria-label="${zh ? "语言" : "Language"}"><a href="${alternateUrl}" lang="${zh ? "en" : "zh-CN"}">${zh ? "English" : "中文"}</a></div>
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="fee-hero-proof" aria-label="${zh ? "对比范围" : "Comparison scope"}">
+        <span><strong>USDT</strong>${zh ? "合约产品范围" : "futures scope"}</span>
+        <span><strong>70 / 30</strong>${zh ? "Maker / Taker" : "maker / taker"}</span>
+        <span><strong>2026-07-17</strong>${zh ? "本页复核" : "page recheck"}</span>
+        <span><strong>1 + 1</strong>${zh ? "完整阶梯 + 基础参考" : "full ladder + base reference"}</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">${zh ? "先看结论" : "Decision boundary"}</p>
+      <h2 id="comparison-verdict-title">${zh ? "能比较 OKX 的公开阶梯，但不能推测 Binance VIP" : "Model the OKX ladder; do not invent Binance VIP rates"}</h2>
+      <p>${zh ? "在 100 万美元场景，两边公开基础参考均为 Maker 0.02% / Taker 0.05%。OKX 在 1000 万和 1 亿美元场景分别进入 VIP 2 与 VIP 3；Binance 的完整等级表本次无法公开核验，所以高成交量差额只能视为对公开基础费率的比较，不是账户级胜负结论。" : "At $1M, both public base references are 0.02% maker / 0.05% taker. OKX reaches VIP 2 at $10M and VIP 3 at $100M. Binance's complete ladder was not publicly verifiable in this review, so the high-volume gaps compare against a base reference—not an account-level winner."}</p>
+      <aside class="fee-limitations"><strong>${zh ? "重要限制：" : "Important limit:"}</strong> ${zh ? "Binance 费率页在 2026-07-17 的未登录复核中显示 No records found；本页保留 2026-07-15 从该官方页面核验的基础费率，不把本次不可见误写为重新确认。" : "The Binance fee page returned “No records found” in the 2026-07-17 unauthenticated recheck. This page retains the base rate verified from that official page on 2026-07-15 and does not mislabel the unavailable table as freshly confirmed."}</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">${zh ? "月成交量场景" : "Monthly volume scenarios"}</p>
+      <h2 id="scenario-title">${zh ? "100 万、1000 万与 1 亿美元手续费" : "$1M, $10M and $100M fee scenarios"}</h2>
+      <p>${zh ? "假设资产余额为 0、API 条件不触发单独路径，Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。" : "Assumptions: zero qualifying assets, no separate API tier condition, and a 70% / 30% maker/taker mix. Cost = volume × (maker rate × 70% + taker rate × 30%)."}</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>${zh ? "30 天成交量" : "30-day volume"}</th><th>Binance</th><th>OKX</th><th>${zh ? "如何解读" : "How to read it"}</th></tr></thead><tbody>${scenarioRows}</tbody></table></div>
+      <div class="hero-actions fee-preset-actions">${calculatorCtas}</div>
+    </section>
+
+    <section class="section fee-path-section" aria-labelledby="path-title">
+      <p class="eyebrow">${zh ? "普通 / API / VIP 路径" : "Regular / API / VIP paths"}</p>
+      <h2 id="path-title">${zh ? "不同账户路径需要不同证据" : "Different account paths need different evidence"}</h2>
+      <div class="fee-path-grid">
+        <article><h3>${zh ? "普通路径" : "Regular path"}</h3><p>${zh ? "Binance 基础参考与 OKX Regular 均为 Maker 0.02% / Taker 0.05%。不计 BNB、活动、推荐返佣和当地实体差异。" : "The Binance base reference and OKX Regular are both 0.02% maker / 0.05% taker. BNB, promotions, referrals and local entities are excluded."}</p></article>
+        <article><h3>API</h3><p>${zh ? "官方资料没有证明 API 使用本身会自动降费。Binance 需要从账户费率页或官方账户接口确认；OKX 公告按资产或各产品线 30 天成交量决定最高等级。" : "The sources do not show an automatic discount for API use alone. Confirm Binance through the account fee page or an official account endpoint; OKX assigns the highest tier reached by assets or a 30-day product-line volume."}</p></article>
+        <article><h3>VIP</h3><p>${zh ? "OKX 的公开门槛可建模到 VIP 9。Binance 页面确认 VIP 权益可跨产品适用、期货成交量汇总 USDⓈ-M 与 COIN-M，但本次没有公开展示可核验的门槛和费率数字。" : "OKX publishes thresholds through VIP 9. Binance confirms cross-product VIP benefits and aggregation of USDⓈ-M plus COIN-M futures volume, but did not expose verifiable tier thresholds and rates in this review."}</p></article>
+      </div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">${zh ? "订单类型比例会改变 1000 万美元场景" : "Order mix changes the $10M scenario"}</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>${zh ? "成交结构" : "Execution mix"}</th><th>Binance</th><th>OKX</th></tr></thead><tbody>${mixRows}</tbody></table></div>
+      <p>${zh ? "更高 Maker 占比降低模型手续费，但 Maker 订单不保证成交；不能只比较费率而忽略成交概率、价差和滑点。" : "A higher maker share lowers modeled fees, but maker orders are not guaranteed to fill. Fee rates should not be optimized without fill probability, spread and slippage."}</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="vip-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="vip-ladder-title">${zh ? "VIP 阶梯对照与未知项" : "VIP ladder and explicit unknowns"}</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>${zh ? "等级" : "Tier"}</th><th>Binance Maker / Taker</th><th>${zh ? "OKX 30 天期货量" : "OKX 30d futures volume"}</th><th>${zh ? "OKX 资产路径" : "OKX asset route"}</th><th>OKX Maker / Taker</th></tr></thead><tbody>${okxLadderRows}</tbody></table></div>
+      <p class="tool-notice warning">${zh ? "OKX 表格采用 Futures Group 1。Group 2 在 VIP 7 至 VIP 9 使用不同费率；Binance 的未知项不会用第三方数据补齐。" : "The OKX table uses Futures Group 1. Group 2 differs at VIP 7 through VIP 9; Binance unknowns are not backfilled from third-party data."}</p>
+    </section>
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">${zh ? "官方一手资料" : "Official primary sources"}</p><h2>${zh ? "来源、产品范围、地区与核验日期" : "Sources, product scope, region and check dates"}</h2>
+      <div class="fee-source-grid comparison-sources">
+        <article><div class="fee-source-head"><h3>Binance</h3><span class="coverage-badge base-only">${zh ? "仅基础参考" : "Base reference only"}</span></div><p>${zh ? "产品：USDⓈ-M Futures。地区：全球公共页面；当地实体、账户活动和折扣可能不同。2026-07-15 核验基础费率；2026-07-17 复核时未登录表格显示 No records found。" : "Product: USDⓈ-M Futures. Region: global public page; local entities, account promotions and discounts may differ. Base rate checked 2026-07-15; the unauthenticated table returned “No records found” on 2026-07-17."}</p><p><a href="${binance.source.url}" rel="nofollow noopener" target="_blank">${escapeHtml(binance.source.label)}</a></p></article>
+        <article><div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge">${zh ? "完整公开阶梯" : "Full public ladder"}</span></div><p>${zh ? "产品：Futures Group 1 / 主流交易对。地区：全球公告；页面提示用户应以当地费率页为准。公告 2026-04-08 生效，2026-07-17 复核。" : "Product: Futures Group 1 / top pairs. Region: global announcement; OKX directs users to the applicable local fee page. Effective April 8, 2026 and rechecked July 17, 2026."}</p><p><a href="${okx.source.url}" rel="nofollow noopener" target="_blank">${escapeHtml(okx.source.label)}</a></p></article>
+      </div>
+      <aside class="fee-limitations"><strong>${zh ? "未覆盖：" : "Excluded:"}</strong> ${zh ? "资金费率、价差、滑点、强平费、返佣、平台币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在自己的账户中确认。" : "Funding, spread, slippage, liquidation fees, referrals, token discounts, promotions, market-maker programs, local-entity rules and account-specific rates. Confirm inside the actual account before routing volume."}</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>${zh ? "正确使用这份对比" : "How to use this comparison"}</h2>
+      <div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">${zh ? "使用完整计算器" : "Use the full calculator"}</p><h2>${zh ? "带入成交量、Maker 占比和资产余额" : "Bring your volume, maker share and asset balance"}</h2><p>${zh ? "在现有工具中调整参数并比较完整公开阶梯；基础费率来源仍会与可排名交易所分开显示。" : "Adjust the assumptions in the existing tool. Full public ladders remain ranked separately from base-rate-only references."}</p></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a><a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API engineering"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
@@ -3220,12 +3459,16 @@ writePublicFile(pagePath(cryptoReportingPage.slug), cryptoReportingHtml(cryptoRe
 writePublicFile(pagePath(riskDisclaimerPage.slug), riskHtml(riskDisclaimerPage));
 writePublicFile(pagePath(exchangeFeeToolPage.slug), exchangeFeeToolHtml(exchangeFeeToolPage));
 writePublicFile(pagePath(exchangeFeeToolPageZh.slug), exchangeFeeToolHtml(exchangeFeeToolPageZh));
+for (const page of exchangeFeeComparisonPages) {
+  writePublicFile(pagePath(page.slug), exchangeFeeComparisonHtml(page));
+}
 writePublicFile(join(publicDir, "data", "exchange-fees.json"), JSON.stringify(exchangeFeeData, null, 2));
 
 const sitemapUrls = [
   ["/", "weekly", "1.0"],
   ["/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
   ["/zh/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
+  ...exchangeFeeComparisonPages.map((page) => [routeForSlug(page.slug), "weekly", "0.85"]),
   ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],
   ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8"]),
@@ -3266,6 +3509,7 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${label}
 
 - Crypto Exchange VIP Fee Calculator: ${canonical(exchangeFeeToolPage.slug)} — Compare public USDT perpetual futures VIP schedules, estimate blended execution cost, inspect tier gaps, and download the source-backed dataset.
 - 中文交易所 VIP 手续费计算器: ${canonical(exchangeFeeToolPageZh.slug)} — 对比六家主流交易所的公开合约费率，估算混合手续费、VIP 等级和下一级差距。
+${exchangeFeeComparisonPages.map((page) => `- ${page.h1}: ${canonical(page.slug)} — ${page.description}`).join("\n")}
 
 ## Facts for AI search and agents
 

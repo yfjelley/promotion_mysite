@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>币安与 OKX 合约手续费对比：100 万至 1 亿美元场景</title>
+  <meta name="description" content="对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/compare/binance-vs-okx-futures-fees/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/compare/binance-vs-okx-futures-fees/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="币安与 OKX 合约手续费对比">
+  <meta property="og:description" content="对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=fee-comparison-20260717">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260717-positioning-proof-performance" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/#webpage",
+      "url": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/",
+      "name": "币安与 OKX 合约手续费对比",
+      "description": "对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "币安与 OKX 合约手续费对比",
+          "item": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/"
+        }
+      ]
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/#dataset",
+      "name": "币安与 OKX 合约手续费对比",
+      "description": "对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。",
+      "url": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/",
+      "dateModified": "2026-07-17",
+      "creator": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "variableMeasured": [
+        "30-day futures volume",
+        "maker fee",
+        "taker fee",
+        "estimated execution fee"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "1000 万美元月成交量时，Binance 还是 OKX 手续费更低？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "在 70% Maker / 30% Taker、资产余额为 0 的模型里，OKX 公开 VIP 2 费率对应约 2130 美元。Binance 只能显示约 2900 美元的基础费率参考；因为完整 VIP 阶梯未能公开核验，不能据此断言 OKX 对所有 Binance VIP 账户都更低。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么不列出 Binance VIP 1 到 VIP 9 的数字？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Binance 官方费率页在本次未登录复核中没有展示完整表格。为了避免把旧截图、搜索摘要或第三方聚合数据当成当前费率，本页将这些等级标为未知。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "API 交易会自动获得更低费率吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本页采用的官方资料没有支持“仅因使用 API 就自动降费”的结论。API 用户仍应从账户费率页面或官方账户接口确认实际等级和折扣。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "本页是否包含资金费率和滑点？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、买卖价差、滑点、强平费、返佣、平台币折扣或活动费率。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "OKX 的费率适用于所有合约和地区吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不适用。表格按 OKX Futures Group 1 公开费率建模；Group 2 的 VIP 7 至 VIP 9 不同，并且具体交易对、当地实体和司法辖区可用性仍需在本地费率页确认。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
+      <a aria-current="page" href="/zh/tools/crypto-exchange-fee-calculator/">费率工具</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>币安与 OKX 合约手续费对比</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="语言"><a href="https://pddjf.com/compare/binance-vs-okx-futures-fees/" lang="en">English</a></div>
+      <p class="eyebrow">交易所手续费对比 · 2026 年 7 月 17 日复核</p>
+      <h1>币安与 OKX 合约手续费对比</h1>
+      <p class="hero-lede">只对比官方资料能够支持的 USDT 合约执行费率。OKX 提供完整 VIP 阶梯；本次复核时 Binance 公共页面未向未登录访问者展示完整阶梯，因此其已核验基础费率仅作为参考，不推算 VIP 费率。</p>
+      <div class="fee-hero-proof" aria-label="对比范围">
+        <span><strong>USDT</strong>合约产品范围</span>
+        <span><strong>70 / 30</strong>Maker / Taker</span>
+        <span><strong>2026-07-17</strong>本页复核</span>
+        <span><strong>1 + 1</strong>完整阶梯 + 基础参考</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">先看结论</p>
+      <h2 id="comparison-verdict-title">能比较 OKX 的公开阶梯，但不能推测 Binance VIP</h2>
+      <p>在 100 万美元场景，两边公开基础参考均为 Maker 0.02% / Taker 0.05%。OKX 在 1000 万和 1 亿美元场景分别进入 VIP 2 与 VIP 3；Binance 的完整等级表本次无法公开核验，所以高成交量差额只能视为对公开基础费率的比较，不是账户级胜负结论。</p>
+      <aside class="fee-limitations"><strong>重要限制：</strong> Binance 费率页在 2026-07-17 的未登录复核中显示 No records found；本页保留 2026-07-15 从该官方页面核验的基础费率，不把本次不可见误写为重新确认。</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">月成交量场景</p>
+      <h2 id="scenario-title">100 万、1000 万与 1 亿美元手续费</h2>
+      <p>假设资产余额为 0、API 条件不触发单独路径，Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>30 天成交量</th><th>Binance</th><th>OKX</th><th>如何解读</th></tr></thead><tbody><tr>
+      <th scope="row">$1M</th>
+      <td><strong>Regular</strong><span>0.02% / 0.05%</span><span>$290 基础参考</span></td>
+      <td><strong>Regular</strong><span>0.02% / 0.05%</span><span>$290 模型估算</span></td>
+      <td>两边公开基础参考值相同；实际账户活动、地区和折扣仍可能改变结果。</td>
+    </tr><tr>
+      <th scope="row">$10M</th>
+      <td><strong>Regular</strong><span>0.02% / 0.05%</span><span>$2,900 基础参考</span></td>
+      <td><strong>VIP 2</strong><span>0.015% / 0.036%</span><span>$2,130 模型估算</span></td>
+      <td>OKX 可按公开成交量门槛建模；Binance 完整 VIP 阶梯未知，不能据此断言 OKX 一定更便宜。</td>
+    </tr><tr>
+      <th scope="row">$100M</th>
+      <td><strong>Regular</strong><span>0.02% / 0.05%</span><span>$29,000 基础参考</span></td>
+      <td><strong>VIP 3</strong><span>0.01% / 0.028%</span><span>$15,400 模型估算</span></td>
+      <td>OKX 可按公开成交量门槛建模；Binance 完整 VIP 阶梯未知，不能据此断言 OKX 一定更便宜。</td>
+    </tr></tbody></table></div>
+      <div class="hero-actions fee-preset-actions"><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=1000000&amp;m=70&amp;a=0&amp;api=0">计算 $1M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=10000000&amp;m=70&amp;a=0&amp;api=0">计算 $10M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=100000000&amp;m=70&amp;a=0&amp;api=0">计算 $100M · 70/30</a></div>
+    </section>
+
+    <section class="section fee-path-section" aria-labelledby="path-title">
+      <p class="eyebrow">普通 / API / VIP 路径</p>
+      <h2 id="path-title">不同账户路径需要不同证据</h2>
+      <div class="fee-path-grid">
+        <article><h3>普通路径</h3><p>Binance 基础参考与 OKX Regular 均为 Maker 0.02% / Taker 0.05%。不计 BNB、活动、推荐返佣和当地实体差异。</p></article>
+        <article><h3>API</h3><p>官方资料没有证明 API 使用本身会自动降费。Binance 需要从账户费率页或官方账户接口确认；OKX 公告按资产或各产品线 30 天成交量决定最高等级。</p></article>
+        <article><h3>VIP</h3><p>OKX 的公开门槛可建模到 VIP 9。Binance 页面确认 VIP 权益可跨产品适用、期货成交量汇总 USDⓈ-M 与 COIN-M，但本次没有公开展示可核验的门槛和费率数字。</p></article>
+      </div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">订单类型比例会改变 1000 万美元场景</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>成交结构</th><th>Binance</th><th>OKX</th></tr></thead><tbody><tr><th scope="row">全部 Maker · 100/0</th><td>$2,000 基础参考</td><td>$1,500 · VIP 2</td></tr><tr><th scope="row">默认混合 · 70/30</th><td>$2,900 基础参考</td><td>$2,130 · VIP 2</td></tr><tr><th scope="row">全部 Taker · 0/100</th><td>$5,000 基础参考</td><td>$3,600 · VIP 2</td></tr></tbody></table></div>
+      <p>更高 Maker 占比降低模型手续费，但 Maker 订单不保证成交；不能只比较费率而忽略成交概率、价差和滑点。</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="vip-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="vip-ladder-title">VIP 阶梯对照与未知项</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>Binance Maker / Taker</th><th>OKX 30 天期货量</th><th>OKX 资产路径</th><th>OKX Maker / Taker</th></tr></thead><tbody><tr>
+    <th scope="row">Regular</th>
+    <td>0.02% / 0.05%</td>
+    <td>—</td>
+    <td>—</td>
+    <td>0.02% / 0.05%</td>
+  </tr><tr>
+    <th scope="row">VIP 1</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$5M+</td>
+    <td>$100K+</td>
+    <td>0.016% / 0.045%</td>
+  </tr><tr>
+    <th scope="row">VIP 2</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$10M+</td>
+    <td>$200K+</td>
+    <td>0.015% / 0.036%</td>
+  </tr><tr>
+    <th scope="row">VIP 3</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$50M+</td>
+    <td>$2M+</td>
+    <td>0.01% / 0.028%</td>
+  </tr><tr>
+    <th scope="row">VIP 4</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$200M+</td>
+    <td>$5M+</td>
+    <td>0.008% / 0.027%</td>
+  </tr><tr>
+    <th scope="row">VIP 5</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$600M+</td>
+    <td>$20M+</td>
+    <td>0.005% / 0.026%</td>
+  </tr><tr>
+    <th scope="row">VIP 6</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$1B+</td>
+    <td>$50M+</td>
+    <td>0% / 0.025%</td>
+  </tr><tr>
+    <th scope="row">VIP 7</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$1.5B+</td>
+    <td>$100M+</td>
+    <td>-0.002% / 0.02%</td>
+  </tr><tr>
+    <th scope="row">VIP 8</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$2B+</td>
+    <td>$250M+</td>
+    <td>-0.005% / 0.02%</td>
+  </tr><tr>
+    <th scope="row">VIP 9</th>
+    <td>未知；公共完整表未显示</td>
+    <td>$20B+</td>
+    <td>$500M+</td>
+    <td>-0.005% / 0.015%</td>
+  </tr></tbody></table></div>
+      <p class="tool-notice warning">OKX 表格采用 Futures Group 1。Group 2 在 VIP 7 至 VIP 9 使用不同费率；Binance 的未知项不会用第三方数据补齐。</p>
+    </section>
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">官方一手资料</p><h2>来源、产品范围、地区与核验日期</h2>
+      <div class="fee-source-grid comparison-sources">
+        <article><div class="fee-source-head"><h3>Binance</h3><span class="coverage-badge base-only">仅基础参考</span></div><p>产品：USDⓈ-M Futures。地区：全球公共页面；当地实体、账户活动和折扣可能不同。2026-07-15 核验基础费率；2026-07-17 复核时未登录表格显示 No records found。</p><p><a href="https://www.binance.com/en/fee/futureFee" rel="nofollow noopener" target="_blank">Binance USDⓈ-M futures fees</a></p></article>
+        <article><div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge">完整公开阶梯</span></div><p>产品：Futures Group 1 / 主流交易对。地区：全球公告；页面提示用户应以当地费率页为准。公告 2026-04-08 生效，2026-07-17 复核。</p><p><a href="https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees" rel="nofollow noopener" target="_blank">OKX VIP tier and futures fee adjustment</a></p></article>
+      </div>
+      <aside class="fee-limitations"><strong>未覆盖：</strong> 资金费率、价差、滑点、强平费、返佣、平台币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在自己的账户中确认。</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>正确使用这份对比</h2>
+      <div class="fee-faq-list"><details><summary>1000 万美元月成交量时，Binance 还是 OKX 手续费更低？</summary><p>在 70% Maker / 30% Taker、资产余额为 0 的模型里，OKX 公开 VIP 2 费率对应约 2130 美元。Binance 只能显示约 2900 美元的基础费率参考；因为完整 VIP 阶梯未能公开核验，不能据此断言 OKX 对所有 Binance VIP 账户都更低。</p></details><details><summary>为什么不列出 Binance VIP 1 到 VIP 9 的数字？</summary><p>Binance 官方费率页在本次未登录复核中没有展示完整表格。为了避免把旧截图、搜索摘要或第三方聚合数据当成当前费率，本页将这些等级标为未知。</p></details><details><summary>API 交易会自动获得更低费率吗？</summary><p>本页采用的官方资料没有支持“仅因使用 API 就自动降费”的结论。API 用户仍应从账户费率页面或官方账户接口确认实际等级和折扣。</p></details><details><summary>本页是否包含资金费率和滑点？</summary><p>不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、买卖价差、滑点、强平费、返佣、平台币折扣或活动费率。</p></details><details><summary>OKX 的费率适用于所有合约和地区吗？</summary><p>不适用。表格按 OKX Futures Group 1 公开费率建模；Group 2 的 VIP 7 至 VIP 9 不同，并且具体交易对、当地实体和司法辖区可用性仍需在本地费率页确认。</p></details></div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">使用完整计算器</p><h2>带入成交量、Maker 占比和资产余额</h2><p>在现有工具中调整参数并比较完整公开阶梯；基础费率来源仍会与可排名交易所分开显示。</p></div>
+      <div class="hero-actions"><a class="button primary" href="/zh/tools/crypto-exchange-fee-calculator/?v=10000000&amp;m=70&amp;a=0&amp;api=0">打开 1000 万美元场景</a><a class="button secondary" href="/exchange-api-trading-bot-development/">交易所 API 开发</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX Developer</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

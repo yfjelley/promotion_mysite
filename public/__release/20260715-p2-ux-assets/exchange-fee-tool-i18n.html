@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/tools/crypto-exchange-fee-calculator/">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=fee-comparison-20260717">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="/scripts.js?v=20260717-positioning-proof-performance" defer></script>
   <script type="application/ld+json">
@@ -281,6 +281,12 @@
     <section class="section fee-faq-section" id="faq">
       <p class="eyebrow">FAQ</p><h2>How to read this comparison</h2>
       <div class="fee-faq-list"><details><summary>Does this calculator show my exact account fee?</summary><p>No. It estimates fees from public global schedules. Promotions, referral discounts, token discounts, local entities, pair groups and account-specific programs can change the final rate.</p></details><details><summary>How is the blended fee calculated?</summary><p>The tool weights the maker and taker fee rates by your selected maker share, then multiplies that blended rate by your 30-day trading volume.</p></details><details><summary>Why do some exchanges show only a base rate?</summary><p>A complete ladder is excluded when the official public page is client-rendered, dynamic, account-specific or split across incompatible schedules. Partial coverage is more useful than invented precision.</p></details><details><summary>Are funding payments included?</summary><p>No. The estimate covers execution fees only. Funding, spread, slippage, liquidation fees, borrowing and token discounts are outside the model.</p></details><details><summary>Can a negative maker fee reduce estimated cost?</summary><p>Yes. Where an official schedule publishes a maker rebate, the calculator treats it as a negative fee. Actual eligibility and contract group still need account-level verification.</p></details><details><summary>How often is the data checked?</summary><p>The current dataset was checked on 2026-07-15. Each exchange row links to its official source and displays its coverage level.</p></details></div>
+    </section>
+
+    <section class="section fee-comparison-links" aria-labelledby="fee-comparison-links-title">
+      <p class="eyebrow">Focused comparisons</p>
+      <h2 id="fee-comparison-links-title">Compare specific exchange pairs</h2>
+      <div class="fee-source-grid"><article><h3><a href="/compare/binance-vs-okx-futures-fees/">Binance vs OKX Futures Fees</a></h3><p>Compare Binance and OKX USDT futures maker/taker fees at $1M, $10M and $100M monthly volume, with VIP paths, API limits and official sources.</p></article></div>
     </section>
 
     <section class="fee-tool-cta">

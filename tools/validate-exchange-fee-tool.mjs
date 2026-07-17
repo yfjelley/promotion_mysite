@@ -7,6 +7,8 @@ const pagePath = join(root, "public", "tools", "crypto-exchange-fee-calculator",
 const zhPagePath = join(root, "public", "zh", "tools", "crypto-exchange-fee-calculator", "index.html");
 const jsonPath = join(root, "public", "data", "exchange-fees.json");
 const scriptPath = join(root, "public", "scripts.js");
+const comparisonPath = join(root, "public", "compare", "binance-vs-okx-futures-fees", "index.html");
+const comparisonZhPath = join(root, "public", "zh", "compare", "binance-vs-okx-futures-fees", "index.html");
 const errors = [];
 
 const requireValue = (condition, message) => {
@@ -93,6 +95,32 @@ if (existsSync(scriptPath)) {
 if (existsSync(jsonPath)) {
   const generated = JSON.parse(readFileSync(jsonPath, "utf8"));
   requireValue(JSON.stringify(generated) === JSON.stringify(exchangeFeeData), "generated JSON does not match source data");
+}
+
+for (const [label, path, language, counterpart] of [
+  ["English comparison", comparisonPath, "en", "https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/"],
+  ["Chinese comparison", comparisonZhPath, "zh-CN", "https://pddjf.com/compare/binance-vs-okx-futures-fees/"]
+]) {
+  requireValue(existsSync(path), `${label}: generated page is missing`);
+  if (!existsSync(path)) continue;
+  const html = readFileSync(path, "utf8");
+  [
+    `<html lang="${language}">`,
+    "$1M",
+    "$10M",
+    "$100M",
+    "$1.5B+",
+    "Maker / Taker",
+    "FAQPage",
+    "BreadcrumbList",
+    "Dataset",
+    "https://www.binance.com/en/fee/futureFee",
+    "https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees",
+    `href="${counterpart}"`,
+    "?v=10000000&amp;m=70&amp;a=0&amp;api=0"
+  ].forEach((needle) => requireValue(html.includes(needle), `${label}: missing ${needle}`));
+  requireValue(html.includes("2026-07-17"), `${label}: missing current recheck date`);
+  requireValue(html.includes("2026-07-15"), `${label}: missing Binance base-rate check date`);
 }
 
 if (errors.length) {
