@@ -68,3 +68,10 @@ Publish only topics scoring 75 or higher.
 - Week 2 pages passed live URL tests and were added to Google's priority crawl queue on 2026-07-14.
 - Added three contextual implementation links to each Week 2 page and deployed commit `8bd199c`.
 - Hold the Week 3 queue until the next review on 2026-07-17. Do not expand unless indexing, impressions, qualified clicks, or brief/contact evidence supports continuing.
+
+## Review and measurement closure - 2026-07-17
+
+- Search Console's three-month performance snapshot shows 123 impressions, 0 clicks, and an average position of 16.8. `/tradingview-webhook-automation/` is the only clear CTR candidate, with 42 impressions and an average position of 7.9; the homepage and lower-ranking IBKR pages were left unchanged.
+- Rewrote only the TradingView Webhook Automation title and description around implementation intent, duplicate-order protection, risk controls, source delivery, and private deployment. Deployed commit `2fc3790`, verified the production title, description, scripts, bot responses, and sitemap, then received Search Console's priority crawl queue confirmation for the updated indexed URL.
+- Added engagement-only fee-tool events: `fee_tool_first_use`, `fee_tool_exchange_select`, and `fee_tool_source_click`. These do not count as leads and preserve the existing contact/conversion boundary.
+- Keep Week 3 on hold. Recheck qualified clicks, contact activity, and the new fee-tool engagement signals before publishing more URLs.
