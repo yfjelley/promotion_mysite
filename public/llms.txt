@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-07-15
+Last updated: 2026-07-17
 
 ## Core services
 

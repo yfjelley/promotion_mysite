@@ -55,6 +55,9 @@ const window = {
   setTimeout(callback, delay) {
     timers.push({ callback, delay });
     return timers.length;
+  },
+  addEventListener(type, callback) {
+    listeners.set(`window:${type}`, callback);
   }
 };
 

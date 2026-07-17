@@ -15,6 +15,24 @@ gtag("js", new Date());
 gtag("config", ADS_ID);
 gtag("config", GA_ID);
 
+let googleTagLoaded = false;
+function loadGoogleTag() {
+  if (googleTagLoaded || document.querySelector('script[data-google-tag-loader]')) return;
+  googleTagLoaded = true;
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`;
+  script.dataset.googleTagLoader = "true";
+  document.head.appendChild(script);
+}
+
+["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
+  window.addEventListener(eventName, loadGoogleTag, { once: true, passive: true });
+});
+window.addEventListener("load", () => {
+  window.setTimeout(loadGoogleTag, 6500);
+}, { once: true });
+
 function installLinkedInInsightTag() {
   if (!LINKEDIN_PARTNER_ID) return;
 
@@ -460,6 +478,18 @@ function initExchangeFeeTool() {
 installLinkedInInsightTag();
 
 document.addEventListener("DOMContentLoaded", () => {
+  const mobileContactBar = document.querySelector(".mobile-contact-bar");
+  const hero = document.querySelector(".hero, .content-hero");
+  if (mobileContactBar && hero) {
+    const syncMobileContactBar = () => {
+      const revealAfter = Math.min(Math.max(hero.offsetHeight * 0.55, 320), 520);
+      document.body.classList.toggle("mobile-contact-ready", window.scrollY > revealAfter);
+    };
+    syncMobileContactBar();
+    window.addEventListener("scroll", syncMobileContactBar, { passive: true });
+    window.addEventListener("resize", syncMobileContactBar, { passive: true });
+  }
+
   initExchangeFeeTool();
   function statusFor(element) {
     const scope = element.closest("article, .contact-copy, .contact-card, section");

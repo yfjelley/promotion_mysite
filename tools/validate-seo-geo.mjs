@@ -6,6 +6,9 @@ const publicDir = join(root, "public");
 const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
+const currentStylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
+const currentScriptHref = "/scripts.js?v=20260717-positioning-proof-performance";
+const contentDate = "2026-07-17";
 const errors = [];
 
 function walk(dir) {
@@ -102,7 +105,7 @@ for (const file of pddjfHtmlFiles) {
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
     requireText(rel, html, 'id="main-content"');
-    if (!/\/styles\.css\?v=20260715-(?:p2-ux|fee-tool-audit-fix)/.test(html)) {
+    if (!html.includes(currentStylesheetHref)) {
       errors.push(`${rel}: missing current stylesheet asset URL`);
     }
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
@@ -164,7 +167,7 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
-      "/scripts.js?v=20260717-organic-measurement",
+      currentScriptHref,
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
   }
@@ -237,7 +240,7 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
-  "Last updated: 2026-07-15",
+  `Last updated: ${contentDate}`,
   "TradingView Webhook automation",
   "Custom Trading Software Development",
   "IBKR API automation",

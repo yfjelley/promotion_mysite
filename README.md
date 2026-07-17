@@ -13,14 +13,16 @@ Static Google Ads landing page for Cloudflare Pages. No VPS is required for the
 current site because the production artifact is static HTML, CSS, and JS.
 
 This repository now serves only `https://pddjf.com/`, the SignalCraft Labs
-trading-automation digital products and custom engineering service site. The
+execution-engineering site for customers who already have trading rules,
+signals, or scripts and need TradingView Webhook, broker/exchange API, risk
+control, and private deployment work. The
 independent ICOJF software product studio site lives in
 `/Users/yfjelley/workspace/icojf_site` and deploys to the separate Cloudflare
 Pages project `icojf-site`.
 
 The primary conversion pages are:
 
-- `/` for the broader digital products and custom engineering offer.
+- `/` for the existing-strategy execution-engineering offer.
 - `/broker/api` for the broker API automation ad group.
 
 SEO and GEO content pages:

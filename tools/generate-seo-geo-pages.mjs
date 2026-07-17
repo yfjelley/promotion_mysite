@@ -4,11 +4,11 @@ import { exchangeFeeData } from "./exchange-fee-data.mjs";
 
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
-const today = "2026-07-15";
+const today = "2026-07-17";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260715-fee-tool-audit-fix";
-const scriptHref = "/scripts.js?v=20260717-organic-measurement";
+const stylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
+const scriptHref = "/scripts.js?v=20260717-positioning-proof-performance";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
@@ -163,7 +163,7 @@ const servicePages = [
     eyebrow: "TradingView Webhook Automation",
     title: "TradingView Webhook 自动交易开发 | 防重复下单、风控与私有部署",
     description: "已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。",
-    h1: "TradingView Webhook 自动交易系统开发",
+    h1: "TradingView Webhook 自动交易开发",
     intro: "把 TradingView Alert / Pine Script 信号变成可测试、可追踪、可灰度上线的自动执行系统。重点不是卖策略，而是把你已经定义好的信号、仓位、风控和异常处理工程化。",
     serviceType: "TradingView Webhook automation development",
     llmsLabel: "TradingView Webhook automation",
@@ -816,6 +816,7 @@ const caseStudiesPage = {
       solution: "TradingView Alert -> 签名校验 -> event_id 幂等去重 -> 冷却窗口 -> 风控规则 -> 订单路由 -> 审计日志和 Telegram 告警。",
       deliverables: "Webhook 接收服务、payload 模板、风控配置、订单路由模块、脱敏日志字段、部署说明和灰度上线清单。",
       acceptance: "回放重复 payload、延迟 payload、错误签名、暂停开关、只减仓和超限数量，验证系统只产生一次明确结果：执行、拒绝或人工处理。",
+      evidence: "6 条可重复验收路径：重复、延迟、错误签名、暂停、只减仓和数量超限；每条路径都必须留下唯一处理状态。",
       exclusions: "不评价信号盈利能力，不提供跟单服务，不保证成交价格、滑点、胜率或收益。"
     },
     {
@@ -825,6 +826,7 @@ const caseStudiesPage = {
       solution: "持仓同步 -> 目标权重输入 -> 订单计划 -> 交易前风险摘要 -> 人工确认 -> 券商 API -> 执行回报同步 -> 审计日志。",
       deliverables: "订单计划脚本或轻后台、券商 API adapter、确认节点、执行回报映射、日志字段说明、测试样例和交接文档。",
       acceptance: "用 paper 或小额测试路径验证计划生成、确认前不下单、拒单/撤单/成交状态同步、日志留痕和权限最小化。",
+      evidence: "5 个可检查节点：计划生成、人工确认、拒单/撤单/成交同步、审计日志和最小权限；确认前不得发送订单。",
       exclusions: "不提供荐股、调仓建议、投资组合建议或账户托管；客户自行确认订单和承担投资决策。"
     },
     {
@@ -834,6 +836,7 @@ const caseStudiesPage = {
       solution: "规则配置 -> 数量和精度标准化 -> 风控检查 -> 订单状态监听 -> 重试上限 -> 异常熔断 -> 告警和运行日志。",
       deliverables: "规则配置样例、交易所 connector、风控拒单原因表、状态日志、告警配置、部署 runbook 和上线验收脚本。",
       acceptance: "模拟最大层数、冷却窗口、价格保护、API 超时、部分成交和接口拒单，验证暂停、重试、熔断和日志行为。",
+      evidence: "6 类异常样本：最大层数、冷却、价格保护、超时、部分成交和接口拒单；每类都要能暂停、告警或进入人工处理。",
       exclusions: "不承诺套利机会、交易收益、手续费优势或滑点结果；不需要提现、划转或账户管理员权限。"
     },
     {
@@ -843,6 +846,7 @@ const caseStudiesPage = {
       solution: "Docker 或进程守护 -> 环境变量 -> 服务健康检查 -> 日志轮转 -> 告警渠道 -> 备份/回滚说明 -> 远程交接。",
       deliverables: "源码、.env.example、部署配置、进程守护配置、日志路径、告警设置、incident checklist 和远程讲解记录。",
       acceptance: "从干净环境完成部署，演示重启、回滚、告警测试、日志查询、密钥轮换检查和暂停开关。",
+      evidence: "6 项交接检查：干净部署、重启、回滚、告警、日志查询和密钥/暂停控制；客户可按 runbook 独立复现。",
       exclusions: "不代管客户账户、服务器、API Key 或日常交易决策；长期运维、服务器管理和策略修改需另行确认范围。"
     }
   ]
@@ -2490,7 +2494,7 @@ function servicePageHtml(page) {
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${scriptHref}" defer></script>
   ${jsonLd(serviceSchema(page))}
 </head>
@@ -2700,12 +2704,12 @@ function casesHtml(page) {
         "@type": "CreativeWork",
         "@id": `${canonical(page.slug)}#case-${index + 1}`,
         "name": study.title,
-        "description": `${study.problem} ${study.constraints} ${study.solution} ${study.deliverables} ${study.acceptance} ${study.exclusions}`,
+        "description": `${study.problem} ${study.constraints} ${study.solution} ${study.deliverables} ${study.acceptance} ${study.evidence} ${study.exclusions}`,
         "isPartOf": { "@id": `${canonical(page.slug)}#webpage` }
       }))
     ]
   };
-  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article id="case-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>问题</strong><p>${escapeHtml(study.problem)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>解决方案</strong><p>${escapeHtml(study.solution)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>验收方式</strong><p>${escapeHtml(study.acceptance)}</p><strong>不包含什么</strong><p>${escapeHtml(study.exclusions)}</p><a class="case-link" href="/contact/" data-contact="case_study_${index + 1}">用这个案例发 Brief</a></article>`).join("")}</div>
+  const body = `<div class="case-study-grid expanded-cases">${page.studies.map((study, index) => `<article id="case-${index + 1}"><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(study.title)}</h3><strong>问题</strong><p>${escapeHtml(study.problem)}</p><strong>约束</strong><p>${escapeHtml(study.constraints)}</p><strong>解决方案</strong><p>${escapeHtml(study.solution)}</p><strong>交付物</strong><p>${escapeHtml(study.deliverables)}</p><strong>验收方式</strong><p>${escapeHtml(study.acceptance)}</p><strong>可复核证据</strong><p class="case-evidence">${escapeHtml(study.evidence)}</p><strong>不包含什么</strong><p>${escapeHtml(study.exclusions)}</p><a class="case-link" href="/contact/" data-contact="case_study_${index + 1}">用这个案例发 Brief</a></article>`).join("")}</div>
     <section class="embedded-section">
       <h2>公开脱敏资料</h2>
       <p>案例只描述工程约束和交付方式；公开 GitHub 资料提供脱敏 demo、权限建议和验收清单，便于独立检查交付口径。</p>
@@ -3059,7 +3063,7 @@ function exchangeFeeToolHtml(page) {
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${scriptHref}" defer></script>
   ${jsonLd(schema)}
 </head>
@@ -3177,7 +3181,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${stylesheetHref}">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-975458180"></script>
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${pageScriptHref}" defer></script>
   ${jsonLd(schema)}
 </head>

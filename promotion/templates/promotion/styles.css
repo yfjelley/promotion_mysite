@@ -1,6 +1,6 @@
 :root {
   --ink: #07111f;
-  --muted: #607086;
+  --muted: #52657a;
   --paper: #ffffff;
   --paper-soft: #f5f8fb;
   --surface: #ffffff;
@@ -9,7 +9,7 @@
   --dark: #07111f;
   --dark-2: #0d1828;
   --dark-3: #132237;
-  --teal: #078b7b;
+  --teal: #06766a;
   --teal-2: #20c7b1;
   --teal-soft: #e8f7f5;
   --amber: #c8821e;
@@ -1084,6 +1084,55 @@ h3 {
   border: 1px solid rgba(7, 139, 123, 0.18);
   border-radius: 8px;
   background: linear-gradient(90deg, rgba(7, 139, 123, 0.1), rgba(255, 255, 255, 0.78));
+}
+
+.case-proof-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.case-proof-metrics a {
+  min-width: 132px;
+  padding: 14px;
+  border: 1px solid rgba(7, 118, 106, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+}
+
+.case-proof-metrics strong,
+.case-proof-metrics span {
+  display: block;
+}
+
+.case-proof-metrics strong {
+  color: var(--teal);
+  font-size: 22px;
+}
+
+.case-proof-metrics span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.case-proof-actions {
+  grid-column: 1 / -1;
+}
+
+.case-evidence {
+  padding: 12px 14px;
+  border-left: 3px solid var(--teal);
+  background: var(--teal-soft);
+  color: var(--ink) !important;
+  font-weight: 750;
+}
+
+.content-hero h1 {
+  max-width: 1040px;
+  text-wrap: balance;
 }
 
 .case-proof-cta h3,
@@ -2694,6 +2743,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .case-proof-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .broker-capability-grid,
   .process-grid,
   .detail-grid,
@@ -3155,7 +3208,16 @@ h3 {
     border-top: 1px solid rgba(255, 255, 255, 0.14);
     background: rgba(7, 17, 31, 0.96);
     backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(110%);
     transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  body.mobile-contact-ready:not(.brief-form-active) .mobile-contact-bar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   body.brief-form-active .mobile-contact-bar {
@@ -3187,6 +3249,10 @@ h3 {
 @media (max-width: 480px) {
   h1 {
     font-size: clamp(30px, 8.7vw, 34px);
+  }
+
+  .case-proof-metrics {
+    grid-template-columns: 1fr;
   }
 
   .brand {
