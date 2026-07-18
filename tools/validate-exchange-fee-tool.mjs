@@ -113,12 +113,12 @@ for (const [label, path, language, counterpart] of [
     "Maker / Taker",
     "FAQPage",
     "BreadcrumbList",
-    "Dataset",
     "https://www.binance.com/en/fee/futureFee",
     "https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees",
     `href="${counterpart}"`,
     "?v=10000000&amp;m=70&amp;a=0&amp;api=0"
   ].forEach((needle) => requireValue(html.includes(needle), `${label}: missing ${needle}`));
+  requireValue(!html.includes('"@type": "Dataset"'), `${label}: comparison page must not claim to distribute a Dataset without a defined data license`);
   requireValue(html.includes("2026-07-17"), `${label}: missing current recheck date`);
   requireValue(html.includes("2026-07-15"), `${label}: missing Binance base-rate check date`);
 }

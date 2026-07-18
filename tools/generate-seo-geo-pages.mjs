@@ -3268,16 +3268,6 @@ function exchangeFeeComparisonHtml(page) {
     "@graph": [
       ...baseGraph(page, "WebPage"),
       {
-        "@type": "Dataset",
-        "@id": `${url}#dataset`,
-        "name": page.h1,
-        "description": page.description,
-        "url": url,
-        "dateModified": today,
-        "creator": { "@id": `${site}/#organization` },
-        "variableMeasured": ["30-day futures volume", "maker fee", "taker fee", "estimated execution fee"]
-      },
-      {
         "@type": "FAQPage",
         "@id": `${url}#faq`,
         "mainEntity": faqs.map(([question, answer]) => ({
