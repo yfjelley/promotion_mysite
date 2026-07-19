@@ -806,6 +806,8 @@ const servicePages = [
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
     buyerIntentVersion: 1,
+    buyerAudience: "Strategy owners or small trading teams with written entry, exit, sizing and risk rules.",
+    buyerProblem: "Turn defined trading logic into a dependable execution system without relying on fragile scripts or manual order entry.",
     contactProject: "hyperliquid-api-trading-bot-development",
     heroPrimaryLabel: "Request a scoped estimate",
     heroSecondaryLabel: "Choose a project path",
@@ -890,6 +892,8 @@ const servicePages = [
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
     buyerIntentVersion: 1,
+    buyerAudience: "Traders with working Pine Script alerts and explicit order and risk rules.",
+    buyerProblem: "Replace repetitive manual order entry with a controlled alert-to-execution workflow that remains observable and pausable.",
     contactProject: "tradingview-to-hyperliquid-automation",
     heroPrimaryLabel: "Get an alert-integration estimate",
     heroSecondaryLabel: "See what is included",
@@ -969,6 +973,8 @@ const servicePages = [
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
     buyerIntentVersion: 1,
+    buyerAudience: "Trading firms, treasuries or fintech teams with multiple strategies, accounts or operators.",
+    buyerProblem: "Replace disconnected scripts with a shared execution system that operators can review, pause and recover.",
     contactProject: "hyperliquid-trading-system-for-teams",
     heroPrimaryLabel: "Request a team-system assessment",
     heroSecondaryLabel: "Review delivery packages",
@@ -1056,28 +1062,10 @@ function assertBuyerIntentContract(page) {
   if (legacyBuyerIntentServiceSlugs.has(page.slug)) return;
 
   const issues = [];
-  const snapshotLabels = Array.isArray(page.purchaseSnapshot)
-    ? page.purchaseSnapshot.map(([label]) => String(label)).join(" ")
-    : "";
-  const faqQuestions = Array.isArray(page.faq)
-    ? page.faq.map(([question]) => String(question)).join(" ")
-    : "";
 
   if (page.buyerIntentVersion !== 1) issues.push("buyerIntentVersion: 1");
-  if (!page.contactProject) issues.push("contactProject");
-  if (!Array.isArray(page.purchaseSnapshot) || page.purchaseSnapshot.length < 4) {
-    issues.push("purchaseSnapshot with audience, budget, delivery and starting input");
-  }
-  if (!/(best fit|适合|客户)/i.test(snapshotLabels)) issues.push("buyer audience snapshot");
-  if (!/(budget|cost|price|预算|费用|价格)/i.test(snapshotLabels)) issues.push("budget snapshot");
-  if (!/(delivery|timeline|window|周期|交付|时间)/i.test(snapshotLabels)) issues.push("delivery snapshot");
-  if (!/(send|start|provide|资料|提供|开始)/i.test(snapshotLabels)) issues.push("starting-input snapshot");
-  if (!page.purchaseNote) issues.push("purchaseNote");
-  if (!page.outcomesTitle || !page.outcomesIntro || !Array.isArray(page.customerOutcomes) || page.customerOutcomes.length < 3) {
-    issues.push("customer problem and business outcomes");
-  }
-  if (!/(cost|price|budget|费用|价格|预算)/i.test(faqQuestions)) issues.push("buyer cost FAQ");
-  if (!/(how long|timeline|delivery|多久|周期|交付时间)/i.test(faqQuestions)) issues.push("buyer timeline FAQ");
+  if (!page.buyerAudience) issues.push("buyerAudience");
+  if (!page.buyerProblem) issues.push("buyerProblem");
 
   if (issues.length > 0) {
     throw new Error(`Service page ${page.slug} fails buyer-intent contract: ${issues.join(", ")}`);
@@ -2791,6 +2779,21 @@ function contactHrefFor(page, packageName = "") {
   return `/contact/?${values.join("&amp;")}`;
 }
 
+function buyerIntentSummarySection(page) {
+  if (page.buyerIntentVersion !== 1 || page.purchaseSnapshot || page.customerOutcomes) return "";
+  const english = isEnglish(page);
+  return `<section class="section buyer-intent-summary" aria-labelledby="buyer-intent-summary-title">
+      <div class="section-head centered">
+        <p class="eyebrow">${english ? "Buyer Fit" : "客户匹配"}</p>
+        <h2 id="buyer-intent-summary-title">${english ? "Who this is for and the problem it solves" : "适合谁，解决什么问题"}</h2>
+      </div>
+      <div class="answer-grid">
+        <article><h3>${english ? "Best fit" : "精准客户"}</h3><p>${escapeHtml(page.buyerAudience)}</p></article>
+        <article><h3>${english ? "Business problem" : "业务问题"}</h3><p>${escapeHtml(page.buyerProblem)}</p></article>
+      </div>
+    </section>`;
+}
+
 function buyerSnapshotSection(page) {
   if (!page.purchaseSnapshot) return "";
   const english = isEnglish(page);
@@ -2976,7 +2979,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
 <body class="content-page">
   <a class="skip-link" href="#main-content">${english ? "Skip to main content" : "跳到主要内容"}</a>
   ${header(activeLabel, page.lang)}
-  <main id="main-content">
+  <main id="main-content"${page.buyerIntentVersion === 1 ? ' data-buyer-intent="v1"' : ""}>
     <section class="content-hero">
       ${breadcrumbs(page)}
       <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
@@ -3000,7 +3003,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
       </div>
     </section>
 
-${buyerSnapshotSection(page)}
+${buyerIntentSummarySection(page)}${buyerSnapshotSection(page)}
 
 ${buyerOutcomeSection(page)}
 

@@ -86,15 +86,15 @@ canonical URLs, JSON-LD parsing, sitemap file coverage, internal links,
 New service pages must be written for prospective buyers before technical peers.
 Each new entry in `servicePages` must declare `buyerIntentVersion: 1` and include:
 
-- the target customer and the business problem being solved;
-- a planning budget, delivery window or approach, and the input needed to start;
-- customer-visible outcomes and deliverables, with technical detail used as proof;
-- cost and timeline FAQs;
-- a `contactProject` value so every inquiry CTA preserves the originating service.
+- `buyerAudience`: the precise target customer;
+- `buyerProblem`: the business problem the service solves.
 
 The generator fails closed when a new page omits this contract, and
-`validate-seo-geo.mjs` checks that the generated buyer summary and tracked inquiry
-links are present. Do not add new routes to the legacy buyer-intent allowlist.
+`validate-seo-geo.mjs` checks that both ideas are presented on the generated page.
+Budgets, timelines, starting inputs, detailed outcomes, FAQs and tracked inquiry
+links remain optional conversion enhancements rather than publishing blockers.
+Traffic and lead quality are measured after publishing; they are not guaranteed
+by the content contract. Do not add new routes to the legacy buyer-intent allowlist.
 
 ## Deploy
 

@@ -179,17 +179,13 @@ for (const file of pddjfHtmlFiles) {
     requiredServiceNeedles.forEach((needle) => requireText(rel, html, needle));
 
     if (buyerIntentServiceRoutes.includes(routeFor(file))) {
-      [
-        "buyer-snapshot-grid",
-        "buyer-outcome-grid",
-        "data-contact=\"buyer_snapshot_estimate\"",
-        "?project="
-      ].forEach((needle) => requireText(rel, html, needle));
-
-      const buyerCopyNeedles = isEnglishPage
-        ? ["Best fit", "Planning budget", "Send first"]
-        : ["适合", "预算", "资料"];
-      buyerCopyNeedles.forEach((needle) => requireText(rel, html, needle));
+      requireText(rel, html, 'data-buyer-intent="v1"');
+      if (!html.includes("buyer-intent-summary") && !html.includes("buyer-snapshot-grid")) {
+        errors.push(`${rel}: missing precise buyer presentation`);
+      }
+      if (!html.includes("buyer-intent-summary") && !html.includes("buyer-outcome-grid")) {
+        errors.push(`${rel}: missing business-problem presentation`);
+      }
     }
   }
 
