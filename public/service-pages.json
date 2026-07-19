@@ -19,6 +19,10 @@
     "/hyperliquid-trading-system-for-teams/"
   ],
   "buyerIntentServiceRoutes": [
+    "/custom-trading-software-development/",
+    "/tradingview-webhook-developer/",
+    "/ibkr-api-automation-developer/",
+    "/fix-api-order-routing-developer/",
     "/hyperliquid-api-trading-bot-development/",
     "/tradingview-to-hyperliquid-automation/",
     "/hyperliquid-trading-system-for-teams/"
@@ -65,24 +69,24 @@
       "summary": "FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。"
     },
     {
-      "label": "Custom Trading Software Development",
+      "label": "Custom Trading Software for Teams",
       "url": "https://pddjf.com/custom-trading-software-development/",
-      "summary": "Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment."
+      "summary": "Build custom trading software around documented execution rules, existing signals and team workflows, with source code, risk controls and private deployment."
     },
     {
-      "label": "TradingView Webhook Developer",
+      "label": "TradingView Alert Automation Service",
       "url": "https://pddjf.com/tradingview-webhook-developer/",
-      "summary": "Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment."
+      "summary": "Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment."
     },
     {
-      "label": "IBKR API Automation Developer",
+      "label": "IBKR Trading Automation Service",
       "url": "https://pddjf.com/ibkr-api-automation-developer/",
-      "summary": "Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs."
+      "summary": "Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment."
     },
     {
-      "label": "FIX API Order Routing Developer",
+      "label": "FIX Order Routing System Development",
       "url": "https://pddjf.com/fix-api-order-routing-developer/",
-      "summary": "Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support."
+      "summary": "Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support."
     },
     {
       "label": "Trading risk engine development",

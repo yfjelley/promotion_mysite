@@ -14,10 +14,10 @@ Last updated: 2026-07-19
 - Schwab API automation: https://pddjf.com/broker-api/schwab/ — Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - Alpaca API automation: https://pddjf.com/broker-api/alpaca/ — Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - FIX API order routing: https://pddjf.com/fix-api-order-routing/ — FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
-- Custom Trading Software Development: https://pddjf.com/custom-trading-software-development/ — Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment.
-- TradingView Webhook Developer: https://pddjf.com/tradingview-webhook-developer/ — Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
-- IBKR API Automation Developer: https://pddjf.com/ibkr-api-automation-developer/ — Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
-- FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
+- Custom Trading Software for Teams: https://pddjf.com/custom-trading-software-development/ — Build custom trading software around documented execution rules, existing signals and team workflows, with source code, risk controls and private deployment.
+- TradingView Alert Automation Service: https://pddjf.com/tradingview-webhook-developer/ — Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
+- IBKR Trading Automation Service: https://pddjf.com/ibkr-api-automation-developer/ — Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
+- FIX Order Routing System Development: https://pddjf.com/fix-api-order-routing-developer/ — Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
 - Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 - Custom Hyperliquid trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
@@ -106,10 +106,10 @@ Last updated: 2026-07-19
 - https://pddjf.com/broker-api/schwab/ — Schwab API automation: Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
 - https://pddjf.com/broker-api/alpaca/ — Alpaca API automation: Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - https://pddjf.com/fix-api-order-routing/ — FIX API order routing: FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
-- https://pddjf.com/custom-trading-software-development/ — Custom Trading Software Development: Custom trading software development for API integration, order execution, risk controls, audit logs, source delivery and private deployment.
-- https://pddjf.com/tradingview-webhook-developer/ — TradingView Webhook Developer: Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.
-- https://pddjf.com/ibkr-api-automation-developer/ — IBKR API Automation Developer: Hire an IBKR API automation developer for TWS Gateway or Client Portal workflows, order routing, portfolio automation, risk checks, execution reports and audit logs.
-- https://pddjf.com/fix-api-order-routing-developer/ — FIX API Order Routing Developer: Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
+- https://pddjf.com/custom-trading-software-development/ — Custom Trading Software for Teams: Build custom trading software around documented execution rules, existing signals and team workflows, with source code, risk controls and private deployment.
+- https://pddjf.com/tradingview-webhook-developer/ — TradingView Alert Automation Service: Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
+- https://pddjf.com/ibkr-api-automation-developer/ — IBKR Trading Automation Service: Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
+- https://pddjf.com/fix-api-order-routing-developer/ — FIX Order Routing System Development: Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
 - https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 - https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid trading bot development: Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.

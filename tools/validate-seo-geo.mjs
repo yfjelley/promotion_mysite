@@ -86,6 +86,12 @@ const buyerIntentServiceRoutes = serviceManifest.buyerIntentServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
+const buyerPositioningExpectations = new Map([
+  ["/custom-trading-software-development/", "Build Trading Software Around Your Existing Workflow"],
+  ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
+  ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
+  ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"]
+]);
 
 if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
   errors.push("service-pages.json: missing custom trading software development route");
@@ -98,10 +104,6 @@ const legacyBuyerIntentServiceRoutes = new Set([
   "/broker-api/schwab/",
   "/broker-api/alpaca/",
   "/fix-api-order-routing/",
-  "/custom-trading-software-development/",
-  "/tradingview-webhook-developer/",
-  "/ibkr-api-automation-developer/",
-  "/fix-api-order-routing-developer/",
   "/risk-engine/",
   "/private-deployment/"
 ]);
@@ -185,6 +187,15 @@ for (const file of pddjfHtmlFiles) {
       }
       if (!html.includes("buyer-intent-summary") && !html.includes("buyer-outcome-grid")) {
         errors.push(`${rel}: missing business-problem presentation`);
+      }
+    }
+
+    const expectedBuyerHeading = buyerPositioningExpectations.get(routeFor(file));
+    if (expectedBuyerHeading) {
+      const heroHtml = html.match(/<section class="content-hero[^"]*"[\s\S]*?<\/section>/i)?.[0] ?? "";
+      requireText(rel, heroHtml, `<h1>${expectedBuyerHeading}</h1>`);
+      if (/\bdeveloper\b/i.test(heroHtml)) {
+        errors.push(`${rel}: buyer-facing hero still uses developer positioning`);
       }
     }
   }
@@ -290,7 +301,7 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "SignalCraft Labs",
   `Last updated: ${contentDate}`,
   "TradingView Webhook automation",
-  "Custom Trading Software Development",
+  "Custom Trading Software for Teams",
   "IBKR API automation",
   "AI-citable factual summary",
   "Page summaries",
