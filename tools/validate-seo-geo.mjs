@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
 const currentScriptHref = "/scripts.js?v=20260717-positioning-proof-performance";
-const contentDate = "2026-07-17";
+const contentDate = "2026-07-19";
 const errors = [];
 
 function walk(dir) {

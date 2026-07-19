@@ -1,10 +1,13 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { exchangeFeeData } from "./exchange-fee-data.mjs";
+import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-17";
+const hyperliquidCheckedDate = "2026-07-19";
+const llmsUpdatedAt = hyperliquidCheckedDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
@@ -41,6 +44,13 @@ const officialReferenceLinks = [
   ["Alpaca Docs", "https://docs.alpaca.markets/us/", "Alpaca 官方 API 文档入口。"],
   ["FIX Trading Community", "https://fixtrading.org/standards/fix-protocol/", "FIX Trading Community 的 FIX Protocol 标准介绍。"],
   ["Binance Developer Docs", "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information", "Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。"]
+];
+
+const hyperliquidReferenceLinks = [
+  ["Hyperliquid fees", "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees", "Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula."],
+  ["Hyperliquid exchange endpoint", "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint", "Official order, cancel, TWAP, API wallet, subaccount and vault action reference."],
+  ["Hyperliquid WebSocket", "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket", "Official mainnet and testnet real-time connection guidance, including reconnect expectations."],
+  ["Hyperliquid info endpoint", "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint", "Official account, order, fill, fee, subaccount and vault query reference."]
 ];
 
 const offers = [
@@ -153,6 +163,11 @@ const platformDetailRowsEn = {
     ["Session management", "Confirm FIX version, SenderCompID/TargetCompID, heartbeat, sequence numbers, reset rules and recovery behavior.", "UAT validates login, heartbeat, reconnect, sequence recovery and logout."],
     ["Message fields", "Map NewOrderSingle, Cancel, ExecutionReport, Reject and counterparty-specific tags.", "Raw FIX messages, normalized status and field-level errors are preserved."],
     ["Go-live constraints", "Confirm test environment, certificates, network, allowlists, approval timeline and UAT scripts early.", "Staged rollout, rollback, monitoring and manual pause are verified before production use."]
+  ],
+  "hyperliquid-api-trading-bot-development": [
+    ["Signing and wallet model", "Separate the main wallet, API/agent wallet, subaccount or vault role; document every signed action and nonce owner.", "Testnet proves approval, order, cancel and permission-revocation paths without exposing a main-wallet private key to the runtime."],
+    ["Order lifecycle", "Use cloid-based idempotency, normalize resting and filled responses, and reconcile open orders, historical orders and fills.", "Replay covers duplicate intent, partial fill, reject, cancel, stale nonce, process restart and position reconciliation."],
+    ["Streaming and recovery", "Subscribe to the required WebSocket channels, detect disconnects, restore snapshots and backfill missed state through the info endpoint.", "A forced disconnect demonstrates reconnect, snapshot handling, missed-event recovery, alerting and no duplicate order submission."]
   ]
 };
 
@@ -775,6 +790,61 @@ const servicePages = [
       ["/delivery-policy", "交付边界"],
       ["/contact/", "联系评估"]
     ]
+  },
+  {
+    slug: "hyperliquid-api-trading-bot-development",
+    lang: "en",
+    breadcrumb: "Hyperliquid API Trading Bot Development",
+    eyebrow: "Hyperliquid API Engineering",
+    title: "Hyperliquid API Trading Bot Development | Orders, WebSocket and Risk Controls",
+    description: "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.",
+    h1: "Hyperliquid API Trading Bot Development",
+    intro: "Turn customer-defined execution rules into a testable Hyperliquid workflow with signed orders, cloid-based idempotency, WebSocket recovery, position reconciliation, risk controls and customer-controlled deployment. We build execution infrastructure, not trading signals or return promises.",
+    serviceType: "Hyperliquid API trading bot development",
+    llmsLabel: "Hyperliquid API trading bot development",
+    fit: [
+      "You already have defined entry, exit, sizing, market-making, TWAP or portfolio execution rules.",
+      "You need reliable order, cancel, fill, position and account-state handling across REST/info queries and WebSocket streams.",
+      "You want source code, structured logs, risk controls and deployment under your own account and infrastructure."
+    ],
+    notFit: [
+      "You want a profit-guaranteed strategy, copy-trading promotion or an operator to control your funds.",
+      "You cannot define instruments, order types, position limits, pause rules or acceptance tests.",
+      "You expect an API wallet, vault or private deployment to remove market, protocol, liquidation or operational risk."
+    ],
+    deliverables: [
+      "Hyperliquid connector for signed order, cancel, open-order, fill, position and account-state workflows.",
+      "Cloid idempotency, nonce ownership, partial-fill handling, restart reconciliation and duplicate-order protection.",
+      "WebSocket subscriptions, disconnect detection, snapshot restore, missed-state backfill and operational alerts.",
+      "Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause risk controls.",
+      "Testnet acceptance scripts, source code, configuration examples, deployment runbook and remote handoff."
+    ],
+    process: [
+      "Confirm wallet role, API/agent wallet boundaries, subaccount or vault scope, instruments and order types.",
+      "Define the order state machine, cloid policy, nonce owner, reconciliation rules and risk decisions.",
+      "Build the connector, streaming recovery, controls, structured logs and alert paths.",
+      "Replay failures on testnet before any separately approved limited live rollout."
+    ],
+    limits: [
+      "Hyperliquid API behavior, available markets, fee rules, rate limits and regional access can change; final capability depends on current official documentation and the customer account.",
+      "API/agent wallets can sign trading actions. Main-wallet keys, withdrawal authority and unrelated permissions should not be placed in the bot runtime.",
+      "WebSocket streams can disconnect; every production design needs snapshot recovery and query-based reconciliation.",
+      "The delivery does not guarantee fills, latency, spreads, funding, liquidation outcomes, strategy performance or profitability."
+    ],
+    faq: [
+      ["Can you build with the official Python SDK or CCXT?", "Yes. The choice depends on the required actions, signing control, data model and deployment constraints. The official SDK is usually preferred when Hyperliquid-specific behavior matters; CCXT can fit a broader multi-exchange adapter."],
+      ["How do you prevent duplicate Hyperliquid orders?", "Use a deterministic client order ID, a durable intent record, one nonce owner, pre-submit idempotency checks and post-restart reconciliation against open orders, historical orders and fills."],
+      ["What happens when the WebSocket disconnects?", "The runtime detects the gap, reconnects, processes the new snapshot and backfills required account or order state through the info endpoint before normal routing resumes."],
+      ["Do you need my main wallet private key?", "No. The production design should use the smallest suitable API/agent-wallet scope, while the customer keeps main-wallet control. Exact approval and revocation procedures are documented and tested."],
+      ["Can the system trade for a subaccount or vault?", "Yes when the official account model and customer permissions support the workflow. Signing remains tied to the authorized master or agent model, and vault/subaccount state is reconciled separately."],
+      ["Does the service include a profitable strategy?", "No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns."]
+    ],
+    related: [
+      ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
+      ["/articles/hyperliquid-api-order-reconciliation-websocket-checklist/", "Hyperliquid API reliability checklist"],
+      ["/risk-engine/", "Risk engine development"]
+    ],
+    officialReferences: hyperliquidReferenceLinks
   }
 ];
 
@@ -1883,6 +1953,61 @@ const articlePages = [
       ["FIX platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."],
       ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
     ]
+  },
+  {
+    slug: "articles/hyperliquid-api-order-reconciliation-websocket-checklist",
+    lang: "en",
+    breadcrumb: "Hyperliquid API Reliability Checklist",
+    eyebrow: "Hyperliquid API",
+    title: "Hyperliquid API Order Reconciliation and WebSocket Checklist",
+    description: "A Hyperliquid API reliability checklist for cloid idempotency, nonce ownership, WebSocket reconnects, snapshots, fills, positions, subaccounts and operator alerts.",
+    h1: "Hyperliquid API Order Reconciliation and WebSocket Checklist",
+    datePublished: hyperliquidCheckedDate,
+    dateModified: hyperliquidCheckedDate,
+    intro: "A successful order response is not a complete trading system. A production-minded Hyperliquid workflow must connect order intent, cloid, exchange status, fills, positions, WebSocket snapshots and query-based recovery so a restart or disconnect does not create duplicate or unexplained exposure.",
+    summary: "Hyperliquid API reliability requires deterministic cloid values, one nonce owner, normalized order states, WebSocket snapshot recovery, info-endpoint backfill, position reconciliation, alerts and fail-closed restart rules.",
+    related: [
+      ["Hyperliquid API trading bot development", "/hyperliquid-api-trading-bot-development/"],
+      ["Hyperliquid fee calculator", "/tools/hyperliquid-fee-calculator/"],
+      ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"]
+    ],
+    sections: [
+      {
+        title: "Give every order intent a deterministic cloid",
+        body: "Hyperliquid supports an optional 128-bit client order ID. Generate it from a durable order intent, persist it before submission and keep the mapping to exchange order ID, account role, asset, side and requested size. A retry should look up the existing intent before signing another order.",
+        bullets: ["Persist the intent and cloid before the network call.", "Keep one canonical mapping between intent, cloid and exchange order ID.", "Treat duplicate intent as an audit result, not a fresh order request."]
+      },
+      {
+        title: "Normalize resting, filled, rejected and canceled states",
+        body: "The exchange endpoint can return different status shapes, while later fills and cancels arrive through queries or streams. Convert them into one internal state machine and preserve the original response so operators can distinguish an internal risk reject from an exchange response.",
+        bullets: ["Model submitted, resting, partially_filled, filled, canceled and rejected states.", "Reconcile open orders, historical orders and fills after restart.", "Do not infer a position only from the last local order status."]
+      },
+      {
+        title: "Recover WebSocket state before routing resumes",
+        body: "Hyperliquid documents that API servers can disconnect periodically and that reconnect acknowledgements contain snapshots. The runtime should detect the gap, reconnect, process the snapshot and use the info endpoint to recover any required order, fill or position state before accepting new intents.",
+        bullets: ["Record the last healthy message time and reconnect attempt.", "Make snapshot handling idempotent.", "Keep new routing paused until reconciliation finishes or an operator intervenes."]
+      },
+      {
+        title: "Assign one nonce owner per signing path",
+        body: "Nonces should be controlled by a single durable signing path for each authorized wallet context. Multiple unsynchronized processes can create stale or conflicting actions, so ownership, restart behavior and emergency invalidation need explicit runbook steps.",
+        bullets: ["Avoid multiple writers sharing the same signing identity without coordination.", "Log nonce, action type and signer role without logging private material.", "Fail closed when nonce state is ambiguous."]
+      },
+      {
+        title: "Separate account roles and reconciliation scopes",
+        body: "Main wallets, API/agent wallets, subaccounts and vaults do not share the same control and state boundaries. The implementation should document who signs each action and reconcile balances, orders and positions inside the correct account or vault scope.",
+        bullets: ["Keep main-wallet private keys outside the bot runtime.", "Record the intended subaccount or vault address on every action.", "Test revocation, pause and handoff procedures before live permission is considered."]
+      }
+    ],
+    checklistTitle: "Hyperliquid production-readiness checks",
+    checklist: [
+      "Submitting the same durable intent twice does not create a second order.",
+      "Resting, partial fill, fill, cancel and reject responses map to reviewable internal states.",
+      "A forced WebSocket disconnect recovers snapshot and missed state before routing resumes.",
+      "Restart reconciliation compares open orders, historical orders, fills and positions.",
+      "Nonce ownership, API/agent-wallet scope, subaccount or vault context and emergency pause are documented.",
+      "Rate limits, stale state, signing failure and unresolved mismatches produce alerts and fail closed."
+    ],
+    references: hyperliquidReferenceLinks
   }
 ];
 
@@ -2010,6 +2135,30 @@ const exchangeFeeToolPageZh = {
   lang: "zh-CN"
 };
 
+const hyperliquidFeeToolPage = {
+  slug: "tools/hyperliquid-fee-calculator",
+  counterpartSlug: "zh/tools/hyperliquid-fee-calculator",
+  breadcrumb: "Hyperliquid Fee Calculator",
+  eyebrow: "Hyperliquid fee intelligence · Checked July 19, 2026",
+  title: "Hyperliquid Fee Calculator | VIP, Staking and Maker Rebates",
+  description: "Calculate Hyperliquid perp and spot fees from 14-day weighted volume, maker/taker mix, staking discount and published maker rebate tiers.",
+  h1: "Hyperliquid Fee Calculator",
+  intro: "Model the official 14-day VIP schedule for standard perps and spot. See your weighted volume, effective maker/taker rates, staking discount, estimated execution cost and gap to the next tier without connecting a wallet.",
+  lang: "en"
+};
+
+const hyperliquidFeeToolPageZh = {
+  slug: "zh/tools/hyperliquid-fee-calculator",
+  counterpartSlug: "tools/hyperliquid-fee-calculator",
+  breadcrumb: "Hyperliquid 手续费计算器",
+  eyebrow: "Hyperliquid 费率情报 · 2026 年 7 月 19 日核验",
+  title: "Hyperliquid 手续费计算器 | VIP、质押折扣与 Maker Rebate",
+  description: "根据 14 天加权成交量、Maker/Taker 比例、HYPE 质押折扣和公开 Maker Rebate 等级估算 Hyperliquid 永续与现货手续费。",
+  h1: "Hyperliquid 手续费计算器",
+  intro: "按照官方 14 天 VIP 规则估算标准永续与现货手续费，查看加权成交量、有效 Maker/Taker 费率、质押折扣、预计执行成本和下一等级差距；无需连接钱包。",
+  lang: "zh-CN"
+};
+
 const exchangeFeeComparisonPages = [
   {
     slug: "compare/binance-vs-okx-futures-fees",
@@ -2051,6 +2200,8 @@ const allGeneratedPages = [
   riskDisclaimerPage,
   exchangeFeeToolPage,
   exchangeFeeToolPageZh,
+  hyperliquidFeeToolPage,
+  hyperliquidFeeToolPageZh,
   ...exchangeFeeComparisonPages
 ];
 
@@ -2066,6 +2217,7 @@ const navLinks = [
 ];
 
 const footerServiceLinks = [
+  ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"],
   ["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"],
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
   ["/custom-trading-software-development/", "Custom Trading Software"],
@@ -2100,6 +2252,8 @@ const navLinksEn = [
 ];
 
 const footerServiceLinksEn = [
+  ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
+  ["/hyperliquid-api-trading-bot-development/", "Hyperliquid API development"],
   ["/tools/crypto-exchange-fee-calculator/", "Crypto exchange fee calculator"],
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
   ["/custom-trading-software-development/", "Custom Trading Software Development"],
@@ -2625,6 +2779,15 @@ function servicePageHtml(page) {
 
     ${evidenceTablesSection(page)}
 
+${page.officialReferences ? `    <section class="section embedded-section">
+      <div class="section-head">
+        <p class="eyebrow">Official References</p>
+        <h2>${english ? "Hyperliquid documentation used for this scope" : "本页使用的官方文档"}</h2>
+        <p>${english ? "Current capabilities and implementation details are checked against the official API, WebSocket, account-state and fee references before project acceptance criteria are finalized." : "正式确定项目验收标准前，会依据官方 API、WebSocket、账户状态和费用文档复核当前能力。"}</p>
+      </div>
+      ${referenceLinksList(page.officialReferences)}
+    </section>` : ""}
+
     ${caseBridgeSection(page.lang)}
 
     ${externalTrustSection(page.lang)}
@@ -2762,8 +2925,8 @@ function articlesIndexHtml(page) {
         "url": canonical(article.slug),
         "author": { "@id": `${site}/#organization` },
         "publisher": { "@id": `${site}/#organization` },
-        "datePublished": articleCatalogPublishedDate,
-        "dateModified": today,
+        "datePublished": article.datePublished || articleCatalogPublishedDate,
+        "dateModified": article.dateModified || today,
         "inLanguage": article.lang || "zh-CN"
       }))
     ]
@@ -2792,8 +2955,8 @@ function articleHtml(page) {
         "url": canonical(page.slug),
         "author": { "@id": `${site}/#organization` },
         "publisher": { "@id": `${site}/#organization` },
-        "datePublished": articleCatalogPublishedDate,
-        "dateModified": today,
+        "datePublished": page.datePublished || articleCatalogPublishedDate,
+        "dateModified": page.dateModified || today,
         "inLanguage": language,
         "about": ["Trading API automation", "Webhook automation", "Risk controls", "Private deployment"]
       }
@@ -3197,6 +3360,151 @@ function exchangeFeeToolHtml(page) {
 </html>`;
 }
 
+function hyperliquidFeeToolHtml(page) {
+  const zh = page.lang === "zh-CN";
+  const url = canonical(page.slug);
+  const alternateUrl = canonical(page.counterpartSlug);
+  const englishUrl = zh ? alternateUrl : url;
+  const chineseUrl = zh ? url : alternateUrl;
+  const pageStylesheetHref = `${stylesheetHref}&scope=hyperliquid-20260719`;
+  const pageScriptHref = `${scriptHref}&scope=hyperliquid-20260719`;
+  const formatRate = (value) => `${Number(value).toFixed(3)}%`;
+  const formatVolume = (value) => value === 0 ? "—" : value >= 1000000000 ? `$${value / 1000000000}B` : `$${value / 1000000}M`;
+  const tierRows = hyperliquidFeeData.vipTiers.map((tier) => `<tr><th scope="row">${tier.name}</th><td>${formatVolume(tier.minWeightedVolume)}</td><td>${formatRate(tier.perpMaker)} / ${formatRate(tier.perpTaker)}</td><td>${formatRate(tier.spotMaker)} / ${formatRate(tier.spotTaker)}</td></tr>`).join("");
+  const stakingOptions = hyperliquidFeeData.stakingTiers.map((tier) => `<option value="${tier.discount}">${tier.name} · ${tier.minHype ? `${tier.minHype.toLocaleString("en-US")}+ HYPE · ` : ""}${tier.discount}%</option>`).join("");
+  const rebateOptions = hyperliquidFeeData.makerRebateTiers.map((tier, index) => `<option value="${index}">${zh ? (index ? `Maker Rebate ${index} · 全平台加权 Maker 量占比 >${tier.minWeightedMakerShare}%` : "不使用 Maker Rebate") : (index ? `Maker rebate ${index} · >${tier.minWeightedMakerShare}% of platform weighted maker volume` : "No maker rebate")}</option>`).join("");
+  const faqs = zh ? [
+    ["Hyperliquid VIP 等级如何计算？", "按滚动 14 天加权成交量计算：永续成交量 + 2 × 现货成交量。子账户成交量计入主账户并共享等级，Vault 单独计算。"],
+    ["HYPE 质押折扣如何进入计算？", "本工具按所选官方质押等级降低正的 Maker/Taker 费率。质押关联具有控制权与不可解除等重要风险，是否适用应以账户 userFees 返回结果为准。"],
+    ["Maker Rebate 是我的 Maker 订单占比吗？", "不是。官方门槛是用户占全平台 14 天加权 Maker 成交量的比例。只有从账户或官方接口确认等级后才应选择对应 Rebate。"],
+    ["是否包含 HIP-3、资金费率和滑点？", "不包含。本工具只估算标准永续和普通现货执行费；HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、返佣、资金费率、价差、滑点和强平成本均未计入。"],
+    ["为什么不要求连接钱包？", "首版使用公开官方费率表和手工参数，不读取地址、不请求签名，也不保存账户信息。实际账户费率应以官方 userFees 接口或 Hyperliquid 账户页面为准。"]
+  ] : [
+    ["How is the Hyperliquid VIP tier calculated?", "It uses rolling 14-day weighted volume: perp volume plus two times spot volume. Subaccount volume rolls into the master account and shares its tier, while vault volume is treated separately."],
+    ["How does HYPE staking affect the estimate?", "The calculator reduces positive maker and taker rates by the selected published staking discount. Staking linking has important control and permanence risks; confirm the actual result through the account userFees response."],
+    ["Is maker rebate based on my maker-order percentage?", "No. The published threshold is the user's share of platform-wide 14-day weighted maker volume. Select a rebate tier only when the account or official API confirms it."],
+    ["Does this include HIP-3, funding and slippage?", "No. It models standard perps and ordinary spot execution fees only. HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referrals, funding, spread, slippage and liquidation costs are excluded."],
+    ["Why does the tool not connect a wallet?", "The first version uses the public official schedule and manual inputs. It does not read an address, request a signature or store account data. Confirm account-specific rates through Hyperliquid or the official userFees endpoint."]
+  ];
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "WebPage"),
+      {
+        "@type": "WebApplication",
+        "@id": `${url}#app`,
+        "name": page.h1,
+        "url": url,
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "isAccessibleForFree": true,
+        "description": page.description,
+        "inLanguage": page.lang
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": faqs.map(([question, answer]) => ({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        }))
+      }
+    ]
+  };
+
+  return `<!DOCTYPE html>
+<html lang="${page.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="${url}">
+  <link rel="alternate" hreflang="en" href="${englishUrl}">
+  <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
+  <link rel="alternate" hreflang="x-default" href="${englishUrl}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="${pageScriptHref}" defer></script>
+  ${jsonLd(schema)}
+</head>
+<body class="content-page fee-tool-page hyperliquid-tool-page">
+  <a class="skip-link" href="#main-content">${zh ? "跳到主要内容" : "Skip to main content"}</a>
+  ${header(zh ? "费率工具" : "Fee tool", page.lang)}
+  <main id="main-content" data-hyperliquid-fee-tool data-lang="${page.lang}" data-url="/data/hyperliquid-fees.json">
+    <section class="content-hero fee-tool-hero hyperliquid-hero">
+      ${breadcrumbs(page)}
+      <div class="fee-language-switch" aria-label="${zh ? "语言" : "Language"}"><a href="${alternateUrl}" lang="${zh ? "en" : "zh-CN"}">${zh ? "English" : "中文"}</a></div>
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="fee-hero-proof" aria-label="${zh ? "计算范围" : "Calculation scope"}">
+        <span><strong>14D</strong>${zh ? "滚动加权成交量" : "rolling weighted volume"}</span>
+        <span><strong>2×</strong>${zh ? "现货量计入 VIP" : "spot volume for VIP"}</span>
+        <span><strong>6 + 1</strong>${zh ? "VIP 等级" : "VIP thresholds"}</span>
+        <span><strong>0</strong>${zh ? "钱包连接或签名" : "wallet connections"}</span>
+      </div>
+    </section>
+
+    <section class="section fee-tool-shell hyperliquid-tool-shell">
+      <form class="fee-controls hl-controls" data-hl-controls>
+        <div class="section-heading-row"><div><p class="eyebrow">${zh ? "你的交易画像" : "Your trading profile"}</p><h2>${zh ? "估算标准永续与现货手续费" : "Estimate standard perp and spot fees"}</h2></div><button class="button secondary compact" type="button" data-hl-share>${zh ? "复制场景链接" : "Copy scenario link"}</button></div>
+        <p class="tool-notice">${zh ? "不连接钱包。输入值只在浏览器内计算。Maker Rebate 不是个人 Maker 订单比例，请仅在账户已确认等级时选择。" : "No wallet connection. Inputs are calculated in your browser. Maker rebate is not your personal maker-order mix; select a tier only when your account confirms it."}</p>
+        <div class="hl-input-grid">
+          <label>${zh ? "14 天永续成交量（USD）" : "14-day perp volume (USD)"}<input name="perpVolume" type="number" min="0" step="100000" value="10000000" inputmode="decimal"></label>
+          <label>${zh ? "14 天现货成交量（USD）" : "14-day spot volume (USD)"}<input name="spotVolume" type="number" min="0" step="100000" value="0" inputmode="decimal"><small>${zh ? "VIP 加权时按 2 倍计入" : "Counts 2× toward the VIP tier"}</small></label>
+          <label>${zh ? "Maker 成交占比" : "Maker execution share"}<input name="makerShare" type="range" min="0" max="100" step="1" value="70"><output data-hl-maker-output>70%</output></label>
+          <label>${zh ? "HYPE 质押等级" : "HYPE staking tier"}<select name="stakingDiscount">${stakingOptions}</select></label>
+          <label class="hl-wide-input">${zh ? "已确认的 Maker Rebate 等级" : "Confirmed maker rebate tier"}<select name="makerRebate">${rebateOptions}</select></label>
+        </div>
+        <p class="copy-status" data-hl-share-status aria-live="polite"></p>
+      </form>
+
+      <section class="fee-results-section hl-results" aria-labelledby="hl-results-title">
+        <div class="section-heading-row"><div><p class="eyebrow">${zh ? "计算结果" : "Estimated result"}</p><h2 id="hl-results-title">${zh ? "有效费率与执行成本" : "Effective rates and execution cost"}</h2></div><span class="coverage-badge full" data-hl-tier>VIP 1</span></div>
+        <p class="sr-only" data-hl-summary aria-live="polite"></p>
+        <div class="hl-result-grid">
+          <article class="hl-primary-result"><span>${zh ? "14 天预计执行手续费" : "Estimated 14-day execution fees"}</span><strong data-hl-total>$0</strong><small>${zh ? "负值表示预计净 Maker Rebate" : "A negative value indicates a modeled net maker rebate"}</small></article>
+          <article><span>${zh ? "VIP 加权成交量" : "VIP weighted volume"}</span><strong data-hl-weighted>$0</strong><small>${zh ? "永续 + 2 × 现货" : "Perps + 2 × spot"}</small></article>
+          <article><span>${zh ? "下一 VIP 等级" : "Next VIP tier"}</span><strong data-hl-next>—</strong><small data-hl-next-saving></small></article>
+          <article><span>${zh ? "质押折扣" : "Staking discount"}</span><strong data-hl-staking>0%</strong><small>${zh ? "仅缩减正费率" : "Applied to positive rates only"}</small></article>
+        </div>
+        <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>${zh ? "产品" : "Product"}</th><th>Maker</th><th>Taker</th><th>${zh ? "本场景成本" : "Scenario cost"}</th></tr></thead><tbody><tr><th scope="row">${zh ? "标准永续" : "Standard perps"}</th><td data-hl-perp-maker>—</td><td data-hl-perp-taker>—</td><td data-hl-perp-cost>—</td></tr><tr><th scope="row">${zh ? "普通现货" : "Ordinary spot"}</th><td data-hl-spot-maker>—</td><td data-hl-spot-taker>—</td><td data-hl-spot-cost>—</td></tr></tbody></table></div>
+      </section>
+    </section>
+
+    <section class="section fee-ladder-section" aria-labelledby="hl-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="hl-ladder-title">${zh ? "14 天加权成交量费率阶梯" : "14-day weighted-volume fee ladder"}</h2>
+      <p>${zh ? "以下为未应用质押折扣、返佣或 Maker Rebate 的标准公开费率。达到更高等级后，统一应用于标准永续与现货。" : "These are standard published rates before staking discounts, referral discounts or maker rebates. The selected VIP tier applies across standard perps and spot."}</p>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>${zh ? "等级" : "Tier"}</th><th>${zh ? "最低加权量" : "Minimum weighted volume"}</th><th>${zh ? "永续 Maker / Taker" : "Perp maker / taker"}</th><th>${zh ? "现货 Maker / Taker" : "Spot maker / taker"}</th></tr></thead><tbody>${tierRows}</tbody></table></div>
+    </section>
+
+    <section class="section fee-method-section" id="methodology">
+      <p class="eyebrow">${zh ? "计算边界" : "Method and boundaries"}</p><h2>${zh ? "官方来源、公式与未覆盖项" : "Official sources, formula and exclusions"}</h2>
+      <div class="fee-source-grid">
+        ${hyperliquidFeeData.sources.map((source) => `<article><div class="fee-source-head"><h3>${escapeHtml(source.label)}</h3><span class="coverage-badge">${source.checkedAt}</span></div><p>${escapeHtml(source.scope)}</p><p><a href="${source.url}" rel="nofollow noopener" target="_blank">${zh ? "查看官方资料" : "Open official source"}</a></p></article>`).join("")}
+        <article><div class="fee-source-head"><h3>${zh ? "隐私与账户边界" : "Privacy and account boundary"}</h3><span class="coverage-badge">${zh ? "无需钱包" : "No wallet"}</span></div><p>${zh ? "工具不读取地址、不请求签名、不调用账户级接口。结果是基于公开费率和手工输入的场景估算。" : "The tool does not read an address, request a signature or call account-specific endpoints. Results are scenario estimates from public rates and manual inputs."}</p></article>
+      </div>
+      <aside class="fee-limitations"><strong>${zh ? "未覆盖：" : "Excluded:"}</strong> ${zh ? "HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、推荐折扣、资金费率、价差、滑点、强平成本、地区限制及账户专属规则。" : "HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referral discounts, funding, spread, slippage, liquidation costs, regional restrictions and account-specific rules."}</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>${zh ? "正确理解 Hyperliquid 手续费" : "How to read Hyperliquid fees"}</h2><div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div></section>
+
+    <section class="fee-tool-cta"><div><p class="eyebrow">${zh ? "从费率到执行系统" : "From fee model to execution system"}</p><h2>${zh ? "需要可靠的 Hyperliquid API 下单与对账？" : "Need reliable Hyperliquid API execution and reconciliation?"}</h2><p>${zh ? "继续查看 cloid 幂等、WebSocket 恢复、持仓对账、权限边界和私有部署方案。" : "Continue with cloid idempotency, WebSocket recovery, position reconciliation, permission boundaries and private deployment."}</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">${zh ? "Hyperliquid API 开发" : "Hyperliquid API development"}</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">${zh ? "可靠性检查清单" : "Reliability checklist"}</a></div></section>
+  </main>
+  ${footer(page.lang)}
+</body>
+</html>`;
+}
+
 function exchangeFeeComparisonHtml(page) {
   const zh = page.lang === "zh-CN";
   const url = canonical(page.slug);
@@ -3449,23 +3757,28 @@ writePublicFile(pagePath(cryptoReportingPage.slug), cryptoReportingHtml(cryptoRe
 writePublicFile(pagePath(riskDisclaimerPage.slug), riskHtml(riskDisclaimerPage));
 writePublicFile(pagePath(exchangeFeeToolPage.slug), exchangeFeeToolHtml(exchangeFeeToolPage));
 writePublicFile(pagePath(exchangeFeeToolPageZh.slug), exchangeFeeToolHtml(exchangeFeeToolPageZh));
+writePublicFile(pagePath(hyperliquidFeeToolPage.slug), hyperliquidFeeToolHtml(hyperliquidFeeToolPage));
+writePublicFile(pagePath(hyperliquidFeeToolPageZh.slug), hyperliquidFeeToolHtml(hyperliquidFeeToolPageZh));
 for (const page of exchangeFeeComparisonPages) {
   writePublicFile(pagePath(page.slug), exchangeFeeComparisonHtml(page));
 }
 writePublicFile(join(publicDir, "data", "exchange-fees.json"), JSON.stringify(exchangeFeeData, null, 2));
+writePublicFile(join(publicDir, "data", "hyperliquid-fees.json"), JSON.stringify(hyperliquidFeeData, null, 2));
 
 const sitemapUrls = [
   ["/", "weekly", "1.0"],
   ["/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
   ["/zh/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
+  ["/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
+  ["/zh/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
   ...exchangeFeeComparisonPages.map((page) => [routeForSlug(page.slug), "weekly", "0.85"]),
   ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],
-  ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8"]),
+  ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8", page.slug.startsWith("hyperliquid-") ? hyperliquidCheckedDate : undefined]),
   ["/faq/", "weekly", "0.75"],
   ["/case-studies/", "monthly", "0.7"],
   ["/articles/", "weekly", "0.75"],
-  ...articlePages.map((page) => [routeForSlug(page.slug), "weekly", "0.7"]),
+  ...articlePages.map((page) => [routeForSlug(page.slug), "weekly", "0.7", page.slug.includes("hyperliquid-") ? hyperliquidCheckedDate : undefined]),
   ["/about/", "monthly", "0.65"],
   ["/contact/", "monthly", "0.65"],
   ["/terms", "monthly", "0.4"],
@@ -3477,9 +3790,9 @@ const sitemapUrls = [
 
 writePublicFile(join(publicDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapUrls.map(([path, freq, priority]) => `  <url>
+${sitemapUrls.map(([path, freq, priority, lastmod = today]) => `  <url>
     <loc>${site}${path}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>${freq}</changefreq>
     <priority>${priority}</priority>
   </url>`).join("\n")}
@@ -3489,7 +3802,7 @@ writePublicFile(join(publicDir, "llms.txt"), `# SignalCraft Labs
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: ${today}
+Last updated: ${llmsUpdatedAt}
 
 ## Core services
 
@@ -3499,6 +3812,8 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${label}
 
 - Crypto Exchange VIP Fee Calculator: ${canonical(exchangeFeeToolPage.slug)} — Compare public USDT perpetual futures VIP schedules, estimate blended execution cost, inspect tier gaps, and download the source-backed dataset.
 - 中文交易所 VIP 手续费计算器: ${canonical(exchangeFeeToolPageZh.slug)} — 对比六家主流交易所的公开合约费率，估算混合手续费、VIP 等级和下一级差距。
+- Hyperliquid Fee Calculator: ${canonical(hyperliquidFeeToolPage.slug)} — Model official 14-day weighted-volume tiers, staking discounts, maker rebates and standard perp/spot execution cost without connecting a wallet.
+- Hyperliquid 手续费计算器: ${canonical(hyperliquidFeeToolPageZh.slug)} — 按官方 14 天加权成交量、质押折扣与 Maker Rebate 估算标准永续和现货手续费，无需连接钱包。
 ${exchangeFeeComparisonPages.map((page) => `- ${page.h1}: ${canonical(page.slug)} — ${page.description}`).join("\n")}
 
 ## Facts for AI search and agents
@@ -3527,6 +3842,7 @@ ${articlePages.map((page) => `- ${canonical(page.slug)} — ${page.summary}`).jo
 ## Official reference links
 
 ${officialReferenceLinks.map(([label, url, summary]) => `- ${label}: ${url} — ${summary}`).join("\n")}
+${hyperliquidReferenceLinks.map(([label, url, summary]) => `- ${label}: ${url} — ${summary}`).join("\n")}
 
 ## Page summaries
 

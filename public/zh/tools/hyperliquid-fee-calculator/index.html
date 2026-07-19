@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyperliquid 手续费计算器 | VIP、质押折扣与 Maker Rebate</title>
+  <meta name="description" content="根据 14 天加权成交量、Maker/Taker 比例、HYPE 质押折扣和公开 Maker Rebate 等级估算 Hyperliquid 永续与现货手续费。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Hyperliquid 手续费计算器">
+  <meta property="og:description" content="根据 14 天加权成交量、Maker/Taker 比例、HYPE 质押折扣和公开 Maker Rebate 等级估算 Hyperliquid 永续与现货手续费。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/#webpage",
+      "url": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/",
+      "name": "Hyperliquid 手续费计算器",
+      "description": "根据 14 天加权成交量、Maker/Taker 比例、HYPE 质押折扣和公开 Maker Rebate 等级估算 Hyperliquid 永续与现货手续费。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hyperliquid 手续费计算器",
+          "item": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/#app",
+      "name": "Hyperliquid 手续费计算器",
+      "url": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true,
+      "description": "根据 14 天加权成交量、Maker/Taker 比例、HYPE 质押折扣和公开 Maker Rebate 等级估算 Hyperliquid 永续与现货手续费。",
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hyperliquid VIP 等级如何计算？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "按滚动 14 天加权成交量计算：永续成交量 + 2 × 现货成交量。子账户成交量计入主账户并共享等级，Vault 单独计算。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "HYPE 质押折扣如何进入计算？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本工具按所选官方质押等级降低正的 Maker/Taker 费率。质押关联具有控制权与不可解除等重要风险，是否适用应以账户 userFees 返回结果为准。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Maker Rebate 是我的 Maker 订单占比吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不是。官方门槛是用户占全平台 14 天加权 Maker 成交量的比例。只有从账户或官方接口确认等级后才应选择对应 Rebate。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "是否包含 HIP-3、资金费率和滑点？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不包含。本工具只估算标准永续和普通现货执行费；HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、返佣、资金费率、价差、滑点和强平成本均未计入。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么不要求连接钱包？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "首版使用公开官方费率表和手工参数，不读取地址、不请求签名，也不保存账户信息。实际账户费率应以官方 userFees 接口或 Hyperliquid 账户页面为准。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page hyperliquid-tool-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
+      <a aria-current="page" href="/zh/tools/crypto-exchange-fee-calculator/">费率工具</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
+    </nav>
+  </header>
+  <main id="main-content" data-hyperliquid-fee-tool data-lang="zh-CN" data-url="/data/hyperliquid-fees.json">
+    <section class="content-hero fee-tool-hero hyperliquid-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>Hyperliquid 手续费计算器</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="语言"><a href="https://pddjf.com/tools/hyperliquid-fee-calculator/" lang="en">English</a></div>
+      <p class="eyebrow">Hyperliquid 费率情报 · 2026 年 7 月 19 日核验</p>
+      <h1>Hyperliquid 手续费计算器</h1>
+      <p class="hero-lede">按照官方 14 天 VIP 规则估算标准永续与现货手续费，查看加权成交量、有效 Maker/Taker 费率、质押折扣、预计执行成本和下一等级差距；无需连接钱包。</p>
+      <div class="fee-hero-proof" aria-label="计算范围">
+        <span><strong>14D</strong>滚动加权成交量</span>
+        <span><strong>2×</strong>现货量计入 VIP</span>
+        <span><strong>6 + 1</strong>VIP 等级</span>
+        <span><strong>0</strong>钱包连接或签名</span>
+      </div>
+    </section>
+
+    <section class="section fee-tool-shell hyperliquid-tool-shell">
+      <form class="fee-controls hl-controls" data-hl-controls>
+        <div class="section-heading-row"><div><p class="eyebrow">你的交易画像</p><h2>估算标准永续与现货手续费</h2></div><button class="button secondary compact" type="button" data-hl-share>复制场景链接</button></div>
+        <p class="tool-notice">不连接钱包。输入值只在浏览器内计算。Maker Rebate 不是个人 Maker 订单比例，请仅在账户已确认等级时选择。</p>
+        <div class="hl-input-grid">
+          <label>14 天永续成交量（USD）<input name="perpVolume" type="number" min="0" step="100000" value="10000000" inputmode="decimal"></label>
+          <label>14 天现货成交量（USD）<input name="spotVolume" type="number" min="0" step="100000" value="0" inputmode="decimal"><small>VIP 加权时按 2 倍计入</small></label>
+          <label>Maker 成交占比<input name="makerShare" type="range" min="0" max="100" step="1" value="70"><output data-hl-maker-output>70%</output></label>
+          <label>HYPE 质押等级<select name="stakingDiscount"><option value="0">No staking discount · 0%</option><option value="5">Wood · 10+ HYPE · 5%</option><option value="10">Bronze · 100+ HYPE · 10%</option><option value="15">Silver · 1,000+ HYPE · 15%</option><option value="20">Gold · 10,000+ HYPE · 20%</option><option value="30">Platinum · 100,000+ HYPE · 30%</option><option value="40">Diamond · 500,000+ HYPE · 40%</option></select></label>
+          <label class="hl-wide-input">已确认的 Maker Rebate 等级<select name="makerRebate"><option value="0">不使用 Maker Rebate</option><option value="1">Maker Rebate 1 · 全平台加权 Maker 量占比 >0.5%</option><option value="2">Maker Rebate 2 · 全平台加权 Maker 量占比 >1.5%</option><option value="3">Maker Rebate 3 · 全平台加权 Maker 量占比 >3%</option></select></label>
+        </div>
+        <p class="copy-status" data-hl-share-status aria-live="polite"></p>
+      </form>
+
+      <section class="fee-results-section hl-results" aria-labelledby="hl-results-title">
+        <div class="section-heading-row"><div><p class="eyebrow">计算结果</p><h2 id="hl-results-title">有效费率与执行成本</h2></div><span class="coverage-badge full" data-hl-tier>VIP 1</span></div>
+        <p class="sr-only" data-hl-summary aria-live="polite"></p>
+        <div class="hl-result-grid">
+          <article class="hl-primary-result"><span>14 天预计执行手续费</span><strong data-hl-total>$0</strong><small>负值表示预计净 Maker Rebate</small></article>
+          <article><span>VIP 加权成交量</span><strong data-hl-weighted>$0</strong><small>永续 + 2 × 现货</small></article>
+          <article><span>下一 VIP 等级</span><strong data-hl-next>—</strong><small data-hl-next-saving></small></article>
+          <article><span>质押折扣</span><strong data-hl-staking>0%</strong><small>仅缩减正费率</small></article>
+        </div>
+        <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>产品</th><th>Maker</th><th>Taker</th><th>本场景成本</th></tr></thead><tbody><tr><th scope="row">标准永续</th><td data-hl-perp-maker>—</td><td data-hl-perp-taker>—</td><td data-hl-perp-cost>—</td></tr><tr><th scope="row">普通现货</th><td data-hl-spot-maker>—</td><td data-hl-spot-taker>—</td><td data-hl-spot-cost>—</td></tr></tbody></table></div>
+      </section>
+    </section>
+
+    <section class="section fee-ladder-section" aria-labelledby="hl-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="hl-ladder-title">14 天加权成交量费率阶梯</h2>
+      <p>以下为未应用质押折扣、返佣或 Maker Rebate 的标准公开费率。达到更高等级后，统一应用于标准永续与现货。</p>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>最低加权量</th><th>永续 Maker / Taker</th><th>现货 Maker / Taker</th></tr></thead><tbody><tr><th scope="row">VIP 0</th><td>—</td><td>0.015% / 0.045%</td><td>0.040% / 0.070%</td></tr><tr><th scope="row">VIP 1</th><td>$5M</td><td>0.012% / 0.040%</td><td>0.030% / 0.060%</td></tr><tr><th scope="row">VIP 2</th><td>$25M</td><td>0.008% / 0.035%</td><td>0.020% / 0.050%</td></tr><tr><th scope="row">VIP 3</th><td>$100M</td><td>0.004% / 0.030%</td><td>0.010% / 0.040%</td></tr><tr><th scope="row">VIP 4</th><td>$500M</td><td>0.000% / 0.028%</td><td>0.000% / 0.035%</td></tr><tr><th scope="row">VIP 5</th><td>$2B</td><td>0.000% / 0.026%</td><td>0.000% / 0.030%</td></tr><tr><th scope="row">VIP 6</th><td>$7B</td><td>0.000% / 0.024%</td><td>0.000% / 0.025%</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section fee-method-section" id="methodology">
+      <p class="eyebrow">计算边界</p><h2>官方来源、公式与未覆盖项</h2>
+      <div class="fee-source-grid">
+        <article><div class="fee-source-head"><h3>Hyperliquid fees</h3><span class="coverage-badge">2026-07-19</span></div><p>14-day weighted volume, perps and spot tiers, staking discounts, maker rebates and fee formula</p><p><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" rel="nofollow noopener" target="_blank">查看官方资料</a></p></article><article><div class="fee-source-head"><h3>Hyperliquid userFees endpoint</h3><span class="coverage-badge">2026-07-19</span></div><p>Live public fee schedule returned by the official info endpoint</p><p><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint#query-a-users-fees" rel="nofollow noopener" target="_blank">查看官方资料</a></p></article>
+        <article><div class="fee-source-head"><h3>隐私与账户边界</h3><span class="coverage-badge">无需钱包</span></div><p>工具不读取地址、不请求签名、不调用账户级接口。结果是基于公开费率和手工输入的场景估算。</p></article>
+      </div>
+      <aside class="fee-limitations"><strong>未覆盖：</strong> HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、推荐折扣、资金费率、价差、滑点、强平成本、地区限制及账户专属规则。</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>正确理解 Hyperliquid 手续费</h2><div class="fee-faq-list"><details><summary>Hyperliquid VIP 等级如何计算？</summary><p>按滚动 14 天加权成交量计算：永续成交量 + 2 × 现货成交量。子账户成交量计入主账户并共享等级，Vault 单独计算。</p></details><details><summary>HYPE 质押折扣如何进入计算？</summary><p>本工具按所选官方质押等级降低正的 Maker/Taker 费率。质押关联具有控制权与不可解除等重要风险，是否适用应以账户 userFees 返回结果为准。</p></details><details><summary>Maker Rebate 是我的 Maker 订单占比吗？</summary><p>不是。官方门槛是用户占全平台 14 天加权 Maker 成交量的比例。只有从账户或官方接口确认等级后才应选择对应 Rebate。</p></details><details><summary>是否包含 HIP-3、资金费率和滑点？</summary><p>不包含。本工具只估算标准永续和普通现货执行费；HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、返佣、资金费率、价差、滑点和强平成本均未计入。</p></details><details><summary>为什么不要求连接钱包？</summary><p>首版使用公开官方费率表和手工参数，不读取地址、不请求签名，也不保存账户信息。实际账户费率应以官方 userFees 接口或 Hyperliquid 账户页面为准。</p></details></div></section>
+
+    <section class="fee-tool-cta"><div><p class="eyebrow">从费率到执行系统</p><h2>需要可靠的 Hyperliquid API 下单与对账？</h2><p>继续查看 cloid 幂等、WebSocket 恢复、持仓对账、权限边界和私有部署方案。</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">Hyperliquid API 开发</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">可靠性检查清单</a></div></section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
+      <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX Developer</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>

@@ -19,6 +19,18 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/tools/hyperliquid-fee-calculator/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/tools/hyperliquid-fee-calculator/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/compare/binance-vs-okx-futures-fees/</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -111,6 +123,12 @@
   <url>
     <loc>https://pddjf.com/private-deployment/</loc>
     <lastmod>2026-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/hyperliquid-api-trading-bot-development/</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -279,6 +297,12 @@
   <url>
     <loc>https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/</loc>
     <lastmod>2026-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

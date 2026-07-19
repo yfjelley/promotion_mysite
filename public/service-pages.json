@@ -13,7 +13,8 @@
     "/ibkr-api-automation-developer/",
     "/fix-api-order-routing-developer/",
     "/risk-engine/",
-    "/private-deployment/"
+    "/private-deployment/",
+    "/hyperliquid-api-trading-bot-development/"
   ],
   "coreServiceUrls": [
     {
@@ -85,6 +86,11 @@
       "label": "Private deployment",
       "url": "https://pddjf.com/private-deployment/",
       "summary": "自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。"
+    },
+    {
+      "label": "Hyperliquid API trading bot development",
+      "url": "https://pddjf.com/hyperliquid-api-trading-bot-development/",
+      "summary": "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment."
     }
   ],
   "externalTrustLinks": [
@@ -229,6 +235,11 @@
       "label": "FIX API Certificate and Network Allowlist Checklist",
       "url": "https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/",
       "summary": "A FIX API certificate and network allowlist checklist should confirm certificate ownership, source IPs, ports, SenderCompID, TargetCompID, firewall rules, UAT evidence and support handover."
+    },
+    {
+      "label": "Hyperliquid API Order Reconciliation and WebSocket Checklist",
+      "url": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/",
+      "summary": "Hyperliquid API reliability requires deterministic cloid values, one nonce owner, normalized order states, WebSocket snapshot recovery, info-endpoint backfill, position reconciliation, alerts and fail-closed restart rules."
     }
   ]
 }

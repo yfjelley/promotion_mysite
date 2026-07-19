@@ -475,6 +475,158 @@ function initExchangeFeeTool() {
     });
 }
 
+function initHyperliquidFeeTool() {
+  const root = document.querySelector("[data-hyperliquid-fee-tool]");
+  if (!root) return;
+
+  const form = root.querySelector("[data-hl-controls]");
+  const makerOutput = root.querySelector("[data-hl-maker-output]");
+  const shareButton = root.querySelector("[data-hl-share]");
+  const shareStatus = root.querySelector("[data-hl-share-status]");
+  const isZh = root.dataset.lang === "zh-CN";
+  const locale = isZh ? "zh-CN" : "en-US";
+  const usd = new Intl.NumberFormat(locale, { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const compactUsd = new Intl.NumberFormat(locale, { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 2 });
+  const copy = isZh ? {
+    highest: "已达到最高公开 VIP 等级",
+    gap: (name, value) => `${name} · 还差 ${value}`,
+    saving: (value) => `按当前成交量与执行结构，下一等级理论可少付 ${value}`,
+    noSaving: "当前 Maker Rebate 或成交结构下，下一等级没有可显示的正向节省。",
+    summary: (tier, cost) => `Hyperliquid 手续费估算已更新：${tier}，14 天预计执行手续费 ${cost}。`,
+    copied: "场景链接已复制。",
+    copyFailed: "无法自动复制，请从浏览器地址栏复制当前链接。",
+    loadFailed: "Hyperliquid 费率数据加载失败，请先查看下方官方来源。"
+  } : {
+    highest: "Highest published VIP tier reached",
+    gap: (name, value) => `${name} · ${value} to go`,
+    saving: (value) => `At this volume and execution mix, the next tier models ${value} lower cost`,
+    noSaving: "The selected maker rebate or execution mix leaves no positive next-tier saving to display.",
+    summary: (tier, cost) => `Hyperliquid fee estimate updated: ${tier}, estimated 14-day execution fees ${cost}.`,
+    copied: "Scenario link copied.",
+    copyFailed: "Could not copy automatically. Copy the current URL from the browser address bar.",
+    loadFailed: "The Hyperliquid fee schedule could not be loaded. Use the official sources below and try again."
+  };
+  let dataset;
+
+  const output = (name) => root.querySelector(`[data-hl-${name}]`);
+  const numberValue = (name) => Math.max(0, Number(form.elements[name]?.value) || 0);
+  const rateText = (value) => `${Number(value).toFixed(4).replace(/0+$/, "").replace(/\.$/, "") || "0"}%`;
+  const tierFor = (weightedVolume) => dataset.vipTiers.reduce((selected, tier) => (
+    weightedVolume >= tier.minWeightedVolume ? tier : selected
+  ), dataset.vipTiers[0]);
+  const discountedRate = (rate, discount) => rate > 0 ? rate * (1 - discount / 100) : rate;
+  const productEstimate = (volume, makerRate, takerRate, makerShare) => {
+    const makerWeight = makerShare / 100;
+    const blendedRate = makerRate * makerWeight + takerRate * (1 - makerWeight);
+    return { blendedRate, cost: volume * blendedRate / 100 };
+  };
+  const ratesFor = (tier, discount, rebate) => ({
+    perpMaker: rebate?.makerRate ?? discountedRate(tier.perpMaker, discount),
+    perpTaker: discountedRate(tier.perpTaker, discount),
+    spotMaker: rebate?.makerRate ?? discountedRate(tier.spotMaker, discount),
+    spotTaker: discountedRate(tier.spotTaker, discount)
+  });
+
+  function estimateFor(tier, inputs) {
+    const rates = ratesFor(tier, inputs.stakingDiscount, inputs.rebate);
+    const perp = productEstimate(inputs.perpVolume, rates.perpMaker, rates.perpTaker, inputs.makerShare);
+    const spot = productEstimate(inputs.spotVolume, rates.spotMaker, rates.spotTaker, inputs.makerShare);
+    return { rates, perp, spot, total: perp.cost + spot.cost };
+  }
+
+  function renderHyperliquidFees() {
+    const inputs = {
+      perpVolume: numberValue("perpVolume"),
+      spotVolume: numberValue("spotVolume"),
+      makerShare: Math.min(100, numberValue("makerShare")),
+      stakingDiscount: Math.min(100, numberValue("stakingDiscount")),
+      rebate: dataset.makerRebateTiers[Number(form.elements.makerRebate?.value) || 0]
+    };
+    if (inputs.rebate?.makerRate === null) inputs.rebate = null;
+    const weightedVolume = inputs.perpVolume + inputs.spotVolume * 2;
+    const tier = tierFor(weightedVolume);
+    const tierIndex = dataset.vipTiers.indexOf(tier);
+    const nextTier = dataset.vipTiers[tierIndex + 1] || null;
+    const estimate = estimateFor(tier, inputs);
+
+    makerOutput.value = `${inputs.makerShare}%`;
+    makerOutput.textContent = `${inputs.makerShare}%`;
+    output("tier").textContent = tier.name;
+    output("total").textContent = usd.format(estimate.total);
+    output("weighted").textContent = compactUsd.format(weightedVolume);
+    output("staking").textContent = `${inputs.stakingDiscount}%`;
+    output("perp-maker").textContent = rateText(estimate.rates.perpMaker);
+    output("perp-taker").textContent = rateText(estimate.rates.perpTaker);
+    output("spot-maker").textContent = rateText(estimate.rates.spotMaker);
+    output("spot-taker").textContent = rateText(estimate.rates.spotTaker);
+    output("perp-cost").textContent = usd.format(estimate.perp.cost);
+    output("spot-cost").textContent = usd.format(estimate.spot.cost);
+
+    if (!nextTier) {
+      output("next").textContent = copy.highest;
+      output("next-saving").textContent = "";
+    } else {
+      const gap = Math.max(0, nextTier.minWeightedVolume - weightedVolume);
+      const nextEstimate = estimateFor(nextTier, inputs);
+      const saving = estimate.total - nextEstimate.total;
+      output("next").textContent = copy.gap(nextTier.name, compactUsd.format(gap));
+      output("next-saving").textContent = saving > 0.005 ? copy.saving(usd.format(saving)) : copy.noSaving;
+    }
+    output("summary").textContent = copy.summary(tier.name, usd.format(estimate.total));
+  }
+
+  function applyHyperliquidQueryState() {
+    const params = new URLSearchParams(window.location.search);
+    const mappings = { pv: "perpVolume", sv: "spotVolume", m: "makerShare", s: "stakingDiscount", r: "makerRebate" };
+    Object.entries(mappings).forEach(([param, field]) => {
+      if (params.has(param) && form.elements[field]) form.elements[field].value = params.get(param);
+    });
+  }
+
+  async function shareHyperliquidState() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.searchParams.set("pv", String(numberValue("perpVolume")));
+    url.searchParams.set("sv", String(numberValue("spotVolume")));
+    url.searchParams.set("m", String(numberValue("makerShare")));
+    url.searchParams.set("s", String(numberValue("stakingDiscount")));
+    url.searchParams.set("r", String(numberValue("makerRebate")));
+    try {
+      await copyText(url.toString());
+      shareStatus.textContent = copy.copied;
+      gtag("event", "hyperliquid_fee_tool_share", { event_category: "engagement" });
+    } catch (error) {
+      shareStatus.textContent = copy.copyFailed;
+    }
+  }
+
+  fetch(root.dataset.url)
+    .then((response) => {
+      if (!response.ok) throw new Error(`Hyperliquid fee data request failed: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      dataset = data;
+      applyHyperliquidQueryState();
+      renderHyperliquidFees();
+      let hasTrackedFirstUse = false;
+      const update = (event) => {
+        renderHyperliquidFees();
+        if (hasTrackedFirstUse) return;
+        hasTrackedFirstUse = true;
+        gtag("event", "hyperliquid_fee_tool_first_use", { event_category: "engagement", interaction_type: event.type });
+      };
+      form.addEventListener("input", update);
+      form.addEventListener("change", update);
+      shareButton.addEventListener("click", shareHyperliquidState);
+    })
+    .catch((error) => {
+      output("summary").textContent = copy.loadFailed;
+      root.querySelector(".hl-results").insertAdjacentHTML("afterbegin", `<p class="tool-notice error">${escapeToolHtml(copy.loadFailed)}</p>`);
+      console.error(error);
+    });
+}
+
 installLinkedInInsightTag();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -491,6 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initExchangeFeeTool();
+  initHyperliquidFeeTool();
   function statusFor(element) {
     const scope = element.closest("article, .contact-copy, .contact-card, section");
     return scope?.querySelector(".copy-status") || document.querySelector(".copy-status");

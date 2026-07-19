@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyperliquid Fee Calculator | VIP, Staking and Maker Rebates</title>
+  <meta name="description" content="Calculate Hyperliquid perp and spot fees from 14-day weighted volume, maker/taker mix, staking discount and published maker rebate tiers.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Hyperliquid Fee Calculator">
+  <meta property="og:description" content="Calculate Hyperliquid perp and spot fees from 14-day weighted volume, maker/taker mix, staking discount and published maker rebate tiers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/tools/hyperliquid-fee-calculator/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/tools/hyperliquid-fee-calculator/#webpage",
+      "url": "https://pddjf.com/tools/hyperliquid-fee-calculator/",
+      "name": "Hyperliquid Fee Calculator",
+      "description": "Calculate Hyperliquid perp and spot fees from 14-day weighted volume, maker/taker mix, staking discount and published maker rebate tiers.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/tools/hyperliquid-fee-calculator/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hyperliquid Fee Calculator",
+          "item": "https://pddjf.com/tools/hyperliquid-fee-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://pddjf.com/tools/hyperliquid-fee-calculator/#app",
+      "name": "Hyperliquid Fee Calculator",
+      "url": "https://pddjf.com/tools/hyperliquid-fee-calculator/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true,
+      "description": "Calculate Hyperliquid perp and spot fees from 14-day weighted volume, maker/taker mix, staking discount and published maker rebate tiers.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/tools/hyperliquid-fee-calculator/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is the Hyperliquid VIP tier calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses rolling 14-day weighted volume: perp volume plus two times spot volume. Subaccount volume rolls into the master account and shares its tier, while vault volume is treated separately."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does HYPE staking affect the estimate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator reduces positive maker and taker rates by the selected published staking discount. Staking linking has important control and permanence risks; confirm the actual result through the account userFees response."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is maker rebate based on my maker-order percentage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The published threshold is the user's share of platform-wide 14-day weighted maker volume. Select a rebate tier only when the account or official API confirms it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this include HIP-3, funding and slippage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It models standard perps and ordinary spot execution fees only. HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referrals, funding, spread, slippage and liquidation costs are excluded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the tool not connect a wallet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The first version uses the public official schedule and manual inputs. It does not read an address, request a signature or store account data. Confirm account-specific rates through Hyperliquid or the official userFees endpoint."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page hyperliquid-tool-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a aria-current="page" href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content" data-hyperliquid-fee-tool data-lang="en" data-url="/data/hyperliquid-fees.json">
+    <section class="content-hero fee-tool-hero hyperliquid-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Hyperliquid Fee Calculator</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="Language"><a href="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/" lang="zh-CN">中文</a></div>
+      <p class="eyebrow">Hyperliquid fee intelligence · Checked July 19, 2026</p>
+      <h1>Hyperliquid Fee Calculator</h1>
+      <p class="hero-lede">Model the official 14-day VIP schedule for standard perps and spot. See your weighted volume, effective maker/taker rates, staking discount, estimated execution cost and gap to the next tier without connecting a wallet.</p>
+      <div class="fee-hero-proof" aria-label="Calculation scope">
+        <span><strong>14D</strong>rolling weighted volume</span>
+        <span><strong>2×</strong>spot volume for VIP</span>
+        <span><strong>6 + 1</strong>VIP thresholds</span>
+        <span><strong>0</strong>wallet connections</span>
+      </div>
+    </section>
+
+    <section class="section fee-tool-shell hyperliquid-tool-shell">
+      <form class="fee-controls hl-controls" data-hl-controls>
+        <div class="section-heading-row"><div><p class="eyebrow">Your trading profile</p><h2>Estimate standard perp and spot fees</h2></div><button class="button secondary compact" type="button" data-hl-share>Copy scenario link</button></div>
+        <p class="tool-notice">No wallet connection. Inputs are calculated in your browser. Maker rebate is not your personal maker-order mix; select a tier only when your account confirms it.</p>
+        <div class="hl-input-grid">
+          <label>14-day perp volume (USD)<input name="perpVolume" type="number" min="0" step="100000" value="10000000" inputmode="decimal"></label>
+          <label>14-day spot volume (USD)<input name="spotVolume" type="number" min="0" step="100000" value="0" inputmode="decimal"><small>Counts 2× toward the VIP tier</small></label>
+          <label>Maker execution share<input name="makerShare" type="range" min="0" max="100" step="1" value="70"><output data-hl-maker-output>70%</output></label>
+          <label>HYPE staking tier<select name="stakingDiscount"><option value="0">No staking discount · 0%</option><option value="5">Wood · 10+ HYPE · 5%</option><option value="10">Bronze · 100+ HYPE · 10%</option><option value="15">Silver · 1,000+ HYPE · 15%</option><option value="20">Gold · 10,000+ HYPE · 20%</option><option value="30">Platinum · 100,000+ HYPE · 30%</option><option value="40">Diamond · 500,000+ HYPE · 40%</option></select></label>
+          <label class="hl-wide-input">Confirmed maker rebate tier<select name="makerRebate"><option value="0">No maker rebate</option><option value="1">Maker rebate 1 · >0.5% of platform weighted maker volume</option><option value="2">Maker rebate 2 · >1.5% of platform weighted maker volume</option><option value="3">Maker rebate 3 · >3% of platform weighted maker volume</option></select></label>
+        </div>
+        <p class="copy-status" data-hl-share-status aria-live="polite"></p>
+      </form>
+
+      <section class="fee-results-section hl-results" aria-labelledby="hl-results-title">
+        <div class="section-heading-row"><div><p class="eyebrow">Estimated result</p><h2 id="hl-results-title">Effective rates and execution cost</h2></div><span class="coverage-badge full" data-hl-tier>VIP 1</span></div>
+        <p class="sr-only" data-hl-summary aria-live="polite"></p>
+        <div class="hl-result-grid">
+          <article class="hl-primary-result"><span>Estimated 14-day execution fees</span><strong data-hl-total>$0</strong><small>A negative value indicates a modeled net maker rebate</small></article>
+          <article><span>VIP weighted volume</span><strong data-hl-weighted>$0</strong><small>Perps + 2 × spot</small></article>
+          <article><span>Next VIP tier</span><strong data-hl-next>—</strong><small data-hl-next-saving></small></article>
+          <article><span>Staking discount</span><strong data-hl-staking>0%</strong><small>Applied to positive rates only</small></article>
+        </div>
+        <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>Product</th><th>Maker</th><th>Taker</th><th>Scenario cost</th></tr></thead><tbody><tr><th scope="row">Standard perps</th><td data-hl-perp-maker>—</td><td data-hl-perp-taker>—</td><td data-hl-perp-cost>—</td></tr><tr><th scope="row">Ordinary spot</th><td data-hl-spot-maker>—</td><td data-hl-spot-taker>—</td><td data-hl-spot-cost>—</td></tr></tbody></table></div>
+      </section>
+    </section>
+
+    <section class="section fee-ladder-section" aria-labelledby="hl-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="hl-ladder-title">14-day weighted-volume fee ladder</h2>
+      <p>These are standard published rates before staking discounts, referral discounts or maker rebates. The selected VIP tier applies across standard perps and spot.</p>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>Tier</th><th>Minimum weighted volume</th><th>Perp maker / taker</th><th>Spot maker / taker</th></tr></thead><tbody><tr><th scope="row">VIP 0</th><td>—</td><td>0.015% / 0.045%</td><td>0.040% / 0.070%</td></tr><tr><th scope="row">VIP 1</th><td>$5M</td><td>0.012% / 0.040%</td><td>0.030% / 0.060%</td></tr><tr><th scope="row">VIP 2</th><td>$25M</td><td>0.008% / 0.035%</td><td>0.020% / 0.050%</td></tr><tr><th scope="row">VIP 3</th><td>$100M</td><td>0.004% / 0.030%</td><td>0.010% / 0.040%</td></tr><tr><th scope="row">VIP 4</th><td>$500M</td><td>0.000% / 0.028%</td><td>0.000% / 0.035%</td></tr><tr><th scope="row">VIP 5</th><td>$2B</td><td>0.000% / 0.026%</td><td>0.000% / 0.030%</td></tr><tr><th scope="row">VIP 6</th><td>$7B</td><td>0.000% / 0.024%</td><td>0.000% / 0.025%</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section fee-method-section" id="methodology">
+      <p class="eyebrow">Method and boundaries</p><h2>Official sources, formula and exclusions</h2>
+      <div class="fee-source-grid">
+        <article><div class="fee-source-head"><h3>Hyperliquid fees</h3><span class="coverage-badge">2026-07-19</span></div><p>14-day weighted volume, perps and spot tiers, staking discounts, maker rebates and fee formula</p><p><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" rel="nofollow noopener" target="_blank">Open official source</a></p></article><article><div class="fee-source-head"><h3>Hyperliquid userFees endpoint</h3><span class="coverage-badge">2026-07-19</span></div><p>Live public fee schedule returned by the official info endpoint</p><p><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint#query-a-users-fees" rel="nofollow noopener" target="_blank">Open official source</a></p></article>
+        <article><div class="fee-source-head"><h3>Privacy and account boundary</h3><span class="coverage-badge">No wallet</span></div><p>The tool does not read an address, request a signature or call account-specific endpoints. Results are scenario estimates from public rates and manual inputs.</p></article>
+      </div>
+      <aside class="fee-limitations"><strong>Excluded:</strong> HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referral discounts, funding, spread, slippage, liquidation costs, regional restrictions and account-specific rules.</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>How to read Hyperliquid fees</h2><div class="fee-faq-list"><details><summary>How is the Hyperliquid VIP tier calculated?</summary><p>It uses rolling 14-day weighted volume: perp volume plus two times spot volume. Subaccount volume rolls into the master account and shares its tier, while vault volume is treated separately.</p></details><details><summary>How does HYPE staking affect the estimate?</summary><p>The calculator reduces positive maker and taker rates by the selected published staking discount. Staking linking has important control and permanence risks; confirm the actual result through the account userFees response.</p></details><details><summary>Is maker rebate based on my maker-order percentage?</summary><p>No. The published threshold is the user's share of platform-wide 14-day weighted maker volume. Select a rebate tier only when the account or official API confirms it.</p></details><details><summary>Does this include HIP-3, funding and slippage?</summary><p>No. It models standard perps and ordinary spot execution fees only. HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referrals, funding, spread, slippage and liquidation costs are excluded.</p></details><details><summary>Why does the tool not connect a wallet?</summary><p>The first version uses the public official schedule and manual inputs. It does not read an address, request a signature or store account data. Confirm account-specific rates through Hyperliquid or the official userFees endpoint.</p></details></div></section>
+
+    <section class="fee-tool-cta"><div><p class="eyebrow">From fee model to execution system</p><h2>Need reliable Hyperliquid API execution and reconciliation?</h2><p>Continue with cloid idempotency, WebSocket recovery, position reconciliation, permission boundaries and private deployment.</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">Hyperliquid API development</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">Reliability checklist</a></div></section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Hyperliquid API development</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software Development</a>
+      <a href="/tradingview-webhook-developer/">TradingView Webhook Developer</a>
+      <a href="/ibkr-api-automation-developer/">IBKR API Automation Developer</a>
+      <a href="/fix-api-order-routing-developer/">FIX API Order Routing Developer</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

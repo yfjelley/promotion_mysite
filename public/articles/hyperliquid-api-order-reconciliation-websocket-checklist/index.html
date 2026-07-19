@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TradingView Webhook Strategy Automation | From Alert Payload to Broker Order</title>
-  <meta name="description" content="A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.">
+  <title>Hyperliquid API Order Reconciliation and WebSocket Checklist</title>
+  <meta name="description" content="A Hyperliquid API reliability checklist for cloid idempotency, nonce ownership, WebSocket reconnects, snapshots, fills, positions, subaccounts and operator alerts.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/articles/tradingview-webhook-strategy-automation/">
+  <link rel="canonical" href="https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="TradingView Webhook Strategy Automation">
-  <meta property="og:description" content="A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.">
+  <meta property="og:title" content="Hyperliquid API Order Reconciliation and WebSocket Checklist">
+  <meta property="og:description" content="A Hyperliquid API reliability checklist for cloid idempotency, nonce ownership, WebSocket reconnects, snapshots, fills, positions, subaccounts and operator alerts.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/articles/tradingview-webhook-strategy-automation/">
+  <meta property="og:url" content="https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
@@ -55,10 +55,10 @@
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#webpage",
-      "url": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/",
-      "name": "TradingView Webhook Strategy Automation",
-      "description": "A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.",
+      "@id": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/#webpage",
+      "url": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/",
+      "name": "Hyperliquid API Order Reconciliation and WebSocket Checklist",
+      "description": "A Hyperliquid API reliability checklist for cloid idempotency, nonce ownership, WebSocket reconnects, snapshots, fills, positions, subaccounts and operator alerts.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#breadcrumb",
+      "@id": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,25 +80,25 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "TradingView Webhook Strategy Automation",
-          "item": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/"
+          "name": "Hyperliquid API Reliability Checklist",
+          "item": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/"
         }
       ]
     },
     {
       "@type": "TechArticle",
-      "@id": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/#article",
-      "headline": "TradingView Webhook Strategy Automation",
-      "description": "A practical guide to TradingView webhook strategy automation, covering alert payloads, event IDs, broker API routing, risk checks, cooldowns and audit logs.",
-      "url": "https://pddjf.com/articles/tradingview-webhook-strategy-automation/",
+      "@id": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/#article",
+      "headline": "Hyperliquid API Order Reconciliation and WebSocket Checklist",
+      "description": "A Hyperliquid API reliability checklist for cloid idempotency, nonce ownership, WebSocket reconnects, snapshots, fills, positions, subaccounts and operator alerts.",
+      "url": "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/",
       "author": {
         "@id": "https://pddjf.com/#organization"
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
       },
-      "datePublished": "2026-07-07",
-      "dateModified": "2026-07-17",
+      "datePublished": "2026-07-19",
+      "dateModified": "2026-07-19",
       "inLanguage": "en",
       "about": [
         "Trading API automation",
@@ -135,36 +135,48 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>TradingView Webhook Strategy Automation</span>
+      <span>Hyperliquid API Reliability Checklist</span>
     </nav>
-      <p class="eyebrow">TradingView Webhook</p>
-      <h1>TradingView Webhook Strategy Automation</h1>
-      <p class="hero-lede">A TradingView alert is only the signal source. A usable automation workflow needs payload design, request validation, duplicate prevention, risk checks, broker API routing, logs and a controlled go-live process.</p>
+      <p class="eyebrow">Hyperliquid API</p>
+      <h1>Hyperliquid API Order Reconciliation and WebSocket Checklist</h1>
+      <p class="hero-lede">A successful order response is not a complete trading system. A production-minded Hyperliquid workflow must connect order intent, cloid, exchange status, fills, positions, WebSocket snapshots and query-based recovery so a restart or disconnect does not create duplicate or unexplained exposure.</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">
-      <p class="article-summary">TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests.</p>
+      <p class="article-summary">Hyperliquid API reliability requires deterministic cloid values, one nonce owner, normalized order states, WebSocket snapshot recovery, info-endpoint backfill, position reconciliation, alerts and fail-closed restart rules.</p>
       <section>
-        <h2>Turn the alert into an explicit order intent</h2>
-        <p>The alert payload should describe the strategy, symbol, action, side, quantity model, timeframe, signal time and version. That makes the receiver able to decide what the signal means instead of guessing from a short text message.</p>
-        <ul class="check-list"><li>Avoid payloads that only say buy or sell.</li><li>Include a strategy version when the trading rule changes.</li><li>Keep secrets and account identifiers out of public scripts and screenshots.</li></ul>
+        <h2>Give every order intent a deterministic cloid</h2>
+        <p>Hyperliquid supports an optional 128-bit client order ID. Generate it from a durable order intent, persist it before submission and keep the mapping to exchange order ID, account role, asset, side and requested size. A retry should look up the existing intent before signing another order.</p>
+        <ul class="check-list"><li>Persist the intent and cloid before the network call.</li><li>Keep one canonical mapping between intent, cloid and exchange order ID.</li><li>Treat duplicate intent as an audit result, not a fresh order request.</li></ul>
       </section><section>
-        <h2>Validate and store the event before execution</h2>
-        <p>The receiver should validate the shared secret, parse the payload, create a stable event ID, check duplicate status and store the event before any broker API call. This makes retries and alert bursts auditable.</p>
-        <ul class="check-list"><li>Use event IDs for idempotency.</li><li>Apply cooldowns by strategy, symbol and action.</li><li>Store accepted, duplicated and rejected events with a visible reason.</li></ul>
+        <h2>Normalize resting, filled, rejected and canceled states</h2>
+        <p>The exchange endpoint can return different status shapes, while later fills and cancels arrive through queries or streams. Convert them into one internal state machine and preserve the original response so operators can distinguish an internal risk reject from an exchange response.</p>
+        <ul class="check-list"><li>Model submitted, resting, partially_filled, filled, canceled and rejected states.</li><li>Reconcile open orders, historical orders and fills after restart.</li><li>Do not infer a position only from the last local order status.</li></ul>
       </section><section>
-        <h2>Route only after risk checks pass</h2>
-        <p>Order routing should happen after max size, max position, market-hours, price protection, manual pause and reduce-only checks. The system should log whether a signal became an order, a risk reject or an API error.</p>
-        <ul class="check-list"><li>Do not make profit results the acceptance criterion.</li><li>Connect to paper, test or limited live scope first.</li><li>Keep order intent, API response and final status in the audit log.</li></ul>
+        <h2>Recover WebSocket state before routing resumes</h2>
+        <p>Hyperliquid documents that API servers can disconnect periodically and that reconnect acknowledgements contain snapshots. The runtime should detect the gap, reconnect, process the snapshot and use the info endpoint to recover any required order, fill or position state before accepting new intents.</p>
+        <ul class="check-list"><li>Record the last healthy message time and reconnect attempt.</li><li>Make snapshot handling idempotent.</li><li>Keep new routing paused until reconciliation finishes or an operator intervenes.</li></ul>
+      </section><section>
+        <h2>Assign one nonce owner per signing path</h2>
+        <p>Nonces should be controlled by a single durable signing path for each authorized wallet context. Multiple unsynchronized processes can create stale or conflicting actions, so ownership, restart behavior and emergency invalidation need explicit runbook steps.</p>
+        <ul class="check-list"><li>Avoid multiple writers sharing the same signing identity without coordination.</li><li>Log nonce, action type and signer role without logging private material.</li><li>Fail closed when nonce state is ambiguous.</li></ul>
+      </section><section>
+        <h2>Separate account roles and reconciliation scopes</h2>
+        <p>Main wallets, API/agent wallets, subaccounts and vaults do not share the same control and state boundaries. The implementation should document who signs each action and reconcile balances, orders and positions inside the correct account or vault scope.</p>
+        <ul class="check-list"><li>Keep main-wallet private keys outside the bot runtime.</li><li>Record the intended subaccount or vault address on every action.</li><li>Test revocation, pause and handoff procedures before live permission is considered.</li></ul>
       </section>
       <section>
-        <h2>Webhook automation handoff checklist</h2>
-        <ul class="check-list"><li>The payload contains strategy, symbol, action, timeframe, size model and signal time.</li><li>Duplicate payloads do not create duplicate order intents.</li><li>Manual pause blocks routing before any broker API request.</li><li>Risk rejects show a reason such as max_position, price_protection or market_closed.</li><li>The client can review event logs, order logs, rejects, alerts and restart steps.</li></ul>
+        <h2>Hyperliquid production-readiness checks</h2>
+        <ul class="check-list"><li>Submitting the same durable intent twice does not create a second order.</li><li>Resting, partial fill, fill, cancel and reject responses map to reviewable internal states.</li><li>A forced WebSocket disconnect recovers snapshot and missed state before routing resumes.</li><li>Restart reconciliation compares open orders, historical orders, fills and positions.</li><li>Nonce ownership, API/agent-wallet scope, subaccount or vault context and emergency pause are documented.</li><li>Rate limits, stale state, signing failure and unresolved mismatches produce alerts and fail closed.</li></ul>
+      </section>
+      <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/hyperliquid-api-trading-bot-development/">Hyperliquid API trading bot development</a></li><li><a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a></li><li><a href="/articles/trading-bot-api-key-permission-safety/">Trading bot API key permission safety</a></li></ul>
       </section>
       <section>
         <h2>References</h2>
         <div class="reference-list">
-      <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" rel="noopener" target="_blank"><strong>TradingView Webhook alerts</strong><span>TradingView 官方 Webhook alert 说明。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks.</span></a>
+      <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" rel="noopener" target="_blank"><strong>Hyperliquid fees</strong><span>Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint" rel="noopener" target="_blank"><strong>Hyperliquid exchange endpoint</strong><span>Official order, cancel, TWAP, API wallet, subaccount and vault action reference.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket" rel="noopener" target="_blank"><strong>Hyperliquid WebSocket</strong><span>Official mainnet and testnet real-time connection guidance, including reconnect expectations.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint" rel="noopener" target="_blank"><strong>Hyperliquid info endpoint</strong><span>Official account, order, fill, fee, subaccount and vault query reference.</span></a>
     </div>
       </section>
       <section>

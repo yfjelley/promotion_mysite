@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TradingView Webhook Developer | Custom Order Execution, Risk Checks and Alerts</title>
-  <meta name="description" content="Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.">
+  <title>Hyperliquid API Trading Bot Development | Orders, WebSocket and Risk Controls</title>
+  <meta name="description" content="Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://pddjf.com/tradingview-webhook-developer/">
+  <link rel="canonical" href="https://pddjf.com/hyperliquid-api-trading-bot-development/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="TradingView Webhook Developer">
-  <meta property="og:description" content="Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.">
+  <meta property="og:title" content="Hyperliquid API Trading Bot Development">
+  <meta property="og:description" content="Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pddjf.com/tradingview-webhook-developer/">
+  <meta property="og:url" content="https://pddjf.com/hyperliquid-api-trading-bot-development/">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
@@ -55,10 +55,10 @@
     },
     {
       "@type": "WebPage",
-      "@id": "https://pddjf.com/tradingview-webhook-developer/#webpage",
-      "url": "https://pddjf.com/tradingview-webhook-developer/",
-      "name": "TradingView Webhook Developer",
-      "description": "Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.",
+      "@id": "https://pddjf.com/hyperliquid-api-trading-bot-development/#webpage",
+      "url": "https://pddjf.com/hyperliquid-api-trading-bot-development/",
+      "name": "Hyperliquid API Trading Bot Development",
+      "description": "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -69,7 +69,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://pddjf.com/tradingview-webhook-developer/#breadcrumb",
+      "@id": "https://pddjf.com/hyperliquid-api-trading-bot-development/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -80,17 +80,17 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "TradingView Webhook Developer",
-          "item": "https://pddjf.com/tradingview-webhook-developer/"
+          "name": "Hyperliquid API Trading Bot Development",
+          "item": "https://pddjf.com/hyperliquid-api-trading-bot-development/"
         }
       ]
     },
     {
       "@type": "Service",
-      "@id": "https://pddjf.com/tradingview-webhook-developer/#service",
-      "name": "TradingView Webhook Developer",
-      "description": "Hire a TradingView webhook developer to connect TradingView alerts to broker APIs, exchange APIs, order routing, risk checks, audit logs and private deployment.",
-      "serviceType": "TradingView webhook developer for automated order execution systems",
+      "@id": "https://pddjf.com/hyperliquid-api-trading-bot-development/#service",
+      "name": "Hyperliquid API Trading Bot Development",
+      "description": "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.",
+      "serviceType": "Hyperliquid API trading bot development",
       "provider": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -134,54 +134,54 @@
     },
     {
       "@type": "FAQPage",
-      "@id": "https://pddjf.com/tradingview-webhook-developer/#faq",
+      "@id": "https://pddjf.com/hyperliquid-api-trading-bot-development/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Can you build a TradingView webhook developer workflow for my alert?",
+          "name": "Can you build with the official Python SDK or CCXT?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, if the alert payload, symbol mapping, action, size and risk boundaries can be documented and tested."
+            "text": "Yes. The choice depends on the required actions, signing control, data model and deployment constraints. The official SDK is usually preferred when Hyperliquid-specific behavior matters; CCXT can fit a broader multi-exchange adapter."
           }
         },
         {
           "@type": "Question",
-          "name": "How do you prevent duplicate TradingView webhook orders?",
+          "name": "How do you prevent duplicate Hyperliquid orders?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The system uses stable event IDs, cooldown windows, strategy/symbol/action grouping, risk checks and audit logs before sending any order."
+            "text": "Use a deterministic client order ID, a durable intent record, one nonce owner, pre-submit idempotency checks and post-restart reconciliation against open orders, historical orders and fills."
           }
         },
         {
           "@type": "Question",
-          "name": "Can the webhook connect to IBKR, Alpaca or FIX?",
+          "name": "What happens when the WebSocket disconnects?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It can be evaluated. The final route depends on account permissions, API capability, order types and the customer's deployment requirements."
+            "text": "The runtime detects the gap, reconnects, processes the new snapshot and backfills required account or order state through the info endpoint before normal routing resumes."
           }
         },
         {
           "@type": "Question",
-          "name": "Do you need my TradingView login?",
+          "name": "Do you need my main wallet private key?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Usually no. We need the alert payload format, webhook configuration details and the intended trading workflow."
+            "text": "No. The production design should use the smallest suitable API/agent-wallet scope, while the customer keeps main-wallet control. Exact approval and revocation procedures are documented and tested."
           }
         },
         {
           "@type": "Question",
-          "name": "Can this run on my own VPS or cloud account?",
+          "name": "Can the system trade for a subaccount or vault?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Standard delivery can include source code, environment variables, deployment documentation and a remote handoff."
+            "text": "Yes when the official account model and customer permissions support the workflow. Signing remains tied to the authorized master or agent model, and vault/subaccount state is reconciled separately."
           }
         },
         {
           "@type": "Question",
-          "name": "Do you provide trading signals or returns?",
+          "name": "Does the service include a profitable strategy?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The service implements customer-defined rules and does not provide signals, investment advice, custody or return promises."
+            "text": "No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns."
           }
         }
       ]
@@ -214,11 +214,11 @@
       <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
-      <span>TradingView Webhook Developer</span>
+      <span>Hyperliquid API Trading Bot Development</span>
     </nav>
-      <p class="eyebrow">TradingView Webhook Developer</p>
-      <h1>TradingView Webhook Developer</h1>
-      <p class="hero-lede">Custom TradingView webhook development for teams that already have alert logic and need a reliable execution layer: payload validation, duplicate prevention, risk checks, order routing, logs, alerts and private deployment.</p>
+      <p class="eyebrow">Hyperliquid API Engineering</p>
+      <h1>Hyperliquid API Trading Bot Development</h1>
+      <p class="hero-lede">Turn customer-defined execution rules into a testable Hyperliquid workflow with signed orders, cloid-based idempotency, WebSocket recovery, position reconciliation, risk controls and customer-controlled deployment. We build execution infrastructure, not trading signals or return promises.</p>
       <div class="hero-actions">
         <a class="button primary" href="/contact/" data-contact="content_hero_contact">Send project brief</a>
         <a class="button secondary" href="#deliverables">View deliverables</a>
@@ -244,7 +244,7 @@
         <p>A concise project-assessment summary covering fit, deliverables, delivery package and exclusions.</p>
       </div>
       <div class="summary-list">
-        <div><strong>What it is</strong><span>SignalCraft Labs provides TradingView webhook developer for automated order execution systems, turning customer-defined rules into a testable and auditable execution system.</span></div><div><strong>Who it fits</strong><span>You already have Pine Script alerts, alert payloads or a documented trading rule. You need TradingView alerts connected to a broker API, exchange API or internal order workflow. You care about duplicate prevention, cooldowns, risk limits, alerting and audit logs before going live.</span></div><div><strong>Deliverables</strong><span>Webhook receiver, shared-secret validation, payload parser and structured event IDs. Duplicate prevention, cooldown windows, max-position checks, manual pause and reject logs. Order routing adapter for the agreed broker API, exchange API or internal execution workflow. Source code, configuration examples, deployment notes and remote handoff.</span></div><div><strong>What we do not do</strong><span>No investment advice, signals, managed accounts, custody, withdrawal permission management or return promises.</span></div><div><strong>Delivery packages</strong><span>API Starter, Execution System and Private Infrastructure packages; scope depends on API count, risk complexity, dashboard scope and deployment requirements.</span></div><div><strong>Contact</strong><span>contact@pddjf.com / WeChat btc1688 / Telegram @yf16881</span></div>
+        <div><strong>What it is</strong><span>SignalCraft Labs provides Hyperliquid API trading bot development, turning customer-defined rules into a testable and auditable execution system.</span></div><div><strong>Who it fits</strong><span>You already have defined entry, exit, sizing, market-making, TWAP or portfolio execution rules. You need reliable order, cancel, fill, position and account-state handling across REST/info queries and WebSocket streams. You want source code, structured logs, risk controls and deployment under your own account and infrastructure.</span></div><div><strong>Deliverables</strong><span>Hyperliquid connector for signed order, cancel, open-order, fill, position and account-state workflows. Cloid idempotency, nonce ownership, partial-fill handling, restart reconciliation and duplicate-order protection. WebSocket subscriptions, disconnect detection, snapshot restore, missed-state backfill and operational alerts. Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause risk controls. Testnet acceptance scripts, source code, configuration examples, deployment runbook and remote handoff.</span></div><div><strong>What we do not do</strong><span>No investment advice, signals, managed accounts, custody, withdrawal permission management or return promises.</span></div><div><strong>Delivery packages</strong><span>API Starter, Execution System and Private Infrastructure packages; scope depends on API count, risk complexity, dashboard scope and deployment requirements.</span></div><div><strong>Contact</strong><span>contact@pddjf.com / WeChat btc1688 / Telegram @yf16881</span></div>
       </div>
     </section>
 
@@ -257,11 +257,11 @@
       <div class="answer-grid">
         <article>
           <h3>Good fit</h3>
-          <ul class="check-list"><li>You already have Pine Script alerts, alert payloads or a documented trading rule.</li><li>You need TradingView alerts connected to a broker API, exchange API or internal order workflow.</li><li>You care about duplicate prevention, cooldowns, risk limits, alerting and audit logs before going live.</li></ul>
+          <ul class="check-list"><li>You already have defined entry, exit, sizing, market-making, TWAP or portfolio execution rules.</li><li>You need reliable order, cancel, fill, position and account-state handling across REST/info queries and WebSocket streams.</li><li>You want source code, structured logs, risk controls and deployment under your own account and infrastructure.</li></ul>
         </article>
         <article>
           <h3>Not a fit</h3>
-          <ul class="plain-list"><li>You are looking for investment advice, signal selling or account management.</li><li>You do not have clear position sizing, order rules, symbols or risk limits.</li><li>You want to skip dry-run, paper trading or limited-scope production validation.</li></ul>
+          <ul class="plain-list"><li>You want a profit-guaranteed strategy, copy-trading promotion or an operator to control your funds.</li><li>You cannot define instruments, order types, position limits, pause rules or acceptance tests.</li><li>You expect an API wallet, vault or private deployment to remove market, protocol, liquidation or operational risk.</li></ul>
         </article>
       </div>
     </section>
@@ -272,7 +272,7 @@
         <h2>Deliverables</h2>
         <p>A formal delivery package turns features, APIs, acceptance paths and handoff items into a clear scope.</p>
       </div>
-      <div class="detail-grid"><article><h3>Webhook receiver, shared-secret validation, payload parser and structured event IDs</h3><p>Webhook receiver, shared-secret validation, payload parser and structured event IDs.</p></article><article><h3>Duplicate prevention, cooldown windows, max-position checks, manual pause and reject logs</h3><p>Duplicate prevention, cooldown windows, max-position checks, manual pause and reject logs.</p></article><article><h3>Order routing adapter for the agreed broker API, exchange API or internal execution workflow</h3><p>Order routing adapter for the agreed broker API, exchange API or internal execution workflow.</p></article><article><h3>Source code, configuration examples, deployment notes and remote handoff</h3><p>Source code, configuration examples, deployment notes and remote handoff.</p></article></div>
+      <div class="detail-grid"><article><h3>Hyperliquid connector for signed order, cancel, open-order, fill, position and account-state workflows</h3><p>Hyperliquid connector for signed order, cancel, open-order, fill, position and account-state workflows.</p></article><article><h3>Cloid idempotency, nonce ownership, partial-fill handling, restart reconciliation and duplicate-order protection</h3><p>Cloid idempotency, nonce ownership, partial-fill handling, restart reconciliation and duplicate-order protection.</p></article><article><h3>WebSocket subscriptions, disconnect detection, snapshot restore, missed-state backfill and operational alerts</h3><p>WebSocket subscriptions, disconnect detection, snapshot restore, missed-state backfill and operational alerts.</p></article><article><h3>Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause risk controls</h3><p>Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause risk controls.</p></article><article><h3>Testnet acceptance scripts, source code, configuration examples, deployment runbook and remote handoff</h3><p>Testnet acceptance scripts, source code, configuration examples, deployment runbook and remote handoff.</p></article></div>
     </section>
 
     <section class="section process-section">
@@ -280,7 +280,7 @@
         <p class="eyebrow">Process</p>
         <h2>Development process</h2>
       </div>
-      <ol class="process-grid"><li><span>01</span><strong>Review the TradingView alert text, payload variables, symbols, timeframes and trigger conditions</strong><em>Review the TradingView alert text, payload variables, symbols, timeframes and trigger conditions.</em></li><li><span>02</span><strong>Define event IDs, position sizing, risk rules, reject reasons and alert channels</strong><em>Define event IDs, position sizing, risk rules, reject reasons and alert channels.</em></li><li><span>03</span><strong>Build the webhook, risk gate, routing layer, logs and deployment package</strong><em>Build the webhook, risk gate, routing layer, logs and deployment package.</em></li><li><span>04</span><strong>Validate with sample payload replay, dry-run, paper trading or a limited live scope</strong><em>Validate with sample payload replay, dry-run, paper trading or a limited live scope.</em></li></ol>
+      <ol class="process-grid"><li><span>01</span><strong>Confirm wallet role, API/agent wallet boundaries, subaccount or vault scope, instruments and order types</strong><em>Confirm wallet role, API/agent wallet boundaries, subaccount or vault scope, instruments and order types.</em></li><li><span>02</span><strong>Define the order state machine, cloid policy, nonce owner, reconciliation rules and risk decisions</strong><em>Define the order state machine, cloid policy, nonce owner, reconciliation rules and risk decisions.</em></li><li><span>03</span><strong>Build the connector, streaming recovery, controls, structured logs and alert paths</strong><em>Build the connector, streaming recovery, controls, structured logs and alert paths.</em></li><li><span>04</span><strong>Replay failures on testnet before any separately approved limited live rollout</strong><em>Replay failures on testnet before any separately approved limited live rollout.</em></li></ol>
     </section>
 
     <section class="section budget-section">
@@ -300,7 +300,7 @@
       <div class="answer-grid">
         <article>
           <h3>Risk boundary</h3>
-          <ul class="plain-list"><li>TradingView emits alerts; execution quality still depends on the connected API, account permissions, network, liquidity and order rules.</li><li>Webhook alerts can duplicate, delay or fail, so the system needs idempotency, logging and human-visible alerts.</li><li>This is engineering delivery only, not financial advice, managed accounts or performance claims.</li></ul>
+          <ul class="plain-list"><li>Hyperliquid API behavior, available markets, fee rules, rate limits and regional access can change; final capability depends on current official documentation and the customer account.</li><li>API/agent wallets can sign trading actions. Main-wallet keys, withdrawal authority and unrelated permissions should not be placed in the bot runtime.</li><li>WebSocket streams can disconnect; every production design needs snapshot recovery and query-based reconciliation.</li><li>The delivery does not guarantee fills, latency, spreads, funding, liquidation outcomes, strategy performance or profitability.</li></ul>
         </article>
         <article>
           <h3>Prepare before contact</h3>
@@ -321,6 +321,14 @@
         <p>Formal projects turn these tables into a scoped requirements and acceptance checklist.</p>
       </div>
       <div class="evidence-grid">
+        <article class="evidence-table">
+          <h3>Platform integration details</h3>
+          <p>These facts often affect scope, acceptance tests and go-live timing.</p>
+          <div class="data-table columns-3" role="table" aria-label="Platform integration details">
+            <div class="table-row table-head" role="row"><span role="columnheader">Topic</span><span role="columnheader">Project focus</span><span role="columnheader">Acceptance focus</span></div>
+            <div class="table-row" role="row"><span role="cell">Signing and wallet model</span><span role="cell">Separate the main wallet, API/agent wallet, subaccount or vault role; document every signed action and nonce owner.</span><span role="cell">Testnet proves approval, order, cancel and permission-revocation paths without exposing a main-wallet private key to the runtime.</span></div><div class="table-row" role="row"><span role="cell">Order lifecycle</span><span role="cell">Use cloid-based idempotency, normalize resting and filled responses, and reconcile open orders, historical orders and fills.</span><span role="cell">Replay covers duplicate intent, partial fill, reject, cancel, stale nonce, process restart and position reconciliation.</span></div><div class="table-row" role="row"><span role="cell">Streaming and recovery</span><span role="cell">Subscribe to the required WebSocket channels, detect disconnects, restore snapshots and backfill missed state through the info endpoint.</span><span role="cell">A forced disconnect demonstrates reconnect, snapshot handling, missed-event recovery, alerting and no duplicate order submission.</span></div>
+          </div>
+        </article>
         <article class="evidence-table">
           <h3>Pre-contact checklist</h3>
           <p>Without these inputs, the work can only be directionally assessed.</p>
@@ -356,7 +364,16 @@
       </div>
     </section>
 
-
+    <section class="section embedded-section">
+      <div class="section-head">
+        <p class="eyebrow">Official References</p>
+        <h2>Hyperliquid documentation used for this scope</h2>
+        <p>Current capabilities and implementation details are checked against the official API, WebSocket, account-state and fee references before project acceptance criteria are finalized.</p>
+      </div>
+      <div class="reference-list">
+      <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" rel="noopener" target="_blank"><strong>Hyperliquid fees</strong><span>Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint" rel="noopener" target="_blank"><strong>Hyperliquid exchange endpoint</strong><span>Official order, cancel, TWAP, API wallet, subaccount and vault action reference.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket" rel="noopener" target="_blank"><strong>Hyperliquid WebSocket</strong><span>Official mainnet and testnet real-time connection guidance, including reconnect expectations.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint" rel="noopener" target="_blank"><strong>Hyperliquid info endpoint</strong><span>Official account, order, fill, fee, subaccount and vault query reference.</span></a>
+    </div>
+    </section>
 
     <section class="section case-bridge-section" aria-labelledby="case-bridge-title">
       <div class="section-head">
@@ -389,7 +406,7 @@
         <p class="eyebrow">FAQ</p>
         <h2>Frequently asked questions</h2>
       </div>
-      <div class="faq-list"><article><h3>Can you build a TradingView webhook developer workflow for my alert?</h3><p>Yes, if the alert payload, symbol mapping, action, size and risk boundaries can be documented and tested.</p></article><article><h3>How do you prevent duplicate TradingView webhook orders?</h3><p>The system uses stable event IDs, cooldown windows, strategy/symbol/action grouping, risk checks and audit logs before sending any order.</p></article><article><h3>Can the webhook connect to IBKR, Alpaca or FIX?</h3><p>It can be evaluated. The final route depends on account permissions, API capability, order types and the customer's deployment requirements.</p></article><article><h3>Do you need my TradingView login?</h3><p>Usually no. We need the alert payload format, webhook configuration details and the intended trading workflow.</p></article><article><h3>Can this run on my own VPS or cloud account?</h3><p>Yes. Standard delivery can include source code, environment variables, deployment documentation and a remote handoff.</p></article><article><h3>Do you provide trading signals or returns?</h3><p>No. The service implements customer-defined rules and does not provide signals, investment advice, custody or return promises.</p></article></div>
+      <div class="faq-list"><article><h3>Can you build with the official Python SDK or CCXT?</h3><p>Yes. The choice depends on the required actions, signing control, data model and deployment constraints. The official SDK is usually preferred when Hyperliquid-specific behavior matters; CCXT can fit a broader multi-exchange adapter.</p></article><article><h3>How do you prevent duplicate Hyperliquid orders?</h3><p>Use a deterministic client order ID, a durable intent record, one nonce owner, pre-submit idempotency checks and post-restart reconciliation against open orders, historical orders and fills.</p></article><article><h3>What happens when the WebSocket disconnects?</h3><p>The runtime detects the gap, reconnects, processes the new snapshot and backfills required account or order state through the info endpoint before normal routing resumes.</p></article><article><h3>Do you need my main wallet private key?</h3><p>No. The production design should use the smallest suitable API/agent-wallet scope, while the customer keeps main-wallet control. Exact approval and revocation procedures are documented and tested.</p></article><article><h3>Can the system trade for a subaccount or vault?</h3><p>Yes when the official account model and customer permissions support the workflow. Signing remains tied to the authorized master or agent model, and vault/subaccount state is reconciled separately.</p></article><article><h3>Does the service include a profitable strategy?</h3><p>No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns.</p></article></div>
     </section>
 
     <section class="section related-section">
@@ -397,7 +414,7 @@
         <p class="eyebrow">Related</p>
         <h2>Related pages</h2>
       </div>
-      <div class="policy-links"><a href="/articles/how-we-prevent-duplicate-tradingview-webhook-orders/">Duplicate webhook case note</a><a href="/risk-engine/">Risk engine</a><a href="/private-deployment/">Private deployment</a><a href="/faq/">FAQ</a><a href="/case-studies/">Case studies</a></div>
+      <div class="policy-links"><a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a><a href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">Hyperliquid API reliability checklist</a><a href="/risk-engine/">Risk engine development</a><a href="/faq/">FAQ</a><a href="/case-studies/">Case studies</a></div>
     </section>
 
     <section class="contact content-cta" aria-labelledby="content-contact-title">

@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-07-17
+Last updated: 2026-07-19
 
 ## Core services
 
@@ -20,11 +20,14 @@ Last updated: 2026-07-17
 - FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
+- Hyperliquid API trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.
 
 ## Free tools
 
 - Crypto Exchange VIP Fee Calculator: https://pddjf.com/tools/crypto-exchange-fee-calculator/ — Compare public USDT perpetual futures VIP schedules, estimate blended execution cost, inspect tier gaps, and download the source-backed dataset.
 - 中文交易所 VIP 手续费计算器: https://pddjf.com/zh/tools/crypto-exchange-fee-calculator/ — 对比六家主流交易所的公开合约费率，估算混合手续费、VIP 等级和下一级差距。
+- Hyperliquid Fee Calculator: https://pddjf.com/tools/hyperliquid-fee-calculator/ — Model official 14-day weighted-volume tiers, staking discounts, maker rebates and standard perp/spot execution cost without connecting a wallet.
+- Hyperliquid 手续费计算器: https://pddjf.com/zh/tools/hyperliquid-fee-calculator/ — 按官方 14 天加权成交量、质押折扣与 Maker Rebate 估算标准永续和现货手续费，无需连接钱包。
 - Binance vs OKX Futures Fees: https://pddjf.com/compare/binance-vs-okx-futures-fees/ — Compare Binance and OKX USDT futures maker/taker fees at $1M, $10M and $100M monthly volume, with VIP paths, API limits and official sources.
 - 币安与 OKX 合约手续费对比: https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/ — 对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。
 
@@ -76,6 +79,7 @@ Last updated: 2026-07-17
 - https://pddjf.com/articles/alpaca-order-status-reconciliation/ — Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs.
 - https://pddjf.com/articles/schwab-api-token-refresh-runbook/ — A Schwab API token refresh runbook should document OAuth ownership, token storage, expiry alerts, refresh failure handling, reauthorization, pause behavior and credential rotation.
 - https://pddjf.com/articles/fix-api-certificate-network-allowlist-checklist/ — A FIX API certificate and network allowlist checklist should confirm certificate ownership, source IPs, ports, SenderCompID, TargetCompID, firewall rules, UAT evidence and support handover.
+- https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/ — Hyperliquid API reliability requires deterministic cloid values, one nonce owner, normalized order states, WebSocket snapshot recovery, info-endpoint backfill, position reconciliation, alerts and fail-closed restart rules.
 
 ## Official reference links
 
@@ -85,6 +89,10 @@ Last updated: 2026-07-17
 - Alpaca Docs: https://docs.alpaca.markets/us/ — Alpaca 官方 API 文档入口。
 - FIX Trading Community: https://fixtrading.org/standards/fix-protocol/ — FIX Trading Community 的 FIX Protocol 标准介绍。
 - Binance Developer Docs: https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information — Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。
+- Hyperliquid fees: https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees — Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula.
+- Hyperliquid exchange endpoint: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint — Official order, cancel, TWAP, API wallet, subaccount and vault action reference.
+- Hyperliquid WebSocket: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket — Official mainnet and testnet real-time connection guidance, including reconnect expectations.
+- Hyperliquid info endpoint: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint — Official account, order, fill, fee, subaccount and vault query reference.
 
 ## Page summaries
 
@@ -102,6 +110,7 @@ Last updated: 2026-07-17
 - https://pddjf.com/fix-api-order-routing-developer/ — FIX API Order Routing Developer: Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
+- https://pddjf.com/hyperliquid-api-trading-bot-development/ — Hyperliquid API trading bot development: Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.
 
 ## Useful URLs
 
