@@ -11,8 +11,8 @@ const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const llmsUpdatedAt = hyperliquidCheckedDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260719-brief-endpoint";
-const scriptHref = "/scripts.js?v=20260719-brief-endpoint";
+const stylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
+const scriptHref = "/scripts.js?v=20260719-hyperliquid-buyer-intent";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
@@ -796,20 +796,28 @@ const servicePages = [
     slug: "hyperliquid-api-trading-bot-development",
     lang: "en",
     breadcrumb: "Custom Hyperliquid Trading Bot",
-    eyebrow: "For Traders With Defined Rules",
-    title: "Custom Hyperliquid Trading Bot Development | Source Code and Private Deployment",
-    description: "Already have a trading strategy? Turn your rules into a custom Hyperliquid bot with reliable execution, risk controls, alerts, source code and deployment under your control.",
-    h1: "Turn Your Trading Rules Into a Reliable Hyperliquid Bot",
-    intro: "You provide the strategy, instruments and risk boundaries. We build the execution system that sends orders, prevents avoidable duplicates, monitors positions, alerts you when something is wrong and runs under your own infrastructure. No signal selling, custody or return promises.",
+    eyebrow: "Paid Development Service · For Defined Trading Rules",
+    title: "Hyperliquid Bot Development Service | Source Code and Private Deployment",
+    description: "Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.",
+    h1: "Hire a Developer to Build Your Hyperliquid Trading Bot",
+    intro: "For strategy owners who already know what the system should trade and need a dependable implementation partner. You define the rules, instruments and risk limits; we deliver execution, controls, monitoring, source code and deployment under your infrastructure.",
     serviceType: "Custom Hyperliquid trading bot development",
     llmsLabel: "Custom Hyperliquid trading bot development",
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
-    heroPrimaryLabel: "Discuss your bot",
+    contactProject: "hyperliquid-api-trading-bot-development",
+    heroPrimaryLabel: "Request a scoped estimate",
     heroSecondaryLabel: "Choose a project path",
     heroSecondaryHref: "#project-paths",
     outcomesTitle: "Bring the trading logic; receive an operable system",
     outcomesIntro: "This service is for strategy owners who need dependable implementation, not another generic bot template.",
+    purchaseSnapshot: [
+      ["Best fit", "Strategy owners or small trading teams with written entry, exit, sizing and risk rules."],
+      ["Planning budget", "USD 5,000-10,000+ for a production-oriented execution workflow."],
+      ["Typical delivery window", "About 4-8 weeks after rules, access and acceptance cases are ready."],
+      ["Send first", "A masked rule outline, instruments, order types, sizing and risk limits."]
+    ],
+    purchaseNote: "Planning ranges are not fixed quotes. Final scope depends on strategy count, account model, controls, dashboard needs and deployment requirements.",
     customerOutcomes: [
       ["You bring", "Defined signals or rules, instruments, sizing and risk limits."],
       ["We build", "Execution, safeguards, monitoring, recovery and operator controls."],
@@ -854,6 +862,8 @@ const servicePages = [
       ["What happens when the WebSocket disconnects?", "The runtime detects the gap, reconnects, processes the new snapshot and backfills required account or order state through the info endpoint before normal routing resumes."],
       ["Do you need my main wallet private key?", "No. The production design should use the smallest suitable API/agent-wallet scope, while the customer keeps main-wallet control. Exact approval and revocation procedures are documented and tested."],
       ["Can the system trade for a subaccount or vault?", "Yes when the official account model and customer permissions support the workflow. Signing remains tied to the authorized master or agent model, and vault/subaccount state is reconciled separately."],
+      ["How much does custom Hyperliquid bot development cost?", "A narrow API or connector assessment can start near the USD 2,000 package. A production-oriented bot with execution state, risk controls, monitoring and private deployment typically starts around USD 5,000; multi-strategy or team infrastructure is usually USD 10,000+."],
+      ["How long does a Hyperliquid bot project take?", "A defined single-workflow build commonly plans around 4-8 weeks after the trading rules, permissions and acceptance cases are ready. Broader dashboards, multiple strategies or account models require a phased estimate."],
       ["Does the service include a profitable strategy?", "No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns."]
     ],
     related: [
@@ -868,21 +878,29 @@ const servicePages = [
     slug: "tradingview-to-hyperliquid-automation",
     lang: "en",
     breadcrumb: "TradingView to Hyperliquid Automation",
-    eyebrow: "For Existing TradingView Strategies",
-    title: "TradingView to Hyperliquid Automation | Turn Alerts Into Controlled Orders",
-    description: "Connect existing TradingView alerts to Hyperliquid with payload validation, duplicate protection, position limits, failure alerts, source code and private deployment.",
-    h1: "Automate Your TradingView Strategy on Hyperliquid",
-    intro: "Already have Pine Script alerts or a working TradingView strategy? We turn those alerts into a controlled Hyperliquid execution workflow so you do not have to maintain webhook servers, order logic and failure handling yourself.",
+    eyebrow: "Paid Integration Service · For Existing TradingView Alerts",
+    title: "TradingView to Hyperliquid Automation Service | Cost and Delivery",
+    description: "Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.",
+    h1: "Connect Your TradingView Alerts to Hyperliquid",
+    intro: "For traders who already have usable Pine Script alerts and want a developer to own the webhook, execution and failure-handling work. You send one real alert example; we scope the safest route to a testable Hyperliquid workflow.",
     serviceType: "TradingView to Hyperliquid automation development",
     llmsLabel: "TradingView to Hyperliquid automation",
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
-    heroPrimaryLabel: "Send your alert example",
+    contactProject: "tradingview-to-hyperliquid-automation",
+    heroPrimaryLabel: "Get an alert-integration estimate",
     heroSecondaryLabel: "See what is included",
     heroSecondaryHref: "#deliverables",
     outcomesTitle: "From alert message to controlled execution",
     outcomesIntro: "The project starts with an alert you already understand and ends with a workflow you can observe, pause and operate.",
+    purchaseSnapshot: [
+      ["Best fit", "Traders with working Pine Script alerts and explicit order and risk rules."],
+      ["Planning budget", "USD 2,000-5,000+ for one scoped alert-to-execution workflow."],
+      ["Typical delivery window", "About 2-4 weeks when the alert format and acceptance cases are ready."],
+      ["Send first", "One masked alert payload, intended order action, sizing rule and block conditions."]
+    ],
+    purchaseNote: "Planning ranges assume one defined workflow. Pine Script research, multiple strategies, dashboards or broader infrastructure are estimated separately.",
     customerOutcomes: [
       ["You provide", "Pine Script alert text, instruments, position rules and expected actions."],
       ["We connect", "Webhook validation, order routing, risk checks, state tracking and alerts."],
@@ -923,6 +941,8 @@ const servicePages = [
       ["How do you avoid duplicate orders?", "The workflow validates a durable signal identifier, strategy, instrument, action and time window before it creates a new order intent."],
       ["What happens when an alert cannot be executed?", "The system records the reason, sends an alert, and can fail closed instead of silently retrying an ambiguous action."],
       ["Do you need my main wallet private key?", "No. The design uses the smallest suitable trading authorization while the customer retains main-wallet and withdrawal control."],
+      ["How much does TradingView to Hyperliquid automation cost?", "A clearly defined single-alert workflow can fit the USD 2,000 starter range. More order types, state reconciliation, dashboards or multi-strategy routing usually move into the USD 5,000+ execution package."],
+      ["How long does the integration take?", "A scoped workflow commonly plans around 2-4 weeks after we receive a real alert example, order behavior, risk limits and deployment access. Ambiguous Pine logic or multiple strategies require a separate discovery phase."],
       ["What should I send for an initial assessment?", "Send one masked alert example, the intended order, position-sizing rule, risk limits, instruments and preferred deployment environment."]
     ],
     related: [
@@ -936,21 +956,29 @@ const servicePages = [
     slug: "hyperliquid-trading-system-for-teams",
     lang: "en",
     breadcrumb: "Hyperliquid Systems for Trading Teams",
-    eyebrow: "For Trading and Product Teams",
-    title: "Hyperliquid Trading System Development for Teams | Risk, Operations and Private Deployment",
-    description: "Build a customer-controlled Hyperliquid execution system for trading or product teams with multiple rules, operator controls, risk limits, audit logs and private deployment.",
-    h1: "A Hyperliquid Execution System Your Team Can Operate",
-    intro: "Move beyond one-off scripts. We build a controlled execution layer for teams that need repeatable order workflows, clear permissions, shared monitoring, audit trails and a documented handoff under their own infrastructure.",
+    eyebrow: "Custom Engineering · For Trading and Product Teams",
+    title: "Hyperliquid Trading System for Teams | Risk and Private Deployment",
+    description: "Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.",
+    h1: "Build a Hyperliquid Execution System Your Team Can Operate",
+    intro: "For trading firms, digital-asset teams and fintech product teams that have outgrown one-off scripts. We turn strategies, roles, limits and exception handling into a controlled execution service deployed under company ownership.",
     serviceType: "Hyperliquid execution system development for trading teams",
     llmsLabel: "Hyperliquid execution systems for trading teams",
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
-    heroPrimaryLabel: "Discuss your team workflow",
+    contactProject: "hyperliquid-trading-system-for-teams",
+    heroPrimaryLabel: "Request a team-system assessment",
     heroSecondaryLabel: "Review delivery packages",
     heroSecondaryHref: "#deliverables",
     outcomesTitle: "Replace fragile scripts with a reviewable operating system",
     outcomesIntro: "The goal is not more automation for its own sake. It is controlled execution that operators can understand, pause and recover.",
+    purchaseSnapshot: [
+      ["Best fit", "Trading firms, treasuries or fintech teams with multiple strategies, accounts or operators."],
+      ["Planning budget", "USD 10,000+ for a phased, company-controlled execution system."],
+      ["Delivery approach", "A scoped first operating slice, followed by agreed expansion phases."],
+      ["Send first", "A workflow map covering roles, accounts, strategies, limits and incident ownership."]
+    ],
+    purchaseNote: "Team systems require a workflow and ownership review before a timeline is credible. The initial estimate separates the first operable scope from later dashboards, strategies and integrations.",
     customerOutcomes: [
       ["Team workflow", "Document roles, accounts, strategies, approvals and exception ownership."],
       ["Controlled execution", "Route orders through shared risk limits, state checks and operator controls."],
@@ -991,6 +1019,8 @@ const servicePages = [
       ["Can operators approve orders manually?", "Yes. Approval points, pause controls and exception review can be included when fully automatic routing is not appropriate."],
       ["Do you provide a dashboard?", "A focused operator dashboard can be included in the Execution System or Private Infrastructure scope when the team needs shared state and controls."],
       ["Who controls the infrastructure and keys?", "The customer controls the hosting, main wallet and credential lifecycle. The runtime receives only the smallest permissions required for the agreed workflow."],
+      ["How much does a Hyperliquid trading system for a team cost?", "A company-controlled execution system normally starts in the USD 10,000+ private-infrastructure range. The estimate depends on strategy count, accounts, operator roles, dashboards, approval points, monitoring and deployment requirements."],
+      ["How long does a team system take to deliver?", "We first scope one operable slice and its acceptance path. A focused first phase can often be planned in 6-10 weeks, while multiple strategies, dashboards and integrations are delivered as separately accepted phases."],
       ["How is the project accepted?", "Acceptance is based on agreed workflows, controls, logs, failure recovery and handoff—not trading returns."]
     ],
     related: [
@@ -2697,6 +2727,30 @@ ${page.projectPaths ? `      <div class="buyer-path-grid">${page.projectPaths.ma
     </section>`;
 }
 
+function contactHrefFor(page, packageName = "") {
+  if (!page?.contactProject) return "/contact/";
+  const values = [`project=${encodeURIComponent(page.contactProject)}`];
+  if (packageName) values.push(`package=${encodeURIComponent(packageName)}`);
+  return `/contact/?${values.join("&amp;")}`;
+}
+
+function buyerSnapshotSection(page) {
+  if (!page.purchaseSnapshot) return "";
+  const english = isEnglish(page);
+  return `<section class="buyer-snapshot-section" aria-labelledby="buyer-snapshot-title">
+      <div class="buyer-snapshot-shell">
+        <div class="buyer-snapshot-head">
+          <div><p class="eyebrow">${english ? "Project Planning Snapshot" : "项目规划摘要"}</p><h2 id="buyer-snapshot-title">${english ? "Can this project fit your budget and timeline?" : "预算和时间是否匹配？"}</h2></div>
+          <a class="button primary" href="${contactHrefFor(page)}" data-contact="buyer_snapshot_estimate">${english ? "Request a scoped estimate" : "获取范围评估"}</a>
+        </div>
+        <dl class="buyer-snapshot-grid">
+          ${page.purchaseSnapshot.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}
+        </dl>
+        <p class="buyer-snapshot-note">${escapeHtml(page.purchaseNote)}</p>
+      </div>
+    </section>`;
+}
+
 function deliverableSamplesSection() {
   return `<section class="section deliverable-samples" aria-labelledby="deliverable-samples-title">
       <div class="section-head centered">
@@ -2872,7 +2926,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
       <div class="hero-actions">
-        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${escapeHtml(page.heroPrimaryLabel || (english ? "Send project brief" : "提交项目 Brief"))}</a>
+        <a class="button primary" href="${contactHrefFor(page)}" data-contact="content_hero_contact">${escapeHtml(page.heroPrimaryLabel || (english ? "Send project brief" : "提交项目 Brief"))}</a>
         <a class="button secondary" href="${page.heroSecondaryHref || "#deliverables"}">${escapeHtml(page.heroSecondaryLabel || (english ? "View deliverables" : "查看交付内容"))}</a>
       </div>
       <nav class="mobile-quick-links" aria-label="${english ? "Mobile quick links" : "移动端快速入口"}">
@@ -2888,6 +2942,8 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
         <span>${english ? "No custody" : "不代管资金"}</span>
       </div>
     </section>
+
+${buyerSnapshotSection(page)}
 
 ${buyerOutcomeSection(page)}
 
@@ -2934,7 +2990,7 @@ ${buyerOutcomeSection(page)}
         <h2>${english ? "Productized delivery packages" : "产品化交付包"}</h2>
         <p>${english ? "Package scope depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "交付包范围取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"}</p>
       </div>
-      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Execution System Package" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? packageDescriptionsEn[offer.name] : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Execution System Package" ? "primary" : "secondary"}" href="/contact/" data-contact="content_package_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Assess this package" : "评估这个交付包"}</a></article>`).join("")}</div>
+      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Execution System Package" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? packageDescriptionsEn[offer.name] : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Execution System Package" ? "primary" : "secondary"}" href="${contactHrefFor(page, offer.name)}" data-contact="content_package_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Assess this package" : "评估这个交付包"}</a></article>`).join("")}</div>
     </section>
 
     <section class="section risk-section">
@@ -2970,7 +3026,7 @@ ${page.officialReferences ? `    <section class="section embedded-section">
       ${referenceLinksList(page.officialReferences)}
     </section>` : ""}
 
-    ${caseBridgeSection(page.lang)}
+    ${caseBridgeSection(page.lang, page)}
 
     ${externalTrustSection(page.lang)}
 
@@ -2990,14 +3046,14 @@ ${page.officialReferences ? `    <section class="section embedded-section">
       <div class="policy-links">${page.related.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join("")}<a href="/faq/">FAQ</a><a href="/case-studies/">${english ? "Case studies" : "匿名案例"}</a></div>
     </section>
 
-    ${ctaBlock(page.lang)}
+    ${ctaBlock(page.lang, page)}
   </main>
   ${footer(page.lang)}
 </body>
 </html>`;
 }
 
-function ctaBlock(language = "zh-CN") {
+function ctaBlock(language = "zh-CN", page) {
   const english = isEnglish(language);
   return `<section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
@@ -3019,11 +3075,12 @@ function ctaBlock(language = "zh-CN") {
           <li>${english ? "Risk, alert and deployment requirements" : "风控、告警和部署要求"}</li>
           <li>${english ? "Target package and budget band" : "目标交付包和预算档位"}</li>
         </ul>
+        <a class="button primary" href="${contactHrefFor(page)}" data-contact="content_structured_brief">${english ? "Send a structured brief" : "提交结构化 Brief"}</a>
       </div>
     </section>`;
 }
 
-function caseBridgeSection(language = "zh-CN") {
+function caseBridgeSection(language = "zh-CN", page) {
   const english = isEnglish(language);
   const cases = english ? [
     ["TradingView Webhook", "Signal intake, signature checks, idempotency, risk rules, order routing and alert handoff."],
@@ -3045,7 +3102,7 @@ function caseBridgeSection(language = "zh-CN") {
       </div>
       <div class="case-bridge-actions">
         <a class="button primary" href="/case-studies/" data-contact="service_case_bridge">${english ? "View case studies" : "查看匿名案例"}</a>
-        <a class="button secondary" href="/contact/" data-contact="service_case_brief">${english ? "Send a similar brief" : "按类似案例发 Brief"}</a>
+        <a class="button secondary" href="${contactHrefFor(page)}" data-contact="service_case_brief">${english ? "Send a similar brief" : "按类似案例发 Brief"}</a>
       </div>
     </section>`;
 }
@@ -3195,6 +3252,9 @@ function leadBriefForm() {
           <select name="projectType" data-brief-label="Project type" required>
             <option value="">请选择</option>
             <option>Custom trading software development</option>
+            <option>Hyperliquid custom bot development</option>
+            <option>TradingView to Hyperliquid automation</option>
+            <option>Hyperliquid team execution system</option>
             <option>TradingView webhook automation</option>
             <option>Broker API integration</option>
             <option>Order execution API system</option>

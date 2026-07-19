@@ -77,7 +77,11 @@ for (const [label, path, language, counterpart] of [
 
 for (const [label, slug, needles] of [
   ["custom bot service", "hyperliquid-api-trading-bot-development", [
-    "Turn Your Trading Rules Into a Reliable Hyperliquid Bot",
+    "Hire a Developer to Build Your Hyperliquid Trading Bot",
+    "USD 5,000-10,000+",
+    "About 4-8 weeks",
+    "How much does custom Hyperliquid bot development cost?",
+    "project=hyperliquid-api-trading-bot-development",
     "You bring",
     "We build",
     "You keep",
@@ -86,23 +90,33 @@ for (const [label, slug, needles] of [
     "/hyperliquid-trading-system-for-teams/"
   ]],
   ["TradingView service", "tradingview-to-hyperliquid-automation", [
-    "Automate Your TradingView Strategy on Hyperliquid",
+    "Connect Your TradingView Alerts to Hyperliquid",
+    "USD 2,000-5,000+",
+    "About 2-4 weeks",
+    "How much does TradingView to Hyperliquid automation cost?",
+    "project=tradingview-to-hyperliquid-automation",
     "Pine Script alerts",
-    "Send your alert example",
+    "Get an alert-integration estimate",
     "duplicate protection",
     "/hyperliquid-api-trading-bot-development/"
   ]],
   ["team service", "hyperliquid-trading-system-for-teams", [
-    "A Hyperliquid Execution System Your Team Can Operate",
+    "Build a Hyperliquid Execution System Your Team Can Operate",
+    "Trading firms, treasuries or fintech teams",
+    "USD 10,000+",
+    "How much does a Hyperliquid trading system for a team cost?",
+    "project=hyperliquid-trading-system-for-teams",
     "Team workflow",
     "operator controls",
-    "Discuss your team workflow",
+    "Request a team-system assessment",
     "/tradingview-to-hyperliquid-automation/"
   ]]
 ]) {
   const html = readRequired(join(publicDir, slug, "index.html"), label);
   [
     '<html lang="en">',
+    "Project Planning Snapshot",
+    "Can this project fit your budget and timeline?",
     "Your Project, In Plain Language",
     "scope=hyperliquid-buyers-20260719",
     "https://pddjf.com/hyperliquid-bot-social.jpg",
@@ -143,7 +157,7 @@ const styles = readRequired(join(publicDir, "styles.css"), "site styles");
   "weightedVolume = inputs.perpVolume + inputs.spotVolume * 2",
   "initHyperliquidFeeTool();"
 ].forEach((needle) => requireValue(script.includes(needle), `tool script: missing ${needle}`));
-[".buyer-outcome-grid", ".buyer-path-grid", ".buyer-tool-grid"].forEach((needle) => requireValue(styles.includes(needle), `site styles: missing ${needle}`));
+[".buyer-snapshot-grid", ".buyer-outcome-grid", ".buyer-path-grid", ".buyer-tool-grid"].forEach((needle) => requireValue(styles.includes(needle), `site styles: missing ${needle}`));
 
 const sitemap = readRequired(join(publicDir, "sitemap.xml"), "sitemap");
 const llms = readRequired(join(publicDir, "llms.txt"), "llms.txt");

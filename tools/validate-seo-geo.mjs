@@ -6,8 +6,8 @@ const publicDir = join(root, "public");
 const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
-const currentStylesheetHref = "/styles.css?v=20260719-brief-endpoint";
-const currentScriptHref = "/scripts.js?v=20260719-brief-endpoint";
+const currentStylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
+const currentScriptHref = "/scripts.js?v=20260719-hyperliquid-buyer-intent";
 const contentDate = "2026-07-19";
 const errors = [];
 
@@ -199,7 +199,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260719-brief-endpoint"',
+  'const ASSET_RELEASE = "20260719-hyperliquid-buyer-intent"',
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',

@@ -10,6 +10,7 @@ const status = { textContent: "" };
 const submitButton = { textContent: "安全提交项目 Brief", disabled: false };
 const controls = [
   ["projectType", "Project type", "Broker API automation"],
+  ["budget", "Budget range", "还在评估"],
   ["permissionStatus", "Permission status", "Read and trade access available"],
   ["riskBoundary", "Risk boundary", "Manual pause and maximum order size are required"],
   ["deploymentTarget", "Deployment target", "Customer cloud"],
@@ -25,10 +26,11 @@ const controls = [
 const form = {
   dataset: { contact: "structured_brief_submit", briefEndpoint: "/api/brief" },
   elements: {
-    budget: { value: "USD 5,000" },
-    permissionStatus: controls[1],
-    riskBoundary: controls[2],
-    deploymentTarget: controls[3],
+    projectType: controls[0],
+    budget: controls[1],
+    permissionStatus: controls[2],
+    riskBoundary: controls[3],
+    deploymentTarget: controls[4],
     website: { value: "" }
   },
   addEventListener(type, callback) {
@@ -59,8 +61,8 @@ const window = {
   dataLayer: [],
   isSecureContext: true,
   location: {
-    href: "https://pddjf.com/contact/?gclid=test-click-id",
-    search: "?gclid=test-click-id"
+    href: "https://pddjf.com/contact/?gclid=test-click-id&project=hyperliquid-api-trading-bot-development&package=Execution%20System%20Package",
+    search: "?gclid=test-click-id&project=hyperliquid-api-trading-bot-development&package=Execution%20System%20Package"
   },
   setTimeout(callback, delay) {
     timers.push({ callback, delay });
@@ -108,15 +110,18 @@ let prevented = false;
 await listeners.get("form:submit")({ preventDefault: () => { prevented = true; } });
 
 assert.equal(prevented, true);
-assert.equal(window.location.href, "https://pddjf.com/contact/?gclid=test-click-id");
+assert.equal(window.location.href, "https://pddjf.com/contact/?gclid=test-click-id&project=hyperliquid-api-trading-bot-development&package=Execution%20System%20Package");
 assert.equal(requests.length, 1);
 assert.equal(requests[0].url, "/api/brief");
 assert.equal(requests[0].options.method, "POST");
 const payload = JSON.parse(requests[0].options.body);
 assert.equal(payload.site, "pddjf");
-assert.equal(payload.fields.projectType, "Broker API automation");
+assert.equal(payload.fields.projectType, "Hyperliquid custom bot development");
+assert.equal(payload.fields.budget, "Execution System Package - 5000 美金起");
 assert.equal(payload.fields.contactMethod, "buyer@example.com");
 assert.equal(payload.tracking.gclid, "test-click-id");
+assert.equal(payload.tracking.project, "hyperliquid-api-trading-bot-development");
+assert.equal(payload.tracking.package, "Execution System Package");
 assert.equal(form.dataset.submitted, "true");
 assert.equal(submitButton.disabled, true);
 assert.equal(submitButton.textContent, "已安全提交");

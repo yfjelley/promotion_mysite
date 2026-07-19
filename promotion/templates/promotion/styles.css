@@ -3311,3 +3311,100 @@ h3 {
     grid-template-columns: 1fr 0.6fr;
   }
 }
+
+/* Buyer decision snapshot */
+.buyer-snapshot-section {
+  padding: 24px clamp(24px, 5vw, 72px) 0;
+  background: #fff;
+}
+
+.buyer-snapshot-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid rgba(7, 139, 123, 0.28);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #07111f 0%, #10263a 100%);
+  box-shadow: 0 24px 60px rgba(7, 17, 31, 0.16);
+}
+
+.buyer-snapshot-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.buyer-snapshot-head h2 {
+  max-width: 760px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.buyer-snapshot-head .eyebrow {
+  color: #77dfcf;
+}
+
+.buyer-snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.buyer-snapshot-grid div {
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.buyer-snapshot-grid dt {
+  margin-bottom: 8px;
+  color: #77dfcf;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.buyer-snapshot-grid dd {
+  margin: 0;
+  color: #e8f1f5;
+  line-height: 1.58;
+}
+
+.buyer-snapshot-note {
+  margin: 18px 0 0;
+  color: #aebfca;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .buyer-snapshot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .buyer-snapshot-section {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .buyer-snapshot-shell {
+    padding: 22px;
+  }
+
+  .buyer-snapshot-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .buyer-snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+}

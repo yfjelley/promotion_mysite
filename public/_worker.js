@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260719-brief-endpoint";
+const ASSET_RELEASE = "20260719-hyperliquid-buyer-intent";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -171,6 +171,8 @@ async function handleBriefSubmission(request, env, url) {
     "utm_term",
     "utm_content",
     "gclid",
+    "project",
+    "package",
     "landing_page",
     "referrer"
   ]);

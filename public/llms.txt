@@ -20,9 +20,9 @@ Last updated: 2026-07-19
 - FIX API Order Routing Developer: https://pddjf.com/fix-api-order-routing-developer/ — Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
-- Custom Hyperliquid trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Already have a trading strategy? Turn your rules into a custom Hyperliquid bot with reliable execution, risk controls, alerts, source code and deployment under your control.
-- TradingView to Hyperliquid automation: https://pddjf.com/tradingview-to-hyperliquid-automation/ — Connect existing TradingView alerts to Hyperliquid with payload validation, duplicate protection, position limits, failure alerts, source code and private deployment.
-- Hyperliquid execution systems for trading teams: https://pddjf.com/hyperliquid-trading-system-for-teams/ — Build a customer-controlled Hyperliquid execution system for trading or product teams with multiple rules, operator controls, risk limits, audit logs and private deployment.
+- Custom Hyperliquid trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
+- TradingView to Hyperliquid automation: https://pddjf.com/tradingview-to-hyperliquid-automation/ — Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
+- Hyperliquid execution systems for trading teams: https://pddjf.com/hyperliquid-trading-system-for-teams/ — Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.
 
 ## Free tools
 
@@ -112,9 +112,9 @@ Last updated: 2026-07-19
 - https://pddjf.com/fix-api-order-routing-developer/ — FIX API Order Routing Developer: Hire a FIX API order routing developer for NewOrderSingle, ExecutionReport, Reject handling, session recovery, risk checks, audit logs and UAT support.
 - https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
-- https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid trading bot development: Already have a trading strategy? Turn your rules into a custom Hyperliquid bot with reliable execution, risk controls, alerts, source code and deployment under your control.
-- https://pddjf.com/tradingview-to-hyperliquid-automation/ — TradingView to Hyperliquid automation: Connect existing TradingView alerts to Hyperliquid with payload validation, duplicate protection, position limits, failure alerts, source code and private deployment.
-- https://pddjf.com/hyperliquid-trading-system-for-teams/ — Hyperliquid execution systems for trading teams: Build a customer-controlled Hyperliquid execution system for trading or product teams with multiple rules, operator controls, risk limits, audit logs and private deployment.
+- https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid trading bot development: Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
+- https://pddjf.com/tradingview-to-hyperliquid-automation/ — TradingView to Hyperliquid automation: Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
+- https://pddjf.com/hyperliquid-trading-system-for-teams/ — Hyperliquid execution systems for trading teams: Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.
 
 ## Useful URLs
 

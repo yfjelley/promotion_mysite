@@ -107,13 +107,31 @@ function briefFields(form) {
 
 function trackingContext() {
   const params = new URLSearchParams(window.location.search);
-  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "project", "package"];
   const tracking = Object.fromEntries(keys
     .map((key) => [key, params.get(key) || ""])
     .filter(([, value]) => value));
   tracking.landing_page = window.location.href;
   if (document.referrer) tracking.referrer = document.referrer;
   return tracking;
+}
+
+function applyBriefQueryState(form) {
+  const params = new URLSearchParams(window.location.search);
+  const projectTypes = {
+    "hyperliquid-api-trading-bot-development": "Hyperliquid custom bot development",
+    "tradingview-to-hyperliquid-automation": "TradingView to Hyperliquid automation",
+    "hyperliquid-trading-system-for-teams": "Hyperliquid team execution system"
+  };
+  const budgetTypes = {
+    "API Starter Package": "API Starter Package - 2000 美金起",
+    "Execution System Package": "Execution System Package - 5000 美金起",
+    "Private Infrastructure Package": "Private Infrastructure Package - 10000 美金起"
+  };
+  const projectType = projectTypes[params.get("project")];
+  const budget = budgetTypes[params.get("package")];
+  if (projectType && form.elements.projectType) form.elements.projectType.value = projectType;
+  if (budget && form.elements.budget) form.elements.budget.value = budget;
 }
 
 function qualificationFor(form) {
@@ -669,6 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll("form[data-mailto-brief]").forEach((form) => {
+    applyBriefQueryState(form);
     let firstSubmitError = null;
     let validatingSubmit = false;
 
