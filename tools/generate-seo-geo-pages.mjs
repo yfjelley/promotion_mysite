@@ -11,8 +11,8 @@ const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const llmsUpdatedAt = hyperliquidCheckedDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
-const scriptHref = "/scripts.js?v=20260717-positioning-proof-performance";
+const stylesheetHref = "/styles.css?v=20260719-brief-endpoint";
+const scriptHref = "/scripts.js?v=20260719-brief-endpoint";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const githubProfileUrl = "https://github.com/yfjelley";
@@ -3186,7 +3186,10 @@ function aboutHtml(page) {
 }
 
 function leadBriefForm() {
-  return `<form class="brief-form" data-mailto-brief data-mailto-recipient="${contact.email}" data-mailto-subject="SignalCraft Labs project brief" data-contact="structured_brief_submit">
+  return `<form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit">
+      <label class="form-trap" aria-hidden="true">请勿填写此字段
+        <input name="website" tabindex="-1" autocomplete="off">
+      </label>
       <div class="form-grid">
         <label>项目类型
           <select name="projectType" data-brief-label="Project type" required>
@@ -3246,7 +3249,7 @@ function leadBriefForm() {
         <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
       </label>
       <div class="form-actions">
-        <button class="button primary" type="submit">生成邮件并提交 Brief</button>
+        <button class="button primary" type="submit">安全提交项目 Brief</button>
         <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制空白模板</button>
       </div>
       <p class="copy-status" aria-live="polite"></p>
@@ -3258,7 +3261,7 @@ function contactHtml(page) {
   const body = `<div class="answer-grid contact-brief-grid">
       <article>
         <h3>结构化 Brief 表单</h3>
-        <p>先用表单整理项目类型、信号来源、API 权限、风控边界、部署环境、预算档位和联系方式。只有有效提交会计入咨询转化。</p>
+        <p>先用表单整理项目类型、信号来源、API 权限、风控边界、部署环境、预算档位和联系方式。网站确认收到后，才会计入咨询转化。</p>
         ${leadBriefForm()}
       </article>
       <article>

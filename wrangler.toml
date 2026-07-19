@@ -1,0 +1,7 @@
+name = "promotion-mysite"
+compatibility_date = "2026-06-28"
+pages_build_output_dir = "./public"
+
+[[kv_namespaces]]
+binding = "BRIEF_SUBMISSIONS"
+id = "c4f79d0cc8c546598ec5f823830407b6"

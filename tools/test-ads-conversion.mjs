@@ -5,26 +5,31 @@ import { runInNewContext } from "node:vm";
 const script = readFileSync(new URL("../public/scripts.js", import.meta.url), "utf8");
 const listeners = new Map();
 const timers = [];
+const requests = [];
 const status = { textContent: "" };
+const submitButton = { textContent: "安全提交项目 Brief", disabled: false };
 const controls = [
-  ["Project type", "Broker API automation"],
-  ["Permission status", "Read and trade access available"],
-  ["Risk boundary", "Manual pause and maximum order size are required"],
-  ["Deployment target", "Customer cloud"]
-].map(([label, value]) => ({
+  ["projectType", "Project type", "Broker API automation"],
+  ["permissionStatus", "Permission status", "Read and trade access available"],
+  ["riskBoundary", "Risk boundary", "Manual pause and maximum order size are required"],
+  ["deploymentTarget", "Deployment target", "Customer cloud"],
+  ["contactMethod", "Preferred contact method", "buyer@example.com"]
+].map(([name, label, value]) => ({
+  name,
   value,
-  getAttribute(name) {
-    return name === "data-brief-label" ? label : null;
+  getAttribute(attribute) {
+    return attribute === "data-brief-label" ? label : null;
   }
 }));
 
 const form = {
-  dataset: { contact: "structured_brief_submit" },
+  dataset: { contact: "structured_brief_submit", briefEndpoint: "/api/brief" },
   elements: {
     budget: { value: "USD 5,000" },
-    permissionStatus: { value: "Read and trade access available" },
-    riskBoundary: { value: "Manual pause and maximum order size are required" },
-    deploymentTarget: { value: "Customer cloud" }
+    permissionStatus: controls[1],
+    riskBoundary: controls[2],
+    deploymentTarget: controls[3],
+    website: { value: "" }
   },
   addEventListener(type, callback) {
     listeners.set(`form:${type}`, callback);
@@ -32,16 +37,21 @@ const form = {
   closest() {
     return { querySelector: () => status };
   },
-  getAttribute(name) {
-    if (name === "data-mailto-recipient") return "contact@pddjf.com";
-    if (name === "data-mailto-subject") return "SignalCraft Labs project brief";
-    return null;
+  querySelector(selector) {
+    return selector === 'button[type="submit"]' ? submitButton : null;
   },
   querySelectorAll(selector) {
-    return selector === "[data-brief-label]" ? controls : [];
+    if (selector === "[data-brief-label]") return controls;
+    return [];
   },
   reportValidity() {
     return true;
+  },
+  setAttribute(name, value) {
+    this[name] = value;
+  },
+  removeAttribute(name) {
+    delete this[name];
   }
 };
 
@@ -74,40 +84,54 @@ const document = {
   }
 };
 
+async function fetch(url, options) {
+  requests.push({ url, options });
+  return {
+    ok: true,
+    status: 201,
+    async json() {
+      return { ok: true, id: "test-brief-id", receivedAt: "2026-07-19T00:00:00.000Z" };
+    }
+  };
+}
+
 runInNewContext(script, {
   URLSearchParams,
   document,
+  fetch,
   navigator: {},
   window
 });
 
 listeners.get("DOMContentLoaded")();
 let prevented = false;
-listeners.get("form:submit")({ preventDefault: () => { prevented = true; } });
+await listeners.get("form:submit")({ preventDefault: () => { prevented = true; } });
 
 assert.equal(prevented, true);
 assert.equal(window.location.href, "https://pddjf.com/contact/?gclid=test-click-id");
-assert.match(status.textContent, /有效提交会计入咨询转化/);
+assert.equal(requests.length, 1);
+assert.equal(requests[0].url, "/api/brief");
+assert.equal(requests[0].options.method, "POST");
+const payload = JSON.parse(requests[0].options.body);
+assert.equal(payload.site, "pddjf");
+assert.equal(payload.fields.projectType, "Broker API automation");
+assert.equal(payload.fields.contactMethod, "buyer@example.com");
+assert.equal(payload.tracking.gclid, "test-click-id");
+assert.equal(form.dataset.submitted, "true");
+assert.equal(submitButton.disabled, true);
+assert.equal(submitButton.textContent, "已安全提交");
+assert.match(status.textContent, /项目 Brief 已收到，编号 test-bri/);
 
 const gaSubmit = window.dataLayer.find((entry) => entry[0] === "event" && entry[1] === "contact_submit");
-assert.ok(gaSubmit, "validated Brief submission should emit the GA4 contact_submit event");
+assert.ok(gaSubmit, "stored Brief submission should emit the GA4 contact_submit event");
 assert.equal(gaSubmit[2].method, "structured_brief_submit");
 
 const adsConversion = window.dataLayer.find((entry) => entry[0] === "event" && entry[1] === "conversion");
-assert.ok(adsConversion, "validated Brief submission should emit a Google Ads conversion event");
+assert.ok(adsConversion, "stored Brief submission should emit a Google Ads conversion event");
 assert.equal(adsConversion[2].send_to, "AW-975458180/i_t6CKjS6pwYEISfkdED");
 assert.equal(adsConversion[2].value, 100);
 assert.equal(adsConversion[2].currency, "USD");
-assert.equal(adsConversion[2].event_timeout, 1200);
-assert.equal(typeof adsConversion[2].event_callback, "function");
+assert.equal(adsConversion[2].event_callback, undefined);
+assert.equal(adsConversion[2].event_timeout, undefined);
 
-assert.equal(timers.length, 1);
-assert.equal(timers[0].delay, 1300);
-adsConversion[2].event_callback();
-assert.match(window.location.href, /^mailto:contact@pddjf\.com\?/);
-assert.match(window.location.href, /gclid%3A%20test-click-id/);
-const destination = window.location.href;
-timers[0].callback();
-assert.equal(window.location.href, destination, "timeout fallback must not navigate twice");
-
-console.log("Ads conversion test ok: GA4 contact_submit + AW conversion callback before mailto navigation");
+console.log("Ads conversion test ok: site storage confirmed before GA4 + Ads lead events");

@@ -1,7 +1,12 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260715-p2-ux-assets";
+const ASSET_RELEASE = "20260719-brief-endpoint";
+const BRIEF_API_PATH = "/api/brief";
+const BRIEF_SITE = "pddjf";
+const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
+const BRIEF_RATE_LIMIT_SECONDS = 60;
+const BRIEF_FIELD_LIMIT = 2000;
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -64,6 +69,132 @@ const HTML_RELEASE_ASSETS = new Map([
   ["/zh/tools/crypto-exchange-fee-calculator/", "/__release/20260715-p2-ux-assets/exchange-fee-tool-zh.html"]
 ]);
 
+function jsonResponse(body, status = 200) {
+  return withSecurityHeaders(new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store"
+    }
+  }), status, BRIEF_API_PATH);
+}
+
+function cleanString(value, maxLength = BRIEF_FIELD_LIMIT) {
+  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+}
+
+function cleanRecord(value, allowedKeys) {
+  const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  return Object.fromEntries(allowedKeys
+    .map((key) => [key, cleanString(source[key])])
+    .filter(([, fieldValue]) => fieldValue));
+}
+
+async function briefRateKey(request) {
+  const address = request.headers.get("CF-Connecting-IP") || "unknown";
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${BRIEF_SITE}:${address}`));
+  return `rate:${BRIEF_SITE}:${Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+}
+
+async function handleBriefSubmission(request, env, url) {
+  if (request.method !== "POST") {
+    return jsonResponse({ ok: false, error: "method_not_allowed" }, 405);
+  }
+
+  if (!env.BRIEF_SUBMISSIONS) {
+    return jsonResponse({ ok: false, error: "submission_service_unavailable" }, 503);
+  }
+
+  const origin = request.headers.get("Origin");
+  const fetchSite = request.headers.get("Sec-Fetch-Site");
+  if ((origin && origin !== url.origin) || (fetchSite && !["same-origin", "none"].includes(fetchSite))) {
+    return jsonResponse({ ok: false, error: "origin_not_allowed" }, 403);
+  }
+
+  const contentLength = Number(request.headers.get("Content-Length") || 0);
+  if (contentLength > 24_000) {
+    return jsonResponse({ ok: false, error: "payload_too_large" }, 413);
+  }
+
+  let rawBody;
+  try {
+    rawBody = await request.text();
+  } catch {
+    return jsonResponse({ ok: false, error: "invalid_json" }, 400);
+  }
+  if (rawBody.length > 24_000) {
+    return jsonResponse({ ok: false, error: "payload_too_large" }, 413);
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(rawBody);
+  } catch {
+    return jsonResponse({ ok: false, error: "invalid_json" }, 400);
+  }
+
+  if (!payload || payload.site !== BRIEF_SITE) {
+    return jsonResponse({ ok: false, error: "invalid_site" }, 400);
+  }
+
+  if (cleanString(payload.website, 200)) {
+    return jsonResponse({ ok: true, id: "accepted" }, 201);
+  }
+
+  const fields = cleanRecord(payload.fields, [
+    "projectType",
+    "signalSource",
+    "apiPlatform",
+    "permissionStatus",
+    "budget",
+    "deploymentTarget",
+    "timeline",
+    "contactMethod",
+    "riskBoundary",
+    "notes"
+  ]);
+  if (!fields.projectType || !fields.contactMethod || !fields.riskBoundary) {
+    return jsonResponse({ ok: false, error: "required_fields_missing" }, 400);
+  }
+
+  const rateKey = await briefRateKey(request);
+  if (await env.BRIEF_SUBMISSIONS.get(rateKey)) {
+    return jsonResponse({ ok: false, error: "rate_limited" }, 429);
+  }
+
+  const id = crypto.randomUUID();
+  const receivedAt = new Date().toISOString();
+  const tracking = cleanRecord(payload.tracking, [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+    "gclid",
+    "landing_page",
+    "referrer"
+  ]);
+  const record = {
+    id,
+    site: BRIEF_SITE,
+    receivedAt,
+    qualification: cleanString(payload.qualification, 40),
+    fields,
+    tracking,
+    request: {
+      country: cleanString(request.cf?.country, 8),
+      userAgent: cleanString(request.headers.get("User-Agent"), 300)
+    }
+  };
+
+  await env.BRIEF_SUBMISSIONS.put(rateKey, receivedAt, { expirationTtl: BRIEF_RATE_LIMIT_SECONDS });
+  await env.BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`, JSON.stringify(record), {
+    expirationTtl: BRIEF_TTL_SECONDS
+  });
+
+  return jsonResponse({ ok: true, id, receivedAt }, 201);
+}
+
 function withSecurityHeaders(response, status = response.status, assetPath = "") {
   const withHeaders = new Response(response.body, response);
 
@@ -108,6 +239,11 @@ async function fetchAsset(env, request, pathname, statusOverride) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === BRIEF_API_PATH) {
+      return handleBriefSubmission(request, env, url);
+    }
+
     const target = new URL(url.href);
     let shouldRedirect = false;
     const isPagesPreviewHost =

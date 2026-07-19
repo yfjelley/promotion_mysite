@@ -6,8 +6,8 @@ const publicDir = join(root, "public");
 const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
-const currentStylesheetHref = "/styles.css?v=20260717-positioning-proof-performance";
-const currentScriptHref = "/scripts.js?v=20260717-positioning-proof-performance";
+const currentStylesheetHref = "/styles.css?v=20260719-brief-endpoint";
+const currentScriptHref = "/scripts.js?v=20260719-brief-endpoint";
 const contentDate = "2026-07-19";
 const errors = [];
 
@@ -158,8 +158,9 @@ for (const file of pddjfHtmlFiles) {
   if (routeFor(file) === "/contact/") {
     [
       "结构化 Brief 表单",
-      "生成邮件并提交 Brief",
+      "安全提交项目 Brief",
       "data-mailto-brief",
+      "data-brief-endpoint=\"/api/brief\"",
       "data-brief-label=\"Project type\"",
       "Custom trading software development",
       "data-brief-label=\"Permission status\"",
@@ -184,11 +185,24 @@ for (const file of pddjfHtmlFiles) {
 }
 
 const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
-["field-error", 'aria-invalid', 'firstSubmitError', 'brief-form-active', 'form.addEventListener("invalid"'].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
+[
+  "field-error",
+  'aria-invalid',
+  'firstSubmitError',
+  'brief-form-active',
+  'form.addEventListener("invalid"',
+  'fetch(form.dataset.briefEndpoint || "/api/brief"',
+  '项目 Brief 已收到',
+  '提交暂时失败，表单内容仍保留',
+  'reportBriefSubmit(form.dataset.contact || "structured_brief_submit")'
+].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260715-p2-ux-assets"',
+  'const ASSET_RELEASE = "20260719-brief-endpoint"',
+  'const BRIEF_API_PATH = "/api/brief"',
+  'return handleBriefSubmission(request, env, url)',
+  'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
   'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/"',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
@@ -265,17 +279,17 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
   "event.event_timeout = 1200",
   "function reportBriefSubmit(method, eventCallback)",
   "gtag(\"event\", \"contact_submit\"",
-  "function fieldRows(form)",
+  "function briefFields(form)",
   "function qualificationFor(form)",
-  "function mailtoFromBrief(form)",
+  "function briefPayload(form)",
   "form[data-mailto-brief]",
   "structured_brief_submit",
+  'fetch(form.dataset.briefEndpoint || "/api/brief"',
+  "项目 Brief 已收到",
   "fee_tool_first_use",
   "fee_tool_exchange_select",
   "fee_tool_source_click",
   "source_host: new URL(link.href).hostname",
-  "window.setTimeout(openMailClient, 1300)",
-  "Tracking context:",
   "gclid"
 ].forEach((needle) => requireText("scripts.js", scripts, needle));
 

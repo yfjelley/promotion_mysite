@@ -99,25 +99,21 @@ function reportBriefSubmit(method, eventCallback) {
   reportLinkedInLead();
 }
 
-function fieldRows(form) {
-  return Array.from(form.querySelectorAll("[data-brief-label]"))
-    .map((control) => {
-      const label = control.getAttribute("data-brief-label");
-      const value = (control.value || "").trim();
-      return label && value ? `${label}: ${value}` : "";
-    })
-    .filter(Boolean);
+function briefFields(form) {
+  return Object.fromEntries(Array.from(form.querySelectorAll("[data-brief-label]"))
+    .map((control) => [control.name, (control.value || "").trim()])
+    .filter(([name, value]) => name && value));
 }
 
-function trackingRows() {
+function trackingContext() {
   const params = new URLSearchParams(window.location.search);
   const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
-  const rows = keys
-    .filter((key) => params.get(key))
-    .map((key) => `${key}: ${params.get(key)}`);
-  rows.push(`landing_page: ${window.location.href}`);
-  if (document.referrer) rows.push(`referrer: ${document.referrer}`);
-  return rows;
+  const tracking = Object.fromEntries(keys
+    .map((key) => [key, params.get(key) || ""])
+    .filter(([, value]) => value));
+  tracking.landing_page = window.location.href;
+  if (document.referrer) tracking.referrer = document.referrer;
+  return tracking;
 }
 
 function qualificationFor(form) {
@@ -135,16 +131,14 @@ function qualificationFor(form) {
   return "not-fit";
 }
 
-function mailtoFromBrief(form) {
-  const rows = fieldRows(form);
-  rows.push(`qualification: ${qualificationFor(form)}`);
-  rows.push("");
-  rows.push("Tracking context:");
-  rows.push(...trackingRows());
-
-  const recipient = form.getAttribute("data-mailto-recipient") || "contact@pddjf.com";
-  const subject = form.getAttribute("data-mailto-subject") || "SignalCraft Labs project brief";
-  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(rows.join("\n"))}`;
+function briefPayload(form) {
+  return {
+    site: "pddjf",
+    fields: briefFields(form),
+    qualification: qualificationFor(form),
+    tracking: trackingContext(),
+    website: form.elements.website?.value || ""
+  };
 }
 
 async function copyText(value) {
@@ -741,8 +735,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 0);
     });
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (form.dataset.submitted === "true") return;
       form.querySelectorAll('[aria-invalid="true"]').forEach(clearFieldError);
       firstSubmitError = null;
       validatingSubmit = true;
@@ -753,18 +748,35 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       const status = statusFor(form);
-      const destination = mailtoFromBrief(form);
-      let didNavigate = false;
-      const openMailClient = () => {
-        if (didNavigate) return;
-        didNavigate = true;
-        window.location.href = destination;
-      };
-      if (status) {
-        status.textContent = "已生成结构化 Brief，并打开邮件客户端。这个有效提交会计入咨询转化。";
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalLabel = submitButton?.textContent || "提交项目 Brief";
+      if (submitButton) submitButton.disabled = true;
+      form.setAttribute("aria-busy", "true");
+      if (status) status.textContent = "正在安全提交，请稍候……";
+
+      try {
+        const response = await fetch(form.dataset.briefEndpoint || "/api/brief", {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify(briefPayload(form))
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || `HTTP ${response.status}`);
+
+        form.dataset.submitted = "true";
+        if (submitButton) submitButton.textContent = "已安全提交";
+        if (status) status.textContent = `项目 Brief 已收到，编号 ${String(result.id || "").slice(0, 8)}。我们会通过你填写的联系方式回复。`;
+        reportBriefSubmit(form.dataset.contact || "structured_brief_submit");
+      } catch (error) {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalLabel;
+        }
+        if (status) status.textContent = "提交暂时失败，表单内容仍保留。请稍后重试，或使用下方邮箱、微信或 Telegram 联系。";
+      } finally {
+        form.removeAttribute("aria-busy");
       }
-      reportBriefSubmit(form.dataset.contact || "structured_brief_submit", openMailClient);
-      window.setTimeout(openMailClient, 1300);
     });
   });
 
