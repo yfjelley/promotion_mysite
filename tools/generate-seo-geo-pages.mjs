@@ -15,6 +15,7 @@ const stylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
 const scriptHref = "/scripts.js?v=20260719-hyperliquid-buyer-intent";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
+const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -4205,3 +4206,7 @@ writePublicFile(join(releaseAssetDir, "home.html"), readFileSync(join(publicDir,
 writePublicFile(join(releaseAssetDir, "contact.html"), readFileSync(join(publicDir, "contact", "index.html"), "utf8"));
 writePublicFile(join(releaseAssetDir, "exchange-fee-tool-i18n.html"), readFileSync(pagePath(exchangeFeeToolPage.slug), "utf8"));
 writePublicFile(join(releaseAssetDir, "exchange-fee-tool-zh.html"), readFileSync(pagePath(exchangeFeeToolPageZh.slug), "utf8"));
+writePublicFile(join(buyerReleaseAssetDir, "contact.html"), readFileSync(pagePath(contactPage.slug), "utf8"));
+for (const slug of ["tradingview-webhook-automation", "exchange-api-trading-bot-development", "risk-engine"]) {
+  writePublicFile(join(buyerReleaseAssetDir, `${slug}.html`), readFileSync(pagePath(slug), "utf8"));
+}

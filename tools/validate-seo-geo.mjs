@@ -255,7 +255,11 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260719-hyperliquid-buyer-intent"',
+  'const ASSET_RELEASE = "20260719-buyer-conversion"',
+  '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
+  '["/tradingview-webhook-automation/", "/__release/20260719-buyer-conversion/tradingview-webhook-automation.html"]',
+  '["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"]',
+  '["/risk-engine/", "/__release/20260719-buyer-conversion/risk-engine.html"]',
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
@@ -265,7 +269,10 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 
 for (const [canonicalFile, releaseFile] of [
   [join(publicDir, "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "home.html")],
-  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "contact.html")],
+  [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "contact.html")],
+  [join(publicDir, "tradingview-webhook-automation", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "tradingview-webhook-automation.html")],
+  [join(publicDir, "exchange-api-trading-bot-development", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "exchange-api-trading-bot-development.html")],
+  [join(publicDir, "risk-engine", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "risk-engine.html")],
   [join(publicDir, "tools", "crypto-exchange-fee-calculator", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "exchange-fee-tool-i18n.html")],
   [join(publicDir, "zh", "tools", "crypto-exchange-fee-calculator", "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "exchange-fee-tool-zh.html")]
 ]) {
