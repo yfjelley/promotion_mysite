@@ -14,7 +14,9 @@
     "/fix-api-order-routing-developer/",
     "/risk-engine/",
     "/private-deployment/",
-    "/hyperliquid-api-trading-bot-development/"
+    "/hyperliquid-api-trading-bot-development/",
+    "/tradingview-to-hyperliquid-automation/",
+    "/hyperliquid-trading-system-for-teams/"
   ],
   "coreServiceUrls": [
     {
@@ -88,9 +90,19 @@
       "summary": "自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。"
     },
     {
-      "label": "Hyperliquid API trading bot development",
+      "label": "Custom Hyperliquid trading bot development",
       "url": "https://pddjf.com/hyperliquid-api-trading-bot-development/",
-      "summary": "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment."
+      "summary": "Already have a trading strategy? Turn your rules into a custom Hyperliquid bot with reliable execution, risk controls, alerts, source code and deployment under your control."
+    },
+    {
+      "label": "TradingView to Hyperliquid automation",
+      "url": "https://pddjf.com/tradingview-to-hyperliquid-automation/",
+      "summary": "Connect existing TradingView alerts to Hyperliquid with payload validation, duplicate protection, position limits, failure alerts, source code and private deployment."
+    },
+    {
+      "label": "Hyperliquid execution systems for trading teams",
+      "url": "https://pddjf.com/hyperliquid-trading-system-for-teams/",
+      "summary": "Build a customer-controlled Hyperliquid execution system for trading or product teams with multiple rules, operator controls, risk limits, audit logs and private deployment."
     }
   ],
   "externalTrustLinks": [

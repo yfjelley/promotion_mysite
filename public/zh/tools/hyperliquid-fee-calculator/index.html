@@ -16,9 +16,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/zh/tools/hyperliquid-fee-calculator/">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-buyers-20260719">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719" defer></script>
+  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-buyers-20260719" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -231,7 +231,14 @@
 
     <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>正确理解 Hyperliquid 手续费</h2><div class="fee-faq-list"><details><summary>Hyperliquid VIP 等级如何计算？</summary><p>按滚动 14 天加权成交量计算：永续成交量 + 2 × 现货成交量。子账户成交量计入主账户并共享等级，Vault 单独计算。</p></details><details><summary>HYPE 质押折扣如何进入计算？</summary><p>本工具按所选官方质押等级降低正的 Maker/Taker 费率。质押关联具有控制权与不可解除等重要风险，是否适用应以账户 userFees 返回结果为准。</p></details><details><summary>Maker Rebate 是我的 Maker 订单占比吗？</summary><p>不是。官方门槛是用户占全平台 14 天加权 Maker 成交量的比例。只有从账户或官方接口确认等级后才应选择对应 Rebate。</p></details><details><summary>是否包含 HIP-3、资金费率和滑点？</summary><p>不包含。本工具只估算标准永续和普通现货执行费；HIP-3 deployer fee、growth mode、aligned quote、稳定币交易对缩放、builder fee、返佣、资金费率、价差、滑点和强平成本均未计入。</p></details><details><summary>为什么不要求连接钱包？</summary><p>首版使用公开官方费率表和手工参数，不读取地址、不请求签名，也不保存账户信息。实际账户费率应以官方 userFees 接口或 Hyperliquid 账户页面为准。</p></details></div></section>
 
-    <section class="fee-tool-cta"><div><p class="eyebrow">从费率到执行系统</p><h2>需要可靠的 Hyperliquid API 下单与对账？</h2><p>继续查看 cloid 幂等、WebSocket 恢复、持仓对账、权限边界和私有部署方案。</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">Hyperliquid API 开发</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">可靠性检查清单</a></div></section>
+    <section class="section fee-tool-cta buyer-tool-cta" aria-labelledby="buyer-tool-title">
+      <div><p class="eyebrow">已经有策略？</p><h2 id="buyer-tool-title">选择与你的项目最接近的实施路径</h2><p>无需先理解 API 技术细节。告诉我们你的信号来源、交易规则、风控边界和部署目标即可。</p></div>
+      <div class="buyer-tool-grid">
+        <a href="/tradingview-to-hyperliquid-automation/"><strong>我已有 TradingView 策略</strong><span>把 Alert 接入 Hyperliquid，并处理去重、风控和异常告警。</span><em>查看 TradingView 接入 →</em></a>
+        <a href="/hyperliquid-api-trading-bot-development/"><strong>我需要定制交易 Bot</strong><span>把已有规则工程化，交付源码、日志、暂停控制和私有部署。</span><em>查看定制 Bot →</em></a>
+        <a href="/hyperliquid-trading-system-for-teams/"><strong>我们是交易或产品团队</strong><span>建设多规则、权限、审计日志和团队操作流程。</span><em>查看团队方案 →</em></a>
+      </div>
+    </section>
   </main>
   <footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>

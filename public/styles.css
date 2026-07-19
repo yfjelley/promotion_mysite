@@ -4217,3 +4217,111 @@ h3 {
     grid-column: auto;
   }
 }
+
+/* Buyer-oriented Hyperliquid service paths */
+.buyer-outcome-section {
+  padding-top: 56px;
+  padding-bottom: 56px;
+  background: linear-gradient(180deg, #f7fbfa 0%, #ffffff 100%);
+}
+
+.buyer-outcome-grid,
+.buyer-path-grid,
+.buyer-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.buyer-outcome-grid article,
+.buyer-path-grid article,
+.buyer-tool-grid a {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(7, 17, 31, 0.06);
+}
+
+.buyer-outcome-grid article > span {
+  display: inline-flex;
+  margin-bottom: 22px;
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.buyer-outcome-grid h3,
+.buyer-path-grid h3,
+.buyer-tool-grid strong {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 19px;
+}
+
+.buyer-outcome-grid p,
+.buyer-path-grid p,
+.buyer-tool-grid span {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.buyer-path-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.buyer-path-grid a,
+.buyer-tool-grid em {
+  display: inline-flex;
+  margin-top: 18px;
+  color: var(--teal);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.buyer-tool-cta {
+  display: block;
+}
+
+.buyer-tool-cta > div:first-child {
+  max-width: 760px;
+  margin-bottom: 26px;
+}
+
+.buyer-tool-grid a {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.buyer-tool-grid a:hover,
+.buyer-tool-grid a:focus-visible {
+  border-color: #69cabc;
+  box-shadow: 0 18px 38px rgba(7, 139, 123, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 820px) {
+  .buyer-outcome-grid,
+  .buyer-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .buyer-path-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .buyer-outcome-grid article,
+  .buyer-path-grid article,
+  .buyer-tool-grid a {
+    padding: 20px;
+  }
+}

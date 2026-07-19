@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 
@@ -67,26 +67,58 @@ for (const [label, path, language, counterpart] of [
     "Maker Rebate",
     "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees",
     `href="${counterpart}"`,
-    "scope=hyperliquid-20260719"
+    "scope=hyperliquid-buyers-20260719",
+    "buyer-tool-grid",
+    "/tradingview-to-hyperliquid-automation/",
+    "/hyperliquid-trading-system-for-teams/"
   ].forEach((needle) => requireValue(html.includes(needle), `${label}: missing ${needle}`));
   requireValue(!html.includes('"@type": "Dataset"'), `${label}: must not claim a licensed Dataset`);
 }
 
-const serviceHtml = readRequired(join(publicDir, "hyperliquid-api-trading-bot-development", "index.html"), "service page");
-[
-  '<html lang="en">',
-  "Hyperliquid API Trading Bot Development",
-  "cloid",
-  "WebSocket",
-  "API/agent wallet",
-  "subaccount",
-  "Official References",
-  "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint",
-  "Service",
-  "FAQPage",
-  "/tools/hyperliquid-fee-calculator/",
-  "/articles/hyperliquid-api-order-reconciliation-websocket-checklist/"
-].forEach((needle) => requireValue(serviceHtml.includes(needle), `service page: missing ${needle}`));
+for (const [label, slug, needles] of [
+  ["custom bot service", "hyperliquid-api-trading-bot-development", [
+    "Turn Your Trading Rules Into a Reliable Hyperliquid Bot",
+    "You bring",
+    "We build",
+    "You keep",
+    "#project-paths",
+    "/tradingview-to-hyperliquid-automation/",
+    "/hyperliquid-trading-system-for-teams/"
+  ]],
+  ["TradingView service", "tradingview-to-hyperliquid-automation", [
+    "Automate Your TradingView Strategy on Hyperliquid",
+    "Pine Script alerts",
+    "Send your alert example",
+    "duplicate protection",
+    "/hyperliquid-api-trading-bot-development/"
+  ]],
+  ["team service", "hyperliquid-trading-system-for-teams", [
+    "A Hyperliquid Execution System Your Team Can Operate",
+    "Team workflow",
+    "operator controls",
+    "Discuss your team workflow",
+    "/tradingview-to-hyperliquid-automation/"
+  ]]
+]) {
+  const html = readRequired(join(publicDir, slug, "index.html"), label);
+  [
+    '<html lang="en">',
+    "Your Project, In Plain Language",
+    "scope=hyperliquid-buyers-20260719",
+    "https://pddjf.com/hyperliquid-bot-social.jpg",
+    "twitter:card",
+    "API/agent wallet",
+    "Official References",
+    "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint",
+    "Service",
+    "FAQPage",
+    ...needles
+  ].forEach((needle) => requireValue(html.includes(needle), `${label}: missing ${needle}`));
+}
+
+const socialImagePath = join(publicDir, "hyperliquid-bot-social.jpg");
+requireValue(existsSync(socialImagePath), "social card: missing image");
+if (existsSync(socialImagePath)) requireValue(statSync(socialImagePath).size > 50000, "social card: image is unexpectedly small");
 
 const articleHtml = readRequired(join(publicDir, "articles", "hyperliquid-api-order-reconciliation-websocket-checklist", "index.html"), "article page");
 [
@@ -103,6 +135,7 @@ const articleHtml = readRequired(join(publicDir, "articles", "hyperliquid-api-or
 ].forEach((needle) => requireValue(articleHtml.includes(needle), `article page: missing ${needle}`));
 
 const script = readRequired(join(publicDir, "scripts.js"), "tool script");
+const styles = readRequired(join(publicDir, "styles.css"), "site styles");
 [
   "function initHyperliquidFeeTool()",
   "hyperliquid_fee_tool_first_use",
@@ -110,6 +143,7 @@ const script = readRequired(join(publicDir, "scripts.js"), "tool script");
   "weightedVolume = inputs.perpVolume + inputs.spotVolume * 2",
   "initHyperliquidFeeTool();"
 ].forEach((needle) => requireValue(script.includes(needle), `tool script: missing ${needle}`));
+[".buyer-outcome-grid", ".buyer-path-grid", ".buyer-tool-grid"].forEach((needle) => requireValue(styles.includes(needle), `site styles: missing ${needle}`));
 
 const sitemap = readRequired(join(publicDir, "sitemap.xml"), "sitemap");
 const llms = readRequired(join(publicDir, "llms.txt"), "llms.txt");
@@ -118,16 +152,20 @@ for (const url of [
   "https://pddjf.com/tools/hyperliquid-fee-calculator/",
   "https://pddjf.com/zh/tools/hyperliquid-fee-calculator/",
   "https://pddjf.com/hyperliquid-api-trading-bot-development/",
+  "https://pddjf.com/tradingview-to-hyperliquid-automation/",
+  "https://pddjf.com/hyperliquid-trading-system-for-teams/",
   "https://pddjf.com/articles/hyperliquid-api-order-reconciliation-websocket-checklist/"
 ]) {
   requireValue(sitemap.includes(url), `sitemap: missing ${url}`);
   requireValue(llms.includes(url), `llms.txt: missing ${url}`);
 }
 requireValue(manifest.includes("/hyperliquid-api-trading-bot-development/"), "service manifest: missing Hyperliquid service route");
+requireValue(manifest.includes("/tradingview-to-hyperliquid-automation/"), "service manifest: missing TradingView to Hyperliquid route");
+requireValue(manifest.includes("/hyperliquid-trading-system-for-teams/"), "service manifest: missing team system route");
 
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));
   process.exit(1);
 }
 
-console.log("Hyperliquid page validation passed: 2 calculator languages, 1 service page, 1 technical article, 7 VIP tiers.");
+console.log("Hyperliquid page validation passed: 2 calculator languages, 3 buyer service pages, 1 technical article, 7 VIP tiers.");

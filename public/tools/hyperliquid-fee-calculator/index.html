@@ -16,9 +16,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/tools/hyperliquid-fee-calculator/">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719">
+  <link rel="stylesheet" href="/styles.css?v=20260717-positioning-proof-performance&scope=hyperliquid-buyers-20260719">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-20260719" defer></script>
+  <script src="/scripts.js?v=20260717-positioning-proof-performance&scope=hyperliquid-buyers-20260719" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -231,13 +231,22 @@
 
     <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>How to read Hyperliquid fees</h2><div class="fee-faq-list"><details><summary>How is the Hyperliquid VIP tier calculated?</summary><p>It uses rolling 14-day weighted volume: perp volume plus two times spot volume. Subaccount volume rolls into the master account and shares its tier, while vault volume is treated separately.</p></details><details><summary>How does HYPE staking affect the estimate?</summary><p>The calculator reduces positive maker and taker rates by the selected published staking discount. Staking linking has important control and permanence risks; confirm the actual result through the account userFees response.</p></details><details><summary>Is maker rebate based on my maker-order percentage?</summary><p>No. The published threshold is the user's share of platform-wide 14-day weighted maker volume. Select a rebate tier only when the account or official API confirms it.</p></details><details><summary>Does this include HIP-3, funding and slippage?</summary><p>No. It models standard perps and ordinary spot execution fees only. HIP-3 deployer fees, growth mode, aligned quote assets, stable-pair scaling, builder fees, referrals, funding, spread, slippage and liquidation costs are excluded.</p></details><details><summary>Why does the tool not connect a wallet?</summary><p>The first version uses the public official schedule and manual inputs. It does not read an address, request a signature or store account data. Confirm account-specific rates through Hyperliquid or the official userFees endpoint.</p></details></div></section>
 
-    <section class="fee-tool-cta"><div><p class="eyebrow">From fee model to execution system</p><h2>Need reliable Hyperliquid API execution and reconciliation?</h2><p>Continue with cloid idempotency, WebSocket recovery, position reconciliation, permission boundaries and private deployment.</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">Hyperliquid API development</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">Reliability checklist</a></div></section>
+    <section class="section fee-tool-cta buyer-tool-cta" aria-labelledby="buyer-tool-title">
+      <div><p class="eyebrow">Already have a strategy?</p><h2 id="buyer-tool-title">Choose the implementation path closest to your project</h2><p>You do not need to specify API internals first. Start with your signal source, trading rules, risk boundaries and deployment goal.</p></div>
+      <div class="buyer-tool-grid">
+        <a href="/tradingview-to-hyperliquid-automation/"><strong>I have TradingView alerts</strong><span>Connect existing alerts to Hyperliquid with duplicate protection, risk checks and failure alerts.</span><em>View TradingView path →</em></a>
+        <a href="/hyperliquid-api-trading-bot-development/"><strong>I need a custom trading bot</strong><span>Turn defined rules into an operable bot with source, logs, pause controls and private deployment.</span><em>View custom bot path →</em></a>
+        <a href="/hyperliquid-trading-system-for-teams/"><strong>We are a trading or product team</strong><span>Build shared execution, permissions, audit logs and operator workflows.</span><em>View team system path →</em></a>
+      </div>
+    </section>
   </main>
   <footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
-      <a href="/hyperliquid-api-trading-bot-development/">Hyperliquid API development</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
       <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
       <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
       <a href="/custom-trading-software-development/">Custom Trading Software Development</a>

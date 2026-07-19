@@ -7,6 +7,7 @@ const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-17";
 const hyperliquidCheckedDate = "2026-07-19";
+const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const llmsUpdatedAt = hyperliquidCheckedDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
@@ -794,18 +795,34 @@ const servicePages = [
   {
     slug: "hyperliquid-api-trading-bot-development",
     lang: "en",
-    breadcrumb: "Hyperliquid API Trading Bot Development",
-    eyebrow: "Hyperliquid API Engineering",
-    title: "Hyperliquid API Trading Bot Development | Orders, WebSocket and Risk Controls",
-    description: "Custom Hyperliquid API trading bot development for order routing, cloid idempotency, WebSocket recovery, subaccounts, vaults, risk controls, logs and private deployment.",
-    h1: "Hyperliquid API Trading Bot Development",
-    intro: "Turn customer-defined execution rules into a testable Hyperliquid workflow with signed orders, cloid-based idempotency, WebSocket recovery, position reconciliation, risk controls and customer-controlled deployment. We build execution infrastructure, not trading signals or return promises.",
-    serviceType: "Hyperliquid API trading bot development",
-    llmsLabel: "Hyperliquid API trading bot development",
+    breadcrumb: "Custom Hyperliquid Trading Bot",
+    eyebrow: "For Traders With Defined Rules",
+    title: "Custom Hyperliquid Trading Bot Development | Source Code and Private Deployment",
+    description: "Already have a trading strategy? Turn your rules into a custom Hyperliquid bot with reliable execution, risk controls, alerts, source code and deployment under your control.",
+    h1: "Turn Your Trading Rules Into a Reliable Hyperliquid Bot",
+    intro: "You provide the strategy, instruments and risk boundaries. We build the execution system that sends orders, prevents avoidable duplicates, monitors positions, alerts you when something is wrong and runs under your own infrastructure. No signal selling, custody or return promises.",
+    serviceType: "Custom Hyperliquid trading bot development",
+    llmsLabel: "Custom Hyperliquid trading bot development",
+    lastModified: hyperliquidCheckedDate,
+    ogImage: hyperliquidSocialImage,
+    heroPrimaryLabel: "Discuss your bot",
+    heroSecondaryLabel: "Choose a project path",
+    heroSecondaryHref: "#project-paths",
+    outcomesTitle: "Bring the trading logic; receive an operable system",
+    outcomesIntro: "This service is for strategy owners who need dependable implementation, not another generic bot template.",
+    customerOutcomes: [
+      ["You bring", "Defined signals or rules, instruments, sizing and risk limits."],
+      ["We build", "Execution, safeguards, monitoring, recovery and operator controls."],
+      ["You keep", "Source code, wallet control, configuration and private deployment."]
+    ],
+    projectPaths: [
+      ["TradingView signals", "Send existing TradingView alerts to Hyperliquid with validation, duplicate protection, risk checks and clear failure alerts.", "/tradingview-to-hyperliquid-automation/", "View TradingView path"],
+      ["Trading team system", "Build a controlled execution layer for multiple rules, accounts, operators or product workflows.", "/hyperliquid-trading-system-for-teams/", "View team path"]
+    ],
     fit: [
-      "You already have defined entry, exit, sizing, market-making, TWAP or portfolio execution rules.",
-      "You need reliable order, cancel, fill, position and account-state handling across REST/info queries and WebSocket streams.",
-      "You want source code, structured logs, risk controls and deployment under your own account and infrastructure."
+      "You already have entry, exit, sizing, market-making, TWAP or portfolio rules that can be written down.",
+      "You are losing time to manual execution, fragile scripts or unclear order and position state.",
+      "You want source code, risk controls, logs and deployment under your own account and infrastructure."
     ],
     notFit: [
       "You want a profit-guaranteed strategy, copy-trading promotion or an operator to control your funds.",
@@ -813,11 +830,11 @@ const servicePages = [
       "You expect an API wallet, vault or private deployment to remove market, protocol, liquidation or operational risk."
     ],
     deliverables: [
-      "Hyperliquid connector for signed order, cancel, open-order, fill, position and account-state workflows.",
-      "Cloid idempotency, nonce ownership, partial-fill handling, restart reconciliation and duplicate-order protection.",
-      "WebSocket subscriptions, disconnect detection, snapshot restore, missed-state backfill and operational alerts.",
-      "Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause risk controls.",
-      "Testnet acceptance scripts, source code, configuration examples, deployment runbook and remote handoff."
+      "A working flow from your signal or rule to Hyperliquid order execution and account-state tracking.",
+      "Duplicate-order protection, partial-fill handling, restart checks and position reconciliation.",
+      "Disconnect detection, recovery, structured logs and alerts that tell you when manual review is needed.",
+      "Position, leverage, reduce-only, price-deviation, rate-limit and manual-pause controls.",
+      "Testnet acceptance checks, source code, configuration examples, deployment runbook and remote handoff."
     ],
     process: [
       "Confirm wallet role, API/agent wallet boundaries, subaccount or vault scope, instruments and order types.",
@@ -840,9 +857,146 @@ const servicePages = [
       ["Does the service include a profitable strategy?", "No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns."]
     ],
     related: [
+      ["/tradingview-to-hyperliquid-automation/", "TradingView to Hyperliquid automation"],
+      ["/hyperliquid-trading-system-for-teams/", "Hyperliquid systems for trading teams"],
       ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
-      ["/articles/hyperliquid-api-order-reconciliation-websocket-checklist/", "Hyperliquid API reliability checklist"],
-      ["/risk-engine/", "Risk engine development"]
+      ["/articles/hyperliquid-api-order-reconciliation-websocket-checklist/", "Technical reliability checklist"]
+    ],
+    officialReferences: hyperliquidReferenceLinks
+  },
+  {
+    slug: "tradingview-to-hyperliquid-automation",
+    lang: "en",
+    breadcrumb: "TradingView to Hyperliquid Automation",
+    eyebrow: "For Existing TradingView Strategies",
+    title: "TradingView to Hyperliquid Automation | Turn Alerts Into Controlled Orders",
+    description: "Connect existing TradingView alerts to Hyperliquid with payload validation, duplicate protection, position limits, failure alerts, source code and private deployment.",
+    h1: "Automate Your TradingView Strategy on Hyperliquid",
+    intro: "Already have Pine Script alerts or a working TradingView strategy? We turn those alerts into a controlled Hyperliquid execution workflow so you do not have to maintain webhook servers, order logic and failure handling yourself.",
+    serviceType: "TradingView to Hyperliquid automation development",
+    llmsLabel: "TradingView to Hyperliquid automation",
+    lastModified: hyperliquidCheckedDate,
+    ogImage: hyperliquidSocialImage,
+    platformDetailSlug: "hyperliquid-api-trading-bot-development",
+    heroPrimaryLabel: "Send your alert example",
+    heroSecondaryLabel: "See what is included",
+    heroSecondaryHref: "#deliverables",
+    outcomesTitle: "From alert message to controlled execution",
+    outcomesIntro: "The project starts with an alert you already understand and ends with a workflow you can observe, pause and operate.",
+    customerOutcomes: [
+      ["You provide", "Pine Script alert text, instruments, position rules and expected actions."],
+      ["We connect", "Webhook validation, order routing, risk checks, state tracking and alerts."],
+      ["You operate", "A testable system with source code, logs, pause controls and deployment notes."]
+    ],
+    fit: [
+      "You already have Pine Script alerts or TradingView conditions that produce repeatable messages.",
+      "You want to remove manual order entry while retaining explicit sizing, loss and pause rules.",
+      "You need visible logs and alerts when a signal is rejected, delayed or cannot be executed."
+    ],
+    notFit: [
+      "You want us to invent or guarantee a profitable strategy.",
+      "Your alerts do not contain enough information to determine instrument, side, size or action.",
+      "You are unwilling to validate the workflow on testnet before considering limited live use."
+    ],
+    deliverables: [
+      "Webhook endpoint, shared-secret validation and a documented TradingView alert payload.",
+      "Signal normalization, duplicate protection, cooldown rules and stale-alert rejection.",
+      "Hyperliquid order, cancel and reduce-only execution with position and price checks.",
+      "Structured logs, failure alerts, manual pause and restart reconciliation.",
+      "Source code, configuration examples, testnet acceptance checklist and deployment handoff."
+    ],
+    process: [
+      "Review one real alert example, the expected order action and the conditions that should block execution.",
+      "Define payload fields, sizing, position limits, cooldowns, stale-signal handling and pause rules.",
+      "Build the webhook-to-order workflow with logs, alerts and duplicate protection.",
+      "Replay normal and failure cases on testnet before any separately approved limited rollout."
+    ],
+    limits: [
+      "TradingView alerts can arrive late, repeat or fail; the system reduces operational risk but cannot remove network or platform risk.",
+      "Hyperliquid market conditions, liquidity, funding and available order behavior remain outside the software's control.",
+      "The customer keeps wallet control; withdrawal permissions and main-wallet private keys are not required for the runtime.",
+      "Software delivery does not guarantee fills, strategy performance or profitability."
+    ],
+    faq: [
+      ["Do I need to share my TradingView account?", "Usually no. We need the alert format, variables and expected behavior, not ongoing access to your TradingView account."],
+      ["Can you use my existing Pine Script?", "Yes when it already produces defined alerts. Strategy research or rewriting the trading logic is scoped separately from execution automation."],
+      ["How do you avoid duplicate orders?", "The workflow validates a durable signal identifier, strategy, instrument, action and time window before it creates a new order intent."],
+      ["What happens when an alert cannot be executed?", "The system records the reason, sends an alert, and can fail closed instead of silently retrying an ambiguous action."],
+      ["Do you need my main wallet private key?", "No. The design uses the smallest suitable trading authorization while the customer retains main-wallet and withdrawal control."],
+      ["What should I send for an initial assessment?", "Send one masked alert example, the intended order, position-sizing rule, risk limits, instruments and preferred deployment environment."]
+    ],
+    related: [
+      ["/hyperliquid-api-trading-bot-development/", "Custom Hyperliquid trading bot"],
+      ["/hyperliquid-trading-system-for-teams/", "Hyperliquid systems for trading teams"],
+      ["/articles/how-we-prevent-duplicate-tradingview-webhook-orders/", "How duplicate webhook orders are prevented"]
+    ],
+    officialReferences: [officialReferenceLinks[0], ...hyperliquidReferenceLinks]
+  },
+  {
+    slug: "hyperliquid-trading-system-for-teams",
+    lang: "en",
+    breadcrumb: "Hyperliquid Systems for Trading Teams",
+    eyebrow: "For Trading and Product Teams",
+    title: "Hyperliquid Trading System Development for Teams | Risk, Operations and Private Deployment",
+    description: "Build a customer-controlled Hyperliquid execution system for trading or product teams with multiple rules, operator controls, risk limits, audit logs and private deployment.",
+    h1: "A Hyperliquid Execution System Your Team Can Operate",
+    intro: "Move beyond one-off scripts. We build a controlled execution layer for teams that need repeatable order workflows, clear permissions, shared monitoring, audit trails and a documented handoff under their own infrastructure.",
+    serviceType: "Hyperliquid execution system development for trading teams",
+    llmsLabel: "Hyperliquid execution systems for trading teams",
+    lastModified: hyperliquidCheckedDate,
+    ogImage: hyperliquidSocialImage,
+    platformDetailSlug: "hyperliquid-api-trading-bot-development",
+    heroPrimaryLabel: "Discuss your team workflow",
+    heroSecondaryLabel: "Review delivery packages",
+    heroSecondaryHref: "#deliverables",
+    outcomesTitle: "Replace fragile scripts with a reviewable operating system",
+    outcomesIntro: "The goal is not more automation for its own sake. It is controlled execution that operators can understand, pause and recover.",
+    customerOutcomes: [
+      ["Team workflow", "Document roles, accounts, strategies, approvals and exception ownership."],
+      ["Controlled execution", "Route orders through shared risk limits, state checks and operator controls."],
+      ["Operational handoff", "Deliver source, deployment, monitoring, audit logs and recovery procedures."]
+    ],
+    fit: [
+      "You operate multiple strategies, instruments, accounts, vaults or team roles that a single script no longer handles safely.",
+      "You need shared position limits, audit logs, alerts, dashboards or manual approval points.",
+      "You want the system deployed under company-controlled infrastructure with documented ownership and handoff."
+    ],
+    notFit: [
+      "You only need a generic downloadable bot or strategy signal subscription.",
+      "No one on the team owns risk limits, incidents, credentials or go-live decisions.",
+      "You expect automation to remove market, liquidation, protocol or operational risk."
+    ],
+    deliverables: [
+      "A scoped execution service for the agreed strategies, instruments, account roles and order types.",
+      "Shared position, leverage, price, rate, reduce-only and emergency-pause controls.",
+      "Order, fill, position and account-state reconciliation with exception queues and operator alerts.",
+      "Role-aware configuration, structured audit logs and optional review or approval points.",
+      "Source code, deployment files, monitoring notes, rollback procedure and team handoff."
+    ],
+    process: [
+      "Map strategies, account roles, operator decisions, risk ownership and current failure points.",
+      "Define the execution state machine, permission boundaries, alerts and acceptance scenarios.",
+      "Build the smallest operable system and test normal, reject, disconnect and restart paths.",
+      "Hand over deployment and operations before any separately approved staged production use."
+    ],
+    limits: [
+      "The system implements customer-approved rules; it does not supply investment advice or performance guarantees.",
+      "Team permissions and wallet roles depend on the official account model and the customer's current Hyperliquid setup.",
+      "Availability, fills, latency, funding, liquidation and protocol behavior remain third-party and market risks.",
+      "Ongoing monitoring, upgrades and incident response are separate from the initial delivery unless explicitly included."
+    ],
+    faq: [
+      ["Is this only for market-making teams?", "No. The same delivery model can support defined TWAP, portfolio, signal-execution, treasury or product workflows when the rules and acceptance criteria are clear."],
+      ["Can the system support subaccounts or vaults?", "Yes when the official account model and customer permissions support the workflow. Each account or vault remains a separate reconciliation and risk scope."],
+      ["Can operators approve orders manually?", "Yes. Approval points, pause controls and exception review can be included when fully automatic routing is not appropriate."],
+      ["Do you provide a dashboard?", "A focused operator dashboard can be included in the Execution System or Private Infrastructure scope when the team needs shared state and controls."],
+      ["Who controls the infrastructure and keys?", "The customer controls the hosting, main wallet and credential lifecycle. The runtime receives only the smallest permissions required for the agreed workflow."],
+      ["How is the project accepted?", "Acceptance is based on agreed workflows, controls, logs, failure recovery and handoff—not trading returns."]
+    ],
+    related: [
+      ["/hyperliquid-api-trading-bot-development/", "Custom Hyperliquid trading bot"],
+      ["/tradingview-to-hyperliquid-automation/", "TradingView to Hyperliquid automation"],
+      ["/articles/hyperliquid-api-order-reconciliation-websocket-checklist/", "Technical reliability checklist"]
     ],
     officialReferences: hyperliquidReferenceLinks
   }
@@ -1967,7 +2121,9 @@ const articlePages = [
     intro: "A successful order response is not a complete trading system. A production-minded Hyperliquid workflow must connect order intent, cloid, exchange status, fills, positions, WebSocket snapshots and query-based recovery so a restart or disconnect does not create duplicate or unexplained exposure.",
     summary: "Hyperliquid API reliability requires deterministic cloid values, one nonce owner, normalized order states, WebSocket snapshot recovery, info-endpoint backfill, position reconciliation, alerts and fail-closed restart rules.",
     related: [
-      ["Hyperliquid API trading bot development", "/hyperliquid-api-trading-bot-development/"],
+      ["Custom Hyperliquid trading bot development", "/hyperliquid-api-trading-bot-development/"],
+      ["TradingView to Hyperliquid automation", "/tradingview-to-hyperliquid-automation/"],
+      ["Hyperliquid systems for trading teams", "/hyperliquid-trading-system-for-teams/"],
       ["Hyperliquid fee calculator", "/tools/hyperliquid-fee-calculator/"],
       ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"]
     ],
@@ -2253,7 +2409,9 @@ const navLinksEn = [
 
 const footerServiceLinksEn = [
   ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
-  ["/hyperliquid-api-trading-bot-development/", "Hyperliquid API development"],
+  ["/hyperliquid-api-trading-bot-development/", "Custom Hyperliquid trading bot"],
+  ["/tradingview-to-hyperliquid-automation/", "TradingView to Hyperliquid"],
+  ["/hyperliquid-trading-system-for-teams/", "Hyperliquid systems for teams"],
   ["/tools/crypto-exchange-fee-calculator/", "Crypto exchange fee calculator"],
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
   ["/custom-trading-software-development/", "Custom Trading Software Development"],
@@ -2523,6 +2681,22 @@ function aiSummarySection(page) {
     </section>`;
 }
 
+function buyerOutcomeSection(page) {
+  if (!page.customerOutcomes) return "";
+  const english = isEnglish(page);
+  return `<section id="project-paths" class="section buyer-outcome-section" aria-labelledby="buyer-outcome-title">
+      <div class="section-head centered">
+        <p class="eyebrow">${english ? "Your Project, In Plain Language" : "用客户语言说明项目"}</p>
+        <h2 id="buyer-outcome-title">${escapeHtml(page.outcomesTitle)}</h2>
+        <p>${escapeHtml(page.outcomesIntro)}</p>
+      </div>
+      <div class="buyer-outcome-grid">
+        ${page.customerOutcomes.map(([label, value], index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(label)}</h3><p>${escapeHtml(value)}</p></article>`).join("")}
+      </div>
+${page.projectPaths ? `      <div class="buyer-path-grid">${page.projectPaths.map(([title, description, href, label]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(description)}</p><a href="${href}">${escapeHtml(label)} →</a></article>`).join("")}</div>` : ""}
+    </section>`;
+}
+
 function deliverableSamplesSection() {
   return `<section class="section deliverable-samples" aria-labelledby="deliverable-samples-title">
       <div class="section-head centered">
@@ -2662,6 +2836,7 @@ function servicePageHtml(page) {
   const url = canonical(page.slug);
   const english = isEnglish(page);
   const activeLabel = page.slug.startsWith("broker-api/") ? "券商 API" : "";
+  const pageStylesheetHref = page.customerOutcomes ? `${stylesheetHref}&scope=hyperliquid-buyers-20260719` : stylesheetHref;
   return `<!DOCTYPE html>
 <html lang="${page.lang || "zh-CN"}">
 <head>
@@ -2676,8 +2851,13 @@ function servicePageHtml(page) {
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
+${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${site}${page.ogImage}">` : ""}
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="${stylesheetHref}">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${scriptHref}" defer></script>
   ${jsonLd(serviceSchema(page))}
@@ -2692,8 +2872,8 @@ function servicePageHtml(page) {
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
       <div class="hero-actions">
-        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${english ? "Send project brief" : "提交项目 Brief"}</a>
-        <a class="button secondary" href="#deliverables">${english ? "View deliverables" : "查看交付内容"}</a>
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">${escapeHtml(page.heroPrimaryLabel || (english ? "Send project brief" : "提交项目 Brief"))}</a>
+        <a class="button secondary" href="${page.heroSecondaryHref || "#deliverables"}">${escapeHtml(page.heroSecondaryLabel || (english ? "View deliverables" : "查看交付内容"))}</a>
       </div>
       <nav class="mobile-quick-links" aria-label="${english ? "Mobile quick links" : "移动端快速入口"}">
         <a href="#fit">${english ? "Fit" : "适合谁"}</a>
@@ -2708,6 +2888,8 @@ function servicePageHtml(page) {
         <span>${english ? "No custody" : "不代管资金"}</span>
       </div>
     </section>
+
+${buyerOutcomeSection(page)}
 
     ${aiSummarySection(page)}
 
@@ -3366,8 +3548,8 @@ function hyperliquidFeeToolHtml(page) {
   const alternateUrl = canonical(page.counterpartSlug);
   const englishUrl = zh ? alternateUrl : url;
   const chineseUrl = zh ? url : alternateUrl;
-  const pageStylesheetHref = `${stylesheetHref}&scope=hyperliquid-20260719`;
-  const pageScriptHref = `${scriptHref}&scope=hyperliquid-20260719`;
+  const pageStylesheetHref = `${stylesheetHref}&scope=hyperliquid-buyers-20260719`;
+  const pageScriptHref = `${scriptHref}&scope=hyperliquid-buyers-20260719`;
   const formatRate = (value) => `${Number(value).toFixed(3)}%`;
   const formatVolume = (value) => value === 0 ? "—" : value >= 1000000000 ? `$${value / 1000000000}B` : `$${value / 1000000}M`;
   const tierRows = hyperliquidFeeData.vipTiers.map((tier) => `<tr><th scope="row">${tier.name}</th><td>${formatVolume(tier.minWeightedVolume)}</td><td>${formatRate(tier.perpMaker)} / ${formatRate(tier.perpTaker)}</td><td>${formatRate(tier.spotMaker)} / ${formatRate(tier.spotTaker)}</td></tr>`).join("");
@@ -3498,7 +3680,14 @@ function hyperliquidFeeToolHtml(page) {
 
     <section class="section fee-faq-section" id="faq"><p class="eyebrow">FAQ</p><h2>${zh ? "正确理解 Hyperliquid 手续费" : "How to read Hyperliquid fees"}</h2><div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div></section>
 
-    <section class="fee-tool-cta"><div><p class="eyebrow">${zh ? "从费率到执行系统" : "From fee model to execution system"}</p><h2>${zh ? "需要可靠的 Hyperliquid API 下单与对账？" : "Need reliable Hyperliquid API execution and reconciliation?"}</h2><p>${zh ? "继续查看 cloid 幂等、WebSocket 恢复、持仓对账、权限边界和私有部署方案。" : "Continue with cloid idempotency, WebSocket recovery, position reconciliation, permission boundaries and private deployment."}</p></div><div class="hero-actions"><a class="button primary" href="/hyperliquid-api-trading-bot-development/">${zh ? "Hyperliquid API 开发" : "Hyperliquid API development"}</a><a class="button secondary" href="/articles/hyperliquid-api-order-reconciliation-websocket-checklist/">${zh ? "可靠性检查清单" : "Reliability checklist"}</a></div></section>
+    <section class="section fee-tool-cta buyer-tool-cta" aria-labelledby="buyer-tool-title">
+      <div><p class="eyebrow">${zh ? "已经有策略？" : "Already have a strategy?"}</p><h2 id="buyer-tool-title">${zh ? "选择与你的项目最接近的实施路径" : "Choose the implementation path closest to your project"}</h2><p>${zh ? "无需先理解 API 技术细节。告诉我们你的信号来源、交易规则、风控边界和部署目标即可。" : "You do not need to specify API internals first. Start with your signal source, trading rules, risk boundaries and deployment goal."}</p></div>
+      <div class="buyer-tool-grid">
+        <a href="/tradingview-to-hyperliquid-automation/"><strong>${zh ? "我已有 TradingView 策略" : "I have TradingView alerts"}</strong><span>${zh ? "把 Alert 接入 Hyperliquid，并处理去重、风控和异常告警。" : "Connect existing alerts to Hyperliquid with duplicate protection, risk checks and failure alerts."}</span><em>${zh ? "查看 TradingView 接入 →" : "View TradingView path →"}</em></a>
+        <a href="/hyperliquid-api-trading-bot-development/"><strong>${zh ? "我需要定制交易 Bot" : "I need a custom trading bot"}</strong><span>${zh ? "把已有规则工程化，交付源码、日志、暂停控制和私有部署。" : "Turn defined rules into an operable bot with source, logs, pause controls and private deployment."}</span><em>${zh ? "查看定制 Bot →" : "View custom bot path →"}</em></a>
+        <a href="/hyperliquid-trading-system-for-teams/"><strong>${zh ? "我们是交易或产品团队" : "We are a trading or product team"}</strong><span>${zh ? "建设多规则、权限、审计日志和团队操作流程。" : "Build shared execution, permissions, audit logs and operator workflows."}</span><em>${zh ? "查看团队方案 →" : "View team system path →"}</em></a>
+      </div>
+    </section>
   </main>
   ${footer(page.lang)}
 </body>
@@ -3774,7 +3963,7 @@ const sitemapUrls = [
   ...exchangeFeeComparisonPages.map((page) => [routeForSlug(page.slug), "weekly", "0.85"]),
   ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],
-  ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8", page.slug.startsWith("hyperliquid-") ? hyperliquidCheckedDate : undefined]),
+  ...servicePages.map((page) => [routeForSlug(page.slug), "weekly", page.slug.startsWith("broker-api") ? "0.75" : "0.8", page.lastModified]),
   ["/faq/", "weekly", "0.75"],
   ["/case-studies/", "monthly", "0.7"],
   ["/articles/", "weekly", "0.75"],
