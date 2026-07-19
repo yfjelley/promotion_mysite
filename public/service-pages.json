@@ -18,6 +18,11 @@
     "/tradingview-to-hyperliquid-automation/",
     "/hyperliquid-trading-system-for-teams/"
   ],
+  "buyerIntentServiceRoutes": [
+    "/hyperliquid-api-trading-bot-development/",
+    "/tradingview-to-hyperliquid-automation/",
+    "/hyperliquid-trading-system-for-teams/"
+  ],
   "coreServiceUrls": [
     {
       "label": "Crypto Asset Reporting",

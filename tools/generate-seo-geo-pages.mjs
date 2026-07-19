@@ -805,6 +805,7 @@ const servicePages = [
     llmsLabel: "Custom Hyperliquid trading bot development",
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
+    buyerIntentVersion: 1,
     contactProject: "hyperliquid-api-trading-bot-development",
     heroPrimaryLabel: "Request a scoped estimate",
     heroSecondaryLabel: "Choose a project path",
@@ -888,6 +889,7 @@ const servicePages = [
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
+    buyerIntentVersion: 1,
     contactProject: "tradingview-to-hyperliquid-automation",
     heroPrimaryLabel: "Get an alert-integration estimate",
     heroSecondaryLabel: "See what is included",
@@ -966,6 +968,7 @@ const servicePages = [
     lastModified: hyperliquidCheckedDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
+    buyerIntentVersion: 1,
     contactProject: "hyperliquid-trading-system-for-teams",
     heroPrimaryLabel: "Request a team-system assessment",
     heroSecondaryLabel: "Review delivery packages",
@@ -1031,6 +1034,57 @@ const servicePages = [
     officialReferences: hyperliquidReferenceLinks
   }
 ];
+
+// Historical pages may be upgraded separately. Do not add new slugs here: every
+// new service page must pass the buyer-intent contract below before generation.
+const legacyBuyerIntentServiceSlugs = new Set([
+  "tradingview-webhook-automation",
+  "exchange-api-trading-bot-development",
+  "broker-api/ibkr",
+  "broker-api/schwab",
+  "broker-api/alpaca",
+  "fix-api-order-routing",
+  "custom-trading-software-development",
+  "tradingview-webhook-developer",
+  "ibkr-api-automation-developer",
+  "fix-api-order-routing-developer",
+  "risk-engine",
+  "private-deployment"
+]);
+
+function assertBuyerIntentContract(page) {
+  if (legacyBuyerIntentServiceSlugs.has(page.slug)) return;
+
+  const issues = [];
+  const snapshotLabels = Array.isArray(page.purchaseSnapshot)
+    ? page.purchaseSnapshot.map(([label]) => String(label)).join(" ")
+    : "";
+  const faqQuestions = Array.isArray(page.faq)
+    ? page.faq.map(([question]) => String(question)).join(" ")
+    : "";
+
+  if (page.buyerIntentVersion !== 1) issues.push("buyerIntentVersion: 1");
+  if (!page.contactProject) issues.push("contactProject");
+  if (!Array.isArray(page.purchaseSnapshot) || page.purchaseSnapshot.length < 4) {
+    issues.push("purchaseSnapshot with audience, budget, delivery and starting input");
+  }
+  if (!/(best fit|适合|客户)/i.test(snapshotLabels)) issues.push("buyer audience snapshot");
+  if (!/(budget|cost|price|预算|费用|价格)/i.test(snapshotLabels)) issues.push("budget snapshot");
+  if (!/(delivery|timeline|window|周期|交付|时间)/i.test(snapshotLabels)) issues.push("delivery snapshot");
+  if (!/(send|start|provide|资料|提供|开始)/i.test(snapshotLabels)) issues.push("starting-input snapshot");
+  if (!page.purchaseNote) issues.push("purchaseNote");
+  if (!page.outcomesTitle || !page.outcomesIntro || !Array.isArray(page.customerOutcomes) || page.customerOutcomes.length < 3) {
+    issues.push("customer problem and business outcomes");
+  }
+  if (!/(cost|price|budget|费用|价格|预算)/i.test(faqQuestions)) issues.push("buyer cost FAQ");
+  if (!/(how long|timeline|delivery|多久|周期|交付时间)/i.test(faqQuestions)) issues.push("buyer timeline FAQ");
+
+  if (issues.length > 0) {
+    throw new Error(`Service page ${page.slug} fails buyer-intent contract: ${issues.join(", ")}`);
+  }
+}
+
+servicePages.forEach(assertBuyerIntentContract);
 
 const faqPage = {
   slug: "faq",
@@ -2509,6 +2563,9 @@ function serviceManifest() {
     site,
     generatedAt: today,
     generatedServiceRoutes: servicePages.map((page) => routeForSlug(page.slug)),
+    buyerIntentServiceRoutes: servicePages
+      .filter((page) => page.buyerIntentVersion === 1)
+      .map((page) => routeForSlug(page.slug)),
     coreServiceUrls: [
       { label: "Crypto Asset Reporting", url: canonical(cryptoReportingPage.slug), summary: cryptoReportingPage.description },
       ...servicePages.slice(0, 2).map((page) => ({ label: page.llmsLabel, url: canonical(page.slug), summary: page.description })),

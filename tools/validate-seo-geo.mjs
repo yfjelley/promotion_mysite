@@ -47,17 +47,19 @@ function readServiceManifest() {
   const manifestPath = join(publicDir, "service-pages.json");
   if (!existsSync(manifestPath)) {
     errors.push("service-pages.json: missing generated service manifest");
-    return { generatedServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
+    return { generatedServiceRoutes: [], buyerIntentServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
   }
 
   try {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
     const generatedServiceRoutes = Array.isArray(manifest.generatedServiceRoutes) ? manifest.generatedServiceRoutes : [];
+    const buyerIntentServiceRoutes = Array.isArray(manifest.buyerIntentServiceRoutes) ? manifest.buyerIntentServiceRoutes : [];
     const coreServiceUrls = Array.isArray(manifest.coreServiceUrls) ? manifest.coreServiceUrls : [];
     const externalTrustLinks = Array.isArray(manifest.externalTrustLinks) ? manifest.externalTrustLinks : [];
     const articleUrls = Array.isArray(manifest.articleUrls) ? manifest.articleUrls : [];
 
     if (generatedServiceRoutes.length === 0) errors.push("service-pages.json: missing generatedServiceRoutes");
+    if (buyerIntentServiceRoutes.length === 0) errors.push("service-pages.json: missing buyerIntentServiceRoutes");
     if (coreServiceUrls.length === 0) errors.push("service-pages.json: missing coreServiceUrls");
 
     for (const route of generatedServiceRoutes) {
@@ -66,10 +68,10 @@ function readServiceManifest() {
       }
     }
 
-    return { generatedServiceRoutes, coreServiceUrls, externalTrustLinks, articleUrls };
+    return { generatedServiceRoutes, buyerIntentServiceRoutes, coreServiceUrls, externalTrustLinks, articleUrls };
   } catch (error) {
     errors.push(`service-pages.json: invalid JSON: ${error.message}`);
-    return { generatedServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
+    return { generatedServiceRoutes: [], buyerIntentServiceRoutes: [], coreServiceUrls: [], externalTrustLinks: [], articleUrls: [] };
   }
 }
 
@@ -80,12 +82,34 @@ const pddjfHtmlFiles = htmlFiles.filter((file) => {
 });
 const serviceManifest = readServiceManifest();
 const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
+const buyerIntentServiceRoutes = serviceManifest.buyerIntentServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 
 if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
   errors.push("service-pages.json: missing custom trading software development route");
+}
+
+const legacyBuyerIntentServiceRoutes = new Set([
+  "/tradingview-webhook-automation/",
+  "/exchange-api-trading-bot-development/",
+  "/broker-api/ibkr/",
+  "/broker-api/schwab/",
+  "/broker-api/alpaca/",
+  "/fix-api-order-routing/",
+  "/custom-trading-software-development/",
+  "/tradingview-webhook-developer/",
+  "/ibkr-api-automation-developer/",
+  "/fix-api-order-routing-developer/",
+  "/risk-engine/",
+  "/private-deployment/"
+]);
+
+for (const route of generatedServiceRoutes) {
+  if (!legacyBuyerIntentServiceRoutes.has(route) && !buyerIntentServiceRoutes.includes(route)) {
+    errors.push(`service-pages.json: new service route must pass buyer-intent contract: ${route}`);
+  }
 }
 
 if (existsSync(customTradingSoftwareFile)) {
@@ -153,6 +177,20 @@ for (const file of pddjfHtmlFiles) {
         ];
 
     requiredServiceNeedles.forEach((needle) => requireText(rel, html, needle));
+
+    if (buyerIntentServiceRoutes.includes(routeFor(file))) {
+      [
+        "buyer-snapshot-grid",
+        "buyer-outcome-grid",
+        "data-contact=\"buyer_snapshot_estimate\"",
+        "?project="
+      ].forEach((needle) => requireText(rel, html, needle));
+
+      const buyerCopyNeedles = isEnglishPage
+        ? ["Best fit", "Planning budget", "Send first"]
+        : ["适合", "预算", "资料"];
+      buyerCopyNeedles.forEach((needle) => requireText(rel, html, needle));
+    }
   }
 
   if (routeFor(file) === "/contact/") {
