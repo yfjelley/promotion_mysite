@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/contact/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="项目 Brief 交付包评估">
+  <meta property="og:title" content="先说清楚你想解决的问题">
   <meta property="og:description" content="提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/contact/">
@@ -57,7 +57,7 @@
       "@type": "ContactPage",
       "@id": "https://pddjf.com/contact/#webpage",
       "url": "https://pddjf.com/contact/",
-      "name": "项目 Brief 交付包评估",
+      "name": "先说清楚你想解决的问题",
       "description": "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
@@ -116,14 +116,14 @@
       <span>项目 Brief</span>
     </nav>
       <p class="eyebrow">Project Brief</p>
-      <h1>项目 Brief 交付包评估</h1>
-      <p class="hero-lede">请把信号来源、API 平台、权限状态、交易规则、风控边界、部署要求和预算档位整理成一个 Brief。资料越具体，越容易判断先做数字产品、API 可行性评估，还是进入定制工程交付包。</p>
+      <h1>先说清楚你想解决的问题</h1>
+      <p class="hero-lede">第一次联系只需要选择项目类型、说明目前最想解决的业务或执行问题，并留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><div class="answer-grid contact-brief-grid">
       <article>
         <h3>结构化 Brief 表单</h3>
-        <p>先用表单整理项目类型、信号来源、API 权限、风控边界、部署环境、预算档位和联系方式。网站确认收到后，才会计入咨询转化。</p>
+        <p>首次联系只需填写项目类型、想解决的问题和联系方式。其他资料可以选填，范围确认后再补充。</p>
         <form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit">
       <label class="form-trap" aria-hidden="true">请勿填写此字段
         <input name="website" tabindex="-1" autocomplete="off">
@@ -144,13 +144,13 @@
           </select>
         </label>
         <label>信号来源
-          <input name="signalSource" data-brief-label="Signal source" required placeholder="TradingView Alert / 研究脚本 / 人工确认">
+          <input name="signalSource" data-brief-label="Signal source" placeholder="TradingView Alert / 研究脚本 / 人工确认（选填）">
         </label>
         <label>API 平台和权限状态
-          <input name="apiPlatform" data-brief-label="API platform" required placeholder="IBKR / Alpaca / FIX / 交易所 API">
+          <input name="apiPlatform" data-brief-label="API platform" placeholder="IBKR / Alpaca / FIX / 交易所 API（选填）">
         </label>
         <label>权限状态
-          <select name="permissionStatus" data-brief-label="Permission status" required>
+          <select name="permissionStatus" data-brief-label="Permission status">
             <option value="">请选择</option>
             <option>已有测试环境或 paper 权限</option>
             <option>已有读取权限，交易权限待确认</option>
@@ -159,7 +159,7 @@
           </select>
         </label>
         <label>预算档位
-          <select name="budget" data-brief-label="Budget range" required>
+          <select name="budget" data-brief-label="Budget range">
             <option value="">请选择</option>
             <option>API Starter Package - 2000 美金起</option>
             <option>Execution System Package - 5000 美金起</option>
@@ -168,7 +168,7 @@
           </select>
         </label>
         <label>部署环境
-          <select name="deploymentTarget" data-brief-label="Deployment target" required>
+          <select name="deploymentTarget" data-brief-label="Deployment target">
             <option value="">请选择</option>
             <option>客户 VPS / Docker</option>
             <option>客户本地服务器</option>
@@ -177,14 +177,14 @@
           </select>
         </label>
         <label>期望时间线
-          <input name="timeline" data-brief-label="Timeline" required placeholder="例如 2 周内评估 / 4-8 周上线">
+          <input name="timeline" data-brief-label="Timeline" placeholder="例如 2 周内评估 / 4-8 周上线（选填）">
         </label>
         <label>联系方式
           <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
         </label>
       </div>
-      <label>风控边界
-        <textarea name="riskBoundary" data-brief-label="Risk boundary" required placeholder="最大仓位、单笔风险、只减仓、暂停开关、价格偏离、告警和人工确认边界。"></textarea>
+      <label>想解决的业务或执行问题
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：TradingView 信号仍需手工下单、现有机器人会重复下单，或缺少仓位限制和暂停开关。"></textarea>
       </label>
       <label>补充说明
         <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>

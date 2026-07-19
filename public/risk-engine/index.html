@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>自动交易风控引擎开发 | 仓位限制、价格保护、权限与审计</title>
-  <meta name="description" content="自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。">
+  <title>自动交易风控系统 | 仓位限制、价格保护与人工暂停</title>
+  <meta name="description" content="为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/risk-engine/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="自动交易风控引擎开发">
-  <meta property="og:description" content="自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。">
+  <meta property="og:title" content="为现有自动交易流程补上可执行的风控边界">
+  <meta property="og:description" content="为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/risk-engine/">
 
@@ -58,8 +58,8 @@
       "@type": "WebPage",
       "@id": "https://pddjf.com/risk-engine/#webpage",
       "url": "https://pddjf.com/risk-engine/",
-      "name": "自动交易风控引擎开发",
-      "description": "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。",
+      "name": "为现有自动交易流程补上可执行的风控边界",
+      "description": "为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -89,9 +89,9 @@
     {
       "@type": "Service",
       "@id": "https://pddjf.com/risk-engine/#service",
-      "name": "自动交易风控引擎开发",
-      "description": "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。",
-      "serviceType": "Automated trading risk engine development",
+      "name": "为现有自动交易流程补上可执行的风控边界",
+      "description": "为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。",
+      "serviceType": "自动交易风控系统",
       "provider": {
         "@id": "https://pddjf.com/#organization"
       },
@@ -202,18 +202,18 @@
       <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
     </nav>
   </header>
-  <main id="main-content">
+  <main id="main-content" data-buyer-intent="v1">
     <section class="content-hero">
       <nav class="breadcrumb" aria-label="面包屑">
       <a href="/">首页</a>
       <span aria-hidden="true">/</span>
       <span>交易风控引擎</span>
     </nav>
-      <p class="eyebrow">Risk Engine</p>
-      <h1>自动交易风控引擎开发</h1>
-      <p class="hero-lede">自动交易系统的核心不是更激进地下单，而是在每次执行前确认规则、权限、仓位、价格和异常状态。风控引擎让执行流程有边界、有记录、可回放。</p>
+      <p class="eyebrow">适合已有自动执行流程的交易团队</p>
+      <h1>为现有自动交易流程补上可执行的风控边界</h1>
+      <p class="hero-lede">适合已经有自动下单或半自动执行流程，但担心超仓、异常价格、重复订单、接口故障或缺少人工暂停能力的交易团队。我们把客户定义的风险边界变成每次下单前可执行、可记录的检查。</p>
       <div class="hero-actions">
-        <a class="button primary" href="/contact/" data-contact="content_hero_contact">提交项目 Brief</a>
+        <a class="button primary" href="/contact/" data-contact="content_hero_contact">讨论你的风控边界</a>
         <a class="button secondary" href="#deliverables">查看交付内容</a>
       </div>
       <nav class="mobile-quick-links" aria-label="移动端快速入口">
@@ -230,7 +230,16 @@
       </div>
     </section>
 
-
+<section class="section buyer-intent-summary" aria-labelledby="buyer-intent-summary-title">
+      <div class="section-head centered">
+        <p class="eyebrow">客户匹配</p>
+        <h2 id="buyer-intent-summary-title">适合谁，解决什么问题</h2>
+      </div>
+      <div class="answer-grid">
+        <article><h3>精准客户</h3><p>已经运行自动下单、半自动执行或多策略流程，需要统一风险边界和审计记录的交易团队。</p></article>
+        <article><h3>业务问题</h3><p>在订单提交前阻止超仓、异常价格、重复频率和错误状态，并让拒绝原因、暂停与恢复过程可以追踪。</p></article>
+      </div>
+    </section>
 
 
 
@@ -241,7 +250,7 @@
         <p>用项目评估语言快速说明服务对象、交付物、交付包和不做事项。</p>
       </div>
       <div class="summary-list">
-        <div><strong>是什么</strong><span>SignalCraft Labs 提供 Automated trading risk engine development，把客户已有规则工程化为可测试、可审计的执行系统。</span></div><div><strong>服务对象</strong><span>已有自动下单或半自动交易流程，需要补前置风控。 需要最大仓位、单笔风险、只减仓、限频和异常价格保护。 希望所有信号、拒绝原因、订单和告警都有日志。</span></div><div><strong>交付物</strong><span>前置风控规则，配置文件、拒单原因和审计日志。 仓位与敞口限制，覆盖最大仓位、敞口、价格偏离、交易时段、订单频率和冷却限制。 异常状态熔断，覆盖告警通知、手动暂停和恢复流程。 接口集成，接入 Webhook、交易所 API、券商 API 或 FIX 路由。</span></div><div><strong>不做什么</strong><span>不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。</span></div><div><strong>交付包</strong><span>API Starter、Execution System、Private Infrastructure 三档，按接口数量、风控复杂度、后台和部署范围评估。</span></div><div><strong>联系方式</strong><span>contact@pddjf.com / 微信 btc1688 / Telegram @yf16881</span></div>
+        <div><strong>是什么</strong><span>SignalCraft Labs 提供 自动交易风控系统，把客户已有规则工程化为可测试、可审计的执行系统。</span></div><div><strong>服务对象</strong><span>已有自动下单或半自动交易流程，需要补前置风控。 需要最大仓位、单笔风险、只减仓、限频和异常价格保护。 希望所有信号、拒绝原因、订单和告警都有日志。</span></div><div><strong>交付物</strong><span>前置风控规则，配置文件、拒单原因和审计日志。 仓位与敞口限制，覆盖最大仓位、敞口、价格偏离、交易时段、订单频率和冷却限制。 异常状态熔断，覆盖告警通知、手动暂停和恢复流程。 接口集成，接入 Webhook、交易所 API、券商 API 或 FIX 路由。</span></div><div><strong>不做什么</strong><span>不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。</span></div><div><strong>交付包</strong><span>API Starter、Execution System、Private Infrastructure 三档，按接口数量、风控复杂度、后台和部署范围评估。</span></div><div><strong>联系方式</strong><span>contact@pddjf.com / 微信 btc1688 / Telegram @yf16881</span></div>
       </div>
     </section>
 

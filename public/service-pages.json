@@ -19,10 +19,13 @@
     "/hyperliquid-trading-system-for-teams/"
   ],
   "buyerIntentServiceRoutes": [
+    "/tradingview-webhook-automation/",
+    "/exchange-api-trading-bot-development/",
     "/custom-trading-software-development/",
     "/tradingview-webhook-developer/",
     "/ibkr-api-automation-developer/",
     "/fix-api-order-routing-developer/",
+    "/risk-engine/",
     "/hyperliquid-api-trading-bot-development/",
     "/tradingview-to-hyperliquid-automation/",
     "/hyperliquid-trading-system-for-teams/"
@@ -34,14 +37,14 @@
       "summary": "为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。"
     },
     {
-      "label": "TradingView Webhook automation",
+      "label": "TradingView Alert 自动执行服务",
       "url": "https://pddjf.com/tradingview-webhook-automation/",
-      "summary": "已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。"
+      "summary": "已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。"
     },
     {
-      "label": "Exchange API trading bot development",
+      "label": "交易所 API 自动执行服务",
       "url": "https://pddjf.com/exchange-api-trading-bot-development/",
-      "summary": "交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。"
+      "summary": "把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。"
     },
     {
       "label": "Broker API automation",
@@ -89,9 +92,9 @@
       "summary": "Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support."
     },
     {
-      "label": "Trading risk engine development",
+      "label": "自动交易风控系统服务",
       "url": "https://pddjf.com/risk-engine/",
-      "summary": "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。"
+      "summary": "为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。"
     },
     {
       "label": "Private deployment",

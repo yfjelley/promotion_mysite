@@ -87,6 +87,9 @@ const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 const buyerPositioningExpectations = new Map([
+  ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],
+  ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
+  ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
   ["/custom-trading-software-development/", "Build Trading Software Around Your Existing Workflow"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
   ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
@@ -98,13 +101,10 @@ if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
 }
 
 const legacyBuyerIntentServiceRoutes = new Set([
-  "/tradingview-webhook-automation/",
-  "/exchange-api-trading-bot-development/",
   "/broker-api/ibkr/",
   "/broker-api/schwab/",
   "/broker-api/alpaca/",
   "/fix-api-order-routing/",
-  "/risk-engine/",
   "/private-deployment/"
 ]);
 
@@ -209,13 +209,24 @@ for (const file of pddjfHtmlFiles) {
       "data-brief-label=\"Project type\"",
       "Custom trading software development",
       "data-brief-label=\"Permission status\"",
-      "data-brief-label=\"Risk boundary\"",
+      "data-brief-label=\"Business or execution problem\"",
       "data-brief-label=\"Deployment target\"",
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
       currentScriptHref,
       "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
+
+    const briefFormHtml = html.match(/<form class="brief-form"[\s\S]*?<\/form>/i)?.[0] ?? "";
+    const requiredFieldCount = (briefFormHtml.match(/\srequired(?:\s|>)/g) ?? []).length;
+    if (requiredFieldCount !== 3) {
+      errors.push(`${rel}: first-contact form must have exactly 3 required fields, found ${requiredFieldCount}`);
+    }
+    ["projectType", "riskBoundary", "contactMethod"].forEach((name) => {
+      if (!new RegExp(`name="${name}"[^>]*\\srequired(?:\\s|>)`).test(briefFormHtml)) {
+        errors.push(`${rel}: ${name} must remain required`);
+      }
+    });
   }
 
   for (const [, attr, href] of html.matchAll(/\s(href|src)="([^"]+)"/g)) {
@@ -300,7 +311,7 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
   `Last updated: ${contentDate}`,
-  "TradingView Webhook automation",
+  "TradingView Alert 自动执行服务",
   "Custom Trading Software for Teams",
   "IBKR API automation",
   "AI-citable factual summary",

@@ -12,7 +12,7 @@ const controls = [
   ["projectType", "Project type", "Broker API automation"],
   ["budget", "Budget range", "还在评估"],
   ["permissionStatus", "Permission status", "Read and trade access available"],
-  ["riskBoundary", "Risk boundary", "Manual pause and maximum order size are required"],
+  ["riskBoundary", "Business or execution problem", "TradingView alerts still require manual order entry"],
   ["deploymentTarget", "Deployment target", "Customer cloud"],
   ["contactMethod", "Preferred contact method", "buyer@example.com"]
 ].map(([name, label, value]) => ({

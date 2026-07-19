@@ -176,13 +176,18 @@ const servicePages = [
   {
     slug: "tradingview-webhook-automation",
     breadcrumb: "TradingView Webhook 自动化",
-    eyebrow: "TradingView Webhook Automation",
-    title: "TradingView Webhook 自动交易开发 | 防重复下单、风控与私有部署",
-    description: "已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。",
-    h1: "TradingView Webhook 自动交易开发",
-    intro: "把 TradingView Alert / Pine Script 信号变成可测试、可追踪、可灰度上线的自动执行系统。重点不是卖策略，而是把你已经定义好的信号、仓位、风控和异常处理工程化。",
-    serviceType: "TradingView Webhook automation development",
-    llmsLabel: "TradingView Webhook automation",
+    eyebrow: "适合已有 TradingView Alert 的交易者",
+    title: "TradingView Alert 自动执行服务 | Webhook 接入交易所或券商",
+    description: "已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。",
+    h1: "把 TradingView Alert 变成可控的自动下单流程",
+    intro: "适合已经有 Pine Script 或 Alert 规则，但仍在手工下单，或正在依赖不稳定 Webhook 脚本的交易者和团队。我们围绕你的现有信号建立可测试、可暂停、可追踪的执行流程。",
+    serviceType: "TradingView Alert 自动执行服务",
+    llmsLabel: "TradingView Alert 自动执行服务",
+    buyerIntentVersion: 1,
+    buyerAudience: "已经有 Pine Script、Alert 条件和明确仓位规则，希望减少手工下单的交易者或小型交易团队。",
+    buyerProblem: "把现有 TradingView 信号可靠接入交易所或券商，并处理重复信号、风控拒绝、执行失败和人工暂停。",
+    heroPrimaryLabel: "讨论你的 Alert 流程",
+    heroSecondaryLabel: "查看交付内容",
     fit: [
       "已经有 Pine Script、Alert 条件或明确的信号文案。",
       "需要把信号接入交易所 API、券商 API 或内部订单系统。",
@@ -226,13 +231,18 @@ const servicePages = [
   {
     slug: "exchange-api-trading-bot-development",
     breadcrumb: "交易所 API 自动化",
-    eyebrow: "Exchange API Automation",
-    title: "交易所 API 自动交易系统开发 | 订单路由、风控与私有化部署",
-    description: "交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。",
-    h1: "交易所 API 自动交易系统开发",
-    intro: "围绕你已有的交易规则，构建可监控、可审计、可私有部署的交易所 API 执行系统。适合需要把 Webhook、策略信号或组合规则接入自动下单流程的客户。",
-    serviceType: "Exchange API trading automation development",
-    llmsLabel: "Exchange API trading bot development",
+    eyebrow: "适合已有交易规则的策略负责人",
+    title: "交易所 API 自动执行系统 | 订单、风控与私有部署",
+    description: "把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。",
+    h1: "把已有交易规则接入交易所自动执行",
+    intro: "适合已经有明确规则，但仍需手工下单、维护零散脚本或无法完整追踪订单状态的策略负责人和交易团队。我们把现有规则接入可监控、可审计、可私有部署的执行流程。",
+    serviceType: "交易所 API 自动执行系统",
+    llmsLabel: "交易所 API 自动执行服务",
+    buyerIntentVersion: 1,
+    buyerAudience: "已经有明确 DCA、Grid、趋势、套利或组合规则，需要稳定执行和自有部署的策略负责人及交易团队。",
+    buyerProblem: "替代重复手工下单和零散脚本，把订单状态、仓位限制、异常重试、日志告警与源码交付放进一个可维护流程。",
+    heroPrimaryLabel: "讨论你的交易规则",
+    heroSecondaryLabel: "查看交付内容",
     fit: [
       "已经有明确的 DCA、Grid、趋势、套利或组合执行规则。",
       "需要处理订单状态、失败重试、仓位上限和多品种配置。",
@@ -715,13 +725,18 @@ const servicePages = [
   {
     slug: "risk-engine",
     breadcrumb: "交易风控引擎",
-    eyebrow: "Risk Engine",
-    title: "自动交易风控引擎开发 | 仓位限制、价格保护、权限与审计",
-    description: "自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。",
-    h1: "自动交易风控引擎开发",
-    intro: "自动交易系统的核心不是更激进地下单，而是在每次执行前确认规则、权限、仓位、价格和异常状态。风控引擎让执行流程有边界、有记录、可回放。",
-    serviceType: "Automated trading risk engine development",
-    llmsLabel: "Trading risk engine development",
+    eyebrow: "适合已有自动执行流程的交易团队",
+    title: "自动交易风控系统 | 仓位限制、价格保护与人工暂停",
+    description: "为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。",
+    h1: "为现有自动交易流程补上可执行的风控边界",
+    intro: "适合已经有自动下单或半自动执行流程，但担心超仓、异常价格、重复订单、接口故障或缺少人工暂停能力的交易团队。我们把客户定义的风险边界变成每次下单前可执行、可记录的检查。",
+    serviceType: "自动交易风控系统",
+    llmsLabel: "自动交易风控系统服务",
+    buyerIntentVersion: 1,
+    buyerAudience: "已经运行自动下单、半自动执行或多策略流程，需要统一风险边界和审计记录的交易团队。",
+    buyerProblem: "在订单提交前阻止超仓、异常价格、重复频率和错误状态，并让拒绝原因、暂停与恢复过程可以追踪。",
+    heroPrimaryLabel: "讨论你的风控边界",
+    heroSecondaryLabel: "查看交付内容",
     fit: [
       "已有自动下单或半自动交易流程，需要补前置风控。",
       "需要最大仓位、单笔风险、只减仓、限频和异常价格保护。",
@@ -1064,13 +1079,10 @@ const servicePages = [
 // Historical pages may be upgraded separately. Do not add new slugs here: every
 // new service page must pass the buyer-intent contract below before generation.
 const legacyBuyerIntentServiceSlugs = new Set([
-  "tradingview-webhook-automation",
-  "exchange-api-trading-bot-development",
   "broker-api/ibkr",
   "broker-api/schwab",
   "broker-api/alpaca",
   "fix-api-order-routing",
-  "risk-engine",
   "private-deployment"
 ]);
 
@@ -2282,8 +2294,8 @@ const contactPage = {
   eyebrow: "Project Brief",
   title: "提交项目 Brief | SignalCraft Labs 交付包评估",
   description: "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
-  h1: "项目 Brief 交付包评估",
-  intro: "请把信号来源、API 平台、权限状态、交易规则、风控边界、部署要求和预算档位整理成一个 Brief。资料越具体，越容易判断先做数字产品、API 可行性评估，还是进入定制工程交付包。",
+  h1: "先说清楚你想解决的问题",
+  intro: "第一次联系只需要选择项目类型、说明目前最想解决的业务或执行问题，并留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交。",
   checklist: [
     "信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。",
     "接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。",
@@ -3339,13 +3351,13 @@ function leadBriefForm() {
           </select>
         </label>
         <label>信号来源
-          <input name="signalSource" data-brief-label="Signal source" required placeholder="TradingView Alert / 研究脚本 / 人工确认">
+          <input name="signalSource" data-brief-label="Signal source" placeholder="TradingView Alert / 研究脚本 / 人工确认（选填）">
         </label>
         <label>API 平台和权限状态
-          <input name="apiPlatform" data-brief-label="API platform" required placeholder="IBKR / Alpaca / FIX / 交易所 API">
+          <input name="apiPlatform" data-brief-label="API platform" placeholder="IBKR / Alpaca / FIX / 交易所 API（选填）">
         </label>
         <label>权限状态
-          <select name="permissionStatus" data-brief-label="Permission status" required>
+          <select name="permissionStatus" data-brief-label="Permission status">
             <option value="">请选择</option>
             <option>已有测试环境或 paper 权限</option>
             <option>已有读取权限，交易权限待确认</option>
@@ -3354,7 +3366,7 @@ function leadBriefForm() {
           </select>
         </label>
         <label>预算档位
-          <select name="budget" data-brief-label="Budget range" required>
+          <select name="budget" data-brief-label="Budget range">
             <option value="">请选择</option>
             <option>API Starter Package - 2000 美金起</option>
             <option>Execution System Package - 5000 美金起</option>
@@ -3363,7 +3375,7 @@ function leadBriefForm() {
           </select>
         </label>
         <label>部署环境
-          <select name="deploymentTarget" data-brief-label="Deployment target" required>
+          <select name="deploymentTarget" data-brief-label="Deployment target">
             <option value="">请选择</option>
             <option>客户 VPS / Docker</option>
             <option>客户本地服务器</option>
@@ -3372,14 +3384,14 @@ function leadBriefForm() {
           </select>
         </label>
         <label>期望时间线
-          <input name="timeline" data-brief-label="Timeline" required placeholder="例如 2 周内评估 / 4-8 周上线">
+          <input name="timeline" data-brief-label="Timeline" placeholder="例如 2 周内评估 / 4-8 周上线（选填）">
         </label>
         <label>联系方式
           <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
         </label>
       </div>
-      <label>风控边界
-        <textarea name="riskBoundary" data-brief-label="Risk boundary" required placeholder="最大仓位、单笔风险、只减仓、暂停开关、价格偏离、告警和人工确认边界。"></textarea>
+      <label>想解决的业务或执行问题
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：TradingView 信号仍需手工下单、现有机器人会重复下单，或缺少仓位限制和暂停开关。"></textarea>
       </label>
       <label>补充说明
         <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
@@ -3397,7 +3409,7 @@ function contactHtml(page) {
   const body = `<div class="answer-grid contact-brief-grid">
       <article>
         <h3>结构化 Brief 表单</h3>
-        <p>先用表单整理项目类型、信号来源、API 权限、风控边界、部署环境、预算档位和联系方式。网站确认收到后，才会计入咨询转化。</p>
+        <p>首次联系只需填写项目类型、想解决的问题和联系方式。其他资料可以选填，范围确认后再补充。</p>
         ${leadBriefForm()}
       </article>
       <article>

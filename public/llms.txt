@@ -7,8 +7,8 @@ Last updated: 2026-07-19
 ## Core services
 
 - Crypto Asset Reporting: https://pddjf.com/crypto-asset-reporting/ — 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- TradingView Webhook automation: https://pddjf.com/tradingview-webhook-automation/ — 已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。
-- Exchange API trading bot development: https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
+- TradingView Alert 自动执行服务: https://pddjf.com/tradingview-webhook-automation/ — 已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。
+- 交易所 API 自动执行服务: https://pddjf.com/exchange-api-trading-bot-development/ — 把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。
 - Broker API automation: https://pddjf.com/broker/api/ — Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - IBKR API automation: https://pddjf.com/broker-api/ibkr/ — IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。
 - Schwab API automation: https://pddjf.com/broker-api/schwab/ — Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
@@ -18,7 +18,7 @@ Last updated: 2026-07-19
 - TradingView Alert Automation Service: https://pddjf.com/tradingview-webhook-developer/ — Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
 - IBKR Trading Automation Service: https://pddjf.com/ibkr-api-automation-developer/ — Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
 - FIX Order Routing System Development: https://pddjf.com/fix-api-order-routing-developer/ — Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
-- Trading risk engine development: https://pddjf.com/risk-engine/ — 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
+- 自动交易风控系统服务: https://pddjf.com/risk-engine/ — 为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 - Custom Hyperliquid trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
 - TradingView to Hyperliquid automation: https://pddjf.com/tradingview-to-hyperliquid-automation/ — Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
@@ -99,8 +99,8 @@ Last updated: 2026-07-19
 ## Page summaries
 
 - https://pddjf.com/crypto-asset-reporting/ — Crypto Asset Reporting: 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook automation: 已有 TradingView Alert 或 Pine Script？将 Webhook 接入交易所或券商 API，包含签名校验、防重复下单、仓位风控、日志告警、源码与私有部署。不卖策略，不承诺收益。
-- https://pddjf.com/exchange-api-trading-bot-development/ — Exchange API trading bot development: 交易所 API 自动交易系统开发，覆盖订单路由、DCA/Grid 执行、仓位控制、异常重试、日志告警和源码交付。
+- https://pddjf.com/tradingview-webhook-automation/ — TradingView Alert 自动执行服务: 已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。
+- https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动执行服务: 把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。
 - https://pddjf.com/broker/api/ — Broker API automation: Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - https://pddjf.com/broker-api/ibkr/ — IBKR API automation: IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。
 - https://pddjf.com/broker-api/schwab/ — Schwab API automation: Schwab API 自动化系统开发，覆盖账户授权、订单流程、组合数据、风控限制、日志审计和私有化部署。
@@ -110,7 +110,7 @@ Last updated: 2026-07-19
 - https://pddjf.com/tradingview-webhook-developer/ — TradingView Alert Automation Service: Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
 - https://pddjf.com/ibkr-api-automation-developer/ — IBKR Trading Automation Service: Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
 - https://pddjf.com/fix-api-order-routing-developer/ — FIX Order Routing System Development: Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
-- https://pddjf.com/risk-engine/ — Trading risk engine development: 自动交易风控引擎开发，覆盖仓位限制、价格保护、只减仓、限频、权限控制、异常告警和审计日志。
+- https://pddjf.com/risk-engine/ — 自动交易风控系统服务: 为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
 - https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid trading bot development: Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
 - https://pddjf.com/tradingview-to-hyperliquid-automation/ — TradingView to Hyperliquid automation: Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
