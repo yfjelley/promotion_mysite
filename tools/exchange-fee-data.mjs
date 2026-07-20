@@ -45,13 +45,13 @@ export const exchangeFeeData = {
           label: "Bybit VIP fee rates",
           url: "https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program",
           updatedDate: "2026-06-03",
-          checkedDate: "2026-07-15"
+          checkedDate: "2026-07-20"
         },
         {
           label: "Bybit VIP qualification thresholds",
           url: "https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc",
           updatedDate: "2026-05-26",
-          checkedDate: "2026-07-15"
+          checkedDate: "2026-07-20"
         }
       ],
       tiers: [

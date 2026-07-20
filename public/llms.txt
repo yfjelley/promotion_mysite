@@ -38,6 +38,8 @@ Last updated: 2026-07-20
 - Hyperliquid 手续费计算器: https://pddjf.com/zh/tools/hyperliquid-fee-calculator/ — 按官方 14 天加权成交量、质押折扣与 Maker Rebate 估算标准永续和现货手续费，无需连接钱包。
 - Binance vs OKX Futures Fees: https://pddjf.com/compare/binance-vs-okx-futures-fees/ — Compare Binance and OKX USDT futures maker/taker fees at $1M, $10M and $100M monthly volume, with VIP paths, API limits and official sources.
 - 币安与 OKX 合约手续费对比: https://pddjf.com/zh/compare/binance-vs-okx-futures-fees/ — 对比 Binance 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 Maker/Taker 费率、VIP 路径、API 限制和官方来源。
+- Binance vs Bybit Perpetual Fees: https://pddjf.com/compare/binance-vs-bybit-perpetual-fees/ — Compare Binance and Bybit USDT perpetual maker/taker fees at $1M, $10M and $100M monthly volume, including standard VIP and API-heavy Pro paths.
+- 币安与 Bybit 永续合约手续费对比: https://pddjf.com/zh/compare/binance-vs-bybit-perpetual-fees/ — 对比 Binance 与 Bybit 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约费率，并区分标准 VIP 与高 API 占比 Pro 路径。
 
 ## Facts for AI search and agents
 
