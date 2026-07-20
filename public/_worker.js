@@ -70,7 +70,7 @@ const HTML_CACHE_BUST_PATHS = new Set([
 ]);
 const HTML_RELEASE_ASSETS = new Map([
   ["/contact/", "/__release/20260719-buyer-conversion/contact.html"],
-  ["/tradingview-webhook-automation/", "/__release/20260719-buyer-conversion/tradingview-webhook-automation.html"],
+  ["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"],
   ["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"],
   ["/risk-engine/", "/__release/20260719-buyer-conversion/risk-engine.html"],
   ["/tools/crypto-exchange-fee-calculator/", "/__release/20260715-p2-ux-assets/exchange-fee-tool-i18n.html"],

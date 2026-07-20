@@ -18,6 +18,7 @@ const scriptHref = "/scripts.js?v=20260720-risk-audit";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
+const tradingViewPainReleaseAssetDir = join(publicDir, "__release", "20260720-tradingview-pain");
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -4688,3 +4689,7 @@ writePublicFile(join(buyerReleaseAssetDir, "contact.html"), readFileSync(pagePat
 for (const slug of ["tradingview-webhook-automation", "exchange-api-trading-bot-development", "risk-engine"]) {
   writePublicFile(join(buyerReleaseAssetDir, `${slug}.html`), readFileSync(pagePath(slug), "utf8"));
 }
+writePublicFile(
+  join(tradingViewPainReleaseAssetDir, "tradingview-webhook-automation.html"),
+  readFileSync(pagePath("tradingview-webhook-automation"), "utf8")
+);
