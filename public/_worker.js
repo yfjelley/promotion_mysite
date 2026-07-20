@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260720-risk-audit";
+const ASSET_RELEASE = "20260720-hotspot-pain";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
