@@ -287,7 +287,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260719-buyer-conversion"',
+  'const ASSET_RELEASE = "20260720-favicon-fallback"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260719-buyer-conversion/tradingview-webhook-automation.html"]',
   '["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"]',

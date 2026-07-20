@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260719-buyer-conversion";
+const ASSET_RELEASE = "20260720-favicon-fallback";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -63,7 +63,6 @@ const HTML_CACHE_BUST_PATHS = new Set([
   "/articles/fix-api-certificate-network-allowlist-checklist/"
 ]);
 const HTML_RELEASE_ASSETS = new Map([
-  ["/", "/__release/20260715-p2-ux-assets/home.html"],
   ["/contact/", "/__release/20260719-buyer-conversion/contact.html"],
   ["/tradingview-webhook-automation/", "/__release/20260719-buyer-conversion/tradingview-webhook-automation.html"],
   ["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"],
