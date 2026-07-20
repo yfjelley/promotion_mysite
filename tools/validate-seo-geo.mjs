@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
@@ -85,6 +85,17 @@ const generatedServiceRoutes = serviceManifest.generatedServiceRoutes;
 const buyerIntentServiceRoutes = serviceManifest.buyerIntentServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
+const requiredIconLinks = [
+  '<link rel="icon" href="/favicon.ico" sizes="any">',
+  '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
+  '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+  '<link rel="manifest" href="/site.webmanifest">'
+];
+const requiredIconTextAssets = new Map([
+  ["favicon.svg", "<svg"],
+  ["site.webmanifest", '"icons"']
+]);
+const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png"];
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],
@@ -121,6 +132,24 @@ if (existsSync(customTradingSoftwareFile)) {
   }
 }
 
+for (const [asset, needle] of requiredIconTextAssets) {
+  const assetPath = join(publicDir, asset);
+  if (!existsSync(assetPath)) {
+    errors.push(`${asset}: missing site icon asset`);
+  } else {
+    requireText(asset, readFileSync(assetPath, "utf8"), needle);
+  }
+}
+
+for (const asset of requiredIconBinaryAssets) {
+  const assetPath = join(publicDir, asset);
+  if (!existsSync(assetPath)) {
+    errors.push(`${asset}: missing site icon asset`);
+  } else if (statSync(assetPath).size < 100) {
+    errors.push(`${asset}: site icon asset is unexpectedly small`);
+  }
+}
+
 for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
   const rel = relative(root, file);
@@ -141,6 +170,9 @@ for (const file of pddjfHtmlFiles) {
     if (canonical && !canonical.startsWith(site)) errors.push(`${rel}: canonical not pddjf: ${canonical}`);
     if (!ogUrl) errors.push(`${rel}: missing og:url`);
     if (ogUrl && !ogUrl.startsWith(site)) errors.push(`${rel}: og:url not pddjf: ${ogUrl}`);
+    for (const iconLink of requiredIconLinks) {
+      requireText(rel, html, iconLink);
+    }
   }
 
   const ldBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];

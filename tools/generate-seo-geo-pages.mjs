@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { deflateSync } from "node:zlib";
 import { exchangeFeeData } from "./exchange-fee-data.mjs";
 import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 
@@ -2599,6 +2600,150 @@ function writePublicFile(path, content) {
   writeFileSync(path, `${content.trim()}\n`, "utf8");
 }
 
+function writePublicBinary(path, content) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content);
+}
+
+function faviconLinks() {
+  return `<link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">`;
+}
+
+function crc32(buffer) {
+  const table = crc32.table ??= Array.from({ length: 256 }, (_, index) => {
+    let value = index;
+    for (let bit = 0; bit < 8; bit += 1) {
+      value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+    }
+    return value >>> 0;
+  });
+
+  let checksum = 0xffffffff;
+  for (const byte of buffer) {
+    checksum = table[(checksum ^ byte) & 0xff] ^ (checksum >>> 8);
+  }
+  return (checksum ^ 0xffffffff) >>> 0;
+}
+
+function pngChunk(type, data = Buffer.alloc(0)) {
+  const typeBuffer = Buffer.from(type, "ascii");
+  const lengthBuffer = Buffer.alloc(4);
+  const crcBuffer = Buffer.alloc(4);
+  lengthBuffer.writeUInt32BE(data.length, 0);
+  crcBuffer.writeUInt32BE(crc32(Buffer.concat([typeBuffer, data])), 0);
+  return Buffer.concat([lengthBuffer, typeBuffer, data, crcBuffer]);
+}
+
+function drawRoundedRect(image, size, x, y, width, height, radius, rgba) {
+  const minX = Math.max(0, Math.floor(x));
+  const minY = Math.max(0, Math.floor(y));
+  const maxX = Math.min(size, Math.ceil(x + width));
+  const maxY = Math.min(size, Math.ceil(y + height));
+  const innerRight = x + width - radius;
+  const innerBottom = y + height - radius;
+
+  for (let pixelY = minY; pixelY < maxY; pixelY += 1) {
+    for (let pixelX = minX; pixelX < maxX; pixelX += 1) {
+      const centerX = pixelX + 0.5;
+      const centerY = pixelY + 0.5;
+      const cornerX = centerX < x + radius ? x + radius : centerX > innerRight ? innerRight : centerX;
+      const cornerY = centerY < y + radius ? y + radius : centerY > innerBottom ? innerBottom : centerY;
+      const distanceX = centerX - cornerX;
+      const distanceY = centerY - cornerY;
+
+      if (distanceX * distanceX + distanceY * distanceY <= radius * radius) {
+        const offset = pixelY * (size * 4 + 1) + 1 + pixelX * 4;
+        image[offset] = rgba[0];
+        image[offset + 1] = rgba[1];
+        image[offset + 2] = rgba[2];
+        image[offset + 3] = rgba[3];
+      }
+    }
+  }
+}
+
+function signalCraftIconPng(size) {
+  const image = Buffer.alloc((size * 4 + 1) * size);
+  for (let y = 0; y < size; y += 1) image[y * (size * 4 + 1)] = 0;
+
+  const background = [7, 139, 123, 255];
+  const foreground = [255, 255, 255, 255];
+  const radius = Math.round(size * 0.19);
+  const x = Math.round(size * 0.24);
+  const y = Math.round(size * 0.22);
+  const width = Math.round(size * 0.52);
+  const stroke = Math.max(4, Math.round(size * 0.12));
+  const middleY = Math.round(size * 0.44);
+  const bottomY = Math.round(size * 0.70);
+  const verticalHeight = middleY - y + stroke;
+  const barRadius = Math.max(2, Math.round(stroke * 0.35));
+
+  drawRoundedRect(image, size, 0, 0, size, size, radius, background);
+  drawRoundedRect(image, size, x, y, width, stroke, barRadius, foreground);
+  drawRoundedRect(image, size, x, y, stroke, verticalHeight, barRadius, foreground);
+  drawRoundedRect(image, size, x, middleY, width, stroke, barRadius, foreground);
+  drawRoundedRect(image, size, x + width - stroke, middleY, stroke, bottomY - middleY + stroke, barRadius, foreground);
+  drawRoundedRect(image, size, x, bottomY, width, stroke, barRadius, foreground);
+
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(size, 0);
+  ihdr.writeUInt32BE(size, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 6;
+  ihdr[10] = 0;
+  ihdr[11] = 0;
+  ihdr[12] = 0;
+
+  return Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    pngChunk("IHDR", ihdr),
+    pngChunk("IDAT", deflateSync(image)),
+    pngChunk("IEND")
+  ]);
+}
+
+function faviconIco() {
+  const png = signalCraftIconPng(48);
+  const header = Buffer.alloc(22);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(1, 4);
+  header[6] = 48;
+  header[7] = 48;
+  header[8] = 0;
+  header[9] = 0;
+  header.writeUInt16LE(1, 10);
+  header.writeUInt16LE(32, 12);
+  header.writeUInt32LE(png.length, 14);
+  header.writeUInt32LE(header.length, 18);
+  return Buffer.concat([header, png]);
+}
+
+function writeSiteIconAssets() {
+  writePublicBinary(join(publicDir, "favicon-48.png"), signalCraftIconPng(48));
+  writePublicBinary(join(publicDir, "favicon-192.png"), signalCraftIconPng(192));
+  writePublicBinary(join(publicDir, "apple-touch-icon.png"), signalCraftIconPng(180));
+  writePublicBinary(join(publicDir, "favicon.ico"), faviconIco());
+  writePublicFile(join(publicDir, "site.webmanifest"), JSON.stringify({
+    name: "SignalCraft Labs",
+    short_name: "SignalCraft",
+    start_url: "/",
+    scope: "/",
+    display: "minimal-ui",
+    background_color: "#07111f",
+    theme_color: "#078b7b",
+    icons: [
+      { src: "/favicon.svg", sizes: "64x64", type: "image/svg+xml", purpose: "any" },
+      { src: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { src: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+    ]
+  }, null, 2));
+}
+
 function header(activeLabel = "", language = "zh-CN") {
   const english = isEnglish(language);
   const links = english ? navLinksEn : navLinks;
@@ -2989,7 +3134,7 @@ function servicePageHtml(page) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="${url}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
@@ -3589,7 +3734,7 @@ function exchangeFeeToolHtml(page) {
   <link rel="alternate" hreflang="en" href="${englishUrl}">
   <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
   <link rel="alternate" hreflang="x-default" href="${englishUrl}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
@@ -3759,7 +3904,7 @@ function hyperliquidFeeToolHtml(page) {
   <link rel="alternate" hreflang="en" href="${englishUrl}">
   <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
   <link rel="alternate" hreflang="x-default" href="${englishUrl}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
@@ -3942,7 +4087,7 @@ function exchangeFeeComparisonHtml(page) {
   <link rel="alternate" hreflang="en" href="${englishUrl}">
   <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
   <link rel="alternate" hreflang="x-default" href="${englishUrl}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
@@ -4052,7 +4197,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="${url}">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:type" content="website">
@@ -4081,6 +4226,8 @@ ${cta}
 </body>
 </html>`;
 }
+
+writeSiteIconAssets();
 
 for (const page of servicePages) {
   writePublicFile(pagePath(page.slug), servicePageHtml(page));
