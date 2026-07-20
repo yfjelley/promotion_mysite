@@ -90,7 +90,7 @@ const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
   ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
-  ["/custom-trading-software-development/", "Build Trading Software Around Your Existing Workflow"],
+  ["/custom-trading-software-development/", "Custom Trading Software and Platform Development for Teams"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
   ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
   ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"]
@@ -319,7 +319,7 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "SignalCraft Labs",
   `Last updated: ${contentDate}`,
   "TradingView Alert 自动执行服务",
-  "Custom Trading Software for Teams",
+  "Custom Trading Software & Platform Development",
   "IBKR API automation",
   "AI-citable factual summary",
   "Page summaries",
