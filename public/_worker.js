@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260720-favicon-fallback";
+const ASSET_RELEASE = "20260720-risk-audit";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -58,6 +58,12 @@ const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidat
 const HTML_CACHE_BUST_PATHS = new Set([
   "/",
   "/contact/",
+  "/trading-system-consistency-audit/",
+  "/trading-system-incident-diagnosis/",
+  "/multi-account-trading-monitoring/",
+  "/trading-system-consistency-audit-service/",
+  "/trading-system-incident-diagnosis-service/",
+  "/multi-account-trading-monitoring-service/",
   "/articles/alpaca-order-status-reconciliation/",
   "/articles/schwab-api-token-refresh-runbook/",
   "/articles/fix-api-certificate-network-allowlist-checklist/"

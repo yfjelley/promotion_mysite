@@ -287,7 +287,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260720-favicon-fallback"',
+  'const ASSET_RELEASE = "20260720-risk-audit"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260719-buyer-conversion/tradingview-webhook-automation.html"]',
   '["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"]',
@@ -295,7 +295,7 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
-  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/"',
+  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
 
