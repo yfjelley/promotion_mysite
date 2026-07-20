@@ -7,13 +7,14 @@ import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-17";
+const auditContentDate = "2026-07-20";
 const hyperliquidCheckedDate = "2026-07-19";
 const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
-const llmsUpdatedAt = hyperliquidCheckedDate;
+const llmsUpdatedAt = auditContentDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
-const scriptHref = "/scripts.js?v=20260719-hyperliquid-buyer-intent";
+const scriptHref = "/scripts.js?v=20260720-risk-audit";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
@@ -114,6 +115,52 @@ const acceptanceRowsEn = [
   ["Handoff docs", "Deployment, restart, rollback, key rotation and common incident notes are delivered."]
 ];
 
+const auditInputRows = [
+  ["事故或差异窗口", "明确日期、时区、账户、策略、品种，以及最先发现异常的时间点。"],
+  ["系统侧证据", "脱敏的策略版本、部署记录、应用日志、数据库 / Redis / 任务状态。"],
+  ["交易所侧证据", "订单、成交、持仓、余额和资金流水导出；首次评估可先提供样例。"],
+  ["预期行为", "系统原本应该做什么、实际发生了什么，以及团队已经尝试过哪些处理。"],
+  ["责任边界", "联系人、可用时间、数据保留情况，以及是否需要后续整改或监控。"]
+];
+
+const auditInputRowsEn = [
+  ["Incident or discrepancy window", "Date, timezone, account, strategy, instruments and the first known abnormal event."],
+  ["System evidence", "Masked strategy version, deployment record, application logs, database / Redis / job state."],
+  ["Venue evidence", "Order, fill, position, balance and transfer exports; samples are enough for the first scope check."],
+  ["Expected behavior", "What the system should have done, what actually happened and what the team already tried."],
+  ["Ownership", "Technical contact, available review window, data retention and whether remediation or monitoring may follow."]
+];
+
+const auditPermissionRows = [
+  ["脱敏样例", "首次评估优先", "先判断证据是否足够，不要求初次沟通即开放生产访问。"],
+  ["只读 API", "按审计范围", "用于复核余额、持仓、订单和成交；建议限制 IP、账户和有效期。"],
+  ["日志 / 数据库读取", "按证据需要", "优先使用导出或临时只读账户，不接管服务器主权限。"],
+  ["交易、提现、划转", "不需要", "审计和诊断不需要下单、提现、划转或资金托管权限。"]
+];
+
+const auditPermissionRowsEn = [
+  ["Masked samples", "Preferred for scoping", "Establish evidence sufficiency before any production access is considered."],
+  ["Read-only API", "Scope-based", "Used for balances, positions, orders and fills; IP, account and time limits are recommended."],
+  ["Log / database read", "Evidence-based", "Prefer exports or temporary read-only users; server admin control stays with the customer."],
+  ["Trade, withdrawal, transfer", "Not needed", "Audit and diagnosis require no order, withdrawal, transfer or custody authority."]
+];
+
+const auditAcceptanceRows = [
+  ["范围冻结", "账户、策略、交易场所、时间窗口和已知数据缺口写入范围说明。"],
+  ["证据可复现", "关键结论能回指订单 ID、成交 ID、日志时间、部署版本或账户快照。"],
+  ["差异有归属", "每个关键差异标注系统侧、平台侧、操作侧或证据不足，并给出置信度。"],
+  ["整改可执行", "问题按 P0 / P1 / P2 排序，列出修复动作、验证方法、负责人和回滚点。"],
+  ["边界已确认", "未覆盖账户、历史缺口、第三方限制和后续值守责任均有书面说明。"]
+];
+
+const auditAcceptanceRowsEn = [
+  ["Scope frozen", "Accounts, strategies, venues, time window and known data gaps are recorded."],
+  ["Evidence reproducible", "Key findings trace back to order IDs, fill IDs, timestamps, deployed versions or account snapshots."],
+  ["Discrepancies classified", "Each material gap is assigned to system, venue, operator or insufficient evidence with confidence noted."],
+  ["Remediation actionable", "P0 / P1 / P2 actions include validation method, owner and rollback point."],
+  ["Boundaries confirmed", "Excluded accounts, historical gaps, third-party limits and response obligations are documented."]
+];
+
 const brokerComparisonRows = [
   ["IBKR / TWS Gateway", "多资产账户、组合执行、持仓同步和审计日志。", "TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。", "连接稳定性、数据权限、地区限制和账户风控以客户账户为准。"],
   ["Schwab API", "美股账户授权、组合数据、订单监控和规则执行。", "OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。", "API 权限、审核流程、地区可用性和平台政策可能变化。"],
@@ -173,6 +220,274 @@ const platformDetailRowsEn = {
     ["Streaming and recovery", "Subscribe to the required WebSocket channels, detect disconnects, restore snapshots and backfill missed state through the info endpoint.", "A forced disconnect demonstrates reconnect, snapshot handling, missed-event recovery, alerting and no duplicate order submission."]
   ]
 };
+
+const auditOffersZh = [
+  { name: "7天只读一致性审计", price: "2000", label: "USD 2,000 起", description: "一个交易场所、一个策略或执行链路、一个事故或差异窗口；资料齐备后 7 个工作日交付。", featured: true },
+  { name: "生产事故诊断", price: "2000", label: "USD 2,000 起", description: "围绕已知事故还原时间线、验证根因、列出整改和回归测试；复杂事故先确认范围。" },
+  { name: "持续监控基线", label: "审计后报价", description: "先完成事实基线，再按账户、交易场所、检查频率、告警渠道和响应边界报价。" }
+];
+
+const auditOffersEn = [
+  { name: "7-Day Read-Only Consistency Audit", price: "2000", label: "From USD 2,000", description: "One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.", featured: true },
+  { name: "Production Incident Diagnosis", price: "2000", label: "From USD 2,000", description: "Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first." },
+  { name: "Ongoing Monitoring Baseline", label: "Quoted after audit", description: "Establish account truth first, then scope checks, venues, frequency, alert routing and response obligations." }
+];
+
+const auditCommonZh = {
+  lang: "zh-CN",
+  auditService: true,
+  buyerIntentVersion: 1,
+  lastModified: auditContentDate,
+  factStrip: ["只读权限", "不需要下单或提现", "结论回指证据", "不承诺收益"],
+  offerCatalogName: "交易系统审计、诊断与监控服务",
+  serviceOffers: auditOffersZh,
+  packagesTitle: "先买一个边界清楚的审计，再决定是否整改",
+  packagesIntro: "首次合作固定一个交易场所、一个执行链路和一个时间窗口。监控与代码整改在证据确认后单独报价。",
+  processTitle: "从范围冻结到证据交付",
+  deliverablesTitle: "能直接用于复盘和整改的交付物",
+  deliverablesIntro: "不是一张模糊评分表，而是能回指日志、订单、成交、版本和账户快照的证据链。",
+  prepare: ["一个明确的事故或账实差异时间窗口", "脱敏日志、订单 / 成交 / 持仓导出和部署版本", "系统预期行为与实际结果的简短说明", "负责技术、交易和风控确认的联系人"],
+  limits: [
+    "服务不提供投资建议、策略信号、收益承诺、代客交易、资金托管或提现权限管理。",
+    "结论受日志保留、时钟一致性、交易所历史接口和客户数据完整度限制；证据不足会明确标注未知。",
+    "默认不是 7×24 人工值守或紧急响应服务；服务时段、响应级别和升级路径需要另行书面约定。",
+    "仅服务于在其运营地依法开展业务的组织，不支持面向受禁止市场开展的虚拟资产交易业务。"
+  ],
+  summaryFacts: [
+    ["是什么", "对策略意图与部署版本、数据库 / Redis / 任务状态、交易所订单与成交、真实账户持仓与余额做交叉核对。"],
+    ["适合谁", "香港、新加坡及亚洲的中小型量化团队、资管工作室和多账户交易团队。"],
+    ["首期范围", "一个交易场所、一个策略或执行链路、一个事故或差异窗口。"],
+    ["权限边界", "优先使用脱敏导出和临时只读访问；不需要下单、提现、划转或资金托管权限。"],
+    ["交付", "事故时间线、差异矩阵、根因与置信度、P0 / P1 / P2 整改清单和监控基线。"],
+    ["联系方式", `${contact.email} / 微信 ${contact.wechat} / Telegram ${contact.telegram}`]
+  ],
+  caseProofs: [
+    ["订单状态漂移", "内部显示已撤单，但交易所仍有活动订单；按 client order ID、exchange order ID 和时间戳还原状态转换。"],
+    ["重启后重复执行", "任务状态、Redis 锁和最近成交没有完成恢复，导致系统把旧意图再次路由。"],
+    ["多账户风险边界失真", "子账户持仓、挂单和余额聚合口径不一致，使总敞口或可用资金判断失真。"]
+  ],
+  ctaTitle: "先发一个脱敏事故样本，判断 7 天审计是否能闭环",
+  ctaIntro: "不需要先开放生产权限。请提供时间窗口、一个异常样例、系统日志片段和交易所导出样例；资料完整时通常 1 个工作日内回复是否适配。",
+  ctaItems: ["事故日期、时区和影响账户", "一个订单 / 成交 / 持仓差异样例", "部署版本和相关日志片段", "希望得到的结论与整改边界"]
+};
+
+const auditCommonEn = {
+  lang: "en",
+  auditService: true,
+  buyerIntentVersion: 1,
+  lastModified: auditContentDate,
+  factStrip: ["Read-only access", "No trade or withdrawal rights", "Evidence-linked findings", "No return promises"],
+  offerCatalogName: "Trading system audit, diagnosis and monitoring services",
+  serviceOffers: auditOffersEn,
+  packagesTitle: "Start with a bounded audit before committing to remediation",
+  packagesIntro: "The first engagement fixes one venue, one execution chain and one evidence window. Monitoring and code remediation are scoped after the facts are established.",
+  processTitle: "From frozen scope to evidence-backed handoff",
+  deliverablesTitle: "Outputs your team can use for remediation",
+  deliverablesIntro: "Not a vague risk score: each material finding links back to logs, orders, fills, deployed versions or account snapshots.",
+  prepare: ["One defined incident or discrepancy window", "Masked logs, order / fill / position exports and deployed version", "A short statement of expected versus observed behavior", "Technical, trading and risk contacts who can confirm facts"],
+  limits: [
+    "The service does not provide investment advice, signals, return guarantees, managed trading, custody or withdrawal management.",
+    "Findings depend on log retention, clock consistency, venue history endpoints and customer data completeness; unsupported conclusions are marked unknown.",
+    "This is not 24/7 human incident response by default; service hours, response levels and escalation paths require a separate written scope.",
+    "We serve organizations operating lawfully in their jurisdictions and do not support virtual-asset services directed at prohibited markets."
+  ],
+  summaryFacts: [
+    ["What it is", "Cross-check strategy intent and deployed version, database / Redis / job state, venue orders and fills, and real account positions and balances."],
+    ["Who it fits", "Small and mid-sized quant funds, asset-management studios and multi-account trading teams in Hong Kong, Singapore and Asia."],
+    ["Initial scope", "One venue, one strategy or execution chain, and one incident or discrepancy window."],
+    ["Access boundary", "Prefer masked exports and temporary read-only access; no trade, withdrawal, transfer or custody authority."],
+    ["Outputs", "Incident timeline, discrepancy matrix, root cause with confidence, P0 / P1 / P2 actions and monitoring baseline."],
+    ["Contact", `${contact.email} / WeChat ${contact.wechat} / Telegram ${contact.telegram}`]
+  ],
+  caseProofs: [
+    ["Order-state drift", "Internal state says cancelled while a live venue order remains; reconstruct transitions through client IDs, venue IDs and timestamps."],
+    ["Duplicate execution after restart", "Job state, Redis locks and recent fills fail to recover, allowing an old intent to route again."],
+    ["Multi-account limit distortion", "Subaccount position, open-order and balance aggregation disagree, corrupting exposure or available-funds checks."]
+  ],
+  ctaTitle: "Send one masked incident sample to test whether a seven-day audit can close the loop",
+  ctaIntro: "No production credentials are needed for the first review. Share the time window, one anomaly, a log excerpt and a venue-export sample; a complete brief usually receives an initial fit reply within one business day.",
+  ctaItems: ["Incident date, timezone and affected accounts", "One order / fill / position discrepancy", "Deployed version and related log excerpt", "Required findings and remediation boundary"]
+};
+
+const auditServicePages = [
+  {
+    ...auditCommonZh,
+    slug: "trading-system-consistency-audit",
+    counterpartSlug: "trading-system-consistency-audit-service",
+    breadcrumb: "交易系统一致性审计",
+    eyebrow: "7天 · 只读 · 单系统范围",
+    title: "交易系统一致性审计 | 订单、成交、持仓与账户核对",
+    description: "面向香港、新加坡及亚洲量化团队的7天只读交易系统一致性审计，核对策略版本、系统状态、订单成交、持仓余额并输出整改清单。",
+    h1: "7天找出交易系统为什么与真实账户对不上",
+    intro: "这不是再装一块风险看板。我们把策略意图与部署版本、数据库 / Redis / 任务状态、交易所订单成交、真实账户持仓余额放在同一条时间线上，解释差异从哪里出现、哪些结论有证据、下一步先修什么。",
+    serviceType: "交易系统一致性审计服务",
+    llmsLabel: "交易系统一致性审计",
+    buyerAudience: "在香港、新加坡或其他合规市场运营，已经有真实交易系统、多个账户或多套状态源的量化和资管团队。",
+    buyerProblem: "系统记录、交易所订单成交和真实资金账户互相对不上，团队无法确认亏损或失控究竟来自策略、代码、部署、数据还是操作。",
+    contactProject: "Trading system consistency audit",
+    heroPrimaryLabel: "提交脱敏事故样本",
+    heroSecondaryLabel: "查看审计交付",
+    outcomesTitle: "客户拿到的不是评分，而是一条可复现的证据链",
+    outcomesIntro: "每个关键判断都说明证据来源、未知项和下一步验证动作。",
+    purchaseSnapshot: [["适合对象", "已有实盘系统但账实不一致、事故难复盘或多账户风险口径混乱的团队。"], ["首期范围", "一个交易场所、一个策略或执行链路、一个事故或差异窗口。"], ["交付周期", "资料和只读访问齐备后 7 个工作日。"], ["规划预算", "USD 2,000 起；复杂系统先做范围冻结。"]],
+    purchaseNote: "初次沟通只需要脱敏样例。正式审计前会书面确认账户、时间窗口、数据来源、交付物和不包含事项。",
+    customerOutcomes: [["四层事实核对", "策略与部署、内部状态、交易所订单成交、账户持仓余额逐层对齐。"], ["差异矩阵", "按对象、时间、来源和影响列出缺失、重复、延迟或口径冲突。"], ["根因与置信度", "把已证实、较可能和证据不足分开，避免靠猜测改生产代码。"], ["整改优先级", "按 P0 / P1 / P2 列出修复、回归验证、负责人和回滚点。"]],
+    fit: ["实盘订单、成交、持仓或余额与系统记录不一致。", "发生过重复下单、漏单、重启失控或多账户敞口失真。", "现有监控只提示异常，却不能解释根因和整改顺序。"],
+    notFit: ["希望我们评价策略是否赚钱或承诺降低回撤。", "没有明确审计时间窗口，也无法提供任何系统或账户证据。", "要求直接接管交易、提现权限或无限期 7×24 值守。"],
+    deliverables: ["审计范围与证据目录，记录账户、策略、版本、时间窗口、数据来源和缺口。", "事故时间线与四层差异矩阵，关联订单 ID、成交 ID、日志时间和账户快照。", "根因分析与置信度，区分已证实问题、待验证假设和无法证明的未知项。", "P0 / P1 / P2 整改清单，包含验证方法、负责人建议、回滚点和监控指标。", "60 分钟交付复盘与书面边界说明，便于 CTO、COO、风控和开发共同确认。"],
+    process: ["用脱敏样例确认问题、证据可得性和是否适合固定范围审计。", "冻结交易场所、账户、策略 / 执行链路、时间窗口、权限和不包含事项。", "对齐时钟并交叉核对策略版本、内部状态、订单成交和真实账户。", "复现关键差异、验证根因假设，并记录证据不足的未知项。", "交付时间线、差异矩阵、整改优先级和监控基线。"],
+    faq: [["为什么不先装监控平台？", "如果内部状态、交易所状态和账户事实尚未对齐，新看板只会把错误口径展示得更漂亮。先建立事实基线，再决定监控什么。"], ["7天能审计整个交易平台吗？", "不能。7天版本只覆盖一个交易场所、一个策略或执行链路和一个时间窗口；多系统需要拆成后续范围。"], ["需要提供交易或提现权限吗？", "不需要。优先使用脱敏导出和临时只读访问，审计不需要下单、提现或划转权限。"], ["会不会看到策略源码？", "只在根因需要且双方同意时查看最小范围。很多问题可先通过部署版本、配置、日志、状态库和订单成交证据定位。"], ["能证明一次亏损是谁造成的吗？", "只在证据支持时归因。报告会区分系统缺陷、平台行为、操作事件、市场结果和证据不足，不用猜测填补空白。"], ["审计后可以帮忙整改吗？", "可以。代码整改、回归测试和监控建设会基于已确认问题单独报价，不与首期审计混成无边界项目。"]],
+    related: [["/trading-system-incident-diagnosis/", "生产事故诊断"], ["/multi-account-trading-monitoring/", "多账户持续监控"], ["/risk-engine/", "交易风控引擎"], ["/risk-disclaimer/", "风险免责声明"]]
+  },
+  {
+    ...auditCommonZh,
+    serviceOffers: auditOffersZh.map((offer, index) => ({ ...offer, featured: index === 1 })),
+    slug: "trading-system-incident-diagnosis",
+    counterpartSlug: "trading-system-incident-diagnosis-service",
+    breadcrumb: "交易系统事故诊断",
+    eyebrow: "Incident Review · 根因与整改",
+    title: "交易系统故障诊断 | 重复下单、仓位漂移与重启失控",
+    description: "针对重复下单、漏单、仓位漂移、重启失控和账实不一致的交易系统事故诊断，交付证据时间线、根因验证和整改计划。",
+    h1: "事故发生后，先还原事实，再改生产代码",
+    intro: "围绕一次已知生产事故，把信号、部署、任务状态、订单请求、交易所回报、成交、持仓和人工操作重新排成可验证时间线，找出故障链路，而不是只盯着最后一条报错。",
+    serviceType: "交易系统生产事故诊断服务",
+    llmsLabel: "交易系统事故诊断",
+    buyerAudience: "刚发生重复下单、漏单、仓位漂移、重启异常或无法解释损益事件的量化与多账户交易团队。",
+    buyerProblem: "事故后日志和账户事实分散，团队在策略、代码、平台和操作之间反复猜测，修复容易引入下一次事故。",
+    contactProject: "Trading system incident diagnosis",
+    heroPrimaryLabel: "提交事故窗口",
+    outcomesTitle: "把一团日志变成可验证的故障链",
+    outcomesIntro: "从第一处状态偏离开始，而不是从最终损失倒推一个听起来合理的故事。",
+    purchaseSnapshot: [["适合问题", "重复下单、漏单、撤单残留、仓位漂移、重启恢复或任务卡死。"], ["诊断范围", "一个已知事故窗口及其直接关联账户和执行链路。"], ["交付周期", "证据齐备后通常 3–7 个工作日。"], ["规划预算", "USD 2,000 起；跨系统事故先做范围评估。"]],
+    purchaseNote: "若事故仍在持续，客户应先按自身应急流程暂停或降级系统；本服务默认不是即时接管或 7×24 应急值守。",
+    customerOutcomes: [["统一时间线", "校正时区与时钟偏差，把关键事件排成一条链。"], ["状态转换核对", "逐步检查意图、请求、确认、成交、撤单、重试和恢复。"], ["根因实验", "用回放、日志查询或只读数据验证主要假设。"], ["防复发清单", "把修复点转成回归测试、告警和操作 runbook。"]],
+    fit: ["事故有相对明确的起止窗口和受影响账户。", "日志、数据库状态或交易所订单成交至少保留一部分。", "需要独立视角验证根因和防复发措施。"],
+    notFit: ["正在发生且要求我们立即接管生产账户。", "只想获得亏损归责结论，但没有可验证证据。", "需要法律鉴证、监管审计意见或保险理赔证明。"],
+    deliverables: ["事故证据清单和统一时间线，标注时区、时钟偏差与缺失区间。", "订单与持仓状态转换图，定位首次偏离、放大机制和最终影响。", "根因假设验证表，记录支持证据、反证、置信度和未知项。", "P0 止血、P1 修复、P2 加固清单，以及可执行的回归测试用例。", "事故复盘会议材料和后续整改 / 监控范围建议。"],
+    process: ["确认事故是否已止住，并冻结受影响账户、版本和时间窗口。", "收集脱敏日志、部署记录、任务状态、订单成交和人工操作证据。", "对齐时钟、还原状态转换并找到第一处事实偏离。", "用回放或查询验证根因，区分主因、放大因素和伴随现象。", "交付防复发整改、回归用例和监控信号。"],
+    faq: [["事故还在发生时能立刻接管吗？", "默认不能。本服务是只读诊断。团队应先按自己的应急流程暂停、降级或隔离，紧急响应需另行约定。"], ["没有完整日志还能诊断吗？", "可以先判断证据缺口，但结论置信度会下降。订单、成交和账户导出常能补一部分系统日志缺口。"], ["能定位重复下单吗？", "通常会检查信号幂等键、重试、任务锁、重启恢复、订单 ID 映射和最近成交同步，但最终结论取决于实际证据。"], ["会直接提交修复代码吗？", "首期诊断默认交付问题和整改规格。代码修复与生产变更需单独确认仓库、测试、发布和回滚责任。"], ["能出一份给管理层看的复盘吗？", "可以。交付中会区分业务影响、技术根因、控制缺口、整改优先级和仍未知事项。"], ["如何避免复盘变成甩锅？", "只记录可回指证据的事实，并把系统缺陷、平台行为、操作事件和证据不足分开。"]],
+    related: [["/trading-system-consistency-audit/", "7天一致性审计"], ["/multi-account-trading-monitoring/", "多账户持续监控"], ["/private-deployment/", "私有化部署与交接"]]
+  },
+  {
+    ...auditCommonZh,
+    serviceOffers: auditOffersZh.map((offer, index) => ({ ...offer, featured: index === 2 })),
+    slug: "multi-account-trading-monitoring",
+    counterpartSlug: "multi-account-trading-monitoring-service",
+    breadcrumb: "多账户交易持续监控",
+    eyebrow: "Reconciliation · Alerts · Ownership",
+    title: "多账户交易系统持续监控 | 订单、持仓、余额与风控告警",
+    description: "为亚洲量化和多账户交易团队建立订单、成交、持仓、余额、任务状态与风险边界的持续核对和分级告警，先审计再监控。",
+    h1: "每天自动核对订单、成交、持仓与风险边界",
+    intro: "监控不是把更多数字堆进看板，而是持续回答：系统是否还活着、内部状态是否与交易所一致、账户是否越过边界、谁在什么时间处理什么异常。我们先建立事实基线，再配置检查、告警和升级路径。",
+    serviceType: "多账户交易系统持续监控服务",
+    llmsLabel: "多账户交易持续监控",
+    buyerAudience: "同时运行多个账户、子账户、策略或交易场所，且没有统一账实核对和异常责任流的交易团队。",
+    buyerProblem: "系统在线不代表状态正确；小差异在无人处理时积累成超仓、漏单、重复执行或无法解释的资金变化。",
+    contactProject: "Multi-account trading monitoring",
+    heroPrimaryLabel: "评估监控基线",
+    outcomesTitle: "监控的目标是让异常有证据、有级别、有负责人",
+    outcomesIntro: "每条告警都要能回答发生了什么、影响谁、先做什么，以及何时升级。",
+    purchaseSnapshot: [["前置条件", "先完成基线审计，确认账户、状态源、风险口径和已知差异。"], ["首期范围", "一个系统、一个交易场所和一组明确账户。"], ["监控内容", "健康、订单成交、持仓余额、任务状态、风险边界和数据新鲜度。"], ["服务边界", "检查频率、通知渠道、服务时段和响应责任逐项书面约定。"]],
+    purchaseNote: "持续监控不默认包含 7×24 人工响应、自动修复或生产变更。先定义告警事实和客户处置流程，再讨论值守。",
+    customerOutcomes: [["事实基线", "确认每个账户和状态源的权威口径、更新时间和容差。"], ["分级检查", "区分服务不可用、状态漂移、风险越界、数据陈旧和普通运营事件。"], ["低噪声告警", "每条告警包含证据、影响范围、建议动作和去重 / 恢复条件。"], ["责任闭环", "定义确认、升级、关闭和复盘所需的负责人及证据。"]],
+    fit: ["账户、策略或交易场所数量增加，人工对账容易漏。", "已经有日志和告警，但噪声高、状态不可信或无人闭环。", "希望先从一个系统建立监控基线，再逐步扩展。"],
+    notFit: ["尚未完成任何账户与内部状态的一致性基线。", "期望监控自动消除亏损或自动处理所有异常。", "要求未约定范围的全天候人工值守和无限责任。"],
+    deliverables: ["监控基线文档，定义账户、状态源、权威口径、容差、频率和数据新鲜度。", "健康与一致性检查，覆盖任务、心跳、订单成交、持仓余额、挂单和风险边界。", "P0 / P1 / P2 告警规则，包含证据字段、去重、恢复条件、通知渠道和升级路径。", "异常队列与处置 runbook，明确确认、暂停、升级、关闭和复盘责任。", "监控周报或月报模板，跟踪差异次数、告警噪声、处理时长和复发问题。"],
+    process: ["通过首期审计确认真实账户事实、内部状态和已知差异。", "定义监控对象、权威来源、检查频率、容差和负责人。", "实现只读采集、核对规则、分级告警和恢复判定。", "在观察期校准误报、漏报、通知渠道和升级路径。", "书面交接 dashboard、runbook、服务时段和变更流程。"],
+    faq: [["为什么必须先审计？", "如果基线和口径本身不可信，监控会持续产生误报或把真实差异当成正常。"], ["可以监控哪些状态？", "常见范围包括进程 / 任务心跳、订单成交、活动挂单、持仓余额、风险限额、数据延迟和同步任务。"], ["会自动下单或平仓吗？", "默认不会。监控使用只读权限；任何自动处置都需要独立的执行权限、风控和验收范围。"], ["是否包含 7×24 值守？", "不默认包含。检查可以持续运行，但人工响应时段、SLA、升级联系人和责任上限需要单独约定。"], ["怎么减少告警噪声？", "通过持续时间、影响范围、容差、去重键、恢复条件和维护窗口校准，而不是简单提高阈值。"], ["能先监控一个账户吗？", "可以，前提是该账户能代表目标工作流。通常先用一组明确账户跑观察期，再决定扩展。"]],
+    related: [["/trading-system-consistency-audit/", "7天一致性审计"], ["/trading-system-incident-diagnosis/", "生产事故诊断"], ["/risk-engine/", "交易风控引擎"]]
+  }
+];
+
+const auditServicePagesEn = [
+  {
+    ...auditCommonEn,
+    slug: "trading-system-consistency-audit-service",
+    counterpartSlug: "trading-system-consistency-audit",
+    breadcrumb: "Trading System Consistency Audit",
+    eyebrow: "7 Days · Read-Only · Bounded Scope",
+    title: "Trading System Consistency Audit | Orders, Fills, Positions and Accounts",
+    description: "A seven-day read-only trading-system consistency audit for quant funds and multi-account teams in Hong Kong, Singapore and Asia, with evidence-linked remediation priorities.",
+    h1: "Find Why Your Trading System No Longer Matches the Real Account",
+    intro: "This is not another risk dashboard. We place strategy intent and deployed version, database / Redis / job state, venue orders and fills, and real account positions and balances on one timeline—then show where they diverged and what to fix first.",
+    serviceType: "Trading system consistency audit service",
+    llmsLabel: "Trading system consistency audit service",
+    buyerAudience: "Quant funds, asset-management studios and multi-account trading teams operating lawfully in Hong Kong, Singapore or other Asian markets.",
+    buyerProblem: "Internal records, venue execution and real account truth disagree, leaving the team unable to separate strategy behavior from code, deployment, data or operator failure.",
+    contactProject: "Trading system consistency audit",
+    heroPrimaryLabel: "Send a masked incident sample",
+    heroSecondaryLabel: "Review audit outputs",
+    outcomesTitle: "Receive a reproducible evidence chain, not a generic score",
+    outcomesIntro: "Every material conclusion states its source, confidence, unknowns and next validation action.",
+    purchaseSnapshot: [["Best fit", "Live systems with unexplained account drift, weak incident evidence or inconsistent multi-account risk state."], ["Initial scope", "One venue, one strategy or execution chain, and one incident or discrepancy window."], ["Delivery window", "Seven business days after required evidence and read-only access are ready."], ["Planning budget", "From USD 2,000; complex systems start with scope freezing."]],
+    purchaseNote: "The first conversation needs masked samples only. Before work starts, accounts, window, data sources, outputs and exclusions are confirmed in writing.",
+    customerOutcomes: [["Four-layer reconciliation", "Align strategy and deployment, internal state, venue execution and real account truth."], ["Discrepancy matrix", "Classify missing, duplicate, delayed or conflicting state by object, time, source and impact."], ["Root cause with confidence", "Separate proven findings, likely hypotheses and evidence gaps before production code changes."], ["Remediation priority", "Turn findings into P0 / P1 / P2 actions, validation methods, owners and rollback points."]],
+    fit: ["Orders, fills, positions or balances disagree with internal system records.", "The team has seen duplicate orders, missing orders, restart failures or distorted multi-account exposure.", "Existing monitoring reports symptoms but cannot explain root cause or remediation order."],
+    notFit: ["You want strategy evaluation, investment advice or return guarantees.", "There is no defined review window and no system or account evidence is available.", "You require trade, withdrawal or unlimited 24/7 response authority."],
+    deliverables: ["Audit scope and evidence index covering accounts, strategy, deployed version, time window, sources and known gaps.", "Incident timeline and four-layer discrepancy matrix linked to order IDs, fill IDs, timestamps and account snapshots.", "Root-cause analysis with confidence, separating proven issues, testable hypotheses and unsupported unknowns.", "P0 / P1 / P2 remediation plan with validation method, suggested owner, rollback point and monitoring signal.", "A 60-minute handoff review and written boundaries for CTO, COO, risk and engineering stakeholders."],
+    process: ["Use masked samples to confirm the problem, evidence availability and fit for a bounded audit.", "Freeze venue, accounts, strategy / execution chain, time window, permissions and exclusions.", "Normalize clocks and reconcile deployed intent, internal state, venue execution and account truth.", "Reproduce material gaps, test root-cause hypotheses and record unsupported unknowns.", "Deliver the timeline, discrepancy matrix, remediation priorities and monitoring baseline."],
+    faq: [["Why not install another monitoring platform first?", "If internal state, venue state and account truth are not aligned, a new dashboard will present the wrong baseline more neatly. Establish account truth first."], ["Can seven days cover the whole platform?", "No. The seven-day service covers one venue, one strategy or execution chain and one window. Additional systems are separate scopes."], ["Do you need trade or withdrawal permissions?", "No. We prefer masked exports and temporary read-only access. Audit work needs no trade, withdrawal or transfer authority."], ["Will you see our strategy source code?", "Only when root-cause evidence requires a minimal agreed review. Many incidents can first be investigated through versions, configuration, logs, state stores and execution data."], ["Can you prove who caused a loss?", "Only where evidence supports attribution. Findings separate system defects, venue behavior, operator events, market outcomes and insufficient evidence."], ["Can you implement the fixes?", "Yes, under a separate remediation scope with repository, test, release and rollback responsibilities confirmed after the audit."]],
+    related: [["/trading-system-incident-diagnosis-service/", "Production incident diagnosis"], ["/multi-account-trading-monitoring-service/", "Multi-account monitoring"], ["/trading-system-consistency-audit/", "中文审计页"], ["/risk-engine/", "Risk engine"]]
+  },
+  {
+    ...auditCommonEn,
+    serviceOffers: auditOffersEn.map((offer, index) => ({ ...offer, featured: index === 1 })),
+    slug: "trading-system-incident-diagnosis-service",
+    counterpartSlug: "trading-system-incident-diagnosis",
+    breadcrumb: "Trading System Incident Diagnosis",
+    eyebrow: "Incident Review · Root Cause · Remediation",
+    title: "Trading System Incident Diagnosis | Duplicate Orders and Position Drift",
+    description: "Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.",
+    h1: "Reconstruct the Facts Before Changing Production Code",
+    intro: "For one known incident, we rebuild the chain from signals, deployment and job state through order requests, venue reports, fills, positions and operator actions—so the team fixes the first state divergence, not merely the last visible error.",
+    serviceType: "Production trading system incident diagnosis",
+    llmsLabel: "Trading system incident diagnosis",
+    buyerAudience: "Quant and multi-account teams dealing with duplicate orders, missing orders, position drift, restart failures or unexplained PnL events.",
+    buyerProblem: "Logs and account truth are fragmented after an incident, so teams speculate across strategy, code, venue and operator causes and risk introducing the next failure.",
+    contactProject: "Trading system incident diagnosis",
+    heroPrimaryLabel: "Send the incident window",
+    outcomesTitle: "Turn fragmented evidence into a testable failure chain",
+    outcomesIntro: "Start from the first state divergence instead of inventing a story backwards from the final loss.",
+    purchaseSnapshot: [["Best fit", "Duplicate or missing orders, stale open orders, position drift, restart recovery or stuck jobs."], ["Diagnosis scope", "One known incident window and its directly affected accounts and execution chain."], ["Delivery window", "Usually three to seven business days after evidence is complete."], ["Planning budget", "From USD 2,000; cross-system incidents are scoped first."]],
+    purchaseNote: "If the incident is ongoing, the customer should use its own pause or degradation process first. This service is not immediate takeover or 24/7 emergency response by default.",
+    customerOutcomes: [["Unified timeline", "Normalize timezone and clock drift across system and venue evidence."], ["State-transition review", "Trace intent, request, acknowledgement, fill, cancel, retry and recovery."], ["Root-cause tests", "Use replay, log queries or read-only data to test the main hypotheses."], ["Prevention plan", "Translate fixes into regression cases, alerts and an operator runbook."]],
+    fit: ["The incident has a reasonably defined window and affected accounts.", "At least some logs, database state or venue execution history remain available.", "The team needs an independent root-cause and prevention review."],
+    notFit: ["The incident is active and you require immediate production-account takeover.", "You need blame attribution without verifiable evidence.", "You require legal forensics, a regulatory audit opinion or an insurance statement."],
+    deliverables: ["Incident evidence index and unified timeline with timezone, clock drift and missing intervals noted.", "Order and position state-transition map locating the first divergence, amplifiers and final impact.", "Root-cause hypothesis table with supporting evidence, counter-evidence, confidence and unknowns.", "P0 containment, P1 remediation and P2 hardening actions plus executable regression cases.", "Incident-review material and a scoped recommendation for remediation or monitoring."],
+    process: ["Confirm containment and freeze the affected accounts, versions and evidence window.", "Collect masked logs, deployment records, job state, venue execution and operator events.", "Normalize clocks, rebuild state transitions and locate the first factual divergence.", "Test root cause through replay or queries and separate cause, amplifier and symptom.", "Deliver prevention actions, regression cases and monitoring signals."],
+    faq: [["Can you take over while the incident is active?", "Not by default. This is read-only diagnosis. The customer should pause, degrade or isolate through its own incident process; emergency response requires a separate agreement."], ["Can you diagnose an incident with incomplete logs?", "We can assess the gaps, but confidence falls. Venue order, fill and account exports can sometimes replace part of missing system evidence."], ["Can you find duplicate-order causes?", "Typical checks include idempotency keys, retries, job locks, restart recovery, order-ID mapping and recent-fill synchronization, but conclusions depend on evidence."], ["Will you submit the code fix?", "The initial diagnosis delivers a remediation specification. Code and production changes need a separate repository, testing, release and rollback scope."], ["Can you prepare an executive postmortem?", "Yes. The handoff separates business impact, technical root cause, control gaps, priorities and remaining unknowns."], ["How do you prevent blame-driven reviews?", "We record only evidence-linked facts and separate system defects, venue behavior, operator events and unsupported conclusions."]],
+    related: [["/trading-system-consistency-audit-service/", "7-day consistency audit"], ["/multi-account-trading-monitoring-service/", "Multi-account monitoring"], ["/trading-system-incident-diagnosis/", "中文事故诊断页"]]
+  },
+  {
+    ...auditCommonEn,
+    serviceOffers: auditOffersEn.map((offer, index) => ({ ...offer, featured: index === 2 })),
+    slug: "multi-account-trading-monitoring-service",
+    counterpartSlug: "multi-account-trading-monitoring",
+    breadcrumb: "Multi-Account Trading Monitoring",
+    eyebrow: "Reconciliation · Alerts · Ownership",
+    title: "Multi-Account Trading Monitoring | Orders, Positions and Risk Alerts",
+    description: "Ongoing order, fill, position, balance, job-state and risk-limit reconciliation for quant funds and multi-account trading teams in Hong Kong, Singapore and Asia.",
+    h1: "Continuously Reconcile Orders, Positions and Risk Boundaries",
+    intro: "Monitoring should answer whether the system is alive, whether internal state matches the venue, whether an account crossed a boundary, and who owns the next action. We establish account truth first, then configure checks, alerts and escalation.",
+    serviceType: "Multi-account trading system monitoring service",
+    llmsLabel: "Multi-account trading monitoring service",
+    buyerAudience: "Teams operating multiple accounts, subaccounts, strategies or venues without a single reconciliation and incident-ownership workflow.",
+    buyerProblem: "A running process can still hold wrong state; small discrepancies accumulate into exposure breaches, missed orders, duplicate execution or unexplained balance changes.",
+    contactProject: "Multi-account trading monitoring",
+    heroPrimaryLabel: "Assess a monitoring baseline",
+    outcomesTitle: "Make every exception evidence-backed, prioritized and owned",
+    outcomesIntro: "Every alert should explain what happened, who is affected, what to do first and when to escalate.",
+    purchaseSnapshot: [["Prerequisite", "Baseline audit confirming accounts, authoritative sources, risk definitions and known differences."], ["Initial scope", "One system, one venue and one defined account group."], ["Coverage", "Health, orders and fills, positions and balances, job state, risk limits and data freshness."], ["Service boundary", "Check frequency, channels, service hours and response ownership are agreed line by line."]],
+    purchaseNote: "Ongoing monitoring does not include 24/7 human response, automatic repair or production changes by default. Define alert facts and the customer response process before discussing on-call coverage.",
+    customerOutcomes: [["Account-truth baseline", "Define authoritative sources, refresh time and tolerance for every monitored account."], ["Tiered checks", "Separate service outage, state drift, risk breach, stale data and routine operations."], ["Low-noise alerts", "Include evidence, impact, recommended action, deduplication and recovery conditions."], ["Ownership loop", "Define acknowledgement, escalation, closure and postmortem evidence."]],
+    fit: ["Account, strategy or venue count has outgrown manual reconciliation.", "Existing alerts are noisy, state is untrusted or incidents have no owner.", "The team wants to prove one monitoring baseline before expanding."],
+    notFit: ["No consistency baseline exists between account truth and internal state.", "You expect monitoring to prevent losses or remediate every anomaly automatically.", "You require undefined 24/7 human coverage or unlimited liability."],
+    deliverables: ["Monitoring baseline defining accounts, sources of truth, tolerances, frequencies and data freshness.", "Health and consistency checks covering jobs, heartbeats, orders, fills, open orders, positions, balances and risk limits.", "P0 / P1 / P2 alert rules with evidence fields, deduplication, recovery conditions, routing and escalation.", "Exception queue and operator runbook covering acknowledgement, pause, escalation, closure and review.", "Weekly or monthly review template tracking discrepancies, alert noise, handling time and recurring failures."],
+    process: ["Use the initial audit to establish account truth, internal state and known discrepancies.", "Define monitored objects, authoritative sources, frequency, tolerance and owners.", "Implement read-only collection, reconciliation rules, tiered alerts and recovery conditions.", "Calibrate false positives, missed events, channels and escalation during an observation period.", "Hand over dashboards, runbook, service hours and change procedure in writing."],
+    faq: [["Why is an audit required first?", "If the baseline and definitions are wrong, monitoring will create recurring false positives or normalize real discrepancies."], ["What can be monitored?", "Typical coverage includes process and job heartbeats, orders and fills, open orders, positions and balances, risk limits, data latency and synchronization tasks."], ["Will monitoring place or close orders?", "Not by default. Monitoring uses read-only access; automated action requires a separate execution, risk and acceptance scope."], ["Does this include 24/7 on-call response?", "No. Checks can run continuously, but human service hours, SLA, escalation contacts and liability limits require a separate agreement."], ["How do you reduce alert noise?", "Calibrate duration, impact, tolerance, deduplication keys, recovery conditions and maintenance windows instead of simply raising thresholds."], ["Can we start with one account?", "Yes if it represents the intended workflow. A defined account group normally runs through an observation period before expansion."]],
+    related: [["/trading-system-consistency-audit-service/", "7-day consistency audit"], ["/trading-system-incident-diagnosis-service/", "Production incident diagnosis"], ["/multi-account-trading-monitoring/", "中文持续监控页"]]
+  }
+];
 
 const servicePages = [
   {
@@ -774,6 +1089,8 @@ const servicePages = [
       ["上线前如何验收风控？", "用回放样本、模拟盘或小资金测试逐项验证拒单、限频、暂停、告警和审计日志。"]
     ],
     related: [
+      ["/trading-system-consistency-audit/", "交易系统一致性审计"],
+      ["/trading-system-incident-diagnosis/", "生产事故诊断"],
       ["/tradingview-webhook-automation/", "Webhook 自动化"],
       ["/exchange-api-trading-bot-development/", "交易所 API 自动化"],
       ["/fix-api-order-routing/", "FIX API"]
@@ -824,6 +1141,8 @@ const servicePages = [
       ["交付后客户需要掌握什么？", "需要掌握服务器登录、配置文件、重启命令、日志位置、告警渠道和密钥轮换流程。"]
     ],
     related: [
+      ["/multi-account-trading-monitoring/", "多账户持续监控"],
+      ["/trading-system-consistency-audit/", "交易系统一致性审计"],
       ["/risk-engine/", "风控引擎"],
       ["/delivery-policy", "交付边界"],
       ["/contact/", "联系评估"]
@@ -1075,7 +1394,9 @@ const servicePages = [
       ["/articles/hyperliquid-api-order-reconciliation-websocket-checklist/", "Technical reliability checklist"]
     ],
     officialReferences: hyperliquidReferenceLinks
-  }
+  },
+  ...auditServicePages,
+  ...auditServicePagesEn
 ];
 
 // Historical pages may be upgraded separately. Do not add new slugs here: every
@@ -2579,7 +2900,7 @@ function routeForSlug(slug) {
 function serviceManifest() {
   return {
     site,
-    generatedAt: today,
+    generatedAt: auditContentDate,
     generatedServiceRoutes: servicePages.map((page) => routeForSlug(page.slug)),
     buyerIntentServiceRoutes: servicePages
       .filter((page) => page.buyerIntentVersion === 1)
@@ -2846,6 +3167,17 @@ function baseGraph(page, type = "WebPage") {
 
 function serviceSchema(page) {
   const english = isEnglish(page);
+  const pageOffers = page.serviceOffers || offers;
+  const structuredOffers = pageOffers
+    .filter((offer) => offer.price)
+    .map((offer) => ({
+      "@type": "Offer",
+      "name": offer.name,
+      "priceCurrency": "USD",
+      "price": offer.price,
+      "description": page.serviceOffers ? offer.description : (english ? packageDescriptionsEn[offer.name] : offer.description),
+      "availability": "https://schema.org/InStock"
+    }));
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -2860,15 +3192,8 @@ function serviceSchema(page) {
         "areaServed": english ? ["United States", "Hong Kong", "Singapore", "Taiwan", "Worldwide remote delivery"] : ["香港", "新加坡", "台湾", "美国", "全球远程"],
         "offers": {
           "@type": "OfferCatalog",
-          "name": english ? "Trading software engineering delivery packages" : "自动交易系统工程交付包",
-          "itemListElement": offers.map((offer) => ({
-            "@type": "Offer",
-            "name": offer.name,
-            "priceCurrency": "USD",
-            "price": offer.price,
-            "description": english ? packageDescriptionsEn[offer.name] : offer.description,
-            "availability": "https://schema.org/InStock"
-          }))
+          "name": page.offerCatalogName || (english ? "Trading software engineering delivery packages" : "自动交易系统工程交付包"),
+          "itemListElement": structuredOffers
         }
       },
       {
@@ -2885,6 +3210,7 @@ function serviceSchema(page) {
 }
 
 function summaryRows(page) {
+  if (page.summaryFacts) return page.summaryFacts;
   if (isEnglish(page)) {
     return [
       ["What it is", `SignalCraft Labs provides ${page.serviceType}, turning customer-defined rules into a testable and auditable execution system.`],
@@ -3059,17 +3385,18 @@ function deliverableSamplesSection() {
 
 function evidenceTablesSection(page) {
   const english = isEnglish(page);
-  const packageRows = offers.map((offer) => [english ? offer.label.replace(" 美金起", " USD+") : offer.label, english ? packageDescriptionsEn[offer.name] : offer.description]);
+  const pageOffers = page.serviceOffers || offers;
+  const packageRows = pageOffers.map((offer) => [english && offer.label.includes(" 美金起") ? offer.label.replace(" 美金起", " USD+") : offer.label, page.serviceOffers ? offer.description : (english ? packageDescriptionsEn[offer.name] : offer.description)]);
   const detailSlug = page.platformDetailSlug || page.slug;
   const platformRows = english ? platformDetailRowsEn[detailSlug] : platformDetailRows[detailSlug];
   const shouldShowBrokerComparison = page.slug.startsWith("broker-api/") || page.slug.includes("ibkr-api") || page.slug.includes("fix-api");
   const tables = [
     platformRows ? comparisonTable(english ? "Platform integration details" : "平台接入细节", english ? "These facts often affect scope, acceptance tests and go-live timing." : "这些是该平台项目更容易影响交付包、验收和上线节奏的关键事实。", platformRows, english ? ["Topic", "Project focus", "Acceptance focus"] : ["主题", "项目要点", "验收关注"]) : null,
     shouldShowBrokerComparison ? comparisonTable("IBKR / Schwab / Alpaca / FIX API 对比", english ? "A quick comparison of broker/API workflow fit, integration focus and common constraints." : "用于快速区分不同券商/API 工作流的适合场景、接入重点和常见限制。", english ? brokerComparisonRowsEn : brokerComparisonRows, english ? ["Interface", "Best fit", "Integration focus", "Common limits"] : ["接口", "适合场景", "接入重点", "常见限制"]) : null,
-    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确判断交付包或承诺接口可行性。", english ? baseInputRowsEn : baseInputRows, english ? ["Item", "Details"] : ["项目", "说明"]),
-    comparisonTable(english ? "API key minimum permission guidance" : "API Key 最小权限建议", english ? "Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access." : "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", english ? permissionRowsEn : permissionRows, english ? ["Permission", "Recommendation", "Reason"] : ["权限", "建议", "原因"]),
+    comparisonTable(english ? "Pre-contact checklist" : "联系前资料清单", page.auditService ? (english ? "Masked evidence is enough for the first scope check; credentials are not needed for the initial call." : "首次范围判断只需要脱敏资料，不需要在初次沟通时提供凭证。") : (english ? "Without these inputs, the work can only be directionally assessed." : "没有这些资料时，只能做方向评估，不能准确判断交付包或承诺接口可行性。"), page.auditService ? (english ? auditInputRowsEn : auditInputRows) : (english ? baseInputRowsEn : baseInputRows), english ? ["Item", "Details"] : ["项目", "说明"]),
+    comparisonTable(english ? "API key minimum permission guidance" : "API Key 最小权限建议", english ? "Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access." : "默认只使用项目必要权限，避免提现、划转和无关管理员权限。", page.auditService ? (english ? auditPermissionRowsEn : auditPermissionRows) : (english ? permissionRowsEn : permissionRows), english ? ["Permission", "Recommendation", "Reason"] : ["权限", "建议", "原因"]),
     comparisonTable(english ? "Delivery package breakdown" : "交付包范围拆解", english ? "Package scope depends on API count, risk complexity, dashboard scope, deployment and integration work." : "交付包不是按页面文案报价，而是按接口、风控、后台、部署和联调复杂度确认范围。", packageRows, english ? ["Package tier", "Suitable scope"] : ["交付包", "适合范围"]),
-    comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。", english ? acceptanceRowsEn : acceptanceRows, english ? ["Item", "Details"] : ["项目", "说明"])
+    comparisonTable(english ? "Launch acceptance checklist" : "上线验收清单", page.auditService ? (english ? "Acceptance is based on reproducible evidence, documented gaps and actionable remediation—not trading returns." : "验收看可复现证据、差异记录和可执行整改，不以策略收益为标准。") : (english ? "Acceptance is based on engineering delivery and workflow behavior, not strategy returns." : "验收看工程交付和执行链路，不把策略收益、胜率或回撤作为软件验收标准。"), page.auditService ? (english ? auditAcceptanceRowsEn : auditAcceptanceRows) : (english ? acceptanceRowsEn : acceptanceRows), english ? ["Item", "Details"] : ["项目", "说明"])
   ].filter(Boolean).join("\n        ");
 
   return `<section class="section evidence-section" aria-labelledby="evidence-title">
@@ -3135,6 +3462,8 @@ function servicePageHtml(page) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="${url}">
+${page.counterpartSlug ? `  <link rel="alternate" hreflang="${english ? "zh-Hans" : "en"}" href="${canonical(page.counterpartSlug)}">
+  <link rel="alternate" hreflang="${english ? "en" : "zh-Hans"}" href="${url}">` : ""}
   ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -3170,12 +3499,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
         <a href="#faq">FAQ</a>
         <a href="/contact/">${english ? "Contact" : "联系"}</a>
       </nav>
-      <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">
-        <span>${english ? "Packages: USD 2,000 / 5,000 / 10,000+" : "交付包：2000 / 5000 / 10000 美金起"}</span>
-        <span>${english ? "Source delivery" : "源码交付"}</span>
-        <span>${english ? "Private deployment" : "私有部署"}</span>
-        <span>${english ? "No custody" : "不代管资金"}</span>
-      </div>
+      <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">${(page.factStrip || (english ? ["Packages: USD 2,000 / 5,000 / 10,000+", "Source delivery", "Private deployment", "No custody"] : ["交付包：2000 / 5000 / 10000 美金起", "源码交付", "私有部署", "不代管资金"])).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
     </section>
 
 ${buyerIntentSummarySection(page)}${buyerSnapshotSection(page)}
@@ -3205,8 +3529,8 @@ ${buyerOutcomeSection(page)}
     <section id="deliverables" class="section content-band">
       <div class="section-head">
         <p class="eyebrow">Deliverables</p>
-        <h2>${english ? "Deliverables" : "交付内容清单"}</h2>
-        <p>${english ? "A formal delivery package turns features, APIs, acceptance paths and handoff items into a clear scope." : "正式交付包会把功能、接口、验收路径和交付物写清楚。"}</p>
+        <h2>${escapeHtml(page.deliverablesTitle || (english ? "Deliverables" : "交付内容清单"))}</h2>
+        <p>${escapeHtml(page.deliverablesIntro || (english ? "A formal delivery package turns features, APIs, acceptance paths and handoff items into a clear scope." : "正式交付包会把功能、接口、验收路径和交付物写清楚。"))}</p>
       </div>
       <div class="detail-grid">${page.deliverables.map((item) => `<article><h3>${escapeHtml(leadText(item))}</h3><p>${escapeHtml(item)}</p></article>`).join("")}</div>
     </section>
@@ -3214,7 +3538,7 @@ ${buyerOutcomeSection(page)}
     <section class="section process-section">
       <div class="section-head centered">
         <p class="eyebrow">Process</p>
-        <h2>${english ? "Development process" : "开发流程"}</h2>
+        <h2>${escapeHtml(page.processTitle || (english ? "Development process" : "开发流程"))}</h2>
       </div>
       <ol class="process-grid">${page.process.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(leadText(item))}</strong><em>${escapeHtml(item)}</em></li>`).join("")}</ol>
     </section>
@@ -3222,10 +3546,10 @@ ${buyerOutcomeSection(page)}
     <section class="section budget-section">
       <div class="section-head centered dark">
         <p class="eyebrow">Delivery Packages</p>
-        <h2>${english ? "Productized delivery packages" : "产品化交付包"}</h2>
-        <p>${english ? "Package scope depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "交付包范围取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"}</p>
+        <h2>${escapeHtml(page.packagesTitle || (english ? "Productized delivery packages" : "产品化交付包"))}</h2>
+        <p>${escapeHtml(page.packagesIntro || (english ? "Package scope depends on API platform, risk complexity, dashboard scope, deployment requirements and integration work." : "交付包范围取决于接口平台、风控复杂度、是否需要后台、部署要求和联调周期。"))}</p>
       </div>
-      <div class="pricing-grid">${offers.map((offer) => `<article${offer.name === "Execution System Package" ? ' class="featured"' : ""}><h3>${offer.name}</h3><p>${escapeHtml(english ? packageDescriptionsEn[offer.name] : offer.description)}</p><strong class="price">${english ? offer.label.replace(" 美金起", " USD+") : offer.label}</strong><a class="button ${offer.name === "Execution System Package" ? "primary" : "secondary"}" href="${contactHrefFor(page, offer.name)}" data-contact="content_package_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Assess this package" : "评估这个交付包"}</a></article>`).join("")}</div>
+      <div class="pricing-grid">${(page.serviceOffers || offers).map((offer) => `<article${offer.featured || offer.name === "Execution System Package" ? ' class="featured"' : ""}><h3>${escapeHtml(offer.name)}</h3><p>${escapeHtml(page.serviceOffers ? offer.description : (english ? packageDescriptionsEn[offer.name] : offer.description))}</p><strong class="price">${escapeHtml(english && offer.label.includes(" 美金起") ? offer.label.replace(" 美金起", " USD+") : offer.label)}</strong><a class="button ${offer.featured || offer.name === "Execution System Package" ? "primary" : "secondary"}" href="${contactHrefFor(page, offer.name)}" data-contact="content_package_${offer.name.toLowerCase().replaceAll(" ", "_")}">${english ? "Assess this scope" : "评估这个范围"}</a></article>`).join("")}</div>
     </section>
 
     <section class="section risk-section">
@@ -3240,12 +3564,7 @@ ${buyerOutcomeSection(page)}
         </article>
         <article>
           <h3>${english ? "Prepare before contact" : "联系前请准备"}</h3>
-          <ul class="check-list">
-            <li>${english ? "Platform, account permissions and API documentation or interface notes" : "平台、账户权限和 API 文档或接口说明"}</li>
-            <li>${english ? "Signal source, instruments, order types and trading hours" : "信号来源、品种、订单类型和交易时段"}</li>
-            <li>${english ? "Sizing, risk limits, pause rules, alerts and acceptance criteria" : "仓位、风控、暂停、告警和验收标准"}</li>
-            <li>${english ? "Target delivery package and preferred deployment environment" : "目标交付包和期望部署环境"}</li>
-          </ul>
+          <ul class="check-list">${(page.prepare || (english ? ["Platform, account permissions and API documentation or interface notes", "Signal source, instruments, order types and trading hours", "Sizing, risk limits, pause rules, alerts and acceptance criteria", "Target delivery package and preferred deployment environment"] : ["平台、账户权限和 API 文档或接口说明", "信号来源、品种、订单类型和交易时段", "仓位、风控、暂停、告警和验收标准", "目标交付包和期望部署环境"])).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </article>
       </div>
     </section>
@@ -3290,11 +3609,22 @@ ${page.officialReferences ? `    <section class="section embedded-section">
 
 function ctaBlock(language = "zh-CN", page) {
   const english = isEnglish(language);
+  const title = page?.ctaTitle || (english ? "Send the brief first, then we assess the right package" : "先发项目 Brief，再判断适合哪个交付包");
+  const intro = page?.ctaIntro || (english ? "Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete." : "请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位、风控规则和部署目标。资料完整时通常 1 个工作日内回复初步适配判断。");
+  const inputs = page?.ctaItems || (english ? ["Signal and trading rules", "API platform and permission status", "Risk, alert and deployment requirements", "Target package and budget band"] : ["信号和交易规则", "API 平台和权限状态", "风控、告警和部署要求", "目标交付包和预算档位"]);
+  const inputList = page?.ctaItems
+    ? inputs.map((item) => `<li>${escapeHtml(item)}</li>`).join("")
+    : `
+          <li>${escapeHtml(inputs[0])}</li>
+          <li>${escapeHtml(inputs[1])}</li>
+          <li>${escapeHtml(inputs[2])}</li>
+          <li>${escapeHtml(inputs[3])}</li>
+        `;
   return `<section class="contact content-cta" aria-labelledby="content-contact-title">
       <div class="contact-copy">
         <p class="eyebrow">Project Brief</p>
-        <h2 id="content-contact-title">${english ? "Send the brief first, then we assess the right package" : "先发项目 Brief，再判断适合哪个交付包"}</h2>
-        <p>${english ? "Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete." : "请提供信号来源、接口平台、账户权限、交易品种、订单类型、仓位、风控规则和部署目标。资料完整时通常 1 个工作日内回复初步适配判断。"}</p>
+        <h2 id="content-contact-title">${escapeHtml(title)}</h2>
+        <p>${escapeHtml(intro)}</p>
         <div class="contact-row">
           <a href="mailto:${contact.email}" data-contact="content_email" data-lead-contact="true">${contact.email}</a>
           <button type="button" data-copy="${contact.wechat}" data-contact="content_wechat_copy">${english ? "Copy WeChat" : "复制微信"} ${contact.wechat}</button>
@@ -3304,12 +3634,7 @@ function ctaBlock(language = "zh-CN", page) {
       </div>
       <div class="contact-card">
         <strong>${english ? "Assessment inputs" : "评估资料"}</strong>
-        <ul>
-          <li>${english ? "Signal and trading rules" : "信号和交易规则"}</li>
-          <li>${english ? "API platform and permission status" : "API 平台和权限状态"}</li>
-          <li>${english ? "Risk, alert and deployment requirements" : "风控、告警和部署要求"}</li>
-          <li>${english ? "Target package and budget band" : "目标交付包和预算档位"}</li>
-        </ul>
+        <ul>${inputList}</ul>
         <a class="button primary" href="${contactHrefFor(page)}" data-contact="content_structured_brief">${english ? "Send a structured brief" : "提交结构化 Brief"}</a>
       </div>
     </section>`;
@@ -3317,7 +3642,7 @@ function ctaBlock(language = "zh-CN", page) {
 
 function caseBridgeSection(language = "zh-CN", page) {
   const english = isEnglish(language);
-  const cases = english ? [
+  const cases = page?.caseProofs || (english ? [
     ["TradingView Webhook", "Signal intake, signature checks, idempotency, risk rules, order routing and alert handoff."],
     ["Broker API workflow", "Position sync, order plan generation, manual confirmation, execution reports and audit logs."],
     ["Private deployment", "Source delivery, environment files, process supervision, logs, alerts, runbook and handoff."]
@@ -3325,7 +3650,7 @@ function caseBridgeSection(language = "zh-CN", page) {
     ["TradingView Webhook", "信号接收、签名校验、幂等去重、风控规则、订单路由和告警交接。"],
     ["券商 / 交易所 API", "持仓同步、订单计划、人工确认、执行回报、审计日志和异常处理。"],
     ["私有化部署", "源码交付、环境配置、进程守护、日志告警、部署 runbook 和远程交接。"]
-  ];
+  ]);
   return `<section class="section case-bridge-section" aria-labelledby="case-bridge-title">
       <div class="section-head">
         <p class="eyebrow">Case Proof</p>
@@ -3494,6 +3819,9 @@ function leadBriefForm() {
             <option>Broker API integration</option>
             <option>Order execution API system</option>
             <option>Risk / monitoring dashboard</option>
+            <option>Trading system consistency audit</option>
+            <option>Trading system incident diagnosis</option>
+            <option>Multi-account trading monitoring</option>
             <option>Private deployment / handoff</option>
           </select>
         </label>
@@ -3518,6 +3846,8 @@ function leadBriefForm() {
             <option>API Starter Package - 2000 美金起</option>
             <option>Execution System Package - 5000 美金起</option>
             <option>Private Infrastructure Package - 10000 美金起</option>
+            <option>Read-only audit / diagnosis - 2000 美金起</option>
+            <option>Ongoing monitoring - audit 后报价</option>
             <option>还在评估</option>
           </select>
         </label>
@@ -3538,7 +3868,7 @@ function leadBriefForm() {
         </label>
       </div>
       <label>想解决的业务或执行问题
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：TradingView 信号仍需手工下单、现有机器人会重复下单，或缺少仓位限制和暂停开关。"></textarea>
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"></textarea>
       </label>
       <label>补充说明
         <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>

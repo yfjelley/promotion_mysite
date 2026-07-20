@@ -18,7 +18,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260719-hyperliquid-buyer-intent">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260719-hyperliquid-buyer-intent" defer></script>
+  <script src="/scripts.js?v=20260720-risk-audit" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -143,6 +143,9 @@
             <option>Broker API integration</option>
             <option>Order execution API system</option>
             <option>Risk / monitoring dashboard</option>
+            <option>Trading system consistency audit</option>
+            <option>Trading system incident diagnosis</option>
+            <option>Multi-account trading monitoring</option>
             <option>Private deployment / handoff</option>
           </select>
         </label>
@@ -167,6 +170,8 @@
             <option>API Starter Package - 2000 美金起</option>
             <option>Execution System Package - 5000 美金起</option>
             <option>Private Infrastructure Package - 10000 美金起</option>
+            <option>Read-only audit / diagnosis - 2000 美金起</option>
+            <option>Ongoing monitoring - audit 后报价</option>
             <option>还在评估</option>
           </select>
         </label>
@@ -187,7 +192,7 @@
         </label>
       </div>
       <label>想解决的业务或执行问题
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：TradingView 信号仍需手工下单、现有机器人会重复下单，或缺少仓位限制和暂停开关。"></textarea>
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"></textarea>
       </label>
       <label>补充说明
         <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>

@@ -7,8 +7,8 @@ const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
-const currentScriptHref = "/scripts.js?v=20260719-hyperliquid-buyer-intent";
-const contentDate = "2026-07-19";
+const currentScriptHref = "/scripts.js?v=20260720-risk-audit";
+const contentDate = "2026-07-20";
 const errors = [];
 
 function walk(dir) {

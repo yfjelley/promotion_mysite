@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-07-19
+Last updated: 2026-07-20
 
 ## Core services
 
@@ -23,6 +23,12 @@ Last updated: 2026-07-19
 - Custom Hyperliquid trading bot development: https://pddjf.com/hyperliquid-api-trading-bot-development/ — Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
 - TradingView to Hyperliquid automation: https://pddjf.com/tradingview-to-hyperliquid-automation/ — Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
 - Hyperliquid execution systems for trading teams: https://pddjf.com/hyperliquid-trading-system-for-teams/ — Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.
+- 交易系统一致性审计: https://pddjf.com/trading-system-consistency-audit/ — 面向香港、新加坡及亚洲量化团队的7天只读交易系统一致性审计，核对策略版本、系统状态、订单成交、持仓余额并输出整改清单。
+- 交易系统事故诊断: https://pddjf.com/trading-system-incident-diagnosis/ — 针对重复下单、漏单、仓位漂移、重启失控和账实不一致的交易系统事故诊断，交付证据时间线、根因验证和整改计划。
+- 多账户交易持续监控: https://pddjf.com/multi-account-trading-monitoring/ — 为亚洲量化和多账户交易团队建立订单、成交、持仓、余额、任务状态与风险边界的持续核对和分级告警，先审计再监控。
+- Trading system consistency audit service: https://pddjf.com/trading-system-consistency-audit-service/ — A seven-day read-only trading-system consistency audit for quant funds and multi-account teams in Hong Kong, Singapore and Asia, with evidence-linked remediation priorities.
+- Trading system incident diagnosis: https://pddjf.com/trading-system-incident-diagnosis-service/ — Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.
+- Multi-account trading monitoring service: https://pddjf.com/multi-account-trading-monitoring-service/ — Ongoing order, fill, position, balance, job-state and risk-limit reconciliation for quant funds and multi-account trading teams in Hong Kong, Singapore and Asia.
 
 ## Free tools
 
@@ -115,6 +121,12 @@ Last updated: 2026-07-19
 - https://pddjf.com/hyperliquid-api-trading-bot-development/ — Custom Hyperliquid trading bot development: Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment.
 - https://pddjf.com/tradingview-to-hyperliquid-automation/ — TradingView to Hyperliquid automation: Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.
 - https://pddjf.com/hyperliquid-trading-system-for-teams/ — Hyperliquid execution systems for trading teams: Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.
+- https://pddjf.com/trading-system-consistency-audit/ — 交易系统一致性审计: 面向香港、新加坡及亚洲量化团队的7天只读交易系统一致性审计，核对策略版本、系统状态、订单成交、持仓余额并输出整改清单。
+- https://pddjf.com/trading-system-incident-diagnosis/ — 交易系统事故诊断: 针对重复下单、漏单、仓位漂移、重启失控和账实不一致的交易系统事故诊断，交付证据时间线、根因验证和整改计划。
+- https://pddjf.com/multi-account-trading-monitoring/ — 多账户交易持续监控: 为亚洲量化和多账户交易团队建立订单、成交、持仓、余额、任务状态与风险边界的持续核对和分级告警，先审计再监控。
+- https://pddjf.com/trading-system-consistency-audit-service/ — Trading system consistency audit service: A seven-day read-only trading-system consistency audit for quant funds and multi-account teams in Hong Kong, Singapore and Asia, with evidence-linked remediation priorities.
+- https://pddjf.com/trading-system-incident-diagnosis-service/ — Trading system incident diagnosis: Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.
+- https://pddjf.com/multi-account-trading-monitoring-service/ — Multi-account trading monitoring service: Ongoing order, fill, position, balance, job-state and risk-limit reconciliation for quant funds and multi-account trading teams in Hong Kong, Singapore and Asia.
 
 ## Useful URLs
 

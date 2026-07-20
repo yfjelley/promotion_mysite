@@ -36,6 +36,9 @@ SEO and GEO content pages:
   `/fix-api-order-routing-developer/` for high-intent English search and Ads
   landing pages.
 - `/risk-engine/` for pre-trade risk controls.
+- `/trading-system-consistency-audit/` and `/trading-system-consistency-audit-service/` for the seven-day read-only audit offer in Chinese and English.
+- `/trading-system-incident-diagnosis/` and `/trading-system-incident-diagnosis-service/` for evidence-backed production incident diagnosis.
+- `/multi-account-trading-monitoring/` and `/multi-account-trading-monitoring-service/` for audit-first reconciliation and ongoing monitoring.
 - `/private-deployment/` for private deployment, source delivery, and operational handoff.
 - `/articles/` and `/articles/.../` for problem-focused technical articles and official/API reference links, including English strategy automation, IBKR execution, FIX routing, risk checklist, and failure-mode pages.
 - `/faq/` for answer-style FAQ content.

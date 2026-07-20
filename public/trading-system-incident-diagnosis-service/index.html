@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trading System Incident Diagnosis | Duplicate Orders and Position Drift</title>
+  <meta name="description" content="Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://pddjf.com/trading-system-incident-diagnosis-service/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://pddjf.com/trading-system-incident-diagnosis/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/trading-system-incident-diagnosis-service/">
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Reconstruct the Facts Before Changing Production Code">
+  <meta property="og:description" content="Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/trading-system-incident-diagnosis-service/">
+
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260719-hyperliquid-buyer-intent&scope=hyperliquid-buyers-20260719">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260720-risk-audit" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/trading-system-incident-diagnosis-service/#webpage",
+      "url": "https://pddjf.com/trading-system-incident-diagnosis-service/",
+      "name": "Reconstruct the Facts Before Changing Production Code",
+      "description": "Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/trading-system-incident-diagnosis-service/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Trading System Incident Diagnosis",
+          "item": "https://pddjf.com/trading-system-incident-diagnosis-service/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://pddjf.com/trading-system-incident-diagnosis-service/#service",
+      "name": "Reconstruct the Facts Before Changing Production Code",
+      "description": "Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems.",
+      "serviceType": "Production trading system incident diagnosis",
+      "provider": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "areaServed": [
+        "United States",
+        "Hong Kong",
+        "Singapore",
+        "Taiwan",
+        "Worldwide remote delivery"
+      ],
+      "offers": {
+        "@type": "OfferCatalog",
+        "name": "Trading system audit, diagnosis and monitoring services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "7-Day Read-Only Consistency Audit",
+            "priceCurrency": "USD",
+            "price": "2000",
+            "description": "One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Production Incident Diagnosis",
+            "priceCurrency": "USD",
+            "price": "2000",
+            "description": "Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first.",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/trading-system-incident-diagnosis-service/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can you take over while the incident is active?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not by default. This is read-only diagnosis. The customer should pause, degrade or isolate through its own incident process; emergency response requires a separate agreement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you diagnose an incident with incomplete logs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We can assess the gaps, but confidence falls. Venue order, fill and account exports can sometimes replace part of missing system evidence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you find duplicate-order causes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typical checks include idempotency keys, retries, job locks, restart recovery, order-ID mapping and recent-fill synchronization, but conclusions depend on evidence."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will you submit the code fix?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The initial diagnosis delivers a remediation specification. Code and production changes need a separate repository, testing, release and rollback scope."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you prepare an executive postmortem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The handoff separates business impact, technical root cause, control gaps, priorities and remaining unknowns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent blame-driven reviews?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We record only evidence-linked facts and separate system defects, venue behavior, operator events and unsupported conclusions."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content" data-buyer-intent="v1">
+    <section class="content-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Trading System Incident Diagnosis</span>
+    </nav>
+      <p class="eyebrow">Incident Review · Root Cause · Remediation</p>
+      <h1>Reconstruct the Facts Before Changing Production Code</h1>
+      <p class="hero-lede">For one known incident, we rebuild the chain from signals, deployment and job state through order requests, venue reports, fills, positions and operator actions—so the team fixes the first state divergence, not merely the last visible error.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="/contact/?project=Trading%20system%20incident%20diagnosis" data-contact="content_hero_contact">Send the incident window</a>
+        <a class="button secondary" href="#deliverables">View deliverables</a>
+      </div>
+      <nav class="mobile-quick-links" aria-label="Mobile quick links">
+        <a href="#fit">Fit</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#faq">FAQ</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="fact-strip" aria-label="Delivery packages and service boundaries"><span>Read-only access</span><span>No trade or withdrawal rights</span><span>Evidence-linked findings</span><span>No return promises</span></div>
+    </section>
+
+<section class="buyer-snapshot-section" aria-labelledby="buyer-snapshot-title">
+      <div class="buyer-snapshot-shell">
+        <div class="buyer-snapshot-head">
+          <div><p class="eyebrow">Project Planning Snapshot</p><h2 id="buyer-snapshot-title">Can this project fit your budget and timeline?</h2></div>
+          <a class="button primary" href="/contact/?project=Trading%20system%20incident%20diagnosis" data-contact="buyer_snapshot_estimate">Request a scoped estimate</a>
+        </div>
+        <dl class="buyer-snapshot-grid">
+          <div><dt>Best fit</dt><dd>Duplicate or missing orders, stale open orders, position drift, restart recovery or stuck jobs.</dd></div><div><dt>Diagnosis scope</dt><dd>One known incident window and its directly affected accounts and execution chain.</dd></div><div><dt>Delivery window</dt><dd>Usually three to seven business days after evidence is complete.</dd></div><div><dt>Planning budget</dt><dd>From USD 2,000; cross-system incidents are scoped first.</dd></div>
+        </dl>
+        <p class="buyer-snapshot-note">If the incident is ongoing, the customer should use its own pause or degradation process first. This service is not immediate takeover or 24/7 emergency response by default.</p>
+      </div>
+    </section>
+
+<section id="project-paths" class="section buyer-outcome-section" aria-labelledby="buyer-outcome-title">
+      <div class="section-head centered">
+        <p class="eyebrow">Your Project, In Plain Language</p>
+        <h2 id="buyer-outcome-title">Turn fragmented evidence into a testable failure chain</h2>
+        <p>Start from the first state divergence instead of inventing a story backwards from the final loss.</p>
+      </div>
+      <div class="buyer-outcome-grid">
+        <article><span>01</span><h3>Unified timeline</h3><p>Normalize timezone and clock drift across system and venue evidence.</p></article><article><span>02</span><h3>State-transition review</h3><p>Trace intent, request, acknowledgement, fill, cancel, retry and recovery.</p></article><article><span>03</span><h3>Root-cause tests</h3><p>Use replay, log queries or read-only data to test the main hypotheses.</p></article><article><span>04</span><h3>Prevention plan</h3><p>Translate fixes into regression cases, alerts and an operator runbook.</p></article>
+      </div>
+
+    </section>
+
+    <section class="section ai-summary-section" aria-labelledby="ai-summary-title">
+      <div class="section-head">
+        <p class="eyebrow">Service Facts</p>
+        <h2 id="ai-summary-title">Service facts summary</h2>
+        <p>A concise project-assessment summary covering fit, deliverables, delivery package and exclusions.</p>
+      </div>
+      <div class="summary-list">
+        <div><strong>What it is</strong><span>Cross-check strategy intent and deployed version, database / Redis / job state, venue orders and fills, and real account positions and balances.</span></div><div><strong>Who it fits</strong><span>Small and mid-sized quant funds, asset-management studios and multi-account trading teams in Hong Kong, Singapore and Asia.</span></div><div><strong>Initial scope</strong><span>One venue, one strategy or execution chain, and one incident or discrepancy window.</span></div><div><strong>Access boundary</strong><span>Prefer masked exports and temporary read-only access; no trade, withdrawal, transfer or custody authority.</span></div><div><strong>Outputs</strong><span>Incident timeline, discrepancy matrix, root cause with confidence, P0 / P1 / P2 actions and monitoring baseline.</span></div><div><strong>Contact</strong><span>contact@pddjf.com / WeChat btc1688 / Telegram @yf16881</span></div>
+      </div>
+    </section>
+
+    <section id="fit" class="section answer-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Fit Check</p>
+        <h2>Who this service fits, and who it does not fit</h2>
+        <p>Start by checking whether the workflow is ready for technical assessment before expanding scope.</p>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>Good fit</h3>
+          <ul class="check-list"><li>The incident has a reasonably defined window and affected accounts.</li><li>At least some logs, database state or venue execution history remain available.</li><li>The team needs an independent root-cause and prevention review.</li></ul>
+        </article>
+        <article>
+          <h3>Not a fit</h3>
+          <ul class="plain-list"><li>The incident is active and you require immediate production-account takeover.</li><li>You need blame attribution without verifiable evidence.</li><li>You require legal forensics, a regulatory audit opinion or an insurance statement.</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="deliverables" class="section content-band">
+      <div class="section-head">
+        <p class="eyebrow">Deliverables</p>
+        <h2>Outputs your team can use for remediation</h2>
+        <p>Not a vague risk score: each material finding links back to logs, orders, fills, deployed versions or account snapshots.</p>
+      </div>
+      <div class="detail-grid"><article><h3>Incident evidence index and unified timeline with timezone, clock drift and missing intervals noted</h3><p>Incident evidence index and unified timeline with timezone, clock drift and missing intervals noted.</p></article><article><h3>Order and position state-transition map locating the first divergence, amplifiers and final impact</h3><p>Order and position state-transition map locating the first divergence, amplifiers and final impact.</p></article><article><h3>Root-cause hypothesis table with supporting evidence, counter-evidence, confidence and unknowns</h3><p>Root-cause hypothesis table with supporting evidence, counter-evidence, confidence and unknowns.</p></article><article><h3>P0 containment, P1 remediation and P2 hardening actions plus executable regression cases</h3><p>P0 containment, P1 remediation and P2 hardening actions plus executable regression cases.</p></article><article><h3>Incident-review material and a scoped recommendation for remediation or monitoring</h3><p>Incident-review material and a scoped recommendation for remediation or monitoring.</p></article></div>
+    </section>
+
+    <section class="section process-section">
+      <div class="section-head centered">
+        <p class="eyebrow">Process</p>
+        <h2>From frozen scope to evidence-backed handoff</h2>
+      </div>
+      <ol class="process-grid"><li><span>01</span><strong>Confirm containment and freeze the affected accounts, versions and evidence window</strong><em>Confirm containment and freeze the affected accounts, versions and evidence window.</em></li><li><span>02</span><strong>Collect masked logs, deployment records, job state, venue execution and operator events</strong><em>Collect masked logs, deployment records, job state, venue execution and operator events.</em></li><li><span>03</span><strong>Normalize clocks, rebuild state transitions and locate the first factual divergence</strong><em>Normalize clocks, rebuild state transitions and locate the first factual divergence.</em></li><li><span>04</span><strong>Test root cause through replay or queries and separate cause, amplifier and symptom</strong><em>Test root cause through replay or queries and separate cause, amplifier and symptom.</em></li><li><span>05</span><strong>Deliver prevention actions, regression cases and monitoring signals</strong><em>Deliver prevention actions, regression cases and monitoring signals.</em></li></ol>
+    </section>
+
+    <section class="section budget-section">
+      <div class="section-head centered dark">
+        <p class="eyebrow">Delivery Packages</p>
+        <h2>Start with a bounded audit before committing to remediation</h2>
+        <p>The first engagement fixes one venue, one execution chain and one evidence window. Monitoring and code remediation are scoped after the facts are established.</p>
+      </div>
+      <div class="pricing-grid"><article><h3>7-Day Read-Only Consistency Audit</h3><p>One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.</p><strong class="price">From USD 2,000</strong><a class="button secondary" href="/contact/?project=Trading%20system%20incident%20diagnosis&amp;package=7-Day%20Read-Only%20Consistency%20Audit" data-contact="content_package_7-day_read-only_consistency_audit">Assess this scope</a></article><article class="featured"><h3>Production Incident Diagnosis</h3><p>Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first.</p><strong class="price">From USD 2,000</strong><a class="button primary" href="/contact/?project=Trading%20system%20incident%20diagnosis&amp;package=Production%20Incident%20Diagnosis" data-contact="content_package_production_incident_diagnosis">Assess this scope</a></article><article><h3>Ongoing Monitoring Baseline</h3><p>Establish account truth first, then scope checks, venues, frequency, alert routing and response obligations.</p><strong class="price">Quoted after audit</strong><a class="button secondary" href="/contact/?project=Trading%20system%20incident%20diagnosis&amp;package=Ongoing%20Monitoring%20Baseline" data-contact="content_package_ongoing_monitoring_baseline">Assess this scope</a></article></div>
+    </section>
+
+    <section class="section risk-section">
+      <div class="section-head">
+        <p class="eyebrow">Risk Boundary</p>
+        <h2>Risk boundaries and platform limits</h2>
+      </div>
+      <div class="answer-grid">
+        <article>
+          <h3>Risk boundary</h3>
+          <ul class="plain-list"><li>The service does not provide investment advice, signals, return guarantees, managed trading, custody or withdrawal management.</li><li>Findings depend on log retention, clock consistency, venue history endpoints and customer data completeness; unsupported conclusions are marked unknown.</li><li>This is not 24/7 human incident response by default; service hours, response levels and escalation paths require a separate written scope.</li><li>We serve organizations operating lawfully in their jurisdictions and do not support virtual-asset services directed at prohibited markets.</li></ul>
+        </article>
+        <article>
+          <h3>Prepare before contact</h3>
+          <ul class="check-list"><li>One defined incident or discrepancy window</li><li>Masked logs, order / fill / position exports and deployed version</li><li>A short statement of expected versus observed behavior</li><li>Technical, trading and risk contacts who can confirm facts</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section evidence-section" aria-labelledby="evidence-title">
+      <div class="section-head">
+        <p class="eyebrow">Checklists & Tables</p>
+        <h2 id="evidence-title">Inputs, permissions, package and acceptance tables</h2>
+        <p>Formal projects turn these tables into a scoped requirements and acceptance checklist.</p>
+      </div>
+      <div class="evidence-grid">
+        <article class="evidence-table">
+          <h3>Pre-contact checklist</h3>
+          <p>Masked evidence is enough for the first scope check; credentials are not needed for the initial call.</p>
+          <div class="data-table columns-2" role="table" aria-label="Pre-contact checklist">
+            <div class="table-row table-head" role="row"><span role="columnheader">Item</span><span role="columnheader">Details</span></div>
+            <div class="table-row" role="row"><span role="cell">Incident or discrepancy window</span><span role="cell">Date, timezone, account, strategy, instruments and the first known abnormal event.</span></div><div class="table-row" role="row"><span role="cell">System evidence</span><span role="cell">Masked strategy version, deployment record, application logs, database / Redis / job state.</span></div><div class="table-row" role="row"><span role="cell">Venue evidence</span><span role="cell">Order, fill, position, balance and transfer exports; samples are enough for the first scope check.</span></div><div class="table-row" role="row"><span role="cell">Expected behavior</span><span role="cell">What the system should have done, what actually happened and what the team already tried.</span></div><div class="table-row" role="row"><span role="cell">Ownership</span><span role="cell">Technical contact, available review window, data retention and whether remediation or monitoring may follow.</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>API key minimum permission guidance</h3>
+          <p>Use only the permissions required for the project and avoid withdrawal, transfer or unrelated admin access.</p>
+          <div class="data-table columns-3" role="table" aria-label="API key minimum permission guidance">
+            <div class="table-row table-head" role="row"><span role="columnheader">Permission</span><span role="columnheader">Recommendation</span><span role="columnheader">Reason</span></div>
+            <div class="table-row" role="row"><span role="cell">Masked samples</span><span role="cell">Preferred for scoping</span><span role="cell">Establish evidence sufficiency before any production access is considered.</span></div><div class="table-row" role="row"><span role="cell">Read-only API</span><span role="cell">Scope-based</span><span role="cell">Used for balances, positions, orders and fills; IP, account and time limits are recommended.</span></div><div class="table-row" role="row"><span role="cell">Log / database read</span><span role="cell">Evidence-based</span><span role="cell">Prefer exports or temporary read-only users; server admin control stays with the customer.</span></div><div class="table-row" role="row"><span role="cell">Trade, withdrawal, transfer</span><span role="cell">Not needed</span><span role="cell">Audit and diagnosis require no order, withdrawal, transfer or custody authority.</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>Delivery package breakdown</h3>
+          <p>Package scope depends on API count, risk complexity, dashboard scope, deployment and integration work.</p>
+          <div class="data-table columns-2" role="table" aria-label="Delivery package breakdown">
+            <div class="table-row table-head" role="row"><span role="columnheader">Package tier</span><span role="columnheader">Suitable scope</span></div>
+            <div class="table-row" role="row"><span role="cell">From USD 2,000</span><span role="cell">One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.</span></div><div class="table-row" role="row"><span role="cell">From USD 2,000</span><span role="cell">Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first.</span></div><div class="table-row" role="row"><span role="cell">Quoted after audit</span><span role="cell">Establish account truth first, then scope checks, venues, frequency, alert routing and response obligations.</span></div>
+          </div>
+        </article>
+        <article class="evidence-table">
+          <h3>Launch acceptance checklist</h3>
+          <p>Acceptance is based on reproducible evidence, documented gaps and actionable remediation—not trading returns.</p>
+          <div class="data-table columns-2" role="table" aria-label="Launch acceptance checklist">
+            <div class="table-row table-head" role="row"><span role="columnheader">Item</span><span role="columnheader">Details</span></div>
+            <div class="table-row" role="row"><span role="cell">Scope frozen</span><span role="cell">Accounts, strategies, venues, time window and known data gaps are recorded.</span></div><div class="table-row" role="row"><span role="cell">Evidence reproducible</span><span role="cell">Key findings trace back to order IDs, fill IDs, timestamps, deployed versions or account snapshots.</span></div><div class="table-row" role="row"><span role="cell">Discrepancies classified</span><span role="cell">Each material gap is assigned to system, venue, operator or insufficient evidence with confidence noted.</span></div><div class="table-row" role="row"><span role="cell">Remediation actionable</span><span role="cell">P0 / P1 / P2 actions include validation method, owner and rollback point.</span></div><div class="table-row" role="row"><span role="cell">Boundaries confirmed</span><span role="cell">Excluded accounts, historical gaps, third-party limits and response obligations are documented.</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+
+    <section class="section case-bridge-section" aria-labelledby="case-bridge-title">
+      <div class="section-head">
+        <p class="eyebrow">Case Proof</p>
+        <h2 id="case-bridge-title">Match your brief to an anonymous case</h2>
+        <p>The case page shows problem, constraints, solution, deliverables, acceptance and exclusions. Use it to describe what your project resembles before requesting a package assessment.</p>
+      </div>
+      <div class="case-bridge-grid">
+        <article><h3>Order-state drift</h3><p>Internal state says cancelled while a live venue order remains; reconstruct transitions through client IDs, venue IDs and timestamps.</p></article><article><h3>Duplicate execution after restart</h3><p>Job state, Redis locks and recent fills fail to recover, allowing an old intent to route again.</p></article><article><h3>Multi-account limit distortion</h3><p>Subaccount position, open-order and balance aggregation disagree, corrupting exposure or available-funds checks.</p></article>
+      </div>
+      <div class="case-bridge-actions">
+        <a class="button primary" href="/case-studies/" data-contact="service_case_bridge">View case studies</a>
+        <a class="button secondary" href="/contact/?project=Trading%20system%20incident%20diagnosis" data-contact="service_case_brief">Send a similar brief</a>
+      </div>
+    </section>
+
+    <section class="section external-trust-section" aria-labelledby="external-trust-title">
+      <div class="section-head">
+        <p class="eyebrow">External Evidence</p>
+        <h2 id="external-trust-title">External trust materials</h2>
+        <p>These public materials help verify the brand, service boundary, engineering delivery style and sanitized technical examples.</p>
+      </div>
+      <div class="external-trust-grid">
+        <a href="https://github.com/yfjelley" rel="me noopener" target="_blank"><strong>GitHub profile</strong><span>Public GitHub profile connecting the SignalCraft Labs brand with engineering work and source-delivery capability.</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="me noopener" target="_blank"><strong>Engineering notes</strong><span>Sanitized engineering notes covering webhook idempotency, risk dry-runs, API permissions, integration constraints and acceptance checklists.</span></a><a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="me noopener" target="_blank"><strong>LinkedIn profile</strong><span>Public LinkedIn profile used to keep the business identity, service boundaries and contact path consistent across the web.</span></a>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq-section">
+      <div class="section-head centered">
+        <p class="eyebrow">FAQ</p>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq-list"><article><h3>Can you take over while the incident is active?</h3><p>Not by default. This is read-only diagnosis. The customer should pause, degrade or isolate through its own incident process; emergency response requires a separate agreement.</p></article><article><h3>Can you diagnose an incident with incomplete logs?</h3><p>We can assess the gaps, but confidence falls. Venue order, fill and account exports can sometimes replace part of missing system evidence.</p></article><article><h3>Can you find duplicate-order causes?</h3><p>Typical checks include idempotency keys, retries, job locks, restart recovery, order-ID mapping and recent-fill synchronization, but conclusions depend on evidence.</p></article><article><h3>Will you submit the code fix?</h3><p>The initial diagnosis delivers a remediation specification. Code and production changes need a separate repository, testing, release and rollback scope.</p></article><article><h3>Can you prepare an executive postmortem?</h3><p>Yes. The handoff separates business impact, technical root cause, control gaps, priorities and remaining unknowns.</p></article><article><h3>How do you prevent blame-driven reviews?</h3><p>We record only evidence-linked facts and separate system defects, venue behavior, operator events and unsupported conclusions.</p></article></div>
+    </section>
+
+    <section class="section related-section">
+      <div class="section-head">
+        <p class="eyebrow">Related</p>
+        <h2>Related pages</h2>
+      </div>
+      <div class="policy-links"><a href="/trading-system-consistency-audit-service/">7-day consistency audit</a><a href="/multi-account-trading-monitoring-service/">Multi-account monitoring</a><a href="/trading-system-incident-diagnosis/">中文事故诊断页</a><a href="/faq/">FAQ</a><a href="/case-studies/">Case studies</a></div>
+    </section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">Send one masked incident sample to test whether a seven-day audit can close the loop</h2>
+        <p>No production credentials are needed for the first review. Share the time window, one anomaly, a log excerpt and a venue-export sample; a complete brief usually receives an initial fit reply within one business day.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul><li>Incident date, timezone and affected accounts</li><li>One order / fill / position discrepancy</li><li>Deployed version and related log excerpt</li><li>Required findings and remediation boundary</li></ul>
+        <a class="button primary" href="/contact/?project=Trading%20system%20incident%20diagnosis" data-contact="content_structured_brief">Send a structured brief</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom trading software for teams</a>
+      <a href="/tradingview-webhook-developer/">TradingView alert automation</a>
+      <a href="/ibkr-api-automation-developer/">IBKR trading automation</a>
+      <a href="/fix-api-order-routing-developer/">FIX order routing system</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

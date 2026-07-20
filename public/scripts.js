@@ -121,12 +121,21 @@ function applyBriefQueryState(form) {
   const projectTypes = {
     "hyperliquid-api-trading-bot-development": "Hyperliquid custom bot development",
     "tradingview-to-hyperliquid-automation": "TradingView to Hyperliquid automation",
-    "hyperliquid-trading-system-for-teams": "Hyperliquid team execution system"
+    "hyperliquid-trading-system-for-teams": "Hyperliquid team execution system",
+    "Trading system consistency audit": "Trading system consistency audit",
+    "Trading system incident diagnosis": "Trading system incident diagnosis",
+    "Multi-account trading monitoring": "Multi-account trading monitoring"
   };
   const budgetTypes = {
     "API Starter Package": "API Starter Package - 2000 美金起",
     "Execution System Package": "Execution System Package - 5000 美金起",
-    "Private Infrastructure Package": "Private Infrastructure Package - 10000 美金起"
+    "Private Infrastructure Package": "Private Infrastructure Package - 10000 美金起",
+    "7天只读一致性审计": "Read-only audit / diagnosis - 2000 美金起",
+    "生产事故诊断": "Read-only audit / diagnosis - 2000 美金起",
+    "持续监控基线": "Ongoing monitoring - audit 后报价",
+    "7-Day Read-Only Consistency Audit": "Read-only audit / diagnosis - 2000 美金起",
+    "Production Incident Diagnosis": "Read-only audit / diagnosis - 2000 美金起",
+    "Ongoing Monitoring Baseline": "Ongoing monitoring - audit 后报价"
   };
   const projectType = projectTypes[params.get("project")];
   const budget = budgetTypes[params.get("package")];

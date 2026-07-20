@@ -1,6 +1,6 @@
 {
   "site": "https://pddjf.com",
-  "generatedAt": "2026-07-17",
+  "generatedAt": "2026-07-20",
   "generatedServiceRoutes": [
     "/tradingview-webhook-automation/",
     "/exchange-api-trading-bot-development/",
@@ -16,7 +16,13 @@
     "/private-deployment/",
     "/hyperliquid-api-trading-bot-development/",
     "/tradingview-to-hyperliquid-automation/",
-    "/hyperliquid-trading-system-for-teams/"
+    "/hyperliquid-trading-system-for-teams/",
+    "/trading-system-consistency-audit/",
+    "/trading-system-incident-diagnosis/",
+    "/multi-account-trading-monitoring/",
+    "/trading-system-consistency-audit-service/",
+    "/trading-system-incident-diagnosis-service/",
+    "/multi-account-trading-monitoring-service/"
   ],
   "buyerIntentServiceRoutes": [
     "/tradingview-webhook-automation/",
@@ -28,7 +34,13 @@
     "/risk-engine/",
     "/hyperliquid-api-trading-bot-development/",
     "/tradingview-to-hyperliquid-automation/",
-    "/hyperliquid-trading-system-for-teams/"
+    "/hyperliquid-trading-system-for-teams/",
+    "/trading-system-consistency-audit/",
+    "/trading-system-incident-diagnosis/",
+    "/multi-account-trading-monitoring/",
+    "/trading-system-consistency-audit-service/",
+    "/trading-system-incident-diagnosis-service/",
+    "/multi-account-trading-monitoring-service/"
   ],
   "coreServiceUrls": [
     {
@@ -115,6 +127,36 @@
       "label": "Hyperliquid execution systems for trading teams",
       "url": "https://pddjf.com/hyperliquid-trading-system-for-teams/",
       "summary": "Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment."
+    },
+    {
+      "label": "交易系统一致性审计",
+      "url": "https://pddjf.com/trading-system-consistency-audit/",
+      "summary": "面向香港、新加坡及亚洲量化团队的7天只读交易系统一致性审计，核对策略版本、系统状态、订单成交、持仓余额并输出整改清单。"
+    },
+    {
+      "label": "交易系统事故诊断",
+      "url": "https://pddjf.com/trading-system-incident-diagnosis/",
+      "summary": "针对重复下单、漏单、仓位漂移、重启失控和账实不一致的交易系统事故诊断，交付证据时间线、根因验证和整改计划。"
+    },
+    {
+      "label": "多账户交易持续监控",
+      "url": "https://pddjf.com/multi-account-trading-monitoring/",
+      "summary": "为亚洲量化和多账户交易团队建立订单、成交、持仓、余额、任务状态与风险边界的持续核对和分级告警，先审计再监控。"
+    },
+    {
+      "label": "Trading system consistency audit service",
+      "url": "https://pddjf.com/trading-system-consistency-audit-service/",
+      "summary": "A seven-day read-only trading-system consistency audit for quant funds and multi-account teams in Hong Kong, Singapore and Asia, with evidence-linked remediation priorities."
+    },
+    {
+      "label": "Trading system incident diagnosis",
+      "url": "https://pddjf.com/trading-system-incident-diagnosis-service/",
+      "summary": "Evidence-backed diagnosis for duplicate orders, missing orders, position drift, restart failures and unexplained account discrepancies in production trading systems."
+    },
+    {
+      "label": "Multi-account trading monitoring service",
+      "url": "https://pddjf.com/multi-account-trading-monitoring-service/",
+      "summary": "Ongoing order, fill, position, balance, job-state and risk-limit reconciliation for quant funds and multi-account trading teams in Hong Kong, Singapore and Asia."
     }
   ],
   "externalTrustLinks": [
