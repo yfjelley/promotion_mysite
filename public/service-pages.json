@@ -51,7 +51,7 @@
     {
       "label": "TradingView Alert 自动执行服务",
       "url": "https://pddjf.com/tradingview-webhook-automation/",
-      "summary": "TradingView Webhook 自动执行服务：把现有 Alert 或 Pine Script 接入交易所或券商 API，补齐防重复、风控、日志和私有部署。"
+      "summary": "已有 TradingView Alert，却仍要盯盘、手工下单，担心漏单或重复执行？将现有信号接入可暂停、可追踪的自动下单流程。"
     },
     {
       "label": "交易所 API 自动执行服务",

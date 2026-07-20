@@ -99,12 +99,12 @@ const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 const searchSnippetExpectations = new Map([
   ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
-  ["tradingview-webhook-automation", "TradingView Webhook Automation | 交易所与券商 API 自动执行"],
+  ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
   ["broker-api/ibkr", "IBKR API Automation | 自动交易系统开发与风控"],
   ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS Gateway vs Client Portal | 自动交易接入对比"]
 ]);
 const buyerPositioningExpectations = new Map([
-  ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],
+  ["/tradingview-webhook-automation/", "Alert 已经发出，为什么还要手工盯盘下单？"],
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
   ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
   ["/custom-trading-software-development/", "Custom Trading Software and Platform Development for Teams"],

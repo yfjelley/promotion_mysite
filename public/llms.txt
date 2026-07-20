@@ -7,7 +7,7 @@ Last updated: 2026-07-20
 ## Core services
 
 - Crypto Asset Reporting: https://pddjf.com/crypto-asset-reporting/ — 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- TradingView Alert 自动执行服务: https://pddjf.com/tradingview-webhook-automation/ — TradingView Webhook 自动执行服务：把现有 Alert 或 Pine Script 接入交易所或券商 API，补齐防重复、风控、日志和私有部署。
+- TradingView Alert 自动执行服务: https://pddjf.com/tradingview-webhook-automation/ — 已有 TradingView Alert，却仍要盯盘、手工下单，担心漏单或重复执行？将现有信号接入可暂停、可追踪的自动下单流程。
 - 交易所 API 自动执行服务: https://pddjf.com/exchange-api-trading-bot-development/ — 把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。
 - Broker API automation: https://pddjf.com/broker/api/ — Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - IBKR API automation: https://pddjf.com/broker-api/ibkr/ — IBKR API automation 开发服务，覆盖 TWS Gateway 或 Client Portal 评估、订单路由、持仓同步、风控、审计日志和私有部署。
@@ -105,7 +105,7 @@ Last updated: 2026-07-20
 ## Page summaries
 
 - https://pddjf.com/crypto-asset-reporting/ — Crypto Asset Reporting: 为高净值加密资产持有人、顾问和家族办公室式运营方整理交易所、钱包、DeFi、OTC 和衍生品记录，建立私有月度报告、对账和风险复核工作流。
-- https://pddjf.com/tradingview-webhook-automation/ — TradingView Alert 自动执行服务: TradingView Webhook 自动执行服务：把现有 Alert 或 Pine Script 接入交易所或券商 API，补齐防重复、风控、日志和私有部署。
+- https://pddjf.com/tradingview-webhook-automation/ — TradingView Alert 自动执行服务: 已有 TradingView Alert，却仍要盯盘、手工下单，担心漏单或重复执行？将现有信号接入可暂停、可追踪的自动下单流程。
 - https://pddjf.com/exchange-api-trading-bot-development/ — 交易所 API 自动执行服务: 把已有 DCA、Grid、趋势或组合规则接入交易所 API，减少手工执行，并获得订单状态、仓位风控、异常告警、源码和私有部署。
 - https://pddjf.com/broker/api/ — Broker API automation: Broker API automation overview for IBKR, Schwab, Alpaca, FIX, REST, WebSocket order execution, risk checks, logs, and private deployment.
 - https://pddjf.com/broker-api/ibkr/ — IBKR API automation: IBKR API automation 开发服务，覆盖 TWS Gateway 或 Client Portal 评估、订单路由、持仓同步、风控、审计日志和私有部署。
