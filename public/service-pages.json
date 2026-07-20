@@ -66,7 +66,7 @@
     {
       "label": "IBKR API automation",
       "url": "https://pddjf.com/broker-api/ibkr/",
-      "summary": "IBKR API automation 开发服务，覆盖 TWS Gateway 或 Client Portal 评估、订单路由、持仓同步、风控、审计日志和私有部署。"
+      "summary": "IBKR API 自动交易开发服务，解决 TWS、Gateway 或 Web API 断线、会话过期、订单状态缺口与持仓不同步，并交付风控、日志和恢复流程。"
     },
     {
       "label": "Schwab API automation",
@@ -116,7 +116,7 @@
     {
       "label": "Custom Hyperliquid trading bot development",
       "url": "https://pddjf.com/hyperliquid-api-trading-bot-development/",
-      "summary": "Hire a developer to turn defined trading rules into a custom Hyperliquid bot. Planning starts around USD 5,000 for execution, controls, monitoring, source code and private deployment."
+      "summary": "Custom Hyperliquid bot development for duplicate orders, reconnect gaps and uncertain position state, with reconciliation, controls, source code and private deployment."
     },
     {
       "label": "TradingView to Hyperliquid automation",

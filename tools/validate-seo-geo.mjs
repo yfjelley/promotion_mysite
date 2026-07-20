@@ -100,11 +100,14 @@ const customTradingSoftwareFile = join(publicDir, "custom-trading-software-devel
 const searchSnippetExpectations = new Map([
   ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
   ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
-  ["broker-api/ibkr", "IBKR API Automation | 自动交易系统开发与风控"],
+  ["broker-api/ibkr", "IBKR API 自动交易开发 | 解决断线、会话过期与订单状态失真"],
+  ["hyperliquid-api-trading-bot-development", "Hyperliquid Bot Development | Duplicate Order and State Recovery"],
   ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS Gateway vs Client Portal | 自动交易接入对比"]
 ]);
 const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "Alert 已经发出，为什么还要手工盯盘下单？"],
+  ["/broker-api/ibkr/", "IBKR 断线或会话过期后，订单和持仓还能对得上吗？"],
+  ["/hyperliquid-api-trading-bot-development/", "When Your Hyperliquid Bot Reconnects, Are Orders and Positions Still in Sync?"],
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
   ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
   ["/custom-trading-software-development/", "Custom Trading Software and Platform Development for Teams"],
