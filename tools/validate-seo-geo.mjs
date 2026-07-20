@@ -97,6 +97,12 @@ const requiredIconTextAssets = new Map([
 ]);
 const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "apple-touch-icon-180.png"];
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
+const searchSnippetExpectations = new Map([
+  ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
+  ["tradingview-webhook-automation", "TradingView Webhook Automation | 交易所与券商 API 自动执行"],
+  ["broker-api/ibkr", "IBKR API Automation | 自动交易系统开发与风控"],
+  ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS Gateway vs Client Portal | 自动交易接入对比"]
+]);
 const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
@@ -131,6 +137,15 @@ if (existsSync(customTradingSoftwareFile)) {
     errors.push("custom trading software development page: contains Chinese copy");
   }
 }
+
+for (const [route, title] of searchSnippetExpectations) {
+  const html = readFileSync(join(publicDir, route, "index.html"), "utf8");
+  requireText(`${route}/index.html`, html, `<title>${title}</title>`);
+}
+
+const contactHtml = readFileSync(join(publicDir, "contact", "index.html"), "utf8");
+requireText("contact/index.html", contactHtml, "必填项只有项目类型、想解决的问题和联系方式");
+requireText("contact/index.html", contactHtml, "不要发送账户密码、提现权限或完整 API Secret");
 
 for (const [asset, needle] of requiredIconTextAssets) {
   const assetPath = join(publicDir, asset);

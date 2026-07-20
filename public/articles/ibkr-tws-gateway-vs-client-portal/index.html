@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IBKR TWS Gateway 和 Client Portal 怎么选 | 自动化接入评估</title>
-  <meta name="description" content="IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。">
+  <title>IBKR TWS Gateway vs Client Portal | 自动交易接入对比</title>
+  <meta name="description" content="对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/">
   <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:title" content="IBKR TWS Gateway 和 Client Portal 怎么选">
-  <meta property="og:description" content="IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。">
+  <meta property="og:description" content="对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/">
   <meta name="theme-color" content="#07111f">
@@ -61,7 +61,7 @@
       "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/#webpage",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "name": "IBKR TWS Gateway 和 Client Portal 怎么选",
-      "description": "IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。",
+      "description": "对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -92,7 +92,7 @@
       "@type": "TechArticle",
       "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/#article",
       "headline": "IBKR TWS Gateway 和 Client Portal 怎么选",
-      "description": "IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。",
+      "description": "对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "author": {
         "@id": "https://pddjf.com/#organization"
@@ -142,7 +142,7 @@
     </nav>
       <p class="eyebrow">IBKR API</p>
       <h1>IBKR TWS Gateway 和 Client Portal 怎么选</h1>
-      <p class="hero-lede">IBKR 自动化项目不能只问“用哪个 API”。实际选择取决于账户权限、运行环境、订单类型、会话稳定性、数据权限、人工确认要求和运维能力。</p>
+      <p class="hero-lede">TWS Gateway 通常更适合长期运行、订单与持仓同步；Client Portal 更接近 HTTP/Web API 工作流。最终选择仍取决于账户权限、订单类型、会话稳定性、部署环境和可执行的验收路径。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
     <section class="section content-band"><article class="technical-article">

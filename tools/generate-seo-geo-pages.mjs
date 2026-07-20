@@ -494,10 +494,10 @@ const servicePages = [
     slug: "tradingview-webhook-automation",
     breadcrumb: "TradingView Webhook 自动化",
     eyebrow: "适合已有 TradingView Alert 的交易者",
-    title: "TradingView Alert 自动执行服务 | Webhook 接入交易所或券商",
-    description: "已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。",
+    title: "TradingView Webhook Automation | 交易所与券商 API 自动执行",
+    description: "TradingView Webhook 自动执行服务：把现有 Alert 或 Pine Script 接入交易所或券商 API，补齐防重复、风控、日志和私有部署。",
     h1: "把 TradingView Alert 变成可控的自动下单流程",
-    intro: "适合已经有 Pine Script 或 Alert 规则，但仍在手工下单，或正在依赖不稳定 Webhook 脚本的交易者和团队。我们围绕你的现有信号建立可测试、可暂停、可追踪的执行流程。",
+    intro: "TradingView Webhook automation 把你已有的 Pine Script 或 Alert 规则接入交易所或券商 API，并用去重、风控、日志和人工暂停把执行过程变得可测试、可追踪。我们只实现客户定义的规则，不提供信号或收益承诺。",
     serviceType: "TradingView Alert 自动执行服务",
     llmsLabel: "TradingView Alert 自动执行服务",
     buyerIntentVersion: 1,
@@ -604,10 +604,10 @@ const servicePages = [
     slug: "broker-api/ibkr",
     breadcrumb: "IBKR API 自动化",
     eyebrow: "IBKR API Automation",
-    title: "IBKR API 自动交易系统开发 | TWS Gateway、订单路由与审计日志",
-    description: "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。",
+    title: "IBKR API Automation | 自动交易系统开发与风控",
+    description: "IBKR API automation 开发服务，覆盖 TWS Gateway 或 Client Portal 评估、订单路由、持仓同步、风控、审计日志和私有部署。",
     h1: "IBKR API 自动交易系统开发",
-    intro: "为已经具备 IBKR / Interactive Brokers 账户和明确交易规则的客户，构建订单执行、持仓同步、风险校验和审计日志系统。具体能力以账户权限、地区限制和官方 API 为准。",
+    intro: "IBKR API automation 适合已有 Interactive Brokers 账户和明确规则的团队，用于构建订单执行、持仓同步、风险校验和审计日志。客户保留账户与凭证控制权；可用能力以账户权限、地区限制和 IBKR 官方 API 为准。",
     serviceType: "IBKR API automation development",
     llmsLabel: "IBKR API automation",
     fit: [
@@ -809,10 +809,10 @@ const servicePages = [
     lang: "en",
     breadcrumb: "Custom Trading Software & Platform Development",
     eyebrow: "For Strategy Owners and Trading Teams",
-    title: "Custom Trading Software & Platform Development | SignalCraft Labs",
-    description: "Custom trading software and platform development for teams: API integration, execution workflows, risk controls, source delivery and private deployment.",
+    title: "Custom Trading Software Development | SignalCraft Labs",
+    description: "Custom trading software development for teams that need broker or exchange API integration, controlled execution, risk checks, source delivery and private deployment.",
     h1: "Custom Trading Software and Platform Development for Teams",
-    intro: "For strategy owners, trading teams and fintech operators that have documented execution workflows and need dependable custom software to replace manual steps, disconnected tools or fragile scripts.",
+    intro: "We build custom trading software for strategy owners, trading teams and fintech operators with documented workflows: API integration, controlled execution, risk checks, reconciliation and private handoff. Customers retain control of accounts, credentials and trading decisions.",
     serviceType: "Custom trading software and trading platform development services",
     llmsLabel: "Custom Trading Software & Platform Development",
     buyerIntentVersion: 1,
@@ -1553,10 +1553,10 @@ const articlePages = [
     slug: "articles/ibkr-tws-gateway-vs-client-portal",
     breadcrumb: "IBKR TWS Gateway 与 Client Portal",
     eyebrow: "IBKR API",
-    title: "IBKR TWS Gateway 和 Client Portal 怎么选 | 自动化接入评估",
-    description: "IBKR TWS Gateway 和 Client Portal 自动化接入选择指南，说明连接方式、会话稳定性、权限限制、订单类型、测试和验收关注点。",
+    title: "IBKR TWS Gateway vs Client Portal | 自动交易接入对比",
+    description: "对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。",
     h1: "IBKR TWS Gateway 和 Client Portal 怎么选",
-    intro: "IBKR 自动化项目不能只问“用哪个 API”。实际选择取决于账户权限、运行环境、订单类型、会话稳定性、数据权限、人工确认要求和运维能力。",
+    intro: "TWS Gateway 通常更适合长期运行、订单与持仓同步；Client Portal 更接近 HTTP/Web API 工作流。最终选择仍取决于账户权限、订单类型、会话稳定性、部署环境和可执行的验收路径。",
     summary: "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。",
     sections: [
       {
@@ -2618,7 +2618,7 @@ const contactPage = {
   title: "提交项目 Brief | SignalCraft Labs 交付包评估",
   description: "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
   h1: "先说清楚你想解决的问题",
-  intro: "第一次联系只需要选择项目类型、说明目前最想解决的业务或执行问题，并留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交。",
+  intro: "首次联系只需三项：选择项目类型、说明最想解决的业务或执行问题、留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交；不要发送账户密码、提现权限或完整 API Secret。",
   checklist: [
     "信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。",
     "接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。",
@@ -3886,7 +3886,7 @@ function contactHtml(page) {
   const body = `<div class="answer-grid contact-brief-grid">
       <article>
         <h3>结构化 Brief 表单</h3>
-        <p>首次联系只需填写项目类型、想解决的问题和联系方式。其他资料可以选填，范围确认后再补充。</p>
+        <p>必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。</p>
         ${leadBriefForm()}
       </article>
       <article>

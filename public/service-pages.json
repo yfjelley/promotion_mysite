@@ -51,7 +51,7 @@
     {
       "label": "TradingView Alert 自动执行服务",
       "url": "https://pddjf.com/tradingview-webhook-automation/",
-      "summary": "已有 TradingView Alert 或 Pine Script，但仍需手工下单？将现有信号接入交易所或券商 API，补齐防重复、风控、日志和私有部署。"
+      "summary": "TradingView Webhook 自动执行服务：把现有 Alert 或 Pine Script 接入交易所或券商 API，补齐防重复、风控、日志和私有部署。"
     },
     {
       "label": "交易所 API 自动执行服务",
@@ -66,7 +66,7 @@
     {
       "label": "IBKR API automation",
       "url": "https://pddjf.com/broker-api/ibkr/",
-      "summary": "IBKR API 自动交易系统开发，面向 Interactive Brokers 工作流，覆盖 TWS Gateway、订单路由、持仓同步、风控和日志审计。"
+      "summary": "IBKR API automation 开发服务，覆盖 TWS Gateway 或 Client Portal 评估、订单路由、持仓同步、风控、审计日志和私有部署。"
     },
     {
       "label": "Schwab API automation",
@@ -86,7 +86,7 @@
     {
       "label": "Custom Trading Software & Platform Development",
       "url": "https://pddjf.com/custom-trading-software-development/",
-      "summary": "Custom trading software and platform development for teams: API integration, execution workflows, risk controls, source delivery and private deployment."
+      "summary": "Custom trading software development for teams that need broker or exchange API integration, controlled execution, risk checks, source delivery and private deployment."
     },
     {
       "label": "TradingView Alert Automation Service",
