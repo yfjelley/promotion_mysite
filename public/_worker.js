@@ -58,6 +58,8 @@ const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidat
 const HTML_CACHE_BUST_PATHS = new Set([
   "/",
   "/contact/",
+  "/broker-api/ibkr/",
+  "/hyperliquid-api-trading-bot-development/",
   "/trading-system-consistency-audit/",
   "/trading-system-incident-diagnosis/",
   "/multi-account-trading-monitoring/",
