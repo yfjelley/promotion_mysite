@@ -207,8 +207,10 @@ function withSecurityHeaders(response, status = response.status, assetPath = "")
     withHeaders.headers.set(name, value);
   }
 
-  if (STATIC_ASSET_PATTERN.test(assetPath)) {
+  if (STATIC_ASSET_PATTERN.test(assetPath) && status < 400) {
     withHeaders.headers.set("Cache-Control", STATIC_ASSET_CACHE_CONTROL);
+  } else if (status >= 400) {
+    withHeaders.headers.set("Cache-Control", "no-store");
   }
 
   if (status !== response.status) {

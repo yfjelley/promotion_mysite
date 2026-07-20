@@ -86,16 +86,16 @@ const buyerIntentServiceRoutes = serviceManifest.buyerIntentServiceRoutes;
 const externalTrustLinks = serviceManifest.externalTrustLinks;
 const articleUrls = serviceManifest.articleUrls;
 const requiredIconLinks = [
-  '<link rel="icon" href="/favicon.ico" sizes="any">',
+  '<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">',
   '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
-  '<link rel="apple-touch-icon" href="/apple-touch-icon.png">',
+  '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">',
   '<link rel="manifest" href="/site.webmanifest">'
 ];
 const requiredIconTextAssets = new Map([
   ["favicon.svg", "<svg"],
   ["site.webmanifest", '"icons"']
 ]);
-const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png"];
+const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "apple-touch-icon-180.png"];
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "把 TradingView Alert 变成可控的自动下单流程"],

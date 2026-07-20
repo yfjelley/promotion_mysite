@@ -2606,9 +2606,9 @@ function writePublicBinary(path, content) {
 }
 
 function faviconLinks() {
-  return `<link rel="icon" href="/favicon.ico" sizes="any">
+  return `<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">`;
 }
 
@@ -2726,6 +2726,7 @@ function writeSiteIconAssets() {
   writePublicBinary(join(publicDir, "favicon-48.png"), signalCraftIconPng(48));
   writePublicBinary(join(publicDir, "favicon-192.png"), signalCraftIconPng(192));
   writePublicBinary(join(publicDir, "apple-touch-icon.png"), signalCraftIconPng(180));
+  writePublicBinary(join(publicDir, "apple-touch-icon-180.png"), signalCraftIconPng(180));
   writePublicBinary(join(publicDir, "favicon.ico"), faviconIco());
   writePublicFile(join(publicDir, "site.webmanifest"), JSON.stringify({
     name: "SignalCraft Labs",
@@ -2739,7 +2740,7 @@ function writeSiteIconAssets() {
       { src: "/favicon.svg", sizes: "64x64", type: "image/svg+xml", purpose: "any" },
       { src: "/favicon-48.png", sizes: "48x48", type: "image/png" },
       { src: "/favicon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+      { src: "/apple-touch-icon-180.png", sizes: "180x180", type: "image/png" }
     ]
   }, null, 2));
 }
