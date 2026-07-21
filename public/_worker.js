@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260721-site-audit-fixes";
+const ASSET_RELEASE = "20260721-brief-attribution-en";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -43,6 +43,7 @@ const PATH_REDIRECTS = new Map([
   ["/case-studies", "/case-studies/"],
   ["/about", "/about/"],
   ["/contact", "/contact/"],
+  ["/en/contact", "/en/contact/"],
   ["/risk-disclaimer", "/risk-disclaimer/"]
 ]);
 
@@ -61,6 +62,8 @@ const HTML_CACHE_BUST_PATHS = new Set([
   "/disclaimer",
   "/delivery-policy",
   "/contact/",
+  "/en/contact/",
+  "/custom-trading-software-development/",
   "/broker-api/ibkr/",
   "/hyperliquid-api-trading-bot-development/",
   "/trading-system-consistency-audit/",
@@ -75,6 +78,7 @@ const HTML_CACHE_BUST_PATHS = new Set([
 ]);
 const HTML_RELEASE_ASSETS = new Map([
   ["/contact/", "/__release/20260719-buyer-conversion/contact.html"],
+  ["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"],
   ["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"],
   ["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"],
   ["/risk-engine/", "/__release/20260719-buyer-conversion/risk-engine.html"],

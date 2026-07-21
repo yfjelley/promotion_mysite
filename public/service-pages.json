@@ -9,6 +9,7 @@
     "/broker-api/alpaca/",
     "/fix-api-order-routing/",
     "/custom-trading-software-development/",
+    "/fintech-software-development/",
     "/tradingview-webhook-developer/",
     "/ibkr-api-automation-developer/",
     "/fix-api-order-routing-developer/",
@@ -28,6 +29,7 @@
     "/tradingview-webhook-automation/",
     "/exchange-api-trading-bot-development/",
     "/custom-trading-software-development/",
+    "/fintech-software-development/",
     "/tradingview-webhook-developer/",
     "/ibkr-api-automation-developer/",
     "/fix-api-order-routing-developer/",
@@ -87,6 +89,11 @@
       "label": "Custom Trading Software & Platform Development",
       "url": "https://pddjf.com/custom-trading-software-development/",
       "summary": "Custom trading software development for teams that need broker or exchange API integration, controlled execution, risk checks, source delivery and private deployment."
+    },
+    {
+      "label": "Fintech Software Development Services",
+      "url": "https://pddjf.com/fintech-software-development/",
+      "summary": "Fintech software development services for trading, financial data, risk and operations teams that need reliable integrations, audit trails, source delivery and private deployment."
     },
     {
       "label": "TradingView Alert Automation Service",

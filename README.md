@@ -28,6 +28,7 @@ The primary conversion pages are:
 SEO and GEO content pages:
 
 - `/custom-trading-software-development/` for category-level English custom trading software search and Ads intent.
+- `/fintech-software-development/` for high-intent English fintech and financial software development search and Ads intent.
 - `/tradingview-webhook-automation/` for TradingView Webhook automation.
 - `/exchange-api-trading-bot-development/` for exchange API automation.
 - `/broker-api/ibkr/`, `/broker-api/schwab/`, and `/broker-api/alpaca/` for platform-specific broker API pages.

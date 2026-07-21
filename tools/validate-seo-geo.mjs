@@ -7,7 +7,7 @@ const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
-const currentScriptHref = "/scripts.js?v=20260720-risk-audit";
+const currentScriptHref = "/scripts.js?v=20260721-brief-attribution-en";
 const contentDate = "2026-07-21";
 const errors = [];
 
@@ -97,8 +97,10 @@ const requiredIconTextAssets = new Map([
 ]);
 const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "apple-touch-icon-180.png"];
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
+const fintechSoftwareFile = join(publicDir, "fintech-software-development", "index.html");
 const searchSnippetExpectations = new Map([
   ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
+  ["fintech-software-development", "Fintech Software Development Services | SignalCraft Labs"],
   ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
   ["broker-api/ibkr", "IBKR API 自动交易开发 | 解决断线、会话过期与订单状态失真"],
   ["hyperliquid-api-trading-bot-development", "Hyperliquid Bot Development | Duplicate Order and State Recovery"],
@@ -121,6 +123,7 @@ const buyerPositioningExpectations = new Map([
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
   ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
   ["/custom-trading-software-development/", "Custom Trading Software and Platform Development for Teams"],
+  ["/fintech-software-development/", "Fintech Software Development for Trading, Data and Operations"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
   ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
   ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"]
@@ -128,6 +131,10 @@ const buyerPositioningExpectations = new Map([
 
 if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
   errors.push("service-pages.json: missing custom trading software development route");
+}
+
+if (!generatedServiceRoutes.includes("/fintech-software-development/")) {
+  errors.push("service-pages.json: missing fintech software development route");
 }
 
 const legacyBuyerIntentServiceRoutes = new Set([
@@ -149,6 +156,16 @@ if (existsSync(customTradingSoftwareFile)) {
   if (/\p{Script=Han}/u.test(customTradingSoftwareHtml)) {
     errors.push("custom trading software development page: contains Chinese copy");
   }
+  requireText("custom trading software development page", customTradingSoftwareHtml, "/en/contact/?project=custom-trading-software-development");
+  requireText("custom trading software development page", customTradingSoftwareHtml, currentScriptHref);
+}
+
+if (existsSync(fintechSoftwareFile)) {
+  const fintechSoftwareHtml = readFileSync(fintechSoftwareFile, "utf8");
+  if (/\p{Script=Han}/u.test(fintechSoftwareHtml)) {
+    errors.push("fintech software development page: contains Chinese copy");
+  }
+  requireText("fintech software development page", fintechSoftwareHtml, currentScriptHref);
 }
 
 for (const [route, title] of searchSnippetExpectations) {
@@ -159,6 +176,11 @@ for (const [route, title] of searchSnippetExpectations) {
 const contactHtml = readFileSync(join(publicDir, "contact", "index.html"), "utf8");
 requireText("contact/index.html", contactHtml, "必填项只有项目类型、想解决的问题和联系方式");
 requireText("contact/index.html", contactHtml, "不要发送账户密码、提现权限或完整 API Secret");
+const englishContactHtml = readFileSync(join(publicDir, "en", "contact", "index.html"), "utf8");
+requireText("en/contact/index.html", englishContactHtml, "Structured project brief");
+requireText("en/contact/index.html", englishContactHtml, "Send project brief securely");
+requireText("en/contact/index.html", englishContactHtml, 'data-lang="en"');
+requireText("en/contact/index.html", englishContactHtml, currentScriptHref);
 
 for (const [asset, needle] of requiredIconTextAssets) {
   const assetPath = join(publicDir, asset);
@@ -280,13 +302,15 @@ for (const file of pddjfHtmlFiles) {
     }
   }
 
-  if (routeFor(file) === "/contact/") {
+  if (["/contact/", "/en/contact/"].includes(routeFor(file))) {
+    const isEnglishContact = routeFor(file) === "/en/contact/";
     [
-      "结构化 Brief 表单",
-      "安全提交项目 Brief",
+      isEnglishContact ? "Structured project brief" : "结构化 Brief 表单",
+      isEnglishContact ? "Send project brief securely" : "安全提交项目 Brief",
       "data-mailto-brief",
       "data-brief-endpoint=\"/api/brief\"",
       "data-brief-label=\"Project type\"",
+      "Fintech software development",
       "Custom trading software development",
       "data-brief-label=\"Permission status\"",
       "data-brief-label=\"Business or execution problem\"",
@@ -294,7 +318,7 @@ for (const file of pddjfHtmlFiles) {
       "autocomplete=\"email\"",
       "data-contact=\"structured_brief_submit\"",
       currentScriptHref,
-      "复制空白模板"
+      isEnglishContact ? "Copy blank template" : "复制空白模板"
     ].forEach((needle) => requireText(rel, html, needle));
 
     const briefFormHtml = html.match(/<form class="brief-form"[\s\S]*?<\/form>/i)?.[0] ?? "";
@@ -330,26 +354,33 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
   'fetch(form.dataset.briefEndpoint || "/api/brief"',
   '项目 Brief 已收到',
   '提交暂时失败，表单内容仍保留',
+  'const TRACKING_STORAGE_KEY = "signalcraft_brief_attribution_v1"',
+  'function decorateBriefLinks()',
+  '"/en/contact/"',
+  'window.sessionStorage?.setItem',
   'reportBriefSubmit(form.dataset.contact || "structured_brief_submit")'
 ].forEach((needle) => requireText("public/scripts.js", publicScript, needle));
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260721-site-audit-fixes"',
+  'const ASSET_RELEASE = "20260721-brief-attribution-en"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
+  '["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
   '["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"]',
   '["/risk-engine/", "/__release/20260719-buyer-conversion/risk-engine.html"]',
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
-  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
+  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/en/contact/",\n  "/custom-trading-software-development/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
+  '["/en/contact", "/en/contact/"]',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
 
 for (const [canonicalFile, releaseFile] of [
   [join(publicDir, "index.html"), join(publicDir, "__release", "20260715-p2-ux-assets", "home.html")],
   [join(publicDir, "contact", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "contact.html")],
+  [join(publicDir, "fintech-software-development", "index.html"), join(publicDir, "__release", "20260721-fintech-development", "fintech-software-development.html")],
   [join(publicDir, "tradingview-webhook-automation", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "tradingview-webhook-automation.html")],
   [join(publicDir, "tradingview-webhook-automation", "index.html"), join(publicDir, "__release", "20260720-tradingview-pain", "tradingview-webhook-automation.html")],
   [join(publicDir, "exchange-api-trading-bot-development", "index.html"), join(publicDir, "__release", "20260719-buyer-conversion", "exchange-api-trading-bot-development.html")],
@@ -365,6 +396,7 @@ for (const [canonicalFile, releaseFile] of [
 }
 
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
+requireText("sitemap.xml", sitemap, "https://pddjf.com/en/contact/");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 for (const loc of locs) {
   if (!loc.startsWith(site)) errors.push(`sitemap non-pddjf loc: ${loc}`);
@@ -434,7 +466,9 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
   "fee_tool_exchange_select",
   "fee_tool_source_click",
   "source_host: new URL(link.href).hostname",
-  "gclid"
+  "gclid",
+  "function decorateBriefLinks()",
+  'window.sessionStorage?.setItem'
 ].forEach((needle) => requireText("scripts.js", scripts, needle));
 
 for (const entry of serviceManifest.coreServiceUrls) {

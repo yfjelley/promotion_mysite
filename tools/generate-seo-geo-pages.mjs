@@ -14,11 +14,12 @@ const llmsUpdatedAt = auditContentDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
-const scriptHref = "/scripts.js?v=20260720-risk-audit";
+const scriptHref = "/scripts.js?v=20260721-brief-attribution-en";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
 const tradingViewPainReleaseAssetDir = join(publicDir, "__release", "20260720-tradingview-pain");
+const fintechReleaseAssetDir = join(publicDir, "__release", "20260721-fintech-development");
 const githubProfileUrl = "https://github.com/yfjelley";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
@@ -825,6 +826,7 @@ const servicePages = [
     buyerIntentVersion: 1,
     buyerAudience: "Strategy owners, trading teams and fintech operators with documented rules, signals or execution workflows.",
     buyerProblem: "Replace manual execution, disconnected tools or fragile scripts with one controlled and maintainable trading workflow.",
+    contactProject: "custom-trading-software-development",
     heroPrimaryLabel: "Discuss your trading workflow",
     heroSecondaryLabel: "See what you receive",
     fit: [
@@ -868,10 +870,103 @@ const servicePages = [
       ["Do you provide signals, account management or guaranteed returns?", "No. SignalCraft Labs implements customer-defined workflows and does not provide signals, investment advice, custody, managed accounts or return promises."]
     ],
     related: [
+      ["/fintech-software-development/", "Fintech software development"],
       ["/tradingview-webhook-developer/", "TradingView alert automation"],
       ["/ibkr-api-automation-developer/", "IBKR trading automation"],
       ["/fix-api-order-routing-developer/", "FIX order routing system"]
     ]
+  },
+  {
+    slug: "fintech-software-development",
+    lang: "en",
+    breadcrumb: "Fintech Software Development",
+    eyebrow: "For Fintech and Financial Operations Teams",
+    title: "Fintech Software Development Services | SignalCraft Labs",
+    description: "Fintech software development services for trading, financial data, risk and operations teams that need reliable integrations, audit trails, source delivery and private deployment.",
+    h1: "Fintech Software Development for Trading, Data and Operations",
+    intro: "For fintech companies and financial operations teams with a defined workflow but manual reconciliation, fragmented vendor APIs, weak controls or an unmaintainable prototype. We turn that workflow into an auditable system with staged validation, source delivery and private deployment.",
+    serviceType: "Custom fintech and financial software development services",
+    llmsLabel: "Fintech Software Development Services",
+    buyerIntentVersion: 1,
+    buyerAudience: "Fintech companies, financial data teams, trading operations teams and product owners with a defined workflow, authoritative data sources and clear acceptance criteria.",
+    buyerProblem: "Replace manual handoffs, disconnected APIs and fragile prototypes with one controlled financial workflow that can be tested, monitored, reconciled and handed over.",
+    contactProject: "fintech-software-development",
+    heroPrimaryLabel: "Discuss your fintech project",
+    heroSecondaryLabel: "See the delivery scope",
+    purchaseSnapshot: [
+      ["Best fit", "A defined trading, financial data, reconciliation, risk or operations workflow with named users and source systems."],
+      ["Initial scope", "One priority workflow, one primary integration and a written acceptance path before broader platform work."],
+      ["Planning budget", "From USD 2,000 for a bounded API starter; larger workflow and private-infrastructure projects are scoped separately."],
+      ["Delivery window", "Confirmed after API access, data ownership, security boundaries, dependencies and acceptance tests are reviewed."]
+    ],
+    purchaseNote: "A scoped estimate requires the target users, current workflow, source systems, API or data access, control requirements and acceptance criteria. Credentials are not needed for the first discussion.",
+    outcomesTitle: "Move one high-value financial workflow from manual and fragile to controlled and operable",
+    outcomesIntro: "The first release should create operational evidence and a maintainable handoff, not a vague promise to build an entire fintech platform.",
+    customerOutcomes: [
+      ["Connected workflow", "Normalize the required vendor, broker, exchange, market-data or internal interfaces behind a documented data and state contract."],
+      ["Operational controls", "Add validation, permissions, approval or pause points, limits, idempotency and explicit failure handling where the workflow needs them."],
+      ["Reconciliation evidence", "Make inputs, state changes, exceptions and outcomes traceable through structured logs, alerts and reconciliation records."],
+      ["Maintainable handoff", "Deliver source, configuration, tests, deployment files and an operator runbook for a customer-controlled environment."]
+    ],
+    projectPaths: [
+      ["Trading and execution systems", "Broker, exchange and FIX integrations with order state, risk checks and reconciliation.", "/custom-trading-software-development/", "View trading software scope"],
+      ["Financial data and reporting", "Ingestion, normalization, reconciliation and reporting workflows for crypto-asset operations.", "/crypto-asset-reporting/", "View reporting scope"],
+      ["Private deployment and handoff", "Customer-controlled infrastructure, permissions, observability, rollback and operating documentation.", "/private-deployment/", "View deployment scope"]
+    ],
+    fit: [
+      "You have a defined financial workflow such as trading operations, data ingestion, reconciliation, portfolio controls, risk checks or operational reporting.",
+      "You can identify the users, authoritative data sources, required integrations and acceptance criteria for the first release.",
+      "You need reliable API behavior, permissions, audit trails, monitoring and explicit exception handling—not only a front-end prototype.",
+      "You want source delivery, staged validation and deployment into an environment your team controls."
+    ],
+    notFit: [
+      "You want investment advice, signals, managed accounts, custody or guaranteed financial performance.",
+      "You want a turnkey bank, exchange, brokerage or consumer finance clone without owning product, licensing and regulatory requirements.",
+      "You want the software vendor to certify legal or regulatory compliance instead of defining requirements with your qualified advisers.",
+      "You have only a broad app idea and cannot yet identify the workflow, data sources, users or acceptance criteria."
+    ],
+    deliverables: [
+      "Scope and architecture contract. Users, workflow, source systems, data ownership, security boundaries, failure paths and acceptance tests.",
+      "Integration and data layer. API adapters, authentication boundaries, validation, normalization, idempotency and state synchronization.",
+      "Workflow and control layer. Business rules, permissions, approval or pause steps, risk limits, exception queues and operator actions.",
+      "Operational evidence. Structured logs, data-quality checks, alerts, reconciliation records, audit fields and replayable test cases.",
+      "Private delivery package. Source code, configuration examples, deployment files, tests, runbook, rollback and handoff documentation."
+    ],
+    process: [
+      "Discovery and scope freeze. Map the current workflow, users, data sources, APIs, constraints and measurable acceptance path.",
+      "System and control contract. Define data models, state transitions, permissions, failure behavior, audit evidence and test cases.",
+      "Implementation and integration. Build the smallest complete workflow with observable interfaces and explicit exceptions.",
+      "Staged acceptance and handoff. Validate with fixtures, sandbox or limited production data, then document deployment, rollback and ownership."
+    ],
+    limits: [
+      "Customers retain ownership and control of accounts, credentials, funds, data, product decisions and regulatory obligations.",
+      "API availability, financial data rights, platform permissions, regional access and third-party review timelines are external dependencies.",
+      "Security and compliance controls are implemented against written customer requirements; this service does not provide legal advice or independent certification.",
+      "Acceptance covers defined software behavior, data quality, controls, audit evidence and handoff—not investment returns or commercial outcomes."
+    ],
+    prepare: [
+      "Target users, current workflow and the business cost or risk of the present manual process",
+      "Authoritative data sources, vendor or internal APIs, permission status and sample schemas or payloads",
+      "Required controls, approvals, audit fields, exception handling and data-retention expectations",
+      "First-release boundary, acceptance tests, deployment owner and target planning budget"
+    ],
+    faq: [
+      ["What fintech software development services do you provide?", "Projects can cover trading and execution workflows, broker or exchange integrations, financial data ingestion and normalization, reconciliation, risk and operator controls, reporting, audit trails and private deployment."],
+      ["How is this different from generic app development?", "The scope starts with financial data ownership, state transitions, permissions, controls, exceptions, reconciliation and acceptance evidence. A user interface is only one part of the operating workflow."],
+      ["Can you integrate an existing prototype or internal system?", "Yes, after its dependencies, data model, API access, security boundaries, failure modes and testability are reviewed. The first scope may stabilize one workflow before broader refactoring."],
+      ["Can you build a consumer fintech or mobile app?", "A customer-facing application can be assessed when product ownership, identity, payments or account providers, regulatory responsibilities, data rights and operating controls are already defined. We do not provide licensing or legal certification."],
+      ["Which APIs and data providers can you integrate?", "The choice depends on documented API capability, customer permissions, data rights, sandbox access, rate limits, regional restrictions and the target workflow. Feasibility is confirmed before scope is frozen."],
+      ["What is tested before handoff?", "Tests can cover validation, duplicate events, permissions, state transitions, stale data, disconnects, retries, reconciliation, operator actions, alerts, restart and rollback."],
+      ["Do I receive the source code and deployment files?", "Yes. The agreed package can include source code, configuration examples, tests, deployment files, operating documentation and a remote handoff."],
+      ["Do you provide investment advice, custody or compliance certification?", "No. This is technical software delivery. Customers retain financial decisions, accounts, funds, data rights and regulatory responsibility with their qualified advisers."]
+    ],
+    related: [
+      ["/custom-trading-software-development/", "Custom trading software development"],
+      ["/crypto-asset-reporting/", "Financial data and reporting workflow"],
+      ["/private-deployment/", "Private deployment and handoff"],
+      ["/trading-system-consistency-audit-service/", "Read-only consistency audit"]
+    ],
+    lastModified: "2026-07-21"
   },
   {
     slug: "tradingview-webhook-developer",
@@ -2627,6 +2722,7 @@ const aboutPage = {
 
 const contactPage = {
   slug: "contact",
+  counterpartSlug: "en/contact",
   breadcrumb: "项目 Brief",
   eyebrow: "Project Brief",
   title: "提交项目 Brief | SignalCraft Labs 交付包评估",
@@ -2662,6 +2758,48 @@ const contactPage = {
     ["先判断什么", "先判断接口权限、规则完整度、交付包范围、验收方式和明显不可做项。"],
     ["服务地区", "香港、新加坡、台湾、美国及其他可远程协作地区。"],
     ["不要发送", "不要发送提现权限、账户主密码、资金托管权限、完整 API Secret 或无关个人资料。"]
+  ]
+};
+
+const englishContactPage = {
+  slug: "en/contact",
+  lang: "en",
+  counterpartSlug: "contact",
+  breadcrumb: "Project Brief",
+  eyebrow: "Project Brief",
+  title: "Send a Project Brief | SignalCraft Labs",
+  description: "Send SignalCraft Labs a structured project brief for custom trading software, fintech development, API integrations, risk controls or private deployment.",
+  h1: "Tell us which workflow you need to improve",
+  intro: "Start with three items: the project type, the business or execution problem, and your preferred contact method. API access, budget, deployment and timeline can remain undecided at this stage. Do not send passwords, withdrawal permissions or complete API secrets.",
+  checklist: [
+    "Signal source: TradingView alert, research code, manual approval or a combined rules engine.",
+    "Target interface: broker API, exchange API, FIX, REST/WebSocket or an internal system.",
+    "Workflow rules: submit, cancel, position, limits, failure handling and reconciliation.",
+    "Deployment needs: customer cloud, VPS, Docker, logs, alerts, dashboard or access controls.",
+    "Expected package: API Starter, Execution System or Private Infrastructure.",
+    "Planning budget: from USD 2,000 / 5,000 / 10,000, or state that scope is still under review."
+  ],
+  briefTemplate: [
+    "Project objective:",
+    "Signal source:",
+    "API platform and access status:",
+    "Markets, order types and position rules:",
+    "Risk boundaries:",
+    "Deployment environment:",
+    "Dashboard, alerts, source handoff or private deployment needs:",
+    "Target package and planning budget:",
+    "Preferred timeline:"
+  ].join("\n"),
+  packageHints: [
+    ["API Starter Package", "A bounded workflow with one primary signal source, one API, baseline controls, logs and test-environment validation."],
+    ["Execution System Package", "Multiple rules or instruments with order-state handling, risk controls, monitoring, alerts and reconciliation."],
+    ["Private Infrastructure Package", "Multiple interfaces or accounts, operator controls, audit logs, customer-controlled deployment and operational handoff."]
+  ],
+  facts: [
+    ["Response time", "When the brief is complete, we normally reply with an initial fit assessment within one business day."],
+    ["First assessment", "We review API access, workflow clarity, delivery scope, acceptance criteria and obvious blockers."],
+    ["Delivery regions", "Remote collaboration for customers in the United States, Hong Kong, Singapore, Taiwan and other supported regions."],
+    ["Do not send", "Do not send withdrawal permissions, account master passwords, custody access, complete API secrets or unrelated personal information."]
   ]
 };
 
@@ -2817,6 +2955,7 @@ const allGeneratedPages = [
   ...articlePages,
   aboutPage,
   contactPage,
+  englishContactPage,
   cryptoReportingPage,
   riskDisclaimerPage,
   exchangeFeeToolPage,
@@ -2869,7 +3008,7 @@ const navLinksEn = [
   ["/articles/", "Articles"],
   ["/tools/crypto-exchange-fee-calculator/", "Fee tool"],
   ["/about/", "About"],
-  ["/contact/", "Contact"]
+  ["/en/contact/", "Contact"]
 ];
 
 const footerServiceLinksEn = [
@@ -2891,7 +3030,7 @@ const footerServiceLinksEn = [
   ["/private-deployment/", "Private deployment"],
   ["/articles/", "Articles"],
   ["/case-studies/", "Case studies"],
-  ["/contact/", "Contact"]
+  ["/en/contact/", "Contact"]
 ];
 
 const policyLinks = [
@@ -3111,6 +3250,7 @@ function writeSiteIconAssets() {
 function header(activeLabel = "", language = "zh-CN") {
   const english = isEnglish(language);
   const links = english ? navLinksEn : navLinks;
+  const briefHref = contactHrefFor({ lang: language });
   return `<header class="site-header">
     <a class="brand" href="/" aria-label="${english ? "SignalCraft Labs home" : "SignalCraft Labs 首页"}">
       <span class="brand-mark" aria-hidden="true">S</span>
@@ -3118,7 +3258,7 @@ function header(activeLabel = "", language = "zh-CN") {
     </a>
     <nav class="nav" aria-label="${english ? "Main navigation" : "主导航"}">
       ${links.map(([href, label]) => `<a${label === activeLabel ? ' aria-current="page"' : ""} href="${href}">${label}</a>`).join("\n      ")}
-      <a class="nav-cta" href="/contact/" data-contact="nav_contact">${english ? "Send brief" : "提交 Brief"}</a>
+      <a class="nav-cta" href="${briefHref}" data-contact="nav_contact">${english ? "Send brief" : "提交 Brief"}</a>
     </nav>
   </header>`;
 }
@@ -3127,6 +3267,7 @@ function footer(language = "zh-CN") {
   const english = isEnglish(language);
   const serviceLinks = english ? footerServiceLinksEn : footerServiceLinks;
   const footerPolicyLinks = english ? policyLinksEn : policyLinks;
+  const briefHref = contactHrefFor({ lang: language });
   return `<footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> ${english ? "trading automation digital products and custom engineering studio" : "交易自动化数字产品与定制工程服务工作室"}</p>
     <nav aria-label="${english ? "Service page navigation" : "服务页导航"}">
@@ -3139,7 +3280,7 @@ function footer(language = "zh-CN") {
   </footer>
 
   <div class="mobile-contact-bar" role="group" aria-label="${english ? "Mobile quick contact" : "移动端快捷联系"}">
-    <a href="/contact/" data-contact="mobile_contact">${english ? "Brief" : "项目 Brief"}</a>
+    <a href="${briefHref}" data-contact="mobile_contact">${english ? "Brief" : "项目 Brief"}</a>
     <button type="button" data-copy="${contact.wechat}" data-contact="mobile_wechat_copy">${english ? "Copy WeChat" : "复制微信"}</button>
   </div>`;
 }
@@ -3316,10 +3457,11 @@ ${page.projectPaths ? `      <div class="buyer-path-grid">${page.projectPaths.ma
 }
 
 function contactHrefFor(page, packageName = "") {
-  if (!page?.contactProject) return "/contact/";
+  const basePath = isEnglish(page) ? "/en/contact/" : "/contact/";
+  if (!page?.contactProject) return basePath;
   const values = [`project=${encodeURIComponent(page.contactProject)}`];
   if (packageName) values.push(`package=${encodeURIComponent(packageName)}`);
-  return `/contact/?${values.join("&amp;")}`;
+  return `${basePath}?${values.join("&amp;")}`;
 }
 
 function buyerIntentSummarySection(page) {
@@ -3527,6 +3669,7 @@ function servicePageHtml(page) {
   const english = isEnglish(page);
   const activeLabel = page.slug.startsWith("broker-api/") ? "券商 API" : "";
   const pageStylesheetHref = page.customerOutcomes ? `${stylesheetHref}&scope=hyperliquid-buyers-20260719` : stylesheetHref;
+  const pageScriptHref = page.slug === "fintech-software-development" ? contactScriptHref : scriptHref;
   return `<!DOCTYPE html>
 <html lang="${page.lang || "zh-CN"}">
 <head>
@@ -3551,7 +3694,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="${pageStylesheetHref}">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="${scriptHref}" defer></script>
+  <script src="${pageScriptHref}" defer></script>
   ${jsonLd(serviceSchema(page))}
 </head>
 <body class="content-page">
@@ -3571,7 +3714,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
         <a href="#fit">${english ? "Fit" : "适合谁"}</a>
         <a href="#deliverables">${english ? "Deliverables" : "交付"}</a>
         <a href="#faq">FAQ</a>
-        <a href="/contact/">${english ? "Contact" : "联系"}</a>
+        <a href="${contactHrefFor(page)}">${english ? "Contact" : "联系"}</a>
       </nav>
       <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">${(page.factStrip || (english ? ["Packages: USD 2,000 / 5,000 / 10,000+", "Source delivery", "Private deployment", "No custody"] : ["交付包：2000 / 5000 / 10000 美金起", "源码交付", "私有部署", "不代管资金"])).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
     </section>
@@ -3877,15 +4020,18 @@ function aboutHtml(page) {
   return infoPageHtml(page, "关于", body, schema);
 }
 
-function leadBriefForm() {
-  return `<form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit">
-      <label class="form-trap" aria-hidden="true">请勿填写此字段
+function leadBriefForm(language = "zh-CN") {
+  const english = isEnglish(language);
+  const option = (value, enLabel, zhLabel = value) => `<option value="${escapeHtml(value)}">${escapeHtml(english ? enLabel : zhLabel)}</option>`;
+  return `<form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="${english ? "en" : "zh-CN"}">
+      <label class="form-trap" aria-hidden="true">${english ? "Leave this field empty" : "请勿填写此字段"}
         <input name="website" tabindex="-1" autocomplete="off">
       </label>
       <div class="form-grid">
-        <label>项目类型
+        <label>${english ? "Project type" : "项目类型"}
           <select name="projectType" data-brief-label="Project type" required>
-            <option value="">请选择</option>
+            <option value="">${english ? "Select one" : "请选择"}</option>
+            <option>Fintech software development</option>
             <option>Custom trading software development</option>
             <option>Hyperliquid custom bot development</option>
             <option>TradingView to Hyperliquid automation</option>
@@ -3900,98 +4046,99 @@ function leadBriefForm() {
             <option>Private deployment / handoff</option>
           </select>
         </label>
-        <label>信号来源
-          <input name="signalSource" data-brief-label="Signal source" placeholder="TradingView Alert / 研究脚本 / 人工确认（选填）">
+        <label>${english ? "Signal source" : "信号来源"}
+          <input name="signalSource" data-brief-label="Signal source" placeholder="${english ? "TradingView alert / research code / manual approval (optional)" : "TradingView Alert / 研究脚本 / 人工确认（选填）"}">
         </label>
-        <label>API 平台和权限状态
-          <input name="apiPlatform" data-brief-label="API platform" placeholder="IBKR / Alpaca / FIX / 交易所 API（选填）">
+        <label>${english ? "API platform" : "API 平台和权限状态"}
+          <input name="apiPlatform" data-brief-label="API platform" placeholder="${english ? "IBKR / Alpaca / FIX / exchange API (optional)" : "IBKR / Alpaca / FIX / 交易所 API（选填）"}">
         </label>
-        <label>权限状态
+        <label>${english ? "Access status" : "权限状态"}
           <select name="permissionStatus" data-brief-label="Permission status">
-            <option value="">请选择</option>
-            <option>已有测试环境或 paper 权限</option>
-            <option>已有读取权限，交易权限待确认</option>
-            <option>已有完整 API 文档，权限申请中</option>
-            <option>还没有 API 权限</option>
+            <option value="">${english ? "Select one" : "请选择"}</option>
+            ${option("已有测试环境或 paper 权限", "Test or paper access is available")}
+            ${option("已有读取权限，交易权限待确认", "Read access is available; trading access is unconfirmed")}
+            ${option("已有完整 API 文档，权限申请中", "API documentation is available; access is pending")}
+            ${option("还没有 API 权限", "No API access yet")}
           </select>
         </label>
-        <label>预算档位
+        <label>${english ? "Planning budget" : "预算档位"}
           <select name="budget" data-brief-label="Budget range">
-            <option value="">请选择</option>
-            <option>API Starter Package - 2000 美金起</option>
-            <option>Execution System Package - 5000 美金起</option>
-            <option>Private Infrastructure Package - 10000 美金起</option>
-            <option>Read-only audit / diagnosis - 2000 美金起</option>
-            <option>Ongoing monitoring - audit 后报价</option>
-            <option>还在评估</option>
+            <option value="">${english ? "Select one" : "请选择"}</option>
+            ${option("API Starter Package - 2000 美金起", "API Starter Package — from USD 2,000")}
+            ${option("Execution System Package - 5000 美金起", "Execution System Package — from USD 5,000")}
+            ${option("Private Infrastructure Package - 10000 美金起", "Private Infrastructure Package — from USD 10,000")}
+            ${option("Read-only audit / diagnosis - 2000 美金起", "Read-only audit / diagnosis — from USD 2,000")}
+            ${option("Ongoing monitoring - audit 后报价", "Ongoing monitoring — scoped after audit")}
+            ${option("还在评估", "Still evaluating")}
           </select>
         </label>
-        <label>部署环境
+        <label>${english ? "Deployment target" : "部署环境"}
           <select name="deploymentTarget" data-brief-label="Deployment target">
-            <option value="">请选择</option>
-            <option>客户 VPS / Docker</option>
-            <option>客户本地服务器</option>
-            <option>云服务器 + 远程交付</option>
-            <option>还不确定</option>
+            <option value="">${english ? "Select one" : "请选择"}</option>
+            ${option("客户 VPS / Docker", "Customer VPS / Docker")}
+            ${option("客户本地服务器", "Customer-managed server")}
+            ${option("云服务器 + 远程交付", "Customer cloud with remote handoff")}
+            ${option("还不确定", "Not decided yet")}
           </select>
         </label>
-        <label>期望时间线
-          <input name="timeline" data-brief-label="Timeline" placeholder="例如 2 周内评估 / 4-8 周上线（选填）">
+        <label>${english ? "Preferred timeline" : "期望时间线"}
+          <input name="timeline" data-brief-label="Timeline" placeholder="${english ? "For example: assess within 2 weeks / staged delivery in 4–8 weeks" : "例如 2 周内评估 / 4-8 周上线（选填）"}">
         </label>
-        <label>联系方式
-          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
+        <label>${english ? "Preferred contact method" : "联系方式"}
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="${english ? "Email / WeChat / Telegram" : "邮箱 / 微信 / Telegram"}">
         </label>
       </div>
-      <label>想解决的业务或执行问题
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"></textarea>
+      <label>${english ? "Business or execution problem" : "想解决的业务或执行问题"}
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="${english ? "For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure." : "例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"}"></textarea>
       </label>
-      <label>补充说明
-        <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
+      <label>${english ? "Additional notes" : "补充说明"}
+        <textarea name="notes" data-brief-label="Additional notes" placeholder="${english ? "Add instruments, order types, failure handling, dashboard, source handoff or private deployment needs." : "可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"}"></textarea>
       </label>
       <div class="form-actions">
-        <button class="button primary" type="submit">安全提交项目 Brief</button>
-        <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制空白模板</button>
+        <button class="button primary" type="submit">${english ? "Send project brief securely" : "安全提交项目 Brief"}</button>
+        <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">${english ? "Copy blank template" : "复制空白模板"}</button>
       </div>
       <p class="copy-status" aria-live="polite"></p>
     </form>`;
 }
 
 function contactHtml(page) {
+  const english = isEnglish(page);
   const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "ContactPage") };
   const body = `<div class="answer-grid contact-brief-grid">
       <article>
-        <h3>结构化 Brief 表单</h3>
-        <p>必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。</p>
-        ${leadBriefForm()}
+        <h3>${english ? "Structured project brief" : "结构化 Brief 表单"}</h3>
+        <p>${english ? "Only the project type, the problem and your contact method are required. Other fields are optional. We normally reply with an initial fit assessment within one business day and never need an account password, withdrawal permission or complete API secret for this step." : "必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。"}</p>
+        ${leadBriefForm(page.lang)}
       </article>
       <article>
-        <h3>空白 Brief 模板</h3>
-        <p>如果暂时不想填表，也可以复制下面的结构，通过邮件、微信或 Telegram 发来。</p>
+        <h3>${english ? "Blank brief template" : "空白 Brief 模板"}</h3>
+        <p>${english ? "If you prefer not to use the form, copy this structure and send it by email, WeChat or Telegram." : "如果暂时不想填表，也可以复制下面的结构，通过邮件、微信或 Telegram 发来。"}</p>
         <pre id="project-brief-template" class="brief-template">${escapeHtml(page.briefTemplate)}</pre>
-        <h3>请附上这些信息</h3>
+        <h3>${english ? "Useful assessment inputs" : "请附上这些信息"}</h3>
         <ul class="check-list">${page.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
       </article>
     </div>
-    <div class="detail-grid package-hints">${page.packageHints.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p><a href="/#packages">查看交付包</a></article>`).join("")}</div>
+    <div class="detail-grid package-hints">${page.packageHints.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p><a href="/#packages">${english ? "View delivery packages" : "查看交付包"}</a></article>`).join("")}</div>
     <div class="case-brief-panel">
       <div>
         <p class="eyebrow">Case Reference</p>
-        <h2>不确定怎么写？先选一个最接近的匿名案例</h2>
-        <p>可以在 Brief 里直接写“类似 TradingView Webhook 案例”或“类似私有化部署案例”，再补充你的平台、权限、风控和验收要求。</p>
+        <h2>${english ? "Not sure what to include? Start with the closest anonymous case" : "不确定怎么写？先选一个最接近的匿名案例"}</h2>
+        <p>${english ? "Reference a TradingView webhook, broker API or private-deployment case, then add your platform, access, control and acceptance requirements." : "可以在 Brief 里直接写“类似 TradingView Webhook 案例”或“类似私有化部署案例”，再补充你的平台、权限、风控和验收要求。"}</p>
       </div>
       <div class="case-brief-links">
-        <a href="/case-studies/" data-contact="contact_case_reference">查看匿名案例</a>
-        <a href="/case-studies/#case-1" data-contact="contact_case_webhook">Webhook 案例</a>
-        <a href="/case-studies/#case-2" data-contact="contact_case_broker">券商 API 案例</a>
-        <a href="/case-studies/#case-4" data-contact="contact_case_private">私有化部署案例</a>
+        <a href="/case-studies/" data-contact="contact_case_reference">${english ? "View anonymous cases" : "查看匿名案例"}</a>
+        <a href="/case-studies/#case-1" data-contact="contact_case_webhook">${english ? "Webhook case" : "Webhook 案例"}</a>
+        <a href="/case-studies/#case-2" data-contact="contact_case_broker">${english ? "Broker API case" : "券商 API 案例"}</a>
+        <a href="/case-studies/#case-4" data-contact="contact_case_private">${english ? "Private deployment case" : "私有化部署案例"}</a>
       </div>
     </div>
     <div class="answer-grid contact-channel-grid">
-      <article><h3>发送渠道</h3><div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="contact_page_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="contact_page_wechat_copy">复制微信 ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="contact_page_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div><p class="copy-status" aria-live="polite"></p></article>
-      <article><h3>安全边界</h3><ul class="plain-list"><li>不需要提现权限、资金托管权限或账户主密码。</li><li>API Secret 可等范围确认后再通过你认可的方式处理。</li><li>可以先隐藏账户号、真实订单、策略参数和客户敏感信息。</li><li>初步判断只需要足够说明接口、规则、风控和验收路径。</li></ul></article>
+      <article><h3>${english ? "Contact channels" : "发送渠道"}</h3><div class="contact-row stacked"><a href="mailto:${contact.email}" data-contact="contact_page_email" data-lead-contact="true">${contact.email}</a><button type="button" data-copy="${contact.wechat}" data-contact="contact_page_wechat_copy">${english ? "Copy WeChat" : "复制微信"} ${contact.wechat}</button><a href="${contact.telegramUrl}" data-contact="contact_page_telegram" data-lead-contact="true">Telegram ${contact.telegram}</a></div><p class="copy-status" aria-live="polite"></p></article>
+      <article><h3>${english ? "Security boundaries" : "安全边界"}</h3><ul class="plain-list">${(english ? ["No withdrawal permission, custody access or account master password is needed.", "A complete API secret is not needed before scope and handling controls are agreed.", "Account numbers, real orders, strategy parameters and customer-sensitive data can be masked.", "The first assessment only needs enough detail to understand the interface, rules, controls and acceptance path."] : ["不需要提现权限、资金托管权限或账户主密码。", "API Secret 可等范围确认后再通过你认可的方式处理。", "可以先隐藏账户号、真实订单、策略参数和客户敏感信息。", "初步判断只需要足够说明接口、规则、风控和验收路径。"]).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>
     </div>
     <div class="detail-grid contact-facts">${page.facts.map(([title, text]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(text)}</p></article>`).join("")}</div>`;
-  return infoPageHtml(page, "联系", body, schema, false);
+  return infoPageHtml(page, english ? "Contact" : "联系", body, schema, false);
 }
 
 function cryptoReportingHtml(page) {
@@ -4812,7 +4959,7 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   const counterpartLanguage = english ? "zh-CN" : "en";
   const englishUrl = english ? url : counterpartSlug ? canonical(counterpartSlug) : url;
   const cta = includeCta ? `\n    ${ctaBlock(page.lang)}` : "";
-  const pageScriptHref = page.slug === contactPage.slug ? contactScriptHref : scriptHref;
+  const pageScriptHref = [contactPage.slug, englishContactPage.slug].includes(page.slug) ? contactScriptHref : scriptHref;
   return `<!DOCTYPE html>
 <html lang="${page.lang || "zh-CN"}">
 <head>
@@ -4845,7 +4992,7 @@ ${counterpartSlug ? `  <link rel="alternate" hreflang="${currentLanguage}" href=
       <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
-      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+      <div class="fact-strip" aria-label="${english ? "Service boundaries" : "服务边界"}">${(english ? ["Technical engineering", "No custody", "Source handoff", "Remote collaboration"] : ["技术开发服务", "不代管资金", "源码和文档交付", "远程协作"]).map((item) => `<span>${item}</span>`).join("")}</div>
     </section>
     <section class="section content-band">${body}</section>
 ${cta}
@@ -4869,6 +5016,7 @@ for (const page of articlePages) {
 }
 writePublicFile(pagePath(aboutPage.slug), aboutHtml(aboutPage));
 writePublicFile(pagePath(contactPage.slug), contactHtml(contactPage));
+writePublicFile(pagePath(englishContactPage.slug), contactHtml(englishContactPage));
 writePublicFile(pagePath(cryptoReportingPage.slug), cryptoReportingHtml(cryptoReportingPage));
 writePublicFile(pagePath(riskDisclaimerPage.slug), riskHtml(riskDisclaimerPage));
 writePublicFile(pagePath(exchangeFeeToolPage.slug), exchangeFeeToolHtml(exchangeFeeToolPage));
@@ -4897,6 +5045,7 @@ const sitemapUrls = [
   ...articlePages.map((page) => [routeForSlug(page.slug), "weekly", "0.7", page.slug.includes("hyperliquid-") ? hyperliquidCheckedDate : (page.dateModified || auditContentDate)]),
   ["/about/", "monthly", "0.65"],
   ["/contact/", "monthly", "0.65"],
+  ["/en/contact/", "monthly", "0.65"],
   ["/terms", "monthly", "0.4"],
   ["/risk-disclaimer/", "monthly", "0.45"],
   ["/disclaimer", "monthly", "0.4"],
@@ -4979,6 +5128,7 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${url} �
 
 writePublicFile(join(releaseAssetDir, "home.html"), readFileSync(join(publicDir, "index.html"), "utf8"));
 writePublicFile(join(releaseAssetDir, "contact.html"), readFileSync(join(publicDir, "contact", "index.html"), "utf8"));
+writePublicFile(join(fintechReleaseAssetDir, "fintech-software-development.html"), readFileSync(join(publicDir, "fintech-software-development", "index.html"), "utf8"));
 writePublicFile(join(releaseAssetDir, "exchange-fee-tool-i18n.html"), readFileSync(pagePath(exchangeFeeToolPage.slug), "utf8"));
 writePublicFile(join(releaseAssetDir, "exchange-fee-tool-zh.html"), readFileSync(pagePath(exchangeFeeToolPageZh.slug), "utf8"));
 writePublicFile(join(buyerReleaseAssetDir, "contact.html"), readFileSync(pagePath(contactPage.slug), "utf8"));

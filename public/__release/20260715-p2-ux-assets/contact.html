@@ -7,7 +7,9 @@
   <meta name="description" content="提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://pddjf.com/contact/">
-
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/contact/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/en/contact/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/en/contact/">
   <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
@@ -19,7 +21,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260719-hyperliquid-buyer-intent">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260720-risk-audit" defer></script>
+  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -128,7 +130,7 @@
       <article>
         <h3>结构化 Brief 表单</h3>
         <p>必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。</p>
-        <form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit">
+        <form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="zh-CN">
       <label class="form-trap" aria-hidden="true">请勿填写此字段
         <input name="website" tabindex="-1" autocomplete="off">
       </label>
@@ -136,6 +138,7 @@
         <label>项目类型
           <select name="projectType" data-brief-label="Project type" required>
             <option value="">请选择</option>
+            <option>Fintech software development</option>
             <option>Custom trading software development</option>
             <option>Hyperliquid custom bot development</option>
             <option>TradingView to Hyperliquid automation</option>
@@ -159,30 +162,30 @@
         <label>权限状态
           <select name="permissionStatus" data-brief-label="Permission status">
             <option value="">请选择</option>
-            <option>已有测试环境或 paper 权限</option>
-            <option>已有读取权限，交易权限待确认</option>
-            <option>已有完整 API 文档，权限申请中</option>
-            <option>还没有 API 权限</option>
+            <option value="已有测试环境或 paper 权限">已有测试环境或 paper 权限</option>
+            <option value="已有读取权限，交易权限待确认">已有读取权限，交易权限待确认</option>
+            <option value="已有完整 API 文档，权限申请中">已有完整 API 文档，权限申请中</option>
+            <option value="还没有 API 权限">还没有 API 权限</option>
           </select>
         </label>
         <label>预算档位
           <select name="budget" data-brief-label="Budget range">
             <option value="">请选择</option>
-            <option>API Starter Package - 2000 美金起</option>
-            <option>Execution System Package - 5000 美金起</option>
-            <option>Private Infrastructure Package - 10000 美金起</option>
-            <option>Read-only audit / diagnosis - 2000 美金起</option>
-            <option>Ongoing monitoring - audit 后报价</option>
-            <option>还在评估</option>
+            <option value="API Starter Package - 2000 美金起">API Starter Package - 2000 美金起</option>
+            <option value="Execution System Package - 5000 美金起">Execution System Package - 5000 美金起</option>
+            <option value="Private Infrastructure Package - 10000 美金起">Private Infrastructure Package - 10000 美金起</option>
+            <option value="Read-only audit / diagnosis - 2000 美金起">Read-only audit / diagnosis - 2000 美金起</option>
+            <option value="Ongoing monitoring - audit 后报价">Ongoing monitoring - audit 后报价</option>
+            <option value="还在评估">还在评估</option>
           </select>
         </label>
         <label>部署环境
           <select name="deploymentTarget" data-brief-label="Deployment target">
             <option value="">请选择</option>
-            <option>客户 VPS / Docker</option>
-            <option>客户本地服务器</option>
-            <option>云服务器 + 远程交付</option>
-            <option>还不确定</option>
+            <option value="客户 VPS / Docker">客户 VPS / Docker</option>
+            <option value="客户本地服务器">客户本地服务器</option>
+            <option value="云服务器 + 远程交付">云服务器 + 远程交付</option>
+            <option value="还不确定">还不确定</option>
           </select>
         </label>
         <label>期望时间线

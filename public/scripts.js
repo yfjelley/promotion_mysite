@@ -105,20 +105,72 @@ function briefFields(form) {
     .filter(([name, value]) => name && value));
 }
 
-function trackingContext() {
-  const params = new URLSearchParams(window.location.search);
-  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "project", "package"];
-  const tracking = Object.fromEntries(keys
+const TRACKING_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "project", "package"];
+const ATTRIBUTION_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+const TRACKING_STORAGE_KEY = "signalcraft_brief_attribution_v1";
+
+function trackingParamsFromSearch(search = window.location.search) {
+  const params = new URLSearchParams(search);
+  return Object.fromEntries(TRACKING_KEYS
     .map((key) => [key, params.get(key) || ""])
     .filter(([, value]) => value));
-  tracking.landing_page = window.location.href;
+}
+
+function storedTrackingContext() {
+  try {
+    return JSON.parse(window.sessionStorage?.getItem(TRACKING_STORAGE_KEY) || "{}") || {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveTrackingContext(tracking) {
+  try {
+    window.sessionStorage?.setItem(TRACKING_STORAGE_KEY, JSON.stringify(tracking));
+  } catch (error) {
+    // Attribution must not block navigation or Brief submission when storage is unavailable.
+  }
+}
+
+function captureTrackingContext() {
+  const current = trackingParamsFromSearch();
+  const stored = storedTrackingContext();
+  const tracking = { ...stored, ...current };
+  const currentUrl = new URL(window.location.href);
+  const isBriefPage = ["/contact/", "/en/contact/"].includes(currentUrl.pathname);
+  const hasNewAttribution = ATTRIBUTION_KEYS.some((key) => current[key]);
+  if (!tracking.landing_page || (hasNewAttribution && !isBriefPage)) {
+    tracking.landing_page = window.location.href;
+  }
+  saveTrackingContext(tracking);
+  return tracking;
+}
+
+function trackingContext() {
+  const tracking = captureTrackingContext();
   if (document.referrer) tracking.referrer = document.referrer;
   return tracking;
+}
+
+function decorateBriefLinks() {
+  const tracking = captureTrackingContext();
+  document.querySelectorAll("a[href]").forEach((link) => {
+    const rawHref = link.getAttribute("href");
+    if (!rawHref) return;
+    const url = new URL(rawHref, window.location.href);
+    if (url.origin !== window.location.origin || !["/contact/", "/en/contact/"].includes(url.pathname)) return;
+    TRACKING_KEYS.forEach((key) => {
+      if (tracking[key] && !url.searchParams.has(key)) url.searchParams.set(key, tracking[key]);
+    });
+    link.setAttribute("href", `${url.pathname}${url.search}${url.hash}`);
+  });
 }
 
 function applyBriefQueryState(form) {
   const params = new URLSearchParams(window.location.search);
   const projectTypes = {
+    "fintech-software-development": "Fintech software development",
+    "custom-trading-software-development": "Custom trading software development",
     "hyperliquid-api-trading-bot-development": "Hyperliquid custom bot development",
     "tradingview-to-hyperliquid-automation": "TradingView to Hyperliquid automation",
     "hyperliquid-trading-system-for-teams": "Hyperliquid team execution system",
@@ -651,6 +703,7 @@ function initHyperliquidFeeTool() {
 installLinkedInInsightTag();
 
 document.addEventListener("DOMContentLoaded", () => {
+  decorateBriefLinks();
   const mobileContactBar = document.querySelector(".mobile-contact-bar");
   const hero = document.querySelector(".hero, .content-hero");
   if (mobileContactBar && hero) {
@@ -684,12 +737,12 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         await copyText(value);
         if (status) {
-          status.textContent = `已复制：${value}`;
+          status.textContent = document.documentElement?.lang === "en" ? `Copied: ${value}` : `已复制：${value}`;
         }
         reportContactClick(button.dataset.contact || "copy", true);
       } catch (error) {
         if (status) {
-          status.textContent = "复制失败，请手动复制页面上的联系方式。";
+          status.textContent = document.documentElement?.lang === "en" ? "Copy failed. Please copy the contact details manually." : "复制失败，请手动复制页面上的联系方式。";
         }
       }
     });
@@ -697,6 +750,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("form[data-mailto-brief]").forEach((form) => {
     applyBriefQueryState(form);
+    const english = form.dataset.lang === "en";
+    const copy = english ? {
+      required: "Please complete this field.",
+      submit: "Send project brief",
+      submitting: "Submitting securely…",
+      submitted: (id) => `Project brief received. Reference ${id}. We will reply through your preferred contact method.`,
+      failed: "Submission failed temporarily. Your form content is still here; please retry or use email, WeChat or Telegram below."
+    } : {
+      required: "请完成此项。",
+      submit: "提交项目 Brief",
+      submitting: "正在安全提交，请稍候……",
+      submitted: (id) => `项目 Brief 已收到，编号 ${id}。我们会通过你填写的联系方式回复。`,
+      failed: "提交暂时失败，表单内容仍保留。请稍后重试，或使用下方邮箱、微信或 Telegram 联系。"
+    };
     let firstSubmitError = null;
     let validatingSubmit = false;
 
@@ -715,7 +782,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const error = document.createElement("span");
       error.id = errorId;
       error.className = "field-error";
-      error.textContent = control.validationMessage || "请完成此项。";
+      error.textContent = control.validationMessage || copy.required;
       control.setAttribute("aria-invalid", "true");
       control.setAttribute("aria-describedby", errorId);
       control.dataset.errorId = errorId;
@@ -777,10 +844,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       const status = statusFor(form);
       const submitButton = form.querySelector('button[type="submit"]');
-      const originalLabel = submitButton?.textContent || "提交项目 Brief";
+      const originalLabel = submitButton?.textContent || copy.submit;
       if (submitButton) submitButton.disabled = true;
       form.setAttribute("aria-busy", "true");
-      if (status) status.textContent = "正在安全提交，请稍候……";
+      if (status) status.textContent = copy.submitting;
 
       try {
         const response = await fetch(form.dataset.briefEndpoint || "/api/brief", {
@@ -793,15 +860,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok || !result.ok) throw new Error(result.error || `HTTP ${response.status}`);
 
         form.dataset.submitted = "true";
-        if (submitButton) submitButton.textContent = "已安全提交";
-        if (status) status.textContent = `项目 Brief 已收到，编号 ${String(result.id || "").slice(0, 8)}。我们会通过你填写的联系方式回复。`;
+        if (submitButton) submitButton.textContent = english ? "Submitted securely" : "已安全提交";
+        if (status) status.textContent = copy.submitted(String(result.id || "").slice(0, 8));
         reportBriefSubmit(form.dataset.contact || "structured_brief_submit");
       } catch (error) {
         if (submitButton) {
           submitButton.disabled = false;
           submitButton.textContent = originalLabel;
         }
-        if (status) status.textContent = "提交暂时失败，表单内容仍保留。请稍后重试，或使用下方邮箱、微信或 Telegram 联系。";
+        if (status) status.textContent = copy.failed;
       } finally {
         form.removeAttribute("aria-busy");
       }
