@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260721-brief-attribution-en";
+const ASSET_RELEASE = "20260721-quant-development-zh";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -44,6 +44,7 @@ const PATH_REDIRECTS = new Map([
   ["/about", "/about/"],
   ["/contact", "/contact/"],
   ["/en/contact", "/en/contact/"],
+  ["/zh/custom-trading-software-development", "/zh/custom-trading-software-development/"],
   ["/risk-disclaimer", "/risk-disclaimer/"]
 ]);
 
@@ -64,6 +65,7 @@ const HTML_CACHE_BUST_PATHS = new Set([
   "/contact/",
   "/en/contact/",
   "/custom-trading-software-development/",
+  "/zh/custom-trading-software-development/",
   "/broker-api/ibkr/",
   "/hyperliquid-api-trading-bot-development/",
   "/trading-system-consistency-audit/",

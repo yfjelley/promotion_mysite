@@ -97,6 +97,7 @@ const requiredIconTextAssets = new Map([
 ]);
 const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "apple-touch-icon-180.png"];
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
+const customTradingSoftwareZhFile = join(publicDir, "zh", "custom-trading-software-development", "index.html");
 const fintechSoftwareFile = join(publicDir, "fintech-software-development", "index.html");
 const searchSnippetExpectations = new Map([
   ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
@@ -123,6 +124,7 @@ const buyerPositioningExpectations = new Map([
   ["/exchange-api-trading-bot-development/", "把已有交易规则接入交易所自动执行"],
   ["/risk-engine/", "为现有自动交易流程补上可执行的风控边界"],
   ["/custom-trading-software-development/", "Custom Trading Software and Platform Development for Teams"],
+  ["/zh/custom-trading-software-development/", "量化交易软件与交易平台定制开发"],
   ["/fintech-software-development/", "Fintech Software Development for Trading, Data and Operations"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
   ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
@@ -131,6 +133,10 @@ const buyerPositioningExpectations = new Map([
 
 if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
   errors.push("service-pages.json: missing custom trading software development route");
+}
+
+if (!generatedServiceRoutes.includes("/zh/custom-trading-software-development/")) {
+  errors.push("service-pages.json: missing Chinese custom trading software development route");
 }
 
 if (!generatedServiceRoutes.includes("/fintech-software-development/")) {
@@ -157,7 +163,16 @@ if (existsSync(customTradingSoftwareFile)) {
     errors.push("custom trading software development page: contains Chinese copy");
   }
   requireText("custom trading software development page", customTradingSoftwareHtml, "/en/contact/?project=custom-trading-software-development");
+  requireText("custom trading software development page", customTradingSoftwareHtml, 'hreflang="zh-Hans" href="https://pddjf.com/zh/custom-trading-software-development/"');
   requireText("custom trading software development page", customTradingSoftwareHtml, currentScriptHref);
+}
+
+if (existsSync(customTradingSoftwareZhFile)) {
+  const customTradingSoftwareZhHtml = readFileSync(customTradingSoftwareZhFile, "utf8");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "量化交易软件与交易平台定制开发");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "/contact/?project=custom-trading-software-development");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, 'hreflang="en" href="https://pddjf.com/custom-trading-software-development/"');
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, currentScriptHref);
 }
 
 if (existsSync(fintechSoftwareFile)) {
@@ -363,7 +378,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260721-brief-attribution-en"',
+  'const ASSET_RELEASE = "20260721-quant-development-zh"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
@@ -372,7 +387,7 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
-  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/en/contact/",\n  "/custom-trading-software-development/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
+  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/en/contact/",\n  "/custom-trading-software-development/",\n  "/zh/custom-trading-software-development/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
   '["/en/contact", "/en/contact/"]',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
@@ -397,6 +412,7 @@ for (const [canonicalFile, releaseFile] of [
 
 const sitemap = readFileSync(join(publicDir, "sitemap.xml"), "utf8");
 requireText("sitemap.xml", sitemap, "https://pddjf.com/en/contact/");
+requireText("sitemap.xml", sitemap, "https://pddjf.com/zh/custom-trading-software-development/");
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 for (const loc of locs) {
   if (!loc.startsWith(site)) errors.push(`sitemap non-pddjf loc: ${loc}`);
