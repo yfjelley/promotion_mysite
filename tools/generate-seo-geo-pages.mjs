@@ -7,7 +7,7 @@ import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
 const today = "2026-07-17";
-const auditContentDate = "2026-07-20";
+const auditContentDate = "2026-07-21";
 const hyperliquidCheckedDate = "2026-07-19";
 const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const llmsUpdatedAt = auditContentDate;
@@ -50,6 +50,11 @@ const officialReferenceLinks = [
   ["FIX Trading Community", "https://fixtrading.org/standards/fix-protocol/", "FIX Trading Community 的 FIX Protocol 标准介绍。"],
   ["Binance Developer Docs", "https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information", "Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。"]
 ];
+
+const ibkrTwsReference = ["IBKR TWS API documentation", "https://ibkrcampus.com/campus/ibkr-api-page/twsapi-doc/", "IBKR 官方 TWS API 文档，说明 TWS API 通过 Trader Workstation 或 IB Gateway 运行。"];
+const ibkrOperationsReference = ["IBKR third-party connection guidance", "https://ibkrcampus.com/campus/ibkr-api-page/third-party-connections/", "IBKR 官方运行说明，覆盖登录、自动重启、周期性重新认证和 headless 限制。"];
+const ibkrClientPortalReference = ["IBKR Client Portal Web API v1.0", "https://ibkrcampus.com/campus/ibkr-api-page/cpapi-v1/", "IBKR 官方 Client Portal Gateway 文档，覆盖同机认证、会话和每日重新认证限制。"];
+const ibkrWebApiReference = ["IBKR unified Web API", "https://ibkrcampus.com/campus/ibkr-api-page/webapi-doc/", "IBKR 当前统一 Web API 文档；OAuth 2.0 仍标注为 beta，账户和用例适用性需要逐项确认。"];
 
 const hyperliquidReferenceLinks = [
   ["Hyperliquid fees", "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees", "Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula."],
@@ -163,14 +168,14 @@ const auditAcceptanceRowsEn = [
 ];
 
 const brokerComparisonRows = [
-  ["IBKR / TWS Gateway", "多资产账户、组合执行、持仓同步和审计日志。", "TWS Gateway / Client Portal 连接、订单类型、交易时段和账户权限。", "连接稳定性、数据权限、地区限制和账户风控以客户账户为准。"],
+  ["IBKR / IB Gateway", "多资产账户、组合执行、持仓同步和审计日志。", "IB Gateway / Client Portal 连接、订单类型、交易时段和账户权限。", "连接稳定性、数据权限、地区限制和账户风控以客户账户为准。"],
   ["Schwab API", "美股账户授权、组合数据、订单监控和规则执行。", "OAuth 授权、Token 续期、账户范围、订单请求和组合数据同步。", "API 权限、审核流程、地区可用性和平台政策可能变化。"],
   ["Alpaca API", "REST/WebSocket 执行、paper trading 验证和研究信号落地。", "API Key 权限、paper/live 环境切换、订单状态流和市场数据权限。", "资产类别、行情延迟、交易时段和订单能力以账户权限为准。"],
   ["FIX API", "专业订单路由、执行回报、UAT 测试和原始消息审计。", "FIX 版本、会话心跳、序号恢复、证书网络和消息字段映射。", "通常依赖接入方测试环境、证书、专线或审批流程。"]
 ];
 
 const brokerComparisonRowsEn = [
-  ["IBKR / TWS Gateway", "Multi-asset accounts, portfolio execution, position sync and audit logs.", "TWS Gateway / Client Portal connection, order types, trading hours and account permissions.", "Connection stability, data access, region limits and account controls depend on the customer account."],
+  ["IBKR / IB Gateway", "Multi-asset accounts, portfolio execution, position sync and audit logs.", "IB Gateway / Client Portal connection, order types, trading hours and account permissions.", "Connection stability, data access, region limits and account controls depend on the customer account."],
   ["Schwab API", "US brokerage account authorization, portfolio data, order monitoring and rule execution.", "OAuth, token refresh, account scope, order requests and portfolio data sync.", "API access, approval flow, region availability and platform policy can change."],
   ["Alpaca API", "REST/WebSocket execution, paper-trading validation and research signal deployment.", "API key permissions, paper/live environments, order status streams and market data access.", "Asset support, data latency, trading hours and order capability depend on account permissions."],
   ["FIX API", "Professional order routing, execution reports, UAT and raw message audit trails.", "FIX version, heartbeat, sequence recovery, certificates, network setup and tag mapping.", "Usually depends on counterparty test environment, certificates, network and approval workflow."]
@@ -178,7 +183,7 @@ const brokerComparisonRowsEn = [
 
 const platformDetailRows = {
   "broker-api/ibkr": [
-    ["连接方式", "优先评估 TWS Gateway / Client Portal 的运行环境、断线重连、会话保持和账户登录流程。", "能稳定连接、断线告警、重连后不重复下单。"],
+    ["连接方式", "优先评估 IB Gateway / Client Portal 的运行环境、断线重连、会话保持和账户登录流程。", "能稳定连接、断线告警、重连后不重复下单。"],
     ["订单与持仓", "确认股票、ETF、期权或组合订单类型、交易时段、撤单流程和成交回报字段。", "订单请求、拒单、撤单、成交回报和持仓同步都有日志。"],
     ["常见错误", "重点处理连接断开、权限不足、数据订阅缺失、订单类型不支持和交易时段限制。", "错误码归类、人工告警、暂停开关和回滚流程可演示。"]
   ],
@@ -206,7 +211,7 @@ const platformDetailRowsEn = {
     ["Operations and handoff", "Provide structured logs, alerts, configuration, deployment files, restart and rollback procedures, and source delivery.", "The customer can deploy, observe, pause, restart and roll back the system without sharing withdrawal credentials."]
   ],
   "broker-api/ibkr": [
-    ["Connection model", "Evaluate TWS Gateway / Client Portal runtime, reconnect behavior, session lifecycle and account login flow.", "Stable connection, disconnect alerts and no duplicate routing after reconnect."],
+    ["Connection model", "Evaluate IB Gateway / Client Portal runtime, reconnect behavior, session lifecycle and account login flow.", "Stable connection, disconnect alerts and no duplicate routing after reconnect."],
     ["Orders and positions", "Confirm stocks, ETFs, options or portfolio order types, trading hours, cancel flow and execution report fields.", "Order requests, rejects, cancels, fills and position sync are logged."],
     ["Common errors", "Handle disconnects, missing permissions, missing data subscriptions, unsupported order types and trading-hour restrictions.", "Errors are classified with alerts, pause controls and rollback steps."]
   ],
@@ -620,7 +625,7 @@ const servicePages = [
     notFit: [
       "希望外包投资判断、荐股、喊单或资金托管。",
       "没有明确订单类型、交易时段、仓位规则和异常处理。",
-      "无法接受券商 API、TWS Gateway 或账户权限限制。"
+      "无法接受券商 API、IB Gateway 或账户权限限制。"
     ],
     deliverables: [
       "IBKR 连接方案评估，以及 TWS、Gateway、Client Portal / Web API 工作流建议。",
@@ -895,7 +900,7 @@ const servicePages = [
       "You want to skip dry-run, paper trading or limited-scope production validation."
     ],
     deliverables: [
-      "Webhook receiver, shared-secret validation, payload parser and structured event IDs.",
+      "HTTPS webhook receiver, revocable endpoint authentication, payload parser and structured event IDs.",
       "Duplicate prevention, cooldown windows, max-position checks, manual pause and reject logs.",
       "Order routing adapter for the agreed broker API, exchange API or internal execution workflow.",
       "Source code, configuration examples, deployment notes and remote handoff."
@@ -953,7 +958,7 @@ const servicePages = [
       "You expect software delivery to be judged by strategy returns instead of tested workflow behavior."
     ],
     deliverables: [
-      "TWS Gateway / Client Portal workflow assessment and integration plan.",
+      "IB Gateway / Client Portal workflow assessment and integration plan.",
       "Order routing, cancel flow, execution report handling, position sync and error classification.",
       "Risk checks for size, exposure, trading hours, manual pause and human confirmation when required.",
       "Source code, configuration examples, runbook, logs and remote handoff."
@@ -966,12 +971,12 @@ const servicePages = [
     ],
     limits: [
       "IBKR API capability, market data, order support and regional availability depend on the customer's account and Interactive Brokers policies.",
-      "TWS Gateway and Client Portal workflows have different session, authentication and operational tradeoffs.",
+      "IB Gateway and Client Portal workflows have different session, authentication and operational tradeoffs.",
       "SignalCraft Labs is not affiliated with, endorsed by or authorized by Interactive Brokers."
     ],
     faq: [
       ["Can you build an IBKR API automation system?", "Yes, after account permissions, target instruments, order types, market data and the intended workflow are reviewed."],
-      ["Should I use TWS Gateway or Client Portal?", "It depends on the execution workflow, session requirements, operations model, data needs and account constraints."],
+      ["Should I use IB Gateway or Client Portal?", "It depends on the execution workflow, session requirements, operations model, data needs and account constraints."],
       ["Can you automate portfolio rebalancing?", "Yes, if target weights, cash constraints, account scope, order rules and human confirmation requirements are clear."],
       ["What should be tested before going live?", "Connection stability, order types, cancel flow, rejects, trading hours, position sync, execution reports and audit logs."],
       ["Do you manage my IBKR account?", "No. The customer controls the account, credentials, funding, API permissions and final trading decisions."],
@@ -1281,7 +1286,7 @@ const servicePages = [
       "You are unwilling to validate the workflow on testnet before considering limited live use."
     ],
     deliverables: [
-      "Webhook endpoint, shared-secret validation and a documented TradingView alert payload.",
+      "HTTPS webhook endpoint, revocable endpoint authentication and a documented TradingView alert payload.",
       "Signal normalization, duplicate protection, cooldown rules and stale-alert rejection.",
       "Hyperliquid order, cancel and reduce-only execution with position and price checks.",
       "Structured logs, failure alerts, manual pause and restart reconciliation.",
@@ -1519,13 +1524,13 @@ const articlePages = [
     title: "TradingView Webhook 如何防重复下单 | 去重、冷却、风控和日志",
     description: "TradingView Webhook 防重复下单工程指南，说明 event_id、冷却时间、幂等处理、风控拒单、告警和灰度验收。",
     h1: "TradingView Webhook 如何防重复下单",
-    intro: "TradingView Alert 负责把信号发出来，但自动交易系统必须自己处理重复信号、延迟、重试、风控和日志。防重复下单不是一个按钮，而是一组工程约束。",
+    intro: "TradingView Alert 负责把信号发出来，但自动交易系统必须自己处理重复信号、延迟、投递失败、风控和日志。防重复下单不是一个按钮，而是一组工程约束。",
     summary: "TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。",
     sections: [
       {
         title: "先让 Alert payload 可识别",
-        body: "Alert 文案至少应包含策略名、品种、方向、动作、数量、bar 时间或信号时间、以及 shared secret。系统用这些字段生成稳定 event_id，避免同一根 K 线或同一交易动作被重复执行。",
-        bullets: ["不要只传 buy/sell 一个词。", "不要把交易数量写死在服务端且没有版本记录。", "secret 只用于请求校验，不应放在前端页面或公开仓库。"]
+        body: "Alert 文案只包含描述交易意图所需的非敏感字段，例如策略名、版本、品种、方向、动作、数量模型、bar 时间或信号时间。不要在 webhook body 中放账户密码、API Key、可复用认证密钥或其他敏感信息。系统用稳定业务字段生成 event_id，避免同一根 K 线或同一交易动作被重复执行。",
+        bullets: ["不要只传 buy/sell 一个词。", "不要把交易数量写死在服务端且没有版本记录。", "认证应由 HTTPS、可撤销 endpoint token、官方发送 IP allowlist、限频和严格 schema 校验共同完成；token 必须从日志中脱敏并支持轮换。"]
       },
       {
         title: "用 event_id 和冷却窗口做幂等",
@@ -1541,7 +1546,7 @@ const articlePages = [
     checklistTitle: "上线前检查",
     checklist: [
       "重复同一个 payload 时只准备一次订单。",
-      "secret 错误时拒绝并告警。",
+      "无效或已轮换的 endpoint token 会被拒绝，且日志不会记录 token 原文。",
       "超出最大数量或仓位时拒绝并记录原因。",
       "交易接口不可用时进入暂停或人工处理流程。",
       "客户能看到事件日志、拒单原因和重启方式。"
@@ -1553,23 +1558,23 @@ const articlePages = [
   },
   {
     slug: "articles/ibkr-tws-gateway-vs-client-portal",
-    breadcrumb: "IBKR TWS Gateway 与 Client Portal",
+    breadcrumb: "IBKR TWS API 与 Client Portal",
     eyebrow: "IBKR API",
-    title: "IBKR TWS Gateway vs Client Portal | 自动交易接入对比",
-    description: "对比 IBKR TWS Gateway 与 Client Portal 的连接方式、会话稳定性、账户权限、订单能力、部署运维和自动交易验收路径。",
-    h1: "IBKR TWS Gateway 和 Client Portal 怎么选",
-    intro: "TWS Gateway 通常更适合长期运行、订单与持仓同步；Client Portal 更接近 HTTP/Web API 工作流。最终选择仍取决于账户权限、订单类型、会话稳定性、部署环境和可执行的验收路径。",
+    title: "IBKR TWS API vs Client Portal | 自动交易接入对比",
+    description: "对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。",
+    h1: "IBKR TWS API 和 Client Portal Web API 怎么选",
+    intro: "TWS API 需要连接到正在运行的 Trader Workstation 或 IB Gateway；个人账户的 Client Portal Web API 通常依赖本机 Client Portal Gateway 和浏览器认证。最终选择仍取决于账户权限、订单类型、认证方式、部署环境和可执行的验收路径。",
     summary: "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。",
     sections: [
       {
-        title: "TWS Gateway 更像长期运行入口",
-        body: "TWS Gateway / TWS API 工作流常用于需要较完整账户状态、订单管理和持仓同步的自动化场景，但必须认真处理登录会话、断线重连、交易时段、数据订阅和本地运行环境。",
-        bullets: ["适合需要持续同步订单、成交和持仓的系统。", "需要监控 Gateway 进程状态和网络连接。", "重启后要验证未完成订单和持仓快照。"]
+        title: "TWS API 通过 TWS 或 IB Gateway 运行",
+        body: "TWS API 是 TCP Socket 接口，必须连接到正在运行的 Trader Workstation 或 IB Gateway。两者对 API 客户端的能力基本相同；IB Gateway 更轻量，但仍需要图形界面登录，官方不支持无 GUI 的完全 headless 登录。",
+        bullets: ["适合需要持续同步订单、成交和持仓的系统。", "需要监控宿主进程、连接状态、每日重启和周期性重新认证。", "重启后要重新核对未完成订单、成交和持仓快照。"]
       },
       {
-        title: "Client Portal 更关注 Web API 工作流",
-        body: "Client Portal 相关工作流更接近 HTTP/Web API 集成，但仍受账户授权、会话、可用接口和平台策略限制影响。是否适合要看目标订单流程和客户账户状态。",
-        bullets: ["适合先做账户、组合或订单流程可行性评估。", "需要处理授权和会话失效。", "不能默认所有订单类型、品种和地区都可用。"]
+        title: "Client Portal Gateway 有明确的本机认证约束",
+        body: "个人账户使用 Client Portal Web API 时，通常需要在本机运行 Java Client Portal Gateway，并通过同一台机器上的浏览器完成认证。受保护请求必须从该机器发出，认证至少每日更新一次，且官方不提供自动化 brokerage session 登录机制。",
+        bullets: ["把同机运行、浏览器登录和每日重认证写进运维设计。", "同时评估 IBKR 当前基于 OAuth 2.0 的统一 Web API 是否适用于目标账户。", "不能默认所有订单类型、品种、地区和认证方式都可用。"]
       },
       {
         title: "最终选择看验收路径",
@@ -1581,12 +1586,15 @@ const articlePages = [
     checklist: [
       "账户地区、账户类型和 API 权限状态。",
       "目标品种、订单类型、交易时段和数据订阅。",
-      "是否接受本地 Gateway、VPS 或客户自有云运行。",
+      "是否接受本机 TWS、IB Gateway 或 Client Portal Gateway 的认证和运行约束。",
       "是否需要人工确认、组合再平衡或多账户流程。",
       "上线前如何验证拒单、断线、撤单和持仓同步。"
     ],
     references: [
-      officialReferenceLinks[1],
+      ibkrTwsReference,
+      ibkrOperationsReference,
+      ibkrClientPortalReference,
+      ibkrWebApiReference,
       ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs 脱敏平台接入笔记。"]
     ]
   },
@@ -1681,8 +1689,8 @@ const articlePages = [
     sections: [
       {
         title: "Start with a payload that can identify one event",
-        body: "The webhook payload should include the strategy name, symbol, action, size, timeframe, signal time or bar time, and a shared secret. Those fields let the receiver build a stable event ID instead of guessing whether two requests are the same trading action.",
-        bullets: ["Do not rely on a plain buy or sell string.", "Include enough fields to distinguish strategy, symbol, direction and time.", "Keep the shared secret out of public pages and repositories."]
+        body: "The webhook payload should contain only the non-sensitive fields needed to describe one trading intent: strategy, version, symbol, action, size model, timeframe, signal time or bar time. Do not place account passwords, API keys, reusable authentication secrets or other sensitive values in the webhook body.",
+        bullets: ["Do not rely on a plain buy or sell string.", "Include enough stable fields to distinguish strategy, symbol, direction and time.", "Authenticate with HTTPS, a revocable high-entropy endpoint token, TradingView's published sender IP allowlist, rate limits and strict schema validation; redact and rotate the token."]
       },
       {
         title: "Apply idempotency before order routing",
@@ -1698,7 +1706,7 @@ const articlePages = [
     checklistTitle: "Duplicate-order acceptance checks",
     checklist: [
       "Sending the same payload twice produces only one order intent.",
-      "A wrong shared secret is rejected and logged.",
+      "An invalid or rotated endpoint token is rejected without logging the token value.",
       "A max-position breach is rejected with a visible risk reason.",
       "Manual pause blocks new order routing before the API call.",
       "The client can review event ID, duplicate status, risk decision and alert delivery."
@@ -1711,23 +1719,23 @@ const articlePages = [
   {
     slug: "articles/ibkr-tws-gateway-vs-client-portal-automated-trading",
     lang: "en",
-    breadcrumb: "IBKR TWS Gateway vs Client Portal",
+    breadcrumb: "IBKR TWS API vs Client Portal",
     eyebrow: "IBKR API",
-    title: "IBKR TWS Gateway vs Client Portal for Automated Trading | Connection, Sessions and Order Workflow",
-    description: "Compare IBKR TWS Gateway and Client Portal for automated trading workflows, including sessions, order routing, account permissions, market data and acceptance tests.",
-    h1: "IBKR TWS Gateway vs Client Portal for Automated Trading",
+    title: "IBKR TWS API vs Client Portal for Automated Trading | Authentication and Sessions",
+    description: "Compare the TWS API through Trader Workstation or IB Gateway with Client Portal Web API, including authentication, sessions, order routing, market data and acceptance tests.",
+    h1: "IBKR TWS API vs Client Portal Web API for Automated Trading",
     intro: "The right IBKR automation path depends on the order workflow, account permissions, session model, data needs, operations environment and acceptance tests. The API name alone is not enough.",
-    summary: "IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.",
+    summary: "IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests.",
     sections: [
       {
-        title: "TWS Gateway is usually evaluated for long-running workflows",
-        body: "TWS Gateway and TWS API workflows are often considered when the system needs continuous account state, order management, execution reports and position sync. The tradeoff is that the runtime environment, session health and reconnect behavior need careful operations design.",
-        bullets: ["Monitor gateway process health and connection status.", "Validate open orders and positions after restart.", "Test trading hours, order types, rejects and cancel flow."]
+        title: "TWS API runs through TWS or IB Gateway",
+        body: "The TWS API is a TCP socket interface that connects to a running Trader Workstation or IB Gateway. The two host applications expose essentially the same API capability; IB Gateway is lighter, but both require GUI authentication and IBKR does not support a fully headless login session.",
+        bullets: ["Monitor the host process, connection state, daily restart and periodic reauthentication.", "Reconcile open orders, executions and positions after restart.", "Test trading hours, order types, rejects and cancel flow."]
       },
       {
-        title: "Client Portal fits a different operations model",
-        body: "Client Portal workflows are closer to HTTP or web API integration, but they still depend on account authorization, session lifecycle, available endpoints, region and platform policy. It can be useful for account and workflow evaluation when the intended order flow matches the available endpoints.",
-        bullets: ["Plan for authorization and session expiry.", "Verify whether the needed instruments and order types are available.", "Do not assume every IBKR workflow is exposed through the same API surface."]
+        title: "Client Portal Gateway has same-machine authentication constraints",
+        body: "For individual accounts, Client Portal Web API normally requires a local Java Client Portal Gateway and browser authentication on the same machine. Protected requests must originate from that machine, clients must reauthenticate at least once after midnight each day, and IBKR does not provide a supported way to automate brokerage-session login.",
+        bullets: ["Document same-machine browser login and daily reauthentication in the runbook.", "Also evaluate whether IBKR's OAuth 2.0 unified Web API is available to the intended account and use case.", "Do not assume every account, instrument, order type or authentication model is available."]
       },
       {
         title: "Choose by acceptance tests, not by API branding",
@@ -1744,7 +1752,10 @@ const articlePages = [
       "Manual pause, order limits, audit logs and handoff documentation are part of the scope."
     ],
     references: [
-      officialReferenceLinks[1],
+      ibkrTwsReference,
+      ibkrOperationsReference,
+      ibkrClientPortalReference,
+      ibkrWebApiReference,
       ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
     ]
   },
@@ -1766,8 +1777,8 @@ const articlePages = [
       },
       {
         title: "Validate and store the event before execution",
-        body: "The receiver should validate the shared secret, parse the payload, create a stable event ID, check duplicate status and store the event before any broker API call. This makes retries and alert bursts auditable.",
-        bullets: ["Use event IDs for idempotency.", "Apply cooldowns by strategy, symbol and action.", "Store accepted, duplicated and rejected events with a visible reason."]
+        body: "The receiver should authenticate the HTTPS endpoint without putting reusable credentials in the body, parse the payload, create a stable event ID, check duplicate status and durably store the event before any broker API call. It must return within TradingView's three-second deadline and move longer work to an asynchronous queue.",
+        bullets: ["Use event IDs for idempotency.", "Allow only ports 80 or 443, account for the lack of IPv6 support and require TradingView 2FA.", "Store accepted, duplicated and rejected events, and monitor failed delivery in the TradingView alert log."]
       },
       {
         title: "Route only after risk checks pass",
@@ -1956,10 +1967,10 @@ const articlePages = [
     breadcrumb: "TradingView Alert Payload Template",
     eyebrow: "Payload Template",
     title: "TradingView Alert Payload Template | Webhook Fields for Safe Automation",
-    description: "A TradingView alert payload template for webhook automation, covering strategy version, symbol, action, event ID, secret validation, risk profile and audit logs.",
+    description: "A TradingView alert payload template for webhook automation, covering strategy version, symbol, action, event ID inputs, endpoint authentication, risk profile and audit logs.",
     h1: "TradingView Alert Payload Template",
     intro: "A TradingView alert payload should be designed like an interface contract. If the payload only says buy or sell, the receiver cannot reliably prevent duplicates, route orders, apply risk checks or explain what happened later.",
-    summary: "A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, shared secret, risk profile and audit fields.",
+    summary: "A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, endpoint authentication requirements, risk profile and audit fields.",
     sections: [
       {
         title: "Fields that make a signal auditable",
@@ -1981,8 +1992,8 @@ const articlePages = [
     checklist: [
       "strategy, strategy_version, symbol, timeframe and signal_time are present.",
       "action, side and size_model are explicit enough for order-intent generation.",
-      "bar_time or equivalent event ID input is stable across retries.",
-      "secret validation is configured, but secrets are not logged or published.",
+      "bar_time or equivalent event ID input remains stable across repeated delivery.",
+      "No reusable credential is placed in the payload body; endpoint tokens are revocable, rotatable and redacted from logs.",
       "risk_profile, customer note and alert version are visible in audit logs."
     ],
     references: [
@@ -2107,7 +2118,7 @@ const articlePages = [
     ],
     references: [
       officialReferenceLinks[2],
-      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+      ["OAuth lifecycle acceptance notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance notes for authorization, failure handling and handoff."]
     ]
   },
   {
@@ -2286,11 +2297,11 @@ const articlePages = [
       {
         title: "Define the alert payload as a contract",
         body: "The TradingView alert should carry enough fields to describe one intended action: strategy, version, symbol, action, timeframe, signal time, size model and event ID inputs. Without that contract, the IBKR side cannot reliably decide whether a request is new, duplicated, stale or unsafe.",
-        bullets: ["Use stable fields for event ID generation.", "Keep shared secrets out of public code and screenshots.", "Version the payload when the TradingView script changes."]
+        bullets: ["Use stable fields for event ID generation.", "Keep account credentials and reusable authentication secrets out of the webhook body, public code and screenshots.", "Version the payload when the TradingView script changes."]
       },
       {
         title: "Choose the IBKR runtime deliberately",
-        body: "IBKR automation may involve TWS Gateway, TWS API, Client Portal or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.",
+        body: "IBKR automation may use the TWS API through Trader Workstation or IB Gateway, Client Portal Web API, or another approved route depending on the account and workflow. The scope should document session behavior, market data, order types, trading hours, reconnect behavior and who owns the running process.",
         bullets: ["Validate account permissions before building order routing.", "Log connection state and reconnect events.", "Pause new routing until positions and open orders are reconciled after restart."]
       },
       {
@@ -2309,7 +2320,8 @@ const articlePages = [
     ],
     references: [
       officialReferenceLinks[0],
-      officialReferenceLinks[1],
+      ibkrTwsReference,
+      ibkrClientPortalReference,
       ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public engineering notes for webhook validation and dry-run risk checks."],
       ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
     ]
@@ -3462,11 +3474,35 @@ function referenceLinksList(references) {
     </div>`;
 }
 
-function articleCards(language = "zh-CN") {
+const articleAlternateSlugs = new Map([
+  ["articles/tradingview-webhook-duplicate-orders", "articles/how-we-prevent-duplicate-tradingview-webhook-orders"],
+  ["articles/how-we-prevent-duplicate-tradingview-webhook-orders", "articles/tradingview-webhook-duplicate-orders"],
+  ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading"],
+  ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-tws-gateway-vs-client-portal"],
+  ["articles/automated-trading-risk-acceptance-checklist", "articles/automated-trading-strategy-risk-checklist"],
+  ["articles/automated-trading-strategy-risk-checklist", "articles/automated-trading-risk-acceptance-checklist"],
+  ["articles/fix-api-execution-report-audit-log-design", "articles/fix-api-order-routing-execution-reports-audit-logs"],
+  ["articles/fix-api-order-routing-execution-reports-audit-logs", "articles/fix-api-execution-report-audit-log-design"]
+]);
+
+const articleClusters = [
+  ["articles/tradingview-webhook-duplicate-orders", "articles/how-we-prevent-duplicate-tradingview-webhook-orders", "articles/tradingview-webhook-strategy-automation", "articles/tradingview-alert-payload-template", "articles/tradingview-webhook-to-ibkr-order-workflow"],
+  ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-strategy-execution", "articles/tradingview-webhook-to-ibkr-order-workflow", "articles/broker-api-order-reconciliation-checklist"],
+  ["articles/automated-trading-risk-acceptance-checklist", "articles/automated-trading-strategy-risk-checklist", "articles/common-automated-strategy-failure-points", "articles/trading-bot-api-key-permission-safety", "articles/broker-api-order-reconciliation-checklist"],
+  ["articles/fix-api-execution-report-audit-log-design", "articles/fix-api-order-routing-execution-reports-audit-logs", "articles/fix-api-uat-checklist-before-production", "articles/fix-api-certificate-network-allowlist-checklist"],
+  ["articles/alpaca-api-paper-to-live-checklist", "articles/alpaca-order-status-reconciliation", "articles/schwab-trader-api-oauth-automation-checklist", "articles/schwab-api-token-refresh-runbook", "articles/broker-api-order-reconciliation-checklist"],
+  ["articles/binance-api-trading-bot-risk-checklist", "articles/crypto-asset-reporting-reconciliation-checklist", "articles/hyperliquid-api-order-reconciliation-websocket-checklist", "articles/trading-bot-api-key-permission-safety"],
+  ["articles/hire-trading-api-developer-scope-checklist", "articles/trading-bot-private-deployment-vps-docker-runbook", "articles/common-automated-strategy-failure-points", "articles/automated-trading-strategy-risk-checklist"]
+];
+
+function articleCards(language = "zh-CN", selectedSlugs = null) {
   const english = isEnglish(language);
+  const articles = selectedSlugs
+    ? selectedSlugs.map((slug) => articlePages.find((article) => article.slug === slug)).filter(Boolean)
+    : articlePages;
   const orderedArticles = [
-    ...articlePages.filter((article) => isEnglish(article) === english),
-    ...articlePages.filter((article) => isEnglish(article) !== english)
+    ...articles.filter((article) => isEnglish(article) === english),
+    ...articles.filter((article) => isEnglish(article) !== english)
   ];
   return `<div class="article-card-grid">
       ${orderedArticles.map((article) => `<article>
@@ -3476,6 +3512,14 @@ function articleCards(language = "zh-CN") {
         <a href="/${article.slug}/">${english ? "Read article" : "阅读文章"}</a>
       </article>`).join("")}
     </div>`;
+}
+
+function relatedArticleCards(page, limit = 4) {
+  const cluster = articleClusters.find((slugs) => slugs.includes(page.slug)) || [];
+  const candidates = [...cluster, ...articlePages.map((article) => article.slug)]
+    .filter((slug, index, slugs) => slug !== page.slug && slugs.indexOf(slug) === index)
+    .slice(0, limit);
+  return articleCards(page.lang || "zh-CN", candidates);
 }
 
 function servicePageHtml(page) {
@@ -3755,7 +3799,7 @@ function articlesIndexHtml(page) {
         "author": { "@id": `${site}/#organization` },
         "publisher": { "@id": `${site}/#organization` },
         "datePublished": article.datePublished || articleCatalogPublishedDate,
-        "dateModified": article.dateModified || today,
+        "dateModified": article.dateModified || auditContentDate,
         "inLanguage": article.lang || "zh-CN"
       }))
     ]
@@ -3785,7 +3829,7 @@ function articleHtml(page) {
         "author": { "@id": `${site}/#organization` },
         "publisher": { "@id": `${site}/#organization` },
         "datePublished": page.datePublished || articleCatalogPublishedDate,
-        "dateModified": page.dateModified || today,
+        "dateModified": page.dateModified || auditContentDate,
         "inLanguage": language,
         "about": ["Trading API automation", "Webhook automation", "Risk controls", "Private deployment"]
       }
@@ -3807,11 +3851,12 @@ ${page.related ? `      <section>
         <ul class="check-list">${page.related.map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("")}</ul>
       </section>\n` : ""}      <section>
         <h2>${english ? "References" : "参考资料"}</h2>
+        <p class="article-fact-check">${english ? "Official platform facts checked" : "官方平台事实复核"}: ${escapeHtml(page.factCheckedDate || auditContentDate)}</p>
         ${referenceLinksList(page.references)}
       </section>
       <section>
         <h2>${english ? "Related technical articles" : "相关技术文章"}</h2>
-        ${articleCards(page.lang)}
+        ${relatedArticleCards(page)}
       </section>
     </article>`;
   return infoPageHtml(page, "技术资料", body, schema);
@@ -4206,7 +4251,7 @@ function hyperliquidFeeToolHtml(page) {
   const alternateUrl = canonical(page.counterpartSlug);
   const englishUrl = zh ? alternateUrl : url;
   const chineseUrl = zh ? url : alternateUrl;
-  const pageStylesheetHref = `${stylesheetHref}&scope=hyperliquid-buyers-20260719`;
+  const pageStylesheetHref = `${stylesheetHref}&scope=hyperliquid-buyers-20260719&fix=20260721-mobile-overflow`;
   const pageScriptHref = `${scriptHref}&scope=hyperliquid-buyers-20260719`;
   const formatRate = (value) => `${Number(value).toFixed(3)}%`;
   const formatVolume = (value) => value === 0 ? "—" : value >= 1000000000 ? `$${value / 1000000000}B` : `$${value / 1000000}M`;
@@ -4761,6 +4806,11 @@ function riskHtml(page) {
 
 function infoPageHtml(page, active, body, schema, includeCta = true) {
   const url = canonical(page.slug);
+  const english = isEnglish(page);
+  const counterpartSlug = page.counterpartSlug || articleAlternateSlugs.get(page.slug);
+  const currentLanguage = english ? "en" : "zh-CN";
+  const counterpartLanguage = english ? "zh-CN" : "en";
+  const englishUrl = english ? url : counterpartSlug ? canonical(counterpartSlug) : url;
   const cta = includeCta ? `\n    ${ctaBlock(page.lang)}` : "";
   const pageScriptHref = page.slug === contactPage.slug ? contactScriptHref : scriptHref;
   return `<!DOCTYPE html>
@@ -4772,6 +4822,9 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="${url}">
+${counterpartSlug ? `  <link rel="alternate" hreflang="${currentLanguage}" href="${url}">
+  <link rel="alternate" hreflang="${counterpartLanguage}" href="${canonical(counterpartSlug)}">
+  <link rel="alternate" hreflang="x-default" href="${englishUrl}">` : ""}
   ${faviconLinks()}
   <meta property="og:title" content="${escapeHtml(page.h1)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -4841,7 +4894,7 @@ const sitemapUrls = [
   ["/faq/", "weekly", "0.75"],
   ["/case-studies/", "monthly", "0.7"],
   ["/articles/", "weekly", "0.75"],
-  ...articlePages.map((page) => [routeForSlug(page.slug), "weekly", "0.7", page.slug.includes("hyperliquid-") ? hyperliquidCheckedDate : undefined]),
+  ...articlePages.map((page) => [routeForSlug(page.slug), "weekly", "0.7", page.slug.includes("hyperliquid-") ? hyperliquidCheckedDate : (page.dateModified || auditContentDate)]),
   ["/about/", "monthly", "0.65"],
   ["/contact/", "monthly", "0.65"],
   ["/terms", "monthly", "0.4"],

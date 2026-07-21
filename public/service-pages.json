@@ -1,6 +1,6 @@
 {
   "site": "https://pddjf.com",
-  "generatedAt": "2026-07-20",
+  "generatedAt": "2026-07-21",
   "generatedServiceRoutes": [
     "/tradingview-webhook-automation/",
     "/exchange-api-trading-bot-development/",
@@ -183,7 +183,7 @@
       "summary": "TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。"
     },
     {
-      "label": "IBKR TWS Gateway 和 Client Portal 怎么选",
+      "label": "IBKR TWS API 和 Client Portal Web API 怎么选",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "summary": "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。"
     },
@@ -203,9 +203,9 @@
       "summary": "Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests."
     },
     {
-      "label": "IBKR TWS Gateway vs Client Portal for Automated Trading",
+      "label": "IBKR TWS API vs Client Portal Web API for Automated Trading",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
-      "summary": "IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests."
+      "summary": "IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests."
     },
     {
       "label": "TradingView Webhook Strategy Automation",
@@ -235,7 +235,7 @@
     {
       "label": "TradingView Alert Payload Template",
       "url": "https://pddjf.com/articles/tradingview-alert-payload-template/",
-      "summary": "A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, shared secret, risk profile and audit fields."
+      "summary": "A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, endpoint authentication requirements, risk profile and audit fields."
     },
     {
       "label": "API Key Permission Safety for Trading Bots",

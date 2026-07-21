@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
 const currentScriptHref = "/scripts.js?v=20260720-risk-audit";
-const contentDate = "2026-07-20";
+const contentDate = "2026-07-21";
 const errors = [];
 
 function walk(dir) {
@@ -102,7 +102,17 @@ const searchSnippetExpectations = new Map([
   ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
   ["broker-api/ibkr", "IBKR API 自动交易开发 | 解决断线、会话过期与订单状态失真"],
   ["hyperliquid-api-trading-bot-development", "Hyperliquid Bot Development | Duplicate Order and State Recovery"],
-  ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS Gateway vs Client Portal | 自动交易接入对比"]
+  ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS API vs Client Portal | 自动交易接入对比"]
+]);
+const bilingualArticleRoutes = new Set([
+  "/articles/tradingview-webhook-duplicate-orders/",
+  "/articles/how-we-prevent-duplicate-tradingview-webhook-orders/",
+  "/articles/ibkr-tws-gateway-vs-client-portal/",
+  "/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/",
+  "/articles/automated-trading-risk-acceptance-checklist/",
+  "/articles/automated-trading-strategy-risk-checklist/",
+  "/articles/fix-api-execution-report-audit-log-design/",
+  "/articles/fix-api-order-routing-execution-reports-audit-logs/"
 ]);
 const buyerPositioningExpectations = new Map([
   ["/tradingview-webhook-automation/", "Alert 已经发出，为什么还要手工盯盘下单？"],
@@ -172,8 +182,28 @@ for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
   const rel = relative(root, file);
   const is404 = rel === "public/404.html";
+  const route = routeFor(file);
 
   if (html.includes("https://icojf.com")) errors.push(`${rel}: contains absolute icojf URL`);
+  if (html.includes('href="/broker/api"')) errors.push(`${rel}: broker API link must use canonical trailing slash`);
+  if (/shared[- ]secret|TWS Gateway|IBKR IB Gateway/i.test(html)) {
+    errors.push(`${rel}: contains a retired or unsafe phrase`);
+  }
+
+  if (route.startsWith("/articles/") && route !== "/articles/") {
+    if (!html.includes("Official platform facts checked") && !html.includes("官方平台事实复核")) {
+      errors.push(`${rel}: missing visible platform fact-check date`);
+    }
+    requireText(rel, html, contentDate);
+    const relatedSection = html.match(/<h2>(?:Related technical articles|相关技术文章)<\/h2>([\s\S]*?)<\/section>/i)?.[1] ?? "";
+    const relatedCardCount = (relatedSection.match(/<article>/g) ?? []).length;
+    if (relatedCardCount === 0 || relatedCardCount > 4) {
+      errors.push(`${rel}: expected 1-4 related article cards, found ${relatedCardCount}`);
+    }
+    if (bilingualArticleRoutes.has(route)) {
+      ['hreflang="en"', 'hreflang="zh-CN"', 'hreflang="x-default"'].forEach((needle) => requireText(rel, html, needle));
+    }
+  }
 
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
@@ -305,7 +335,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260720-hotspot-pain"',
+  'const ASSET_RELEASE = "20260721-site-audit-fixes"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
   '["/exchange-api-trading-bot-development/", "/__release/20260719-buyer-conversion/exchange-api-trading-bot-development.html"]',
@@ -313,7 +343,7 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
-  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/contact/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
+  'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
 

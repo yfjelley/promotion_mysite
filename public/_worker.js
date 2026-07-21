@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260720-hotspot-pain";
+const ASSET_RELEASE = "20260721-site-audit-fixes";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -57,6 +57,9 @@ const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
 const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
 const HTML_CACHE_BUST_PATHS = new Set([
   "/",
+  "/terms",
+  "/disclaimer",
+  "/delivery-policy",
   "/contact/",
   "/broker-api/ibkr/",
   "/hyperliquid-api-trading-bot-development/",

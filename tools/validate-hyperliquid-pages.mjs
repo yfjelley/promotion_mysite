@@ -68,6 +68,7 @@ for (const [label, path, language, counterpart] of [
     "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees",
     `href="${counterpart}"`,
     "scope=hyperliquid-buyers-20260719",
+    "fix=20260721-mobile-overflow",
     "buyer-tool-grid",
     "/tradingview-to-hyperliquid-automation/",
     "/hyperliquid-trading-system-for-teams/"
@@ -77,7 +78,7 @@ for (const [label, path, language, counterpart] of [
 
 for (const [label, slug, needles] of [
   ["custom bot service", "hyperliquid-api-trading-bot-development", [
-    "Hire a Developer to Build Your Hyperliquid Trading Bot",
+    "When Your Hyperliquid Bot Reconnects, Are Orders and Positions Still in Sync?",
     "USD 5,000-10,000+",
     "About 4-8 weeks",
     "How much does custom Hyperliquid bot development cost?",
@@ -158,6 +159,9 @@ const styles = readRequired(join(publicDir, "styles.css"), "site styles");
   "initHyperliquidFeeTool();"
 ].forEach((needle) => requireValue(script.includes(needle), `tool script: missing ${needle}`));
 [".buyer-snapshot-grid", ".buyer-outcome-grid", ".buyer-path-grid", ".buyer-tool-grid"].forEach((needle) => requireValue(styles.includes(needle), `site styles: missing ${needle}`));
+requireValue(/\.hl-controls,\s*\.hl-results\s*{[^}]*min-width:\s*0;/s.test(styles), "site styles: Hyperliquid grid children must allow shrinking");
+requireValue(/\.hl-input-grid input,\s*\.hl-input-grid select\s*{[^}]*min-width:\s*0;[^}]*max-width:\s*100%;/s.test(styles), "site styles: Hyperliquid form controls must not impose intrinsic width");
+requireValue(/@media \(max-width: 1000px\)\s*{[^}]*\.hyperliquid-tool-shell\s*{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\);/s.test(styles), "site styles: mobile Hyperliquid grid track must be shrinkable");
 
 const sitemap = readRequired(join(publicDir, "sitemap.xml"), "sitemap");
 const llms = readRequired(join(publicDir, "llms.txt"), "llms.txt");

@@ -2,7 +2,7 @@
 
 SignalCraft Labs is a remote software development studio for automated trading systems and trading API workflows.
 
-Last updated: 2026-07-20
+Last updated: 2026-07-21
 
 ## Core services
 
@@ -69,13 +69,13 @@ Last updated: 2026-07-20
 - https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/ — 自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。
 - https://pddjf.com/articles/fix-api-execution-report-audit-log-design/ — FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。
 - https://pddjf.com/articles/how-we-prevent-duplicate-tradingview-webhook-orders/ — Preventing duplicate TradingView webhook orders requires stable event IDs, strategy-symbol-action grouping, cooldown windows, idempotent order routing, risk reject logs and replay tests.
-- https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/ — IBKR TWS Gateway and Client Portal should be compared by session stability, account permissions, order types, market data, deployment model, error handling and acceptance tests.
+- https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/ — IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests.
 - https://pddjf.com/articles/tradingview-webhook-strategy-automation/ — TradingView webhook strategy automation should turn alerts into explicit order intents with event IDs, cooldowns, risk checks, broker routing, logs and replayable acceptance tests.
 - https://pddjf.com/articles/ibkr-api-strategy-execution/ — IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.
 - https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/ — FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence.
 - https://pddjf.com/articles/automated-trading-strategy-risk-checklist/ — An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.
 - https://pddjf.com/articles/common-automated-strategy-failure-points/ — Common automated trading strategy failure points include duplicate signals, repainting, stale position state, API rejects, reconnect gaps, partial fills, missing pause controls and weak audit logs.
-- https://pddjf.com/articles/tradingview-alert-payload-template/ — A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, shared secret, risk profile and audit fields.
+- https://pddjf.com/articles/tradingview-alert-payload-template/ — A useful TradingView alert payload template includes strategy, version, symbol, action, size model, signal time, event ID inputs, endpoint authentication requirements, risk profile and audit fields.
 - https://pddjf.com/articles/trading-bot-api-key-permission-safety/ — Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.
 - https://pddjf.com/articles/alpaca-api-paper-to-live-checklist/ — An Alpaca API paper-to-live checklist should verify key separation, base URLs, data permissions, order types, market hours, order status streams, risk limits, logs and manual pause behavior.
 - https://pddjf.com/articles/schwab-trader-api-oauth-automation-checklist/ — A Schwab Trader API automation checklist should confirm OAuth scopes, token refresh, account visibility, order capability, reject handling, logs, reauthorization and operator ownership.
