@@ -325,14 +325,14 @@ const auditServicePages = [
     eyebrow: "7天 · 只读 · 单系统范围",
     title: "交易系统一致性审计 | 订单、成交、持仓与账户核对",
     description: "面向香港、新加坡及亚洲量化团队的7天只读交易系统一致性审计，核对策略版本、系统状态、订单成交、持仓余额并输出整改清单。",
-    h1: "7天找出交易系统为什么与真实账户对不上",
+    h1: "7天定位订单、成交、持仓为什么对不上",
     intro: "这不是再装一块风险看板。我们把策略意图与部署版本、数据库 / Redis / 任务状态、交易所订单成交、真实账户持仓余额放在同一条时间线上，解释差异从哪里出现、哪些结论有证据、下一步先修什么。",
     serviceType: "交易系统一致性审计服务",
     llmsLabel: "交易系统一致性审计",
     buyerAudience: "在香港、新加坡或其他合规市场运营，已经有真实交易系统、多个账户或多套状态源的量化和资管团队。",
     buyerProblem: "系统记录、交易所订单成交和真实资金账户互相对不上，团队无法确认亏损或失控究竟来自策略、代码、部署、数据还是操作。",
     contactProject: "Trading system consistency audit",
-    heroPrimaryLabel: "提交脱敏事故样本",
+    heroPrimaryLabel: "获得 7 天审计适配判断",
     heroSecondaryLabel: "查看审计交付",
     outcomesTitle: "客户拿到的不是评分，而是一条可复现的证据链",
     outcomesIntro: "每个关键判断都说明证据来源、未知项和下一步验证动作。",
@@ -505,7 +505,7 @@ const servicePages = [
     description: "已有 TradingView Alert，却仍要盯盘、手工下单，担心漏单或重复执行？将现有信号接入可暂停、可追踪的自动下单流程。",
     h1: "Alert 已经发出，为什么还要手工盯盘下单？",
     intro: "如果你已经有 Pine Script 或 TradingView Alert，却仍要守着屏幕确认信号、复制价格和手工下单，这套服务会把现有规则接入可自动执行、可暂停、可追踪的流程，重点减少漏单、重复下单和异常发生后无人知晓的问题。",
-    serviceType: "TradingView Alert 自动执行服务",
+    serviceType: "TradingView Webhook 自动化开发服务",
     llmsLabel: "TradingView Alert 自动执行服务",
     buyerIntentVersion: 1,
     buyerAudience: "已经有 Pine Script、Alert 条件和明确仓位规则，希望减少手工下单的交易者或小型交易团队。",
@@ -544,12 +544,14 @@ const servicePages = [
       ["需要提供 TradingView 账号吗？", "通常不需要。你只需提供 Alert 文案、触发规则和 Webhook 配置方式。"],
       ["能同时接交易所和券商 API 吗？", "可以，但建议先完成一个接口的稳定执行，再逐步扩展到多接口路由。"],
       ["Alert 文案应该怎么设计？", "建议包含策略名、品种、方向、数量、时间戳、动作类型和可校验的 secret，方便系统解析和去重。"],
-      ["Webhook 失败时会怎样处理？", "可以配置重试、失败告警、人工确认和熔断规则，避免静默失败或重复下单。"]
+      ["Webhook 失败时会怎样处理？", "可以配置重试、失败告警、人工确认和熔断规则，避免静默失败或重复下单。"],
+      ["这是 TradingView Webhook automation developer 服务吗？", "是。范围是把客户已有 Alert 和规则接入可验证的 Webhook、风控、订单路由、日志和告警链路，不提供策略信号或收益承诺。"]
     ],
     related: [
       ["/risk-engine/", "风控引擎开发"],
       ["/exchange-api-trading-bot-development/", "交易所 API 自动化"],
-      ["/private-deployment/", "私有化部署"]
+      ["/private-deployment/", "私有化部署"],
+      ["/zh/custom-trading-software-development/", "定制量化交易软件开发"]
     ]
   },
   {
@@ -654,6 +656,7 @@ const servicePages = [
       ["IBKR 常见错误怎么处理？", "会把连接断开、权限不足、数据订阅缺失、订单类型不支持和交易时段限制归类到日志，并配置告警或暂停规则。"]
     ],
     related: [
+      ["/zh/custom-trading-software-development/", "定制量化交易软件开发"],
       ["/broker/api/", "券商 API 总览"],
       ["/fix-api-order-routing/", "FIX API 订单路由"],
       ["/broker-api/alpaca/", "Alpaca API 自动化"]
@@ -827,7 +830,7 @@ const servicePages = [
     buyerAudience: "已有明确策略规则、信号来源、执行流程或旧系统，需要完成生产级工程实现的量化团队、交易团队和金融科技运营方。",
     buyerProblem: "把人工执行、分散工具或脆弱脚本整合成一套具备风控、状态管理、对账、监控和交付文档的可维护交易系统。",
     contactProject: "custom-trading-software-development",
-    heroPrimaryLabel: "评估量化交易项目",
+    heroPrimaryLabel: "获得项目适配判断",
     heroSecondaryLabel: "查看交付内容",
     fit: [
       "已有可说明的策略规则、信号来源或交易执行流程，需要完成生产级工程实现。",
@@ -892,7 +895,7 @@ const servicePages = [
     buyerAudience: "Strategy owners, trading teams and fintech operators with documented rules, signals or execution workflows.",
     buyerProblem: "Replace manual execution, disconnected tools or fragile scripts with one controlled and maintainable trading workflow.",
     contactProject: "custom-trading-software-development",
-    heroPrimaryLabel: "Discuss your trading workflow",
+    heroPrimaryLabel: "Get a project fit assessment",
     heroSecondaryLabel: "See what you receive",
     fit: [
       "You have documented trading or execution rules and need production engineering.",
@@ -4111,6 +4114,17 @@ function leadBriefForm(language = "zh-CN") {
             <option>Private deployment / handoff</option>
           </select>
         </label>
+        <label>${english ? "Preferred contact method" : "联系方式"}
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="${english ? "Email / WeChat / Telegram" : "邮箱 / 微信 / Telegram"}">
+        </label>
+      </div>
+      <label>${english ? "Business or execution problem" : "想解决的业务或执行问题"}
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="${english ? "For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure." : "例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"}"></textarea>
+      </label>
+      <details class="brief-optional">
+        <summary>${english ? "Add optional project details" : "补充可选资料（平台、权限、预算与时间）"}</summary>
+        <p>${english ? "Share these details only when they are already known." : "这些信息不确定也可以先不填，范围确认后再补充。"}</p>
+        <div class="form-grid">
         <label>${english ? "Signal source" : "信号来源"}
           <input name="signalSource" data-brief-label="Signal source" placeholder="${english ? "TradingView alert / research code / manual approval (optional)" : "TradingView Alert / 研究脚本 / 人工确认（选填）"}">
         </label>
@@ -4149,16 +4163,11 @@ function leadBriefForm(language = "zh-CN") {
         <label>${english ? "Preferred timeline" : "期望时间线"}
           <input name="timeline" data-brief-label="Timeline" placeholder="${english ? "For example: assess within 2 weeks / staged delivery in 4–8 weeks" : "例如 2 周内评估 / 4-8 周上线（选填）"}">
         </label>
-        <label>${english ? "Preferred contact method" : "联系方式"}
-          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="${english ? "Email / WeChat / Telegram" : "邮箱 / 微信 / Telegram"}">
-        </label>
-      </div>
-      <label>${english ? "Business or execution problem" : "想解决的业务或执行问题"}
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="${english ? "For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure." : "例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"}"></textarea>
-      </label>
-      <label>${english ? "Additional notes" : "补充说明"}
-        <textarea name="notes" data-brief-label="Additional notes" placeholder="${english ? "Add instruments, order types, failure handling, dashboard, source handoff or private deployment needs." : "可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"}"></textarea>
-      </label>
+          <label>${english ? "Additional notes" : "补充说明"}
+            <textarea name="notes" data-brief-label="Additional notes" placeholder="${english ? "Add instruments, order types, failure handling, dashboard, source handoff or private deployment needs." : "可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"}"></textarea>
+          </label>
+        </div>
+      </details>
       <div class="form-actions">
         <button class="button primary" type="submit">${english ? "Send project brief securely" : "安全提交项目 Brief"}</button>
         <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">${english ? "Copy blank template" : "复制空白模板"}</button>

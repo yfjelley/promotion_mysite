@@ -2096,6 +2096,25 @@ h3 {
   gap: 14px;
 }
 
+.brief-optional {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7fbfb;
+}
+
+.brief-optional summary {
+  color: var(--ink);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.brief-optional > p {
+  margin: 10px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .brief-form label {
   display: grid;
   gap: 8px;

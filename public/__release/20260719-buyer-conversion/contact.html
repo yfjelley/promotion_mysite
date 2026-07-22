@@ -153,6 +153,17 @@
             <option>Private deployment / handoff</option>
           </select>
         </label>
+        <label>联系方式
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
+        </label>
+      </div>
+      <label>想解决的业务或执行问题
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"></textarea>
+      </label>
+      <details class="brief-optional">
+        <summary>补充可选资料（平台、权限、预算与时间）</summary>
+        <p>这些信息不确定也可以先不填，范围确认后再补充。</p>
+        <div class="form-grid">
         <label>信号来源
           <input name="signalSource" data-brief-label="Signal source" placeholder="TradingView Alert / 研究脚本 / 人工确认（选填）">
         </label>
@@ -191,16 +202,11 @@
         <label>期望时间线
           <input name="timeline" data-brief-label="Timeline" placeholder="例如 2 周内评估 / 4-8 周上线（选填）">
         </label>
-        <label>联系方式
-          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="邮箱 / 微信 / Telegram">
-        </label>
-      </div>
-      <label>想解决的业务或执行问题
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"></textarea>
-      </label>
-      <label>补充说明
-        <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
-      </label>
+          <label>补充说明
+            <textarea name="notes" data-brief-label="Additional notes" placeholder="可以写交易品种、订单类型、失败处理、是否需要后台、源码交付或私有部署。"></textarea>
+          </label>
+        </div>
+      </details>
       <div class="form-actions">
         <button class="button primary" type="submit">安全提交项目 Brief</button>
         <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">复制空白模板</button>

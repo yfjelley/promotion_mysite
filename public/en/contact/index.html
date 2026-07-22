@@ -153,6 +153,17 @@
             <option>Private deployment / handoff</option>
           </select>
         </label>
+        <label>Preferred contact method
+          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="Email / WeChat / Telegram">
+        </label>
+      </div>
+      <label>Business or execution problem
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure."></textarea>
+      </label>
+      <details class="brief-optional">
+        <summary>Add optional project details</summary>
+        <p>Share these details only when they are already known.</p>
+        <div class="form-grid">
         <label>Signal source
           <input name="signalSource" data-brief-label="Signal source" placeholder="TradingView alert / research code / manual approval (optional)">
         </label>
@@ -191,16 +202,11 @@
         <label>Preferred timeline
           <input name="timeline" data-brief-label="Timeline" placeholder="For example: assess within 2 weeks / staged delivery in 4–8 weeks">
         </label>
-        <label>Preferred contact method
-          <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="Email / WeChat / Telegram">
-        </label>
-      </div>
-      <label>Business or execution problem
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure."></textarea>
-      </label>
-      <label>Additional notes
-        <textarea name="notes" data-brief-label="Additional notes" placeholder="Add instruments, order types, failure handling, dashboard, source handoff or private deployment needs."></textarea>
-      </label>
+          <label>Additional notes
+            <textarea name="notes" data-brief-label="Additional notes" placeholder="Add instruments, order types, failure handling, dashboard, source handoff or private deployment needs."></textarea>
+          </label>
+        </div>
+      </details>
       <div class="form-actions">
         <button class="button primary" type="submit">Send project brief securely</button>
         <button class="button secondary" type="button" data-copy-target="project-brief-template" data-contact="contact_page_brief_copy">Copy blank template</button>

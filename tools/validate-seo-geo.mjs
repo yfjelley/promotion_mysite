@@ -128,8 +128,12 @@ const buyerPositioningExpectations = new Map([
   ["/fintech-software-development/", "Fintech Software Development for Trading, Data and Operations"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
   ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
-  ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"]
+  ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"],
+  ["/trading-system-consistency-audit/", "7天定位订单、成交、持仓为什么对不上"]
 ]);
+
+const homeHtml = readFileSync(join(publicDir, "index.html"), "utf8");
+["获得项目适配判断", "查看 7 天只读审计", 'href="/trading-system-consistency-audit/"'].forEach((needle) => requireText("public/index.html", homeHtml, needle));
 
 if (!generatedServiceRoutes.includes("/custom-trading-software-development/")) {
   errors.push("service-pages.json: missing custom trading software development route");
@@ -334,6 +338,11 @@ for (const file of pddjfHtmlFiles) {
       "data-contact=\"structured_brief_submit\"",
       currentScriptHref,
       isEnglishContact ? "Copy blank template" : "复制空白模板"
+    ].forEach((needle) => requireText(rel, html, needle));
+
+    [
+      'class="brief-optional"',
+      isEnglishContact ? "Add optional project details" : "补充可选资料（平台、权限、预算与时间）"
     ].forEach((needle) => requireText(rel, html, needle));
 
     const briefFormHtml = html.match(/<form class="brief-form"[\s\S]*?<\/form>/i)?.[0] ?? "";
