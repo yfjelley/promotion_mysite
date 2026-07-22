@@ -13,7 +13,7 @@ const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const llmsUpdatedAt = auditContentDate;
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
-const stylesheetHref = "/styles.css?v=20260719-hyperliquid-buyer-intent";
+const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const scriptHref = "/scripts.js?v=20260721-brief-attribution-en";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
