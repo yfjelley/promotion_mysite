@@ -9,6 +9,7 @@ const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-9689
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const currentScriptHref = "/scripts.js?v=20260721-brief-attribution-en";
 const contentDate = "2026-07-21";
+const llmsUpdatedAt = "2026-07-23";
 const errors = [];
 
 function walk(dir) {
@@ -455,7 +456,7 @@ const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 [
   "SignalCraft Labs",
-  `Last updated: ${contentDate}`,
+  `Last updated: ${llmsUpdatedAt}`,
   "TradingView Alert 自动执行服务",
   "Custom Trading Software & Platform Development",
   "IBKR API automation",

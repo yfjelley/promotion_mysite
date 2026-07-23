@@ -10,7 +10,7 @@ const today = "2026-07-17";
 const auditContentDate = "2026-07-21";
 const hyperliquidCheckedDate = "2026-07-19";
 const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
-const llmsUpdatedAt = auditContentDate;
+const llmsUpdatedAt = "2026-07-23";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
@@ -3012,6 +3012,34 @@ const exchangeFeeComparisonPages = [
     lastModified: "2026-07-20",
     exchangeA: "binance",
     exchangeB: "bybit"
+  },
+  {
+    slug: "compare/bybit-vs-okx-vip-fees",
+    counterpartSlug: "zh/compare/bybit-vs-okx-vip-fees",
+    breadcrumb: "Bybit vs OKX VIP Fees",
+    eyebrow: "Exchange fee comparison · Checked July 23, 2026",
+    title: "Bybit vs OKX VIP Fees: $1M to $100M Comparison",
+    description: "Compare Bybit and OKX futures VIP maker/taker fees at $1M, $10M and $100M monthly volume, including Bybit standard and Pro API paths.",
+    h1: "Bybit vs OKX VIP Fees",
+    intro: "A source-bounded comparison of two complete public futures VIP schedules. The useful difference is not a universal winner: Bybit splits standard and API-heavy Pro qualification, while OKX applies the highest tier reached by assets or a single product-line volume.",
+    lang: "en",
+    lastModified: "2026-07-23",
+    exchangeA: "bybit",
+    exchangeB: "okx"
+  },
+  {
+    slug: "zh/compare/bybit-vs-okx-vip-fees",
+    counterpartSlug: "compare/bybit-vs-okx-vip-fees",
+    breadcrumb: "Bybit 与 OKX VIP 手续费对比",
+    eyebrow: "交易所手续费对比 · 2026 年 7 月 23 日复核",
+    title: "Bybit 与 OKX VIP 手续费对比：100 万至 1 亿美元",
+    description: "对比 Bybit 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 VIP Maker/Taker 费率，并区分 Bybit 标准与高 API Pro 路径。",
+    h1: "Bybit 与 OKX VIP 手续费对比",
+    intro: "只比较两家官方资料能够支持的完整合约 VIP 阶梯。关键差异不是简单选出赢家：Bybit 将标准 VIP 与高 API 占比 Pro 路径分开，OKX 则按资产或单一产品线 30 天成交量达到的最高等级计费。",
+    lang: "zh-CN",
+    lastModified: "2026-07-23",
+    exchangeA: "bybit",
+    exchangeB: "okx"
   }
 ];
 
@@ -4831,7 +4859,229 @@ function binanceBybitComparisonHtml(page) {
 </html>`;
 }
 
+function bybitOkxComparisonHtml(page) {
+  const zh = page.lang === "zh-CN";
+  const url = canonical(page.slug);
+  const pageStylesheetHref = `${stylesheetHref}&scope=fee-comparison-20260723`;
+  const alternateUrl = canonical(page.counterpartSlug);
+  const englishUrl = zh ? alternateUrl : url;
+  const chineseUrl = zh ? url : alternateUrl;
+  const bybit = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeA);
+  const okx = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeB);
+  const bybitStandardTiers = bybit.tiers.filter((tier) => !Number.isFinite(tier.minApiShareForVolume));
+  const bybitProTiers = bybit.tiers.filter((tier) => Number.isFinite(tier.minApiShareForVolume));
+  const makerShare = 70;
+  const takerShare = 30;
+  const scenarios = [1000000, 10000000, 100000000];
+  const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const compactUsd = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+  const scenarioLabel = (volume) => `$${volume / 1000000}M`;
+  const percent = (value) => `${value.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}%`;
+  const tierForVolume = (tiers, volume) => tiers.reduce((selected, tier) => (
+    volume >= tier.minVolume ? tier : selected
+  ), tiers[0]);
+  const estimate = (tier, volume, maker = makerShare, taker = takerShare) => (
+    volume * ((tier.maker * maker + tier.taker * taker) / 100) / 100
+  );
+  const scenarioRows = scenarios.map((volume) => {
+    const bybitTier = tierForVolume(bybitStandardTiers, volume);
+    const okxTier = tierForVolume(okx.tiers, volume);
+    const bybitCost = estimate(bybitTier, volume);
+    const okxCost = estimate(okxTier, volume);
+    const boundary = volume === 1000000
+      ? (zh
+        ? "OKX Regular 的 Taker 费率低于 Bybit VIP 0；这是零资产标准路径结果，不代表所有地区或账户。"
+        : "OKX Regular has a lower taker rate than Bybit VIP 0. This is a zero-asset standard-path result, not a verdict for every region or account.")
+      : volume === 10000000
+        ? (zh
+          ? "OKX 按期货量进入 VIP 2，Bybit 按衍生品量进入 VIP 1；70/30 模型相差约 330 美元。"
+          : "OKX reaches VIP 2 by futures volume while Bybit reaches VIP 1 by derivatives volume; the 70/30 model differs by about $330.")
+        : (zh
+          ? "Bybit 标准路径为 VIP 4，高 API 路径为 Pro 1；OKX 为 VIP 3，因此必须先确认 API 占比。"
+          : "Bybit reaches VIP 4 on the standard route or Pro 1 on the high-API route; OKX reaches VIP 3, so API share must be confirmed first.");
+    return `<tr>
+      <th scope="row">${scenarioLabel(volume)}</th>
+      <td><strong>${escapeHtml(bybitTier.name)}</strong><span>${percent(bybitTier.maker)} / ${percent(bybitTier.taker)}</span><span>${usd.format(bybitCost)} ${zh ? "标准路径估算" : "standard-path estimate"}</span></td>
+      <td><strong>${escapeHtml(okxTier.name)}</strong><span>${percent(okxTier.maker)} / ${percent(okxTier.taker)}</span><span>${usd.format(okxCost)} ${zh ? "模型估算" : "modeled estimate"}</span></td>
+      <td>${escapeHtml(boundary)}</td>
+    </tr>`;
+  }).join("");
+  const ladderRowCount = Math.max(bybitStandardTiers.length, okx.tiers.length);
+  const standardLadderRows = Array.from({ length: ladderRowCount }, (_, index) => {
+    const bybitTier = bybitStandardTiers[index];
+    const okxTier = okx.tiers[index];
+    const bybitCells = bybitTier
+      ? `<th scope="row">${escapeHtml(bybitTier.name)}</th><td>${bybitTier.minVolume ? `$${compactUsd.format(bybitTier.minVolume)}+` : "—"}</td><td>${percent(bybitTier.maker)} / ${percent(bybitTier.taker)}</td>`
+      : `<th scope="row">—</th><td>—</td><td>—</td>`;
+    const okxCells = okxTier
+      ? `<td><strong>${escapeHtml(okxTier.name)}</strong></td><td>${okxTier.minVolume ? `$${compactUsd.format(okxTier.minVolume)}+` : "—"}</td><td>${percent(okxTier.maker)} / ${percent(okxTier.taker)}</td>`
+      : `<td>—</td><td>—</td><td>—</td>`;
+    return `<tr>${bybitCells}${okxCells}</tr>`;
+  }).join("");
+  const proLadderRows = bybitProTiers.map((tier) => `<tr>
+    <th scope="row">${escapeHtml(tier.name)}</th>
+    <td>$${compactUsd.format(tier.minVolume)}+</td>
+    <td>&gt;20%</td>
+    <td>${percent(tier.maker)} / ${percent(tier.taker)}</td>
+    <td>${escapeHtml(tier.rateScope || (zh ? "永续与期货公开基础分组" : "Published perpetual and futures base group"))}</td>
+  </tr>`).join("");
+  const mixRows = [
+    [100, 0, zh ? "全部 Maker" : "All maker"],
+    [70, 30, zh ? "默认混合" : "Default mix"],
+    [0, 100, zh ? "全部 Taker" : "All taker"]
+  ].map(([maker, taker, label]) => {
+    const volume = 10000000;
+    const bybitTier = tierForVolume(bybitStandardTiers, volume);
+    const okxTier = tierForVolume(okx.tiers, volume);
+    return `<tr><th scope="row">${escapeHtml(label)} · ${maker}/${taker}</th><td>${usd.format(estimate(bybitTier, volume, maker, taker))} · ${escapeHtml(bybitTier.name)}</td><td>${usd.format(estimate(okxTier, volume, maker, taker))} · ${escapeHtml(okxTier.name)}</td></tr>`;
+  }).join("");
+  const bybitStandard100m = tierForVolume(bybitStandardTiers, 100000000);
+  const bybitPro100m = tierForVolume(bybitProTiers, 100000000);
+  const okx100m = tierForVolume(okx.tiers, 100000000);
+  const faqs = zh ? [
+    ["1000 万美元月成交量时，Bybit 还是 OKX 手续费更低？", "在资产余额为 0、Bybit API 占比不超过 20%、70% Maker / 30% Taker 的模型里，Bybit VIP 1 约为 2460 美元，OKX VIP 2 约为 2130 美元。这个 330 美元差额只适用于页面列明的产品和假设。"],
+    ["1 亿美元场景为什么要区分 Bybit API 占比？", "Bybit 将 API 交易占比不超过 20% 的成交量路径归入标准 VIP，超过 20% 则归入 Pro。1 亿美元时分别为 VIP 4 和 Pro 1，70/30 场景约为 18000 美元与 16600 美元；OKX VIP 3 约为 15400 美元。"],
+    ["OKX VIP 等级和 Bybit VIP 等级可以按名称直接对应吗？", "不能。两家的门槛、资产路径、产品量口径和 API 条件不同。本页把各自官方阶梯并列展示，但不会把同名等级当成等价账户。"],
+    ["Bybit Pro 3 以上费率适用于所有 USDT 永续合约吗？", "不适用。本页 Pro 3 至 Pro 6 采用 Bybit 公布的 top 72 USDT Perpetual 分组；其他 USDT 永续合约的 Taker 费率可能更高，应在 My Fee Rate 页面确认。"],
+    ["本页是否包含资金费率、滑点或做市商计划？", "不包含。场景只计算公开 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、代币折扣、活动、做市商计划或账户专属费率。"]
+  ] : [
+    ["Which is cheaper at $10M monthly volume, Bybit or OKX?", "With zero qualifying assets, Bybit API share at 20% or less, and a 70% maker / 30% taker mix, Bybit VIP 1 models to about $2,460 and OKX VIP 2 to about $2,130. The $330 gap applies only to the stated products and assumptions."],
+    ["Why does the $100M scenario split Bybit by API share?", "Bybit routes volume qualification at 20% API share or less to standard VIP and above 20% to Pro. At $100M, those paths are VIP 4 and Pro 1, modeling to about $18,000 and $16,600 at 70/30; OKX VIP 3 models to about $15,400."],
+    ["Can an OKX VIP level and a Bybit VIP level be matched by name?", "No. Thresholds, asset routes, product-volume definitions and API conditions differ. The page places the official ladders side by side but does not treat same-numbered tiers as equivalent accounts."],
+    ["Do Bybit Pro 3 and higher rates apply to every USDT perpetual?", "No. The Pro 3 through Pro 6 figures use Bybit's published top 72 USDT Perpetual group. Other USDT perpetuals can have a higher taker rate and should be confirmed on My Fee Rate."],
+    ["Does this page include funding, slippage or market-maker programs?", "No. Scenarios cover published maker/taker execution fees only. Funding, spread, slippage, liquidation fees, referrals, token discounts, promotions, market-maker programs and account-specific rates are excluded."]
+  ];
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "WebPage"),
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": faqs.map(([question, answer]) => ({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        }))
+      }
+    ]
+  };
+  const toolPath = zh ? "/zh/tools/crypto-exchange-fee-calculator/" : "/tools/crypto-exchange-fee-calculator/";
+  const binanceBybitPath = zh ? "/zh/compare/binance-vs-bybit-perpetual-fees/" : "/compare/binance-vs-bybit-perpetual-fees/";
+  const binanceOkxPath = zh ? "/zh/compare/binance-vs-okx-futures-fees/" : "/compare/binance-vs-okx-futures-fees/";
+  const calculatorCtas = scenarios.map((volume) => `<a class="button secondary compact" href="${toolPath}?v=${volume}&amp;m=${makerShare}&amp;a=0&amp;api=0">${zh ? "计算" : "Open"} ${scenarioLabel(volume)} · 70/30</a>`).join("");
+
+  return `<!DOCTYPE html>
+<html lang="${page.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="${url}">
+  <link rel="alternate" hreflang="en" href="${englishUrl}">
+  <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
+  <link rel="alternate" hreflang="x-default" href="${englishUrl}">
+  ${faviconLinks()}
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="${scriptHref}" defer></script>
+  ${jsonLd(schema)}
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">${zh ? "跳到主要内容" : "Skip to main content"}</a>
+  ${header(zh ? "费率工具" : "Fee tool", page.lang)}
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      ${breadcrumbs(page)}
+      <div class="fee-language-switch" aria-label="${zh ? "语言" : "Language"}"><a href="${alternateUrl}" lang="${zh ? "en" : "zh-CN"}">${zh ? "English" : "中文"}</a></div>
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="fee-hero-proof" aria-label="${zh ? "对比范围" : "Comparison scope"}">
+        <span><strong>USDT</strong>${zh ? "合约产品范围" : "futures scope"}</span>
+        <span><strong>70 / 30</strong>${zh ? "Maker / Taker" : "maker / taker"}</span>
+        <span><strong>2026-07-23</strong>${zh ? "官方资料复核" : "source recheck"}</span>
+        <span><strong>2 + Pro</strong>${zh ? "两套完整阶梯" : "two full ladders"}</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">${zh ? "先看结论" : "Decision boundary"}</p>
+      <h2 id="comparison-verdict-title">${zh ? "OKX 在三个零资产场景费率更低，但 Bybit 的高 API 路径会缩小差距" : "OKX is lower in the three zero-asset scenarios; Bybit's high-API path narrows the gap"}</h2>
+      <p>${zh ? `按 70% Maker / 30% Taker、资产余额为 0 的公开成交量路径，OKX 在 100 万、1000 万和 1 亿美元场景分别进入 Regular、VIP 2 和 VIP 3；Bybit 标准路径进入 VIP 0、VIP 1 和 ${escapeHtml(bybitStandard100m.name)}。1 亿美元若 API 占比超过 20%，Bybit 改走 ${escapeHtml(bybitPro100m.name)}，与 OKX ${escapeHtml(okx100m.name)} 的模型差额由 2600 美元缩小到 1200 美元。` : `At a 70% maker / 30% taker mix with zero qualifying assets, OKX reaches Regular, VIP 2 and VIP 3 at $1M, $10M and $100M; Bybit's standard path reaches VIP 0, VIP 1 and ${escapeHtml(bybitStandard100m.name)}. If Bybit API share exceeds 20% at $100M, ${escapeHtml(bybitPro100m.name)} narrows the modeled gap versus OKX ${escapeHtml(okx100m.name)} from $2,600 to $1,200.`}</p>
+      <aside class="fee-limitations"><strong>${zh ? "重要限制：" : "Important limit:"}</strong> ${zh ? "这是公开费率场景，不是账户级报价。Bybit 实际费率可能因地区而异；OKX 交易对分 Group 1 与 Group 2，且并非所有交易对在所有司法辖区可用。两家都应在当地页面或已验证账户中确认。" : "This is a public-rate scenario, not an account quote. Bybit says actual rates can vary by region; OKX separates Group 1 and Group 2 and not every pair is available in every jurisdiction. Confirm both on the applicable local page or verified account."}</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">${zh ? "月成交量场景" : "Monthly volume scenarios"}</p>
+      <h2 id="scenario-title">${zh ? "100 万、1000 万与 1 亿美元手续费" : "$1M, $10M and $100M fee scenarios"}</h2>
+      <p>${zh ? "主表假设资产余额为 0、Bybit API 交易占比不超过 20%、Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。" : "The main table assumes zero qualifying assets, Bybit API trading share at 20% or less, and a 70% / 30% maker/taker mix. Cost = volume × (maker rate × 70% + taker rate × 30%)."}</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>${zh ? "30 天成交量" : "30-day volume"}</th><th>Bybit</th><th>OKX</th><th>${zh ? "如何解读" : "How to read it"}</th></tr></thead><tbody>${scenarioRows}</tbody></table></div>
+      <div class="hero-actions fee-preset-actions">${calculatorCtas}</div>
+    </section>
+
+    <section class="section fee-path-section" aria-labelledby="path-title">
+      <p class="eyebrow">${zh ? "普通 / API / VIP 路径" : "Regular / API / VIP paths"}</p>
+      <h2 id="path-title">${zh ? "两家资格逻辑不同，不能只对齐等级名称" : "Qualification logic differs; tier names are not interchangeable"}</h2>
+      <div class="fee-path-grid">
+        <article><h3>${zh ? "普通路径" : "Regular path"}</h3><p>${zh ? "Bybit VIP 0 为 Maker 0.02% / Taker 0.055%；OKX Regular 为 0.02% / 0.05%。不计活动、推荐、代币折扣或当地实体差异。" : "Bybit VIP 0 is 0.02% maker / 0.055% taker; OKX Regular is 0.02% / 0.05%. Promotions, referrals, token discounts and local-entity differences are excluded."}</p></article>
+        <article><h3>API</h3><p>${zh ? `Bybit 以 20% API 交易占比为路径边界：1 亿美元衍生品量在标准路径为 ${escapeHtml(bybitStandard100m.name)}（约 ${usd.format(estimate(bybitStandard100m, 100000000))}），超过 20% 为 ${escapeHtml(bybitPro100m.name)}（约 ${usd.format(estimate(bybitPro100m, 100000000))}）。OKX 官方资料未把“使用 API”本身列为自动降费条件。` : `Bybit uses a 20% API trading-share boundary: $100M derivatives volume reaches ${escapeHtml(bybitStandard100m.name)} on the standard route (about ${usd.format(estimate(bybitStandard100m, 100000000))}) or ${escapeHtml(bybitPro100m.name)} above 20% (about ${usd.format(estimate(bybitPro100m, 100000000))}). OKX does not list API use alone as an automatic discount condition.`}</p><p><a href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 Bybit Pro 1 预设场景" : "Open the Bybit Pro 1 preset"}</a></p></article>
+        <article><h3>VIP</h3><p>${zh ? "Bybit 可由资产、净借款或多种产品成交量触发标准 VIP；OKX 取总资产或任一单一产品线 30 天成交量达到的最高等级，并把该等级用于所有产品。本页主表只使用零资产合约成交量路径。" : "Bybit standard VIP can be triggered by assets, net borrowing or several product-volume criteria. OKX uses the highest tier reached by total assets or one 30-day product-line volume across all products. The main table uses zero-asset futures-volume paths only."}</p></article>
+      </div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">${zh ? "订单类型比例会改变 1000 万美元差额" : "Order mix changes the $10M gap"}</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>${zh ? "成交结构" : "Execution mix"}</th><th>Bybit</th><th>OKX</th></tr></thead><tbody>${mixRows}</tbody></table></div>
+      <p>${zh ? "在 1000 万美元公开成交量路径，Maker 占比越高，两边绝对费用越低；但 Maker 订单不保证成交，场所选择仍需考虑成交概率、价差、滑点和资金费率。" : "At the $10M published-volume path, more maker flow lowers absolute fees on both venues. Maker orders are not guaranteed to fill, so venue selection still needs fill probability, spread, slippage and funding."}</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="vip-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="vip-ladder-title">${zh ? "Bybit 标准 VIP 与 OKX Futures Group 1 阶梯" : "Bybit standard VIP and OKX Futures Group 1 ladders"}</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>${zh ? "Bybit 等级" : "Bybit tier"}</th><th>${zh ? "30 天衍生品量" : "30d derivatives volume"}</th><th>Bybit Maker / Taker</th><th>${zh ? "OKX 等级" : "OKX tier"}</th><th>${zh ? "30 天期货量" : "30d futures volume"}</th><th>OKX Maker / Taker</th></tr></thead><tbody>${standardLadderRows}</tbody></table></div>
+      <p class="tool-notice warning">${zh ? "并排行只为紧凑展示，不表示等级等价。Bybit VIP 4、VIP 5 与 Supreme VIP 的成交量路径要求 API 占比不超过 20%；OKX 表格采用 Futures Group 1，Group 2 在 VIP 7 至 VIP 9 使用不同费率。" : "Rows are aligned for compact display, not tier equivalence. Bybit's volume route for VIP 4, VIP 5 and Supreme VIP requires API share at 20% or less. The OKX table uses Futures Group 1; Group 2 differs at VIP 7 through VIP 9."}</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="pro-ladder-title">
+      <p class="eyebrow">API &gt; 20%</p><h2 id="pro-ladder-title">${zh ? "Bybit Pro 衍生品路径" : "Bybit Pro derivatives path"}</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>${zh ? "等级" : "Tier"}</th><th>${zh ? "30 天衍生品量" : "30d derivatives volume"}</th><th>${zh ? "API 占比" : "API share"}</th><th>Maker / Taker</th><th>${zh ? "费率产品范围" : "Rate product scope"}</th></tr></thead><tbody>${proLadderRows}</tbody></table></div>
+      <p class="tool-notice warning">${zh ? "Pro 不适用于 Affiliate 与 Referral 用户，即使 API 占比超过 20%。Pro 3 至 Pro 6 的 Taker 数字采用 top 72 USDT Perpetual 分组；其他 USDT 永续合约可能更高。" : "Pro does not apply to Affiliate and Referral users even above 20% API share. Pro 3 through Pro 6 taker figures use the top 72 USDT Perpetual group; other USDT perpetuals can be higher."}</p>
+    </section>
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">${zh ? "官方一手资料" : "Official primary sources"}</p><h2>${zh ? "来源、产品范围、地区与核验日期" : "Sources, product scope, region and check dates"}</h2>
+      <div class="fee-source-grid comparison-sources">
+        <article><div class="fee-source-head"><h3>Bybit</h3><span class="coverage-badge">${zh ? "标准 + Pro 阶梯" : "Standard + Pro ladders"}</span></div><p>${zh ? "产品：Perpetual & Futures Contracts；Pro 3+ 数字限定 top 72 USDT Perpetual 分组。地区：全球帮助中心，官方提示实际费率可能因地区而异，应以完成身份验证后的 My Fee Rate 为准。页面更新于 2026-06-03 / 2026-05-26，本次核验 2026-07-23。" : "Product: Perpetual & Futures Contracts; Pro 3+ figures are limited to the top 72 USDT Perpetual group. Region: global Help Center; Bybit says rates can vary by region and points verified users to My Fee Rate. Pages updated June 3 / May 26, 2026; checked July 23, 2026."}</p><p><a href="${bybit.sources[0].url}" rel="nofollow noopener" target="_blank">${escapeHtml(bybit.sources[0].label)}</a> · <a href="${bybit.sources[1].url}" rel="nofollow noopener" target="_blank">${escapeHtml(bybit.sources[1].label)}</a></p></article>
+        <article><div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge">${zh ? "完整公开阶梯" : "Full public ladder"}</span></div><p>${zh ? "产品：Futures Group 1 / Top 10 pairs。地区：全球公告；官方提示并非所有交易对在所有司法辖区可用，并应以当地费率页或 OpenAPI 为准。公告 2026-03-24 发布、2026-04-08 生效，本次核验 2026-07-23。" : "Product: Futures Group 1 / top 10 pairs. Region: global announcement; OKX says not every pair is available in every jurisdiction and directs users to the local fee page or OpenAPI. Published March 24, effective April 8, and checked July 23, 2026."}</p><p><a href="${okx.source.url}" rel="nofollow noopener" target="_blank">${escapeHtml(okx.source.label)}</a></p></article>
+      </div>
+      <aside class="fee-limitations"><strong>${zh ? "未覆盖：" : "Excluded:"}</strong> ${zh ? "资金费率、价差、滑点、强平费、返佣、代币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在实际账户中确认。" : "Funding, spread, slippage, liquidation fees, referrals, token discounts, promotions, market-maker programs, local-entity rules and account-specific rates. Confirm inside the actual account before routing volume."}</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>${zh ? "正确使用这份 VIP 对比" : "How to use this VIP comparison"}</h2>
+      <div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">${zh ? "使用完整计算器" : "Use the full calculator"}</p><h2>${zh ? "带入成交量、Maker 占比、资产与 API 占比" : "Bring your volume, maker share, assets and API share"}</h2><p>${zh ? "在现有工具中切换标准或 Pro 路径，并回看前两组对比，避免把不同资格口径当成相同等级。" : "Use the existing tool to switch standard or Pro routes, and review the first two comparisons without treating different qualification systems as equivalent tiers."}</p></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 1 亿美元 Pro 场景" : "Open the $100M Pro scenario"}</a><a class="button secondary" href="${binanceBybitPath}">${zh ? "查看 Binance vs Bybit" : "View Binance vs Bybit"}</a><a class="button secondary" href="${binanceOkxPath}">${zh ? "查看 Binance vs OKX" : "View Binance vs OKX"}</a></div>
+    </section>
+  </main>
+  ${footer(page.lang)}
+</body>
+</html>`;
+}
+
 function exchangeFeeComparisonHtml(page) {
+  if (page.exchangeA === "bybit" && page.exchangeB === "okx") return bybitOkxComparisonHtml(page);
   if (page.exchangeB === "bybit") return binanceBybitComparisonHtml(page);
   const zh = page.lang === "zh-CN";
   const url = canonical(page.slug);

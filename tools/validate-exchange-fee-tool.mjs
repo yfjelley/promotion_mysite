@@ -12,6 +12,8 @@ const comparisonPath = join(root, "public", "compare", "binance-vs-okx-futures-f
 const comparisonZhPath = join(root, "public", "zh", "compare", "binance-vs-okx-futures-fees", "index.html");
 const bybitComparisonPath = join(root, "public", "compare", "binance-vs-bybit-perpetual-fees", "index.html");
 const bybitComparisonZhPath = join(root, "public", "zh", "compare", "binance-vs-bybit-perpetual-fees", "index.html");
+const bybitOkxComparisonPath = join(root, "public", "compare", "bybit-vs-okx-vip-fees", "index.html");
+const bybitOkxComparisonZhPath = join(root, "public", "zh", "compare", "bybit-vs-okx-vip-fees", "index.html");
 const errors = [];
 
 const requireValue = (condition, message) => {
@@ -43,7 +45,8 @@ requireValue(bybit.tiers.find((tier) => tier.name === "Supreme VIP")?.maker === 
 requireValue(bybit.tiers.find((tier) => tier.name === "Pro 1")?.minApiShareForVolume === 21, "Bybit Pro 1 API route regression");
 requireValue(bybit.tiers.find((tier) => tier.name === "Pro 1")?.taker === 0.032, "Bybit Pro 1 taker regression");
 requireValue(bybit.tiers.find((tier) => tier.name === "Pro 6")?.taker === 0.018, "Bybit Pro 6 taker regression");
-requireValue(bybit.sources.every((source) => source.checkedDate === "2026-07-20"), "Bybit source check date regression");
+requireValue(okx.source.checkedDate === "2026-07-23", "OKX source check date regression");
+requireValue(bybit.sources.every((source) => source.checkedDate === "2026-07-23"), "Bybit source check date regression");
 requireValue(bitget.tiers.find((tier) => tier.name === "VIP 7")?.taker === 0.020, "Bitget VIP 7 taker regression");
 requireValue(mexc.tiers[0]?.maker === 0 && mexc.tiers[0]?.taker === 0.020, "MEXC standard futures rate regression");
 
@@ -158,11 +161,47 @@ for (const [label, path, language, counterpart] of [
   requireValue(html.includes("top 72 USDT") || html.includes("top 72 USDT Perpetual"), `${label}: missing Bybit Pro product-scope limit`);
 }
 
+for (const [label, path, language, counterpart] of [
+  ["English Bybit/OKX comparison", bybitOkxComparisonPath, "en", "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/"],
+  ["Chinese Bybit/OKX comparison", bybitOkxComparisonZhPath, "zh-CN", "https://pddjf.com/compare/bybit-vs-okx-vip-fees/"]
+]) {
+  requireValue(existsSync(path), `${label}: generated page is missing`);
+  if (!existsSync(path)) continue;
+  const html = readFileSync(path, "utf8");
+  [
+    `<html lang="${language}">`,
+    "$1M",
+    "$10M",
+    "$100M",
+    "Maker / Taker",
+    "VIP 4",
+    "Pro 1",
+    "Pro 6",
+    "VIP 9",
+    "FAQPage",
+    "BreadcrumbList",
+    "https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program",
+    "https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program",
+    "https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees",
+    `href="${counterpart}"`,
+    "?v=10000000&amp;m=70&amp;a=0&amp;api=0",
+    "?v=100000000&amp;m=70&amp;a=0&amp;api=21"
+  ].forEach((needle) => requireValue(html.includes(needle), `${label}: missing ${needle}`));
+  requireValue(!html.includes('"@type": "Dataset"'), `${label}: comparison page must not claim to distribute a Dataset without a defined data license`);
+  requireValue(html.includes("2026-07-23"), `${label}: missing current official-source recheck date`);
+  requireValue(html.includes("top 72 USDT") || html.includes("top 72 USDT Perpetual"), `${label}: missing Bybit Pro product-scope limit`);
+  requireValue(html.includes("Group 2"), `${label}: missing OKX group-scope limit`);
+}
+
 if (existsSync(sitemapPath)) {
   const sitemap = readFileSync(sitemapPath, "utf8");
   for (const slug of ["compare/binance-vs-bybit-perpetual-fees", "zh/compare/binance-vs-bybit-perpetual-fees"]) {
     const entry = sitemap.match(new RegExp(`<url>\\s*<loc>https://pddjf\\.com/${slug}/</loc>\\s*<lastmod>([^<]+)</lastmod>`));
     requireValue(entry?.[1] === "2026-07-20", `sitemap: ${slug} missing current lastmod`);
+  }
+  for (const slug of ["compare/bybit-vs-okx-vip-fees", "zh/compare/bybit-vs-okx-vip-fees"]) {
+    const entry = sitemap.match(new RegExp(`<url>\\s*<loc>https://pddjf\\.com/${slug}/</loc>\\s*<lastmod>([^<]+)</lastmod>`));
+    requireValue(entry?.[1] === "2026-07-23", `sitemap: ${slug} missing current lastmod`);
   }
 }
 

@@ -17,7 +17,7 @@ export const exchangeFeeData = {
         label: "OKX VIP tier and futures fee adjustment",
         url: "https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees",
         effectiveDate: "2026-04-08",
-        checkedDate: "2026-07-15"
+        checkedDate: "2026-07-23"
       },
       tiers: [
         { name: "Regular", minVolume: 0, minAssets: 0, maker: 0.020, taker: 0.050 },
@@ -45,13 +45,13 @@ export const exchangeFeeData = {
           label: "Bybit VIP fee rates",
           url: "https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program",
           updatedDate: "2026-06-03",
-          checkedDate: "2026-07-20"
+          checkedDate: "2026-07-23"
         },
         {
           label: "Bybit VIP qualification thresholds",
           url: "https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc",
           updatedDate: "2026-05-26",
-          checkedDate: "2026-07-20"
+          checkedDate: "2026-07-23"
         }
       ],
       tiers: [

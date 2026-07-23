@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bybit 与 OKX VIP 手续费对比：100 万至 1 亿美元</title>
+  <meta name="description" content="对比 Bybit 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 VIP Maker/Taker 费率，并区分 Bybit 标准与高 API Pro 路径。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/compare/bybit-vs-okx-vip-fees/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/compare/bybit-vs-okx-vip-fees/">
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Bybit 与 OKX VIP 手续费对比">
+  <meta property="og:description" content="对比 Bybit 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 VIP Maker/Taker 费率，并区分 Bybit 标准与高 API Pro 路径。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy&scope=fee-comparison-20260723">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/#webpage",
+      "url": "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/",
+      "name": "Bybit 与 OKX VIP 手续费对比",
+      "description": "对比 Bybit 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 VIP Maker/Taker 费率，并区分 Bybit 标准与高 API Pro 路径。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Bybit 与 OKX VIP 手续费对比",
+          "item": "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "1000 万美元月成交量时，Bybit 还是 OKX 手续费更低？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "在资产余额为 0、Bybit API 占比不超过 20%、70% Maker / 30% Taker 的模型里，Bybit VIP 1 约为 2460 美元，OKX VIP 2 约为 2130 美元。这个 330 美元差额只适用于页面列明的产品和假设。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1 亿美元场景为什么要区分 Bybit API 占比？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bybit 将 API 交易占比不超过 20% 的成交量路径归入标准 VIP，超过 20% 则归入 Pro。1 亿美元时分别为 VIP 4 和 Pro 1，70/30 场景约为 18000 美元与 16600 美元；OKX VIP 3 约为 15400 美元。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "OKX VIP 等级和 Bybit VIP 等级可以按名称直接对应吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不能。两家的门槛、资产路径、产品量口径和 API 条件不同。本页把各自官方阶梯并列展示，但不会把同名等级当成等价账户。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bybit Pro 3 以上费率适用于所有 USDT 永续合约吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不适用。本页 Pro 3 至 Pro 6 采用 Bybit 公布的 top 72 USDT Perpetual 分组；其他 USDT 永续合约的 Taker 费率可能更高，应在 My Fee Rate 页面确认。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "本页是否包含资金费率、滑点或做市商计划？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不包含。场景只计算公开 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、代币折扣、活动、做市商计划或账户专属费率。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
+      <a aria-current="page" href="/zh/tools/crypto-exchange-fee-calculator/">费率工具</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>Bybit 与 OKX VIP 手续费对比</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="语言"><a href="https://pddjf.com/compare/bybit-vs-okx-vip-fees/" lang="en">English</a></div>
+      <p class="eyebrow">交易所手续费对比 · 2026 年 7 月 23 日复核</p>
+      <h1>Bybit 与 OKX VIP 手续费对比</h1>
+      <p class="hero-lede">只比较两家官方资料能够支持的完整合约 VIP 阶梯。关键差异不是简单选出赢家：Bybit 将标准 VIP 与高 API 占比 Pro 路径分开，OKX 则按资产或单一产品线 30 天成交量达到的最高等级计费。</p>
+      <div class="fee-hero-proof" aria-label="对比范围">
+        <span><strong>USDT</strong>合约产品范围</span>
+        <span><strong>70 / 30</strong>Maker / Taker</span>
+        <span><strong>2026-07-23</strong>官方资料复核</span>
+        <span><strong>2 + Pro</strong>两套完整阶梯</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">先看结论</p>
+      <h2 id="comparison-verdict-title">OKX 在三个零资产场景费率更低，但 Bybit 的高 API 路径会缩小差距</h2>
+      <p>按 70% Maker / 30% Taker、资产余额为 0 的公开成交量路径，OKX 在 100 万、1000 万和 1 亿美元场景分别进入 Regular、VIP 2 和 VIP 3；Bybit 标准路径进入 VIP 0、VIP 1 和 VIP 4。1 亿美元若 API 占比超过 20%，Bybit 改走 Pro 1，与 OKX VIP 3 的模型差额由 2600 美元缩小到 1200 美元。</p>
+      <aside class="fee-limitations"><strong>重要限制：</strong> 这是公开费率场景，不是账户级报价。Bybit 实际费率可能因地区而异；OKX 交易对分 Group 1 与 Group 2，且并非所有交易对在所有司法辖区可用。两家都应在当地页面或已验证账户中确认。</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">月成交量场景</p>
+      <h2 id="scenario-title">100 万、1000 万与 1 亿美元手续费</h2>
+      <p>主表假设资产余额为 0、Bybit API 交易占比不超过 20%、Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>30 天成交量</th><th>Bybit</th><th>OKX</th><th>如何解读</th></tr></thead><tbody><tr>
+      <th scope="row">$1M</th>
+      <td><strong>VIP 0</strong><span>0.02% / 0.055%</span><span>$305 标准路径估算</span></td>
+      <td><strong>Regular</strong><span>0.02% / 0.05%</span><span>$290 模型估算</span></td>
+      <td>OKX Regular 的 Taker 费率低于 Bybit VIP 0；这是零资产标准路径结果，不代表所有地区或账户。</td>
+    </tr><tr>
+      <th scope="row">$10M</th>
+      <td><strong>VIP 1</strong><span>0.018% / 0.04%</span><span>$2,460 标准路径估算</span></td>
+      <td><strong>VIP 2</strong><span>0.015% / 0.036%</span><span>$2,130 模型估算</span></td>
+      <td>OKX 按期货量进入 VIP 2，Bybit 按衍生品量进入 VIP 1；70/30 模型相差约 330 美元。</td>
+    </tr><tr>
+      <th scope="row">$100M</th>
+      <td><strong>VIP 4</strong><span>0.012% / 0.032%</span><span>$18,000 标准路径估算</span></td>
+      <td><strong>VIP 3</strong><span>0.01% / 0.028%</span><span>$15,400 模型估算</span></td>
+      <td>Bybit 标准路径为 VIP 4，高 API 路径为 Pro 1；OKX 为 VIP 3，因此必须先确认 API 占比。</td>
+    </tr></tbody></table></div>
+      <div class="hero-actions fee-preset-actions"><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=1000000&amp;m=70&amp;a=0&amp;api=0">计算 $1M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=10000000&amp;m=70&amp;a=0&amp;api=0">计算 $10M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=100000000&amp;m=70&amp;a=0&amp;api=0">计算 $100M · 70/30</a></div>
+    </section>
+
+    <section class="section fee-path-section" aria-labelledby="path-title">
+      <p class="eyebrow">普通 / API / VIP 路径</p>
+      <h2 id="path-title">两家资格逻辑不同，不能只对齐等级名称</h2>
+      <div class="fee-path-grid">
+        <article><h3>普通路径</h3><p>Bybit VIP 0 为 Maker 0.02% / Taker 0.055%；OKX Regular 为 0.02% / 0.05%。不计活动、推荐、代币折扣或当地实体差异。</p></article>
+        <article><h3>API</h3><p>Bybit 以 20% API 交易占比为路径边界：1 亿美元衍生品量在标准路径为 VIP 4（约 $18,000），超过 20% 为 Pro 1（约 $16,600）。OKX 官方资料未把“使用 API”本身列为自动降费条件。</p><p><a href="/zh/tools/crypto-exchange-fee-calculator/?v=100000000&amp;m=70&amp;a=0&amp;api=21">打开 Bybit Pro 1 预设场景</a></p></article>
+        <article><h3>VIP</h3><p>Bybit 可由资产、净借款或多种产品成交量触发标准 VIP；OKX 取总资产或任一单一产品线 30 天成交量达到的最高等级，并把该等级用于所有产品。本页主表只使用零资产合约成交量路径。</p></article>
+      </div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">订单类型比例会改变 1000 万美元差额</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>成交结构</th><th>Bybit</th><th>OKX</th></tr></thead><tbody><tr><th scope="row">全部 Maker · 100/0</th><td>$1,800 · VIP 1</td><td>$1,500 · VIP 2</td></tr><tr><th scope="row">默认混合 · 70/30</th><td>$2,460 · VIP 1</td><td>$2,130 · VIP 2</td></tr><tr><th scope="row">全部 Taker · 0/100</th><td>$4,000 · VIP 1</td><td>$3,600 · VIP 2</td></tr></tbody></table></div>
+      <p>在 1000 万美元公开成交量路径，Maker 占比越高，两边绝对费用越低；但 Maker 订单不保证成交，场所选择仍需考虑成交概率、价差、滑点和资金费率。</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="vip-ladder-title">
+      <p class="eyebrow">VIP</p><h2 id="vip-ladder-title">Bybit 标准 VIP 与 OKX Futures Group 1 阶梯</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>Bybit 等级</th><th>30 天衍生品量</th><th>Bybit Maker / Taker</th><th>OKX 等级</th><th>30 天期货量</th><th>OKX Maker / Taker</th></tr></thead><tbody><tr><th scope="row">VIP 0</th><td>—</td><td>0.02% / 0.055%</td><td><strong>Regular</strong></td><td>—</td><td>0.02% / 0.05%</td></tr><tr><th scope="row">VIP 1</th><td>$10M+</td><td>0.018% / 0.04%</td><td><strong>VIP 1</strong></td><td>$5M+</td><td>0.016% / 0.045%</td></tr><tr><th scope="row">VIP 2</th><td>$25M+</td><td>0.016% / 0.037%</td><td><strong>VIP 2</strong></td><td>$10M+</td><td>0.015% / 0.036%</td></tr><tr><th scope="row">VIP 3</th><td>$50M+</td><td>0.014% / 0.035%</td><td><strong>VIP 3</strong></td><td>$50M+</td><td>0.01% / 0.028%</td></tr><tr><th scope="row">VIP 4</th><td>$100M+</td><td>0.012% / 0.032%</td><td><strong>VIP 4</strong></td><td>$200M+</td><td>0.008% / 0.027%</td></tr><tr><th scope="row">VIP 5</th><td>$250M+</td><td>0.01% / 0.032%</td><td><strong>VIP 5</strong></td><td>$600M+</td><td>0.005% / 0.026%</td></tr><tr><th scope="row">Supreme VIP</th><td>$500M+</td><td>0% / 0.03%</td><td><strong>VIP 6</strong></td><td>$1B+</td><td>0% / 0.025%</td></tr><tr><th scope="row">—</th><td>—</td><td>—</td><td><strong>VIP 7</strong></td><td>$1.5B+</td><td>-0.002% / 0.02%</td></tr><tr><th scope="row">—</th><td>—</td><td>—</td><td><strong>VIP 8</strong></td><td>$2B+</td><td>-0.005% / 0.02%</td></tr><tr><th scope="row">—</th><td>—</td><td>—</td><td><strong>VIP 9</strong></td><td>$20B+</td><td>-0.005% / 0.015%</td></tr></tbody></table></div>
+      <p class="tool-notice warning">并排行只为紧凑展示，不表示等级等价。Bybit VIP 4、VIP 5 与 Supreme VIP 的成交量路径要求 API 占比不超过 20%；OKX 表格采用 Futures Group 1，Group 2 在 VIP 7 至 VIP 9 使用不同费率。</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="pro-ladder-title">
+      <p class="eyebrow">API &gt; 20%</p><h2 id="pro-ladder-title">Bybit Pro 衍生品路径</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>30 天衍生品量</th><th>API 占比</th><th>Maker / Taker</th><th>费率产品范围</th></tr></thead><tbody><tr>
+    <th scope="row">Pro 1</th>
+    <td>$100M+</td>
+    <td>&gt;20%</td>
+    <td>0.01% / 0.032%</td>
+    <td>永续与期货公开基础分组</td>
+  </tr><tr>
+    <th scope="row">Pro 2</th>
+    <td>$250M+</td>
+    <td>&gt;20%</td>
+    <td>0.005% / 0.032%</td>
+    <td>永续与期货公开基础分组</td>
+  </tr><tr>
+    <th scope="row">Pro 3</th>
+    <td>$750M+</td>
+    <td>&gt;20%</td>
+    <td>0% / 0.028%</td>
+    <td>Top 72 USDT perpetuals</td>
+  </tr><tr>
+    <th scope="row">Pro 4</th>
+    <td>$1.5B+</td>
+    <td>&gt;20%</td>
+    <td>0% / 0.024%</td>
+    <td>Top 72 USDT perpetuals</td>
+  </tr><tr>
+    <th scope="row">Pro 5</th>
+    <td>$3B+</td>
+    <td>&gt;20%</td>
+    <td>0% / 0.021%</td>
+    <td>Top 72 USDT perpetuals</td>
+  </tr><tr>
+    <th scope="row">Pro 6</th>
+    <td>$5B+</td>
+    <td>&gt;20%</td>
+    <td>0% / 0.018%</td>
+    <td>Top 72 USDT perpetuals</td>
+  </tr></tbody></table></div>
+      <p class="tool-notice warning">Pro 不适用于 Affiliate 与 Referral 用户，即使 API 占比超过 20%。Pro 3 至 Pro 6 的 Taker 数字采用 top 72 USDT Perpetual 分组；其他 USDT 永续合约可能更高。</p>
+    </section>
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">官方一手资料</p><h2>来源、产品范围、地区与核验日期</h2>
+      <div class="fee-source-grid comparison-sources">
+        <article><div class="fee-source-head"><h3>Bybit</h3><span class="coverage-badge">标准 + Pro 阶梯</span></div><p>产品：Perpetual & Futures Contracts；Pro 3+ 数字限定 top 72 USDT Perpetual 分组。地区：全球帮助中心，官方提示实际费率可能因地区而异，应以完成身份验证后的 My Fee Rate 为准。页面更新于 2026-06-03 / 2026-05-26，本次核验 2026-07-23。</p><p><a href="https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program" rel="nofollow noopener" target="_blank">Bybit VIP fee rates</a> · <a href="https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc" rel="nofollow noopener" target="_blank">Bybit VIP qualification thresholds</a></p></article>
+        <article><div class="fee-source-head"><h3>OKX</h3><span class="coverage-badge">完整公开阶梯</span></div><p>产品：Futures Group 1 / Top 10 pairs。地区：全球公告；官方提示并非所有交易对在所有司法辖区可用，并应以当地费率页或 OpenAPI 为准。公告 2026-03-24 发布、2026-04-08 生效，本次核验 2026-07-23。</p><p><a href="https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees" rel="nofollow noopener" target="_blank">OKX VIP tier and futures fee adjustment</a></p></article>
+      </div>
+      <aside class="fee-limitations"><strong>未覆盖：</strong> 资金费率、价差、滑点、强平费、返佣、代币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在实际账户中确认。</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>正确使用这份 VIP 对比</h2>
+      <div class="fee-faq-list"><details><summary>1000 万美元月成交量时，Bybit 还是 OKX 手续费更低？</summary><p>在资产余额为 0、Bybit API 占比不超过 20%、70% Maker / 30% Taker 的模型里，Bybit VIP 1 约为 2460 美元，OKX VIP 2 约为 2130 美元。这个 330 美元差额只适用于页面列明的产品和假设。</p></details><details><summary>1 亿美元场景为什么要区分 Bybit API 占比？</summary><p>Bybit 将 API 交易占比不超过 20% 的成交量路径归入标准 VIP，超过 20% 则归入 Pro。1 亿美元时分别为 VIP 4 和 Pro 1，70/30 场景约为 18000 美元与 16600 美元；OKX VIP 3 约为 15400 美元。</p></details><details><summary>OKX VIP 等级和 Bybit VIP 等级可以按名称直接对应吗？</summary><p>不能。两家的门槛、资产路径、产品量口径和 API 条件不同。本页把各自官方阶梯并列展示，但不会把同名等级当成等价账户。</p></details><details><summary>Bybit Pro 3 以上费率适用于所有 USDT 永续合约吗？</summary><p>不适用。本页 Pro 3 至 Pro 6 采用 Bybit 公布的 top 72 USDT Perpetual 分组；其他 USDT 永续合约的 Taker 费率可能更高，应在 My Fee Rate 页面确认。</p></details><details><summary>本页是否包含资金费率、滑点或做市商计划？</summary><p>不包含。场景只计算公开 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、代币折扣、活动、做市商计划或账户专属费率。</p></details></div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">使用完整计算器</p><h2>带入成交量、Maker 占比、资产与 API 占比</h2><p>在现有工具中切换标准或 Pro 路径，并回看前两组对比，避免把不同资格口径当成相同等级。</p></div>
+      <div class="hero-actions"><a class="button primary" href="/zh/tools/crypto-exchange-fee-calculator/?v=100000000&amp;m=70&amp;a=0&amp;api=21">打开 1 亿美元 Pro 场景</a><a class="button secondary" href="/zh/compare/binance-vs-bybit-perpetual-fees/">查看 Binance vs Bybit</a><a class="button secondary" href="/zh/compare/binance-vs-okx-futures-fees/">查看 Binance vs OKX</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
+      <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView 自动化</a>
+      <a href="/ibkr-api-automation-developer/">IBKR 自动化</a>
+      <a href="/fix-api-order-routing-developer/">FIX 路由系统</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>
