@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Send a Project Brief | SignalCraft Labs</title>
   <meta name="description" content="Send SignalCraft Labs a structured project brief for custom trading software, fintech development, API integrations, risk controls or private deployment.">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://pddjf.com/en/contact/">
   <link rel="alternate" hreflang="en" href="https://pddjf.com/en/contact/">
   <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/contact/">
@@ -18,6 +18,11 @@
   <meta property="og:description" content="Send SignalCraft Labs a structured project brief for custom trading software, fintech development, API integrations, risk controls or private deployment.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/en/contact/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
@@ -130,7 +135,8 @@
       <article>
         <h3>Structured project brief</h3>
         <p>Only the project type, the problem and your contact method are required. Other fields are optional. We normally reply with an initial fit assessment within one business day and never need an account password, withdrawal permission or complete API secret for this step.</p>
-        <form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="en">
+        <form class="brief-form" method="post" action="/api/brief" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="en">
+      <input type="hidden" name="lang" value="en">
       <label class="form-trap" aria-hidden="true">Leave this field empty
         <input name="website" tabindex="-1" autocomplete="off">
       </label>

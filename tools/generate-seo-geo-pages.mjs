@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { deflateSync } from "node:zlib";
 import { exchangeFeeData } from "./exchange-fee-data.mjs";
@@ -10,6 +10,7 @@ const today = "2026-07-17";
 const auditContentDate = "2026-07-21";
 const hyperliquidCheckedDate = "2026-07-19";
 const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
+const defaultSocialImage = "/og-image.png";
 const llmsUpdatedAt = "2026-07-23";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
@@ -821,7 +822,7 @@ const servicePages = [
     breadcrumb: "量化交易软件开发",
     eyebrow: "面向策略负责人和交易团队",
     title: "量化交易软件开发与交易平台定制 | SignalCraft Labs",
-    description: "量化交易软件开发、交易平台定制和量化软件外包服务，覆盖券商与交易所 API、订单执行、风险控制、对账监控、源码交付和私有化部署。",
+    description: "量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。",
     h1: "量化交易软件与交易平台定制开发",
     intro: "为已有策略规则、信号来源或交易流程的团队建设可控、可测试、可交接的交易软件。项目可覆盖券商与交易所 API、订单状态、风险控制、对账、监控告警、源码交付和客户自有环境部署。账户、密钥、资金和最终交易决策始终由客户控制。",
     serviceType: "量化交易软件开发、交易平台定制和自动化交易系统开发服务",
@@ -832,6 +833,19 @@ const servicePages = [
     contactProject: "custom-trading-software-development",
     heroPrimaryLabel: "获得项目适配判断",
     heroSecondaryLabel: "查看交付内容",
+    agentDevelopment: {
+      eyebrow: "Trading Agent Engineering",
+      title: "AI 交易智能体开发：把模型能力接入可控交易系统",
+      intro: "面向已有交易规则、研究流程或运营 SOP 的团队，量化交易智能体不是一个自行追求收益的黑盒机器人，而是受权限、风控、审批和审计约束的软件执行层。AI Agent 交易系统开发可从只读分析或建议模式开始，再按风险等级逐步开放工具调用。",
+      items: [
+        ["量化交易智能体", "连接行情、研究数据、持仓和订单状态，让智能体在明确的数据来源与任务范围内完成分析、解释、异常归因或操作建议。"],
+        ["人工审批工作流", "对下单、撤单、改仓、参数变更等高风险动作设置审批节点；审批人可查看输入、建议、风控结果和预期影响后再决定是否执行。"],
+        ["确定性风控与权限", "模型输出不会绕过仓位、敞口、价格偏离、交易时段、限频和 API 最小权限等确定性规则，提现和划转权限不进入交付范围。"],
+        ["可审计的工具调用", "记录提示上下文、数据版本、工具参数、审批人、执行结果、拒绝原因和异常告警，支持复盘、暂停、人工接管和回滚。"]
+      ],
+      boundaryTitle: "带人工审批和风控的交易智能体",
+      boundary: "适合把重复分析、异常处置和受控操作变成可验证流程；不提供自主盈利承诺、交易信号、代客决策或不经审批的高风险执行。"
+    },
     fit: [
       "已有可说明的策略规则、信号来源或交易执行流程，需要完成生产级工程实现。",
       "需要连接 TradingView、研究系统或内部信号源与券商、交易所或 FIX API。",
@@ -870,6 +884,8 @@ const servicePages = [
       ["上线前会测试什么？", "可测试参数校验、重复事件、下单撤单、拒单、部分成交、断线重连、持仓同步、人工暂停、告警、重启和回滚。"],
       ["是否交付源码？", "可以。约定的交付包可包含源码、配置样例、部署文件、测试记录、运维手册和远程交接。"],
       ["能部署到自己的服务器吗？", "可以。在环境和运维责任明确后，可部署到客户自有云账户、VPS 或服务器。"],
+      ["AI 交易智能体和普通交易机器人有什么区别？", "交易智能体可读取受控上下文、调用已授权工具并处理多步骤工作流；普通交易机器人通常执行固定规则。两者都应受确定性风控、权限、日志和暂停机制约束。"],
+      ["会让交易智能体直接下单吗？", "默认可从只读分析、建议或模拟模式开始。是否开放下单取决于书面范围、API 权限、确定性风控和审批规则，高风险动作可以强制人工确认。"],
       ["是否提供交易信号或承诺投资回报？", "不提供。SignalCraft Labs 只实现客户定义的流程，不提供信号、投资建议、资金托管或代客交易，也不对投资结果作任何承诺。"]
     ],
     related: [
@@ -886,7 +902,7 @@ const servicePages = [
     breadcrumb: "Custom Trading Software & Platform Development",
     eyebrow: "For Strategy Owners and Trading Teams",
     title: "Custom Trading Software Development | SignalCraft Labs",
-    description: "Custom trading software development for teams that need broker or exchange API integration, controlled execution, risk checks, source delivery and private deployment.",
+    description: "Custom trading software and Trading AI Agent Development for teams that need API integration, human approvals, risk checks, source delivery and private deployment.",
     h1: "Custom Trading Software and Platform Development for Teams",
     intro: "We build custom trading software for strategy owners, trading teams and fintech operators with documented workflows: API integration, controlled execution, risk checks, reconciliation and private handoff. Customers retain control of accounts, credentials and trading decisions.",
     serviceType: "Custom trading software and trading platform development services",
@@ -897,6 +913,19 @@ const servicePages = [
     contactProject: "custom-trading-software-development",
     heroPrimaryLabel: "Get a project fit assessment",
     heroSecondaryLabel: "See what you receive",
+    agentDevelopment: {
+      eyebrow: "Trading Agent Engineering",
+      title: "Trading AI Agent Development for Controlled Trading Workflows",
+      intro: "For teams with documented trading rules, research workflows or operating procedures, a quantitative trading agent should be a permissioned software layer—not a black-box system pursuing returns on its own. AI agent trading system development can begin in read-only or recommendation mode and expand tool access only after controls are validated.",
+      items: [
+        ["Quantitative trading agents", "Connect market data, research inputs, positions and order state so an agent can analyze, explain anomalies or recommend actions within a defined task and data boundary."],
+        ["Human approval workflow", "Require approval for high-risk actions such as submit, cancel, position changes or parameter updates. Reviewers see inputs, recommendations, risk results and expected impact before execution."],
+        ["Deterministic risk and permissions", "Model output cannot bypass position, exposure, price-deviation, trading-hours, rate-limit or least-privilege API controls. Withdrawal and transfer permissions remain outside scope."],
+        ["Auditable tool use", "Record context, data versions, tool parameters, approvers, execution results, rejection reasons and alerts so operators can review, pause, take over or roll back the workflow."]
+      ],
+      boundaryTitle: "A trading agent with human approval and risk controls",
+      boundary: "This pattern can automate repeatable analysis, exception handling and controlled operations. It does not include autonomous-profit promises, trading signals, managed decisions or unapproved high-risk execution."
+    },
     fit: [
       "You have documented trading or execution rules and need production engineering.",
       "You need to connect a signal source, strategy engine or internal system to a broker, exchange or FIX API.",
@@ -935,6 +964,8 @@ const servicePages = [
       ["What is tested before deployment?", "Tests can cover validation, duplicate events, submits, cancels, rejects, partial fills, disconnects, reconnects, position sync, manual pause, alerts, restart and rollback."],
       ["Do I receive the source code?", "Yes. The agreed delivery package can include source code, configuration examples, deployment files, test evidence, an operations runbook and remote handoff."],
       ["Can the system run in my own cloud account or VPS?", "Yes. Private deployment can target a customer-controlled cloud account, VPS or server when the environment and operational responsibilities are defined."],
+      ["How is a trading AI agent different from a conventional trading bot?", "A trading agent can use controlled context, call approved tools and coordinate multi-step workflows, while a conventional bot usually executes fixed rules. Both still need deterministic risk checks, permissions, logs and pause controls."],
+      ["Will the trading agent place orders autonomously?", "A project can begin in read-only, recommendation or simulation mode. Order access depends on the written scope, API permissions, deterministic risk checks and approval policy; high-risk actions can require human confirmation."],
       ["Do you provide signals, account management or guaranteed returns?", "No. SignalCraft Labs implements customer-defined workflows and does not provide signals, investment advice, custody, managed accounts or return promises."]
     ],
     related: [
@@ -1490,7 +1521,7 @@ const servicePages = [
     breadcrumb: "Hyperliquid Systems for Trading Teams",
     eyebrow: "Custom Engineering · For Trading and Product Teams",
     title: "Hyperliquid Trading System for Teams | Risk and Private Deployment",
-    description: "Commission a customer-controlled Hyperliquid execution system for a trading firm, treasury or product team. Projects usually start at USD 10,000 for shared controls, audit logs and private deployment.",
+    description: "Customer-controlled Hyperliquid execution systems for trading firms, treasuries and product teams, with shared risk controls, audit logs and private deployment. From USD 10,000.",
     h1: "Build a Hyperliquid Execution System Your Team Can Operate",
     intro: "For trading firms, digital-asset teams and fintech product teams that have outgrown one-off scripts. We turn strategies, roles, limits and exception handling into a controlled execution service deployed under company ownership.",
     serviceType: "Hyperliquid execution system development for trading teams",
@@ -3153,6 +3184,52 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;");
 }
 
+function compactSeoTitle(value) {
+  const title = String(value).trim();
+  if ([...title].length <= 70) return title;
+
+  const segments = title.split(/\s+\|\s+/).filter(Boolean);
+  if (segments.length <= 1) return title;
+
+  const first = segments[0];
+  const firstTwo = segments.slice(0, 2).join(" | ");
+  if ([...firstTwo].length <= 70) return firstTwo;
+  return first;
+}
+
+function optimizeHtmlMetadata(content) {
+  if (!content.includes("<html")) return content;
+
+  let output = content.replace(
+    /<title>([^<]+)<\/title>/,
+    (_, title) => `<title>${compactSeoTitle(title)}</title>`
+  );
+  output = output.replace(
+    /<meta name="robots" content="([^"]+)">/,
+    (_, directives) => `<meta name="robots" content="${directives.includes("max-image-preview") ? directives : `${directives},max-image-preview:large`}">`
+  );
+  if (!output.includes('name="robots"')) {
+    output = output.replace(
+      /(<meta name="description" content="[^"]*">)/,
+      '$1\n  <meta name="robots" content="index,follow,max-image-preview:large">'
+    );
+  }
+
+  if (!output.includes('property="og:image"')) {
+    output = output.replace(
+      /(<meta property="og:url" content="[^"]+">)/,
+      `$1
+  <meta property="og:image" content="${site}${defaultSocialImage}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${site}${defaultSocialImage}">`
+    );
+  }
+
+  return output;
+}
+
 function isEnglish(value) {
   return (typeof value === "string" ? value : value?.lang) === "en";
 }
@@ -3195,12 +3272,22 @@ function serviceManifest() {
 
 function writePublicFile(path, content) {
   mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, `${content.trim()}\n`, "utf8");
+  const output = path.endsWith(".html") ? optimizeHtmlMetadata(content) : content;
+  writeFileSync(path, `${output.trim()}\n`, "utf8");
 }
 
 function writePublicBinary(path, content) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, content);
+}
+
+function canonicalHtmlFiles(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.name === "__release") return [];
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) return canonicalHtmlFiles(full);
+    return entry.name.endsWith(".html") ? [full] : [];
+  });
 }
 
 function faviconLinks() {
@@ -3303,6 +3390,78 @@ function signalCraftIconPng(size) {
   ]);
 }
 
+function signalCraftSocialPng() {
+  const width = 1200;
+  const height = 630;
+  const rowSize = width * 4 + 1;
+  const image = Buffer.alloc(rowSize * height);
+
+  for (let y = 0; y < height; y += 1) {
+    const vertical = y / (height - 1);
+    image[y * rowSize] = 0;
+    for (let x = 0; x < width; x += 1) {
+      const horizontal = x / (width - 1);
+      const glow = Math.max(0, 1 - Math.hypot(horizontal - 0.78, vertical - 0.26) * 1.8);
+      const offset = y * rowSize + 1 + x * 4;
+      image[offset] = Math.round(7 + 7 * horizontal + 8 * glow);
+      image[offset + 1] = Math.round(17 + 27 * horizontal + 77 * glow);
+      image[offset + 2] = Math.round(31 + 34 * horizontal + 62 * glow);
+      image[offset + 3] = 255;
+
+      if ((x % 80 === 0 || y % 80 === 0) && x > 440) {
+        image[offset] = Math.min(255, image[offset] + 12);
+        image[offset + 1] = Math.min(255, image[offset + 1] + 18);
+        image[offset + 2] = Math.min(255, image[offset + 2] + 18);
+      }
+    }
+  }
+
+  const paint = (x, y, rectWidth, rectHeight, rgba) => {
+    for (let pixelY = Math.max(0, y); pixelY < Math.min(height, y + rectHeight); pixelY += 1) {
+      for (let pixelX = Math.max(0, x); pixelX < Math.min(width, x + rectWidth); pixelX += 1) {
+        const offset = pixelY * rowSize + 1 + pixelX * 4;
+        image[offset] = rgba[0];
+        image[offset + 1] = rgba[1];
+        image[offset + 2] = rgba[2];
+        image[offset + 3] = rgba[3];
+      }
+    }
+  };
+
+  paint(86, 90, 250, 250, [7, 139, 123, 255]);
+  const white = [255, 255, 255, 255];
+  paint(145, 145, 132, 24, white);
+  paint(145, 145, 24, 92, white);
+  paint(145, 213, 132, 24, white);
+  paint(253, 213, 24, 92, white);
+  paint(145, 281, 132, 24, white);
+
+  const accent = [69, 211, 184, 255];
+  paint(460, 172, 300, 10, accent);
+  paint(752, 172, 10, 110, accent);
+  paint(752, 272, 250, 10, accent);
+  paint(992, 272, 10, 110, accent);
+  paint(992, 372, 120, 10, accent);
+  for (const [x, y] of [[448, 160], [740, 260], [980, 360], [1100, 360]]) {
+    paint(x, y, 34, 34, white);
+    paint(x + 8, y + 8, 18, 18, [7, 139, 123, 255]);
+  }
+  paint(86, 500, 1026, 4, [69, 211, 184, 255]);
+
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(width, 0);
+  ihdr.writeUInt32BE(height, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 6;
+
+  return Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    pngChunk("IHDR", ihdr),
+    pngChunk("IDAT", deflateSync(image)),
+    pngChunk("IEND")
+  ]);
+}
+
 function faviconIco() {
   const png = signalCraftIconPng(48);
   const header = Buffer.alloc(22);
@@ -3326,6 +3485,7 @@ function writeSiteIconAssets() {
   writePublicBinary(join(publicDir, "apple-touch-icon.png"), signalCraftIconPng(180));
   writePublicBinary(join(publicDir, "apple-touch-icon-180.png"), signalCraftIconPng(180));
   writePublicBinary(join(publicDir, "favicon.ico"), faviconIco());
+  writePublicBinary(join(publicDir, defaultSocialImage), signalCraftSocialPng());
   writePublicFile(join(publicDir, "site.webmanifest"), JSON.stringify({
     name: "SignalCraft Labs",
     short_name: "SignalCraft",
@@ -3575,6 +3735,25 @@ function buyerIntentSummarySection(page) {
     </section>`;
 }
 
+function agentDevelopmentSection(page) {
+  if (!page.agentDevelopment) return "";
+  const agent = page.agentDevelopment;
+  return `<section class="section content-band" aria-labelledby="agent-development-title">
+      <div class="section-head">
+        <p class="eyebrow">${escapeHtml(agent.eyebrow)}</p>
+        <h2 id="agent-development-title">${escapeHtml(agent.title)}</h2>
+        <p>${escapeHtml(agent.intro)}</p>
+      </div>
+      <div class="detail-grid">
+        ${agent.items.map(([title, description]) => `<article><h3>${escapeHtml(title)}</h3><p>${escapeHtml(description)}</p></article>`).join("")}
+      </div>
+      <article class="evidence-table">
+        <h3>${escapeHtml(agent.boundaryTitle)}</h3>
+        <p>${escapeHtml(agent.boundary)}</p>
+      </article>
+    </section>`;
+}
+
 function buyerSnapshotSection(page) {
   if (!page.purchaseSnapshot) return "";
   const english = isEnglish(page);
@@ -3819,7 +3998,7 @@ ${buyerIntentSummarySection(page)}${buyerSnapshotSection(page)}
 
 ${buyerOutcomeSection(page)}
 
-    ${aiSummarySection(page)}
+    ${aiSummarySection(page)}${agentDevelopmentSection(page)}
 
     <section id="fit" class="section answer-section">
       <div class="section-head centered">
@@ -4119,7 +4298,8 @@ function aboutHtml(page) {
 function leadBriefForm(language = "zh-CN") {
   const english = isEnglish(language);
   const option = (value, enLabel, zhLabel = value) => `<option value="${escapeHtml(value)}">${escapeHtml(english ? enLabel : zhLabel)}</option>`;
-  return `<form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="${english ? "en" : "zh-CN"}">
+  return `<form class="brief-form" method="post" action="/api/brief" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="${english ? "en" : "zh-CN"}">
+      <input type="hidden" name="lang" value="${english ? "en" : "zh-CN"}">
       <label class="form-trap" aria-hidden="true">${english ? "Leave this field empty" : "请勿填写此字段"}
         <input name="website" tabindex="-1" autocomplete="off">
       </label>
@@ -5449,6 +5629,10 @@ ${serviceManifest().coreServiceUrls.map(({ label, url, summary }) => `- ${url} �
 - Delivery policy: https://pddjf.com/delivery-policy
 - Privacy policy: https://pddjf.com/privacy
 `);
+
+canonicalHtmlFiles(publicDir).forEach((file) => {
+  writePublicFile(file, readFileSync(file, "utf8"));
+});
 
 writePublicFile(join(releaseAssetDir, "home.html"), readFileSync(join(publicDir, "index.html"), "utf8"));
 writePublicFile(join(releaseAssetDir, "contact.html"), readFileSync(join(publicDir, "contact", "index.html"), "utf8"));

@@ -97,6 +97,7 @@ const requiredIconTextAssets = new Map([
   ["site.webmanifest", '"icons"']
 ]);
 const requiredIconBinaryAssets = ["favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "apple-touch-icon-180.png"];
+const socialImageFile = join(publicDir, "og-image.png");
 const customTradingSoftwareFile = join(publicDir, "custom-trading-software-development", "index.html");
 const customTradingSoftwareZhFile = join(publicDir, "zh", "custom-trading-software-development", "index.html");
 const fintechSoftwareFile = join(publicDir, "fintech-software-development", "index.html");
@@ -169,6 +170,9 @@ if (existsSync(customTradingSoftwareFile)) {
   }
   requireText("custom trading software development page", customTradingSoftwareHtml, "/en/contact/?project=custom-trading-software-development");
   requireText("custom trading software development page", customTradingSoftwareHtml, 'hreflang="zh-Hans" href="https://pddjf.com/zh/custom-trading-software-development/"');
+  requireText("custom trading software development page", customTradingSoftwareHtml, "Trading AI Agent Development");
+  requireText("custom trading software development page", customTradingSoftwareHtml, "Human approval workflow");
+  requireText("custom trading software development page", customTradingSoftwareHtml, "Deterministic risk and permissions");
   requireText("custom trading software development page", customTradingSoftwareHtml, currentScriptHref);
 }
 
@@ -177,6 +181,10 @@ if (existsSync(customTradingSoftwareZhFile)) {
   requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "量化交易软件与交易平台定制开发");
   requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "/contact/?project=custom-trading-software-development");
   requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, 'hreflang="en" href="https://pddjf.com/custom-trading-software-development/"');
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "AI 交易智能体开发");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "量化交易智能体");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "AI Agent 交易系统开发");
+  requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, "带人工审批和风控的交易智能体");
   requireText("Chinese custom trading software development page", customTradingSoftwareZhHtml, currentScriptHref);
 }
 
@@ -220,11 +228,27 @@ for (const asset of requiredIconBinaryAssets) {
   }
 }
 
+if (!existsSync(socialImageFile)) {
+  errors.push("og-image.png: missing default social share image");
+} else {
+  const socialImage = readFileSync(socialImageFile);
+  const width = socialImage.length >= 24 ? socialImage.readUInt32BE(16) : 0;
+  const height = socialImage.length >= 24 ? socialImage.readUInt32BE(20) : 0;
+  if (width !== 1200 || height !== 630) {
+    errors.push(`og-image.png: expected 1200x630 PNG, found ${width}x${height}`);
+  }
+}
+
 for (const file of pddjfHtmlFiles) {
   const html = readFileSync(file, "utf8");
   const rel = relative(root, file);
   const is404 = rel === "public/404.html";
   const route = routeFor(file);
+  const title = html.match(/<title>([^<]+)<\/title>/)?.[1] || "";
+  const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || "";
+
+  if ([...title].length > 70) errors.push(`${rel}: title exceeds 70 characters (${[...title].length})`);
+  if ([...description].length > 180) errors.push(`${rel}: description exceeds 180 characters (${[...description].length})`);
 
   if (html.includes("https://icojf.com")) errors.push(`${rel}: contains absolute icojf URL`);
   if (html.includes('href="/broker/api"')) errors.push(`${rel}: broker API link must use canonical trailing slash`);
@@ -260,6 +284,12 @@ for (const file of pddjfHtmlFiles) {
     if (canonical && !canonical.startsWith(site)) errors.push(`${rel}: canonical not pddjf: ${canonical}`);
     if (!ogUrl) errors.push(`${rel}: missing og:url`);
     if (ogUrl && !ogUrl.startsWith(site)) errors.push(`${rel}: og:url not pddjf: ${ogUrl}`);
+    requireText(rel, html, "max-image-preview:large");
+    requireText(rel, html, 'property="og:image"');
+    requireText(rel, html, 'property="og:image:width" content="1200"');
+    requireText(rel, html, 'property="og:image:height" content="630"');
+    requireText(rel, html, 'name="twitter:card" content="summary_large_image"');
+    requireText(rel, html, 'name="twitter:image"');
     for (const iconLink of requiredIconLinks) {
       requireText(rel, html, iconLink);
     }
@@ -329,6 +359,9 @@ for (const file of pddjfHtmlFiles) {
       isEnglishContact ? "Send project brief securely" : "安全提交项目 Brief",
       "data-mailto-brief",
       "data-brief-endpoint=\"/api/brief\"",
+      'method="post"',
+      'action="/api/brief"',
+      'name="lang"',
       "data-brief-label=\"Project type\"",
       "Fintech software development",
       "Custom trading software development",
@@ -397,6 +430,9 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
   'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
+  'contentType.startsWith("application/x-www-form-urlencoded")',
+  'new URLSearchParams(rawBody)',
+  'briefHtmlResponse(body, status, responseLanguage)',
   'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/en/contact/",\n  "/custom-trading-software-development/",\n  "/zh/custom-trading-software-development/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
   '["/en/contact", "/en/contact/"]',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'

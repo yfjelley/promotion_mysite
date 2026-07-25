@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>提交项目 Brief | SignalCraft Labs 交付包评估</title>
   <meta name="description" content="提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://pddjf.com/contact/">
   <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/contact/">
   <link rel="alternate" hreflang="en" href="https://pddjf.com/en/contact/">
@@ -18,6 +18,11 @@
   <meta property="og:description" content="提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/contact/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
@@ -130,7 +135,8 @@
       <article>
         <h3>结构化 Brief 表单</h3>
         <p>必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。</p>
-        <form class="brief-form" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="zh-CN">
+        <form class="brief-form" method="post" action="/api/brief" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="zh-CN">
+      <input type="hidden" name="lang" value="zh-CN">
       <label class="form-trap" aria-hidden="true">请勿填写此字段
         <input name="website" tabindex="-1" autocomplete="off">
       </label>

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>量化交易软件开发与交易平台定制 | SignalCraft Labs</title>
-  <meta name="description" content="量化交易软件开发、交易平台定制和量化软件外包服务，覆盖券商与交易所 API、订单执行、风险控制、对账监控、源码交付和私有化部署。">
-  <meta name="robots" content="index,follow">
+  <meta name="description" content="量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://pddjf.com/zh/custom-trading-software-development/">
   <link rel="alternate" hreflang="en" href="https://pddjf.com/custom-trading-software-development/">
   <link rel="alternate" hreflang="zh-Hans" href="https://pddjf.com/zh/custom-trading-software-development/">
@@ -14,9 +14,14 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:title" content="量化交易软件与交易平台定制开发">
-  <meta property="og:description" content="量化交易软件开发、交易平台定制和量化软件外包服务，覆盖券商与交易所 API、订单执行、风险控制、对账监控、源码交付和私有化部署。">
+  <meta property="og:description" content="量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/zh/custom-trading-software-development/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
 
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
@@ -64,7 +69,7 @@
       "@id": "https://pddjf.com/zh/custom-trading-software-development/#webpage",
       "url": "https://pddjf.com/zh/custom-trading-software-development/",
       "name": "量化交易软件与交易平台定制开发",
-      "description": "量化交易软件开发、交易平台定制和量化软件外包服务，覆盖券商与交易所 API、订单执行、风险控制、对账监控、源码交付和私有化部署。",
+      "description": "量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -95,7 +100,7 @@
       "@type": "Service",
       "@id": "https://pddjf.com/zh/custom-trading-software-development/#service",
       "name": "量化交易软件与交易平台定制开发",
-      "description": "量化交易软件开发、交易平台定制和量化软件外包服务，覆盖券商与交易所 API、订单执行、风险控制、对账监控、源码交付和私有化部署。",
+      "description": "量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。",
       "serviceType": "量化交易软件开发、交易平台定制和自动化交易系统开发服务",
       "provider": {
         "@id": "https://pddjf.com/#organization"
@@ -192,6 +197,22 @@
         },
         {
           "@type": "Question",
+          "name": "AI 交易智能体和普通交易机器人有什么区别？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "交易智能体可读取受控上下文、调用已授权工具并处理多步骤工作流；普通交易机器人通常执行固定规则。两者都应受确定性风控、权限、日志和暂停机制约束。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "会让交易智能体直接下单吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "默认可从只读分析、建议或模拟模式开始。是否开放下单取决于书面范围、API 权限、确定性风控和审批规则，高风险动作可以强制人工确认。"
+          }
+        },
+        {
+          "@type": "Question",
           "name": "是否提供交易信号或承诺投资回报？",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -268,6 +289,19 @@
       <div class="summary-list">
         <div><strong>是什么</strong><span>SignalCraft Labs 提供 量化交易软件开发、交易平台定制和自动化交易系统开发服务，把客户已有规则工程化为可测试、可审计的执行系统。</span></div><div><strong>服务对象</strong><span>已有可说明的策略规则、信号来源或交易执行流程，需要完成生产级工程实现。 需要连接 TradingView、研究系统或内部信号源与券商、交易所或 FIX API。 需要订单状态、风险限制、人工暂停、对账、日志和异常告警。 希望获得源码、测试证据、部署文件和运维交接，而不是不可控的黑盒产品。</span></div><div><strong>交付物</strong><span>架构与接口约定：梳理信号来源、外部 API、数据模型、订单生命周期、失败路径和安全边界。 执行与集成层：实现 API 适配、参数校验、幂等处理、下单撤单、拒单处理和持仓同步。 风控与操作控制：加入仓位和敞口限制、交易时段、价格保护、限频、人工暂停和可选审批节点。 运行证据：交付结构化日志、拒单原因、监控告警、对账记录和可复现测试用例。 源码与私有部署：交付源码、配置样例、部署文件、运维手册、重启回滚和密钥轮换说明。</span></div><div><strong>不做什么</strong><span>不提供投资建议、喊单、资金托管、提现权限管理或收益承诺。</span></div><div><strong>交付包</strong><span>API Starter、Execution System、Private Infrastructure 三档，按接口数量、风控复杂度、后台和部署范围评估。</span></div><div><strong>联系方式</strong><span>contact@pddjf.com / 微信 btc1688 / Telegram @yf16881</span></div>
       </div>
+    </section><section class="section content-band" aria-labelledby="agent-development-title">
+      <div class="section-head">
+        <p class="eyebrow">Trading Agent Engineering</p>
+        <h2 id="agent-development-title">AI 交易智能体开发：把模型能力接入可控交易系统</h2>
+        <p>面向已有交易规则、研究流程或运营 SOP 的团队，量化交易智能体不是一个自行追求收益的黑盒机器人，而是受权限、风控、审批和审计约束的软件执行层。AI Agent 交易系统开发可从只读分析或建议模式开始，再按风险等级逐步开放工具调用。</p>
+      </div>
+      <div class="detail-grid">
+        <article><h3>量化交易智能体</h3><p>连接行情、研究数据、持仓和订单状态，让智能体在明确的数据来源与任务范围内完成分析、解释、异常归因或操作建议。</p></article><article><h3>人工审批工作流</h3><p>对下单、撤单、改仓、参数变更等高风险动作设置审批节点；审批人可查看输入、建议、风控结果和预期影响后再决定是否执行。</p></article><article><h3>确定性风控与权限</h3><p>模型输出不会绕过仓位、敞口、价格偏离、交易时段、限频和 API 最小权限等确定性规则，提现和划转权限不进入交付范围。</p></article><article><h3>可审计的工具调用</h3><p>记录提示上下文、数据版本、工具参数、审批人、执行结果、拒绝原因和异常告警，支持复盘、暂停、人工接管和回滚。</p></article>
+      </div>
+      <article class="evidence-table">
+        <h3>带人工审批和风控的交易智能体</h3>
+        <p>适合把重复分析、异常处置和受控操作变成可验证流程；不提供自主盈利承诺、交易信号、代客决策或不经审批的高风险执行。</p>
+      </article>
     </section>
 
     <section id="fit" class="section answer-section">
@@ -406,7 +440,7 @@
         <p class="eyebrow">FAQ</p>
         <h2>常见问题</h2>
       </div>
-      <div class="faq-list"><article><h3>可以开发哪些量化交易软件？</h3><p>可覆盖信号接入、券商或交易所 API、订单执行、风险控制、持仓与成交对账、运营后台、日志告警和私有化部署。</p></article><article><h3>可以接入现有策略或代码吗？</h3><p>可以。首先需要评估现有代码、信号格式、依赖、接口权限、状态模型和验收标准。</p></article><article><h3>支持哪些券商、交易所和 FIX 接口？</h3><p>需要根据官方 API 能力、客户账户权限、测试环境、订单类型和部署限制逐项确认，也可以先进行接口可行性评估。</p></article><article><h3>上线前会测试什么？</h3><p>可测试参数校验、重复事件、下单撤单、拒单、部分成交、断线重连、持仓同步、人工暂停、告警、重启和回滚。</p></article><article><h3>是否交付源码？</h3><p>可以。约定的交付包可包含源码、配置样例、部署文件、测试记录、运维手册和远程交接。</p></article><article><h3>能部署到自己的服务器吗？</h3><p>可以。在环境和运维责任明确后，可部署到客户自有云账户、VPS 或服务器。</p></article><article><h3>是否提供交易信号或承诺投资回报？</h3><p>不提供。SignalCraft Labs 只实现客户定义的流程，不提供信号、投资建议、资金托管或代客交易，也不对投资结果作任何承诺。</p></article></div>
+      <div class="faq-list"><article><h3>可以开发哪些量化交易软件？</h3><p>可覆盖信号接入、券商或交易所 API、订单执行、风险控制、持仓与成交对账、运营后台、日志告警和私有化部署。</p></article><article><h3>可以接入现有策略或代码吗？</h3><p>可以。首先需要评估现有代码、信号格式、依赖、接口权限、状态模型和验收标准。</p></article><article><h3>支持哪些券商、交易所和 FIX 接口？</h3><p>需要根据官方 API 能力、客户账户权限、测试环境、订单类型和部署限制逐项确认，也可以先进行接口可行性评估。</p></article><article><h3>上线前会测试什么？</h3><p>可测试参数校验、重复事件、下单撤单、拒单、部分成交、断线重连、持仓同步、人工暂停、告警、重启和回滚。</p></article><article><h3>是否交付源码？</h3><p>可以。约定的交付包可包含源码、配置样例、部署文件、测试记录、运维手册和远程交接。</p></article><article><h3>能部署到自己的服务器吗？</h3><p>可以。在环境和运维责任明确后，可部署到客户自有云账户、VPS 或服务器。</p></article><article><h3>AI 交易智能体和普通交易机器人有什么区别？</h3><p>交易智能体可读取受控上下文、调用已授权工具并处理多步骤工作流；普通交易机器人通常执行固定规则。两者都应受确定性风控、权限、日志和暂停机制约束。</p></article><article><h3>会让交易智能体直接下单吗？</h3><p>默认可从只读分析、建议或模拟模式开始。是否开放下单取决于书面范围、API 权限、确定性风控和审批规则，高风险动作可以强制人工确认。</p></article><article><h3>是否提供交易信号或承诺投资回报？</h3><p>不提供。SignalCraft Labs 只实现客户定义的流程，不提供信号、投资建议、资金托管或代客交易，也不对投资结果作任何承诺。</p></article></div>
     </section>
 
     <section class="section related-section">

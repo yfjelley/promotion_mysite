@@ -98,6 +98,46 @@ function jsonResponse(body, status = 200) {
   }), status, BRIEF_API_PATH);
 }
 
+function briefHtmlResponse(body, status = 200, language = "zh-CN") {
+  const english = language === "en";
+  const success = body.ok === true;
+  const title = success
+    ? english ? "Project brief received" : "项目 Brief 已收到"
+    : english ? "Project brief was not submitted" : "项目 Brief 未提交";
+  const message = success
+    ? english
+      ? "Thank you. SignalCraft Labs has stored this brief securely and will review the project boundary before replying."
+      : "感谢提交。SignalCraft Labs 已安全保存这份 Brief，并会先核对项目边界再回复。"
+    : english
+      ? "The submission could not be accepted. Please return to the form and check the required fields, or contact us by email."
+      : "本次提交未被接受。请返回表单检查必填项，或直接通过邮箱联系。";
+  const homeHref = english ? "/en/contact/" : "/contact/";
+  const backLabel = english ? "Return to the project brief" : "返回项目 Brief";
+  const emailLabel = english ? "Email SignalCraft Labs" : "邮件联系 SignalCraft Labs";
+  const reference = success && body.id && body.id !== "accepted"
+    ? `<p class="reference">${english ? "Reference" : "提交编号"}: <code>${String(body.id).replace(/[^a-zA-Z0-9-]/g, "")}</code></p>`
+    : "";
+  const html = `<!doctype html>
+<html lang="${english ? "en" : "zh-CN"}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>${title}</title>
+  <style>body{margin:0;background:#07111f;color:#e9f4f1;font:16px/1.6 system-ui,sans-serif}main{max-width:680px;margin:12vh auto;padding:40px;border:1px solid #245b53;border-radius:20px;background:#0d1d2a}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.1}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}a{display:inline-block;padding:12px 18px;border-radius:999px;background:#078b7b;color:white;text-decoration:none}a+ a{background:transparent;border:1px solid #3e746b}.reference{color:#9fc4bd}code{color:#c8f7ec}</style>
+</head>
+<body><main><p>SignalCraft Labs</p><h1>${title}</h1><p>${message}</p>${reference}<div class="actions"><a href="${homeHref}">${backLabel}</a><a href="mailto:contact@pddjf.com">${emailLabel}</a></div></main></body>
+</html>`;
+  return withSecurityHeaders(new Response(html, {
+    status,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
+    }
+  }), status, BRIEF_API_PATH);
+}
+
 function cleanString(value, maxLength = BRIEF_FIELD_LIMIT) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
@@ -116,48 +156,69 @@ async function briefRateKey(request) {
 }
 
 async function handleBriefSubmission(request, env, url) {
+  const contentType = (request.headers.get("Content-Type") || "").toLowerCase();
+  const nativeForm = contentType.startsWith("application/x-www-form-urlencoded");
+  let responseLanguage = "zh-CN";
+  const respond = (body, status) => nativeForm
+    ? briefHtmlResponse(body, status, responseLanguage)
+    : jsonResponse(body, status);
+
   if (request.method !== "POST") {
-    return jsonResponse({ ok: false, error: "method_not_allowed" }, 405);
+    return respond({ ok: false, error: "method_not_allowed" }, 405);
   }
 
   if (!env.BRIEF_SUBMISSIONS) {
-    return jsonResponse({ ok: false, error: "submission_service_unavailable" }, 503);
+    return respond({ ok: false, error: "submission_service_unavailable" }, 503);
   }
 
   const origin = request.headers.get("Origin");
   const fetchSite = request.headers.get("Sec-Fetch-Site");
   if ((origin && origin !== url.origin) || (fetchSite && !["same-origin", "none"].includes(fetchSite))) {
-    return jsonResponse({ ok: false, error: "origin_not_allowed" }, 403);
+    return respond({ ok: false, error: "origin_not_allowed" }, 403);
   }
 
   const contentLength = Number(request.headers.get("Content-Length") || 0);
   if (contentLength > 24_000) {
-    return jsonResponse({ ok: false, error: "payload_too_large" }, 413);
+    return respond({ ok: false, error: "payload_too_large" }, 413);
   }
 
   let rawBody;
   try {
     rawBody = await request.text();
   } catch {
-    return jsonResponse({ ok: false, error: "invalid_json" }, 400);
+    return respond({ ok: false, error: "invalid_payload" }, 400);
   }
   if (rawBody.length > 24_000) {
-    return jsonResponse({ ok: false, error: "payload_too_large" }, 413);
+    return respond({ ok: false, error: "payload_too_large" }, 413);
   }
 
   let payload;
   try {
-    payload = JSON.parse(rawBody);
+    if (nativeForm) {
+      const form = new URLSearchParams(rawBody);
+      responseLanguage = form.get("lang") === "en" ? "en" : "zh-CN";
+      payload = {
+        site: BRIEF_SITE,
+        website: form.get("website") || "",
+        qualification: "native_form",
+        fields: Object.fromEntries(form.entries()),
+        tracking: {
+          landing_page: request.headers.get("Referer") || ""
+        }
+      };
+    } else {
+      payload = JSON.parse(rawBody);
+    }
   } catch {
-    return jsonResponse({ ok: false, error: "invalid_json" }, 400);
+    return respond({ ok: false, error: "invalid_payload" }, 400);
   }
 
   if (!payload || payload.site !== BRIEF_SITE) {
-    return jsonResponse({ ok: false, error: "invalid_site" }, 400);
+    return respond({ ok: false, error: "invalid_site" }, 400);
   }
 
   if (cleanString(payload.website, 200)) {
-    return jsonResponse({ ok: true, id: "accepted" }, 201);
+    return respond({ ok: true, id: "accepted" }, 201);
   }
 
   const fields = cleanRecord(payload.fields, [
@@ -173,12 +234,12 @@ async function handleBriefSubmission(request, env, url) {
     "notes"
   ]);
   if (!fields.projectType || !fields.contactMethod || !fields.riskBoundary) {
-    return jsonResponse({ ok: false, error: "required_fields_missing" }, 400);
+    return respond({ ok: false, error: "required_fields_missing" }, 400);
   }
 
   const rateKey = await briefRateKey(request);
   if (await env.BRIEF_SUBMISSIONS.get(rateKey)) {
-    return jsonResponse({ ok: false, error: "rate_limited" }, 429);
+    return respond({ ok: false, error: "rate_limited" }, 429);
   }
 
   const id = crypto.randomUUID();
@@ -213,7 +274,7 @@ async function handleBriefSubmission(request, env, url) {
     expirationTtl: BRIEF_TTL_SECONDS
   });
 
-  return jsonResponse({ ok: true, id, receivedAt }, 201);
+  return respond({ ok: true, id, receivedAt }, 201);
 }
 
 function withSecurityHeaders(response, status = response.status, assetPath = "") {
