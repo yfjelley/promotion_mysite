@@ -149,7 +149,7 @@ assert.equal(requests[0].options.method, "POST");
 const payload = JSON.parse(requests[0].options.body);
 assert.equal(payload.site, "pddjf");
 assert.equal(payload.fields.projectType, "Custom trading software development");
-assert.equal(payload.fields.budget, "Execution System Package - 5000 美金起");
+assert.equal(payload.fields.budget, "Execution System Package - 10000 美金起");
 assert.equal(payload.fields.contactMethod, "buyer@example.com");
 assert.equal(payload.tracking.gclid, "test-click-id");
 assert.equal(payload.tracking.utm_source, "google");

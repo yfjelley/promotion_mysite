@@ -188,11 +188,13 @@
         <label>Planning budget
           <select name="budget" data-brief-label="Budget range">
             <option value="">Select one</option>
-            <option value="API Starter Package - 2000 美金起">API Starter Package — from USD 2,000</option>
-            <option value="Execution System Package - 5000 美金起">Execution System Package — from USD 5,000</option>
-            <option value="Private Infrastructure Package - 10000 美金起">Private Infrastructure Package — from USD 10,000</option>
-            <option value="Read-only audit / diagnosis - 2000 美金起">Read-only audit / diagnosis — from USD 2,000</option>
-            <option value="Ongoing monitoring - audit 后报价">Ongoing monitoring — scoped after audit</option>
+            <option value="API 可行性评估 - 2000 美金固定价">API feasibility assessment — USD 2,000 fixed</option>
+            <option value="API Starter Package - 4000 美金起">API Starter Package — from USD 4,000</option>
+            <option value="Execution System Package - 10000 美金起">Execution System Package — from USD 10,000</option>
+            <option value="Private Infrastructure Package - 20000 美金起">Private Infrastructure Package — from USD 20,000</option>
+            <option value="7天只读一致性审计 - 2500 美金起">7-day read-only consistency audit — from USD 2,500</option>
+            <option value="生产事故诊断 - 3000 美金起">Production incident diagnosis — from USD 3,000</option>
+            <option value="持续监控 - 2000 美金/月起">Ongoing monitoring — from USD 2,000/month</option>
             <option value="还在评估">Still evaluating</option>
           </select>
         </label>
@@ -233,7 +235,7 @@ Dashboard, alerts, source handoff or private deployment needs:
 Target package and planning budget:
 Preferred timeline:</pre>
         <h3>Useful assessment inputs</h3>
-        <ul class="check-list"><li>Signal source: TradingView alert, research code, manual approval or a combined rules engine.</li><li>Target interface: broker API, exchange API, FIX, REST/WebSocket or an internal system.</li><li>Workflow rules: submit, cancel, position, limits, failure handling and reconciliation.</li><li>Deployment needs: customer cloud, VPS, Docker, logs, alerts, dashboard or access controls.</li><li>Expected package: API Starter, Execution System or Private Infrastructure.</li><li>Planning budget: from USD 2,000 / 5,000 / 10,000, or state that scope is still under review.</li></ul>
+        <ul class="check-list"><li>Signal source: TradingView alert, research code, manual approval or a combined rules engine.</li><li>Target interface: broker API, exchange API, FIX, REST/WebSocket or an internal system.</li><li>Workflow rules: submit, cancel, position, limits, failure handling and reconciliation.</li><li>Deployment needs: customer cloud, VPS, Docker, logs, alerts, dashboard or access controls.</li><li>Expected package: API Starter, Execution System or Private Infrastructure.</li><li>Paid work starts at USD 2,000; delivery packages start at USD 4,000 / 10,000 / 20,000.</li></ul>
       </article>
     </div>
     <div class="detail-grid package-hints"><article><h3>API Starter Package</h3><p>A bounded workflow with one primary signal source, one API, baseline controls, logs and test-environment validation.</p><a href="/#packages">View delivery packages</a></article><article><h3>Execution System Package</h3><p>Multiple rules or instruments with order-state handling, risk controls, monitoring, alerts and reconciliation.</p><a href="/#packages">View delivery packages</a></article><article><h3>Private Infrastructure Package</h3><p>Multiple interfaces or accounts, operator controls, audit logs, customer-controlled deployment and operational handoff.</p><a href="/#packages">View delivery packages</a></article></div>

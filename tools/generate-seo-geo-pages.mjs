@@ -6,12 +6,13 @@ import { hyperliquidFeeData } from "./hyperliquid-fee-data.mjs";
 
 const root = new URL("..", import.meta.url).pathname;
 const publicDir = join(root, "public");
-const today = "2026-07-17";
+const today = "2026-07-25";
 const auditContentDate = "2026-07-21";
+const pricingContentDate = "2026-07-25";
 const hyperliquidCheckedDate = "2026-07-19";
 const hyperliquidSocialImage = "/hyperliquid-bot-social.jpg";
 const defaultSocialImage = "/og-image.png";
-const llmsUpdatedAt = "2026-07-23";
+const llmsUpdatedAt = "2026-07-25";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
@@ -66,9 +67,9 @@ const hyperliquidReferenceLinks = [
 ];
 
 const offers = [
-  { name: "API Starter Package", price: "2000", label: "2000 美金起", description: "单一信号源、单一 API、基础风控、日志和测试环境执行链路。" },
-  { name: "Execution System Package", price: "5000", label: "5000 美金起", description: "多规则、多品种、订单路由、风控引擎、监控日志和异常告警。" },
-  { name: "Private Infrastructure Package", price: "10000", label: "10000 美金起", description: "多接口、多账户、后台、权限、审计日志、私有化部署和运维交接。" }
+  { name: "API Starter Package", price: "4000", label: "4000 美金起", description: "单一信号源、单一 API、基础风控、日志和测试环境执行链路。" },
+  { name: "Execution System Package", price: "10000", label: "10000 美金起", description: "多规则、多品种、订单路由、风控引擎、监控日志和异常告警。" },
+  { name: "Private Infrastructure Package", price: "20000", label: "20000 美金起", description: "多接口、多账户、后台、权限、审计日志、私有化部署和运维交接。" }
 ];
 
 const packageDescriptionsEn = {
@@ -230,22 +231,22 @@ const platformDetailRowsEn = {
 };
 
 const auditOffersZh = [
-  { name: "7天只读一致性审计", price: "2000", label: "USD 2,000 起", description: "一个交易场所、一个策略或执行链路、一个事故或差异窗口；资料齐备后 7 个工作日交付。", featured: true },
-  { name: "生产事故诊断", price: "2000", label: "USD 2,000 起", description: "围绕已知事故还原时间线、验证根因、列出整改和回归测试；复杂事故先确认范围。" },
-  { name: "持续监控基线", label: "审计后报价", description: "先完成事实基线，再按账户、交易场所、检查频率、告警渠道和响应边界报价。" }
+  { name: "7天只读一致性审计", price: "2500", label: "USD 2,500 起", description: "一个交易场所、一个策略或执行链路、一个事故或差异窗口；资料齐备后 7 个工作日交付。", featured: true },
+  { name: "生产事故诊断", price: "3000", label: "USD 3,000 起", description: "围绕已知事故还原时间线、验证根因、列出整改和回归测试；复杂事故先确认范围。" },
+  { name: "持续监控基线", price: "2000", label: "USD 2,000/月起", description: "先完成事实基线，再按账户、交易场所、检查频率、告警渠道和响应边界确定月度范围。" }
 ];
 
 const auditOffersEn = [
-  { name: "7-Day Read-Only Consistency Audit", price: "2000", label: "From USD 2,000", description: "One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.", featured: true },
-  { name: "Production Incident Diagnosis", price: "2000", label: "From USD 2,000", description: "Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first." },
-  { name: "Ongoing Monitoring Baseline", label: "Quoted after audit", description: "Establish account truth first, then scope checks, venues, frequency, alert routing and response obligations." }
+  { name: "7-Day Read-Only Consistency Audit", price: "2500", label: "From USD 2,500", description: "One venue, one strategy or execution chain, and one incident or discrepancy window; delivered in seven business days after evidence is ready.", featured: true },
+  { name: "Production Incident Diagnosis", price: "3000", label: "From USD 3,000", description: "Reconstruct a known incident, test root-cause hypotheses, and produce remediation and regression cases; complex incidents are scoped first." },
+  { name: "Ongoing Monitoring Baseline", price: "2000", label: "From USD 2,000/month", description: "Establish account truth first, then define a monthly scope for checks, venues, frequency, alert routing and response obligations." }
 ];
 
 const auditCommonZh = {
   lang: "zh-CN",
   auditService: true,
   buyerIntentVersion: 1,
-  lastModified: auditContentDate,
+  lastModified: pricingContentDate,
   factStrip: ["只读权限", "不需要下单或提现", "结论回指证据", "不承诺收益"],
   offerCatalogName: "交易系统审计、诊断与监控服务",
   serviceOffers: auditOffersZh,
@@ -283,7 +284,7 @@ const auditCommonEn = {
   lang: "en",
   auditService: true,
   buyerIntentVersion: 1,
-  lastModified: auditContentDate,
+  lastModified: pricingContentDate,
   factStrip: ["Read-only access", "No trade or withdrawal rights", "Evidence-linked findings", "No return promises"],
   offerCatalogName: "Trading system audit, diagnosis and monitoring services",
   serviceOffers: auditOffersEn,
@@ -337,7 +338,7 @@ const auditServicePages = [
     heroSecondaryLabel: "查看审计交付",
     outcomesTitle: "客户拿到的不是评分，而是一条可复现的证据链",
     outcomesIntro: "每个关键判断都说明证据来源、未知项和下一步验证动作。",
-    purchaseSnapshot: [["适合对象", "已有实盘系统但账实不一致、事故难复盘或多账户风险口径混乱的团队。"], ["首期范围", "一个交易场所、一个策略或执行链路、一个事故或差异窗口。"], ["交付周期", "资料和只读访问齐备后 7 个工作日。"], ["规划预算", "USD 2,000 起；复杂系统先做范围冻结。"]],
+    purchaseSnapshot: [["适合对象", "已有实盘系统但账实不一致、事故难复盘或多账户风险口径混乱的团队。"], ["首期范围", "一个交易场所、一个策略或执行链路、一个事故或差异窗口。"], ["交付周期", "资料和只读访问齐备后 7 个工作日。"], ["规划预算", "USD 2,500 起；复杂系统先做范围冻结。"]],
     purchaseNote: "初次沟通只需要脱敏样例。正式审计前会书面确认账户、时间窗口、数据来源、交付物和不包含事项。",
     customerOutcomes: [["四层事实核对", "策略与部署、内部状态、交易所订单成交、账户持仓余额逐层对齐。"], ["差异矩阵", "按对象、时间、来源和影响列出缺失、重复、延迟或口径冲突。"], ["根因与置信度", "把已证实、较可能和证据不足分开，避免靠猜测改生产代码。"], ["整改优先级", "按 P0 / P1 / P2 列出修复、回归验证、负责人和回滚点。"]],
     fit: ["实盘订单、成交、持仓或余额与系统记录不一致。", "发生过重复下单、漏单、重启失控或多账户敞口失真。", "现有监控只提示异常，却不能解释根因和整改顺序。"],
@@ -366,7 +367,7 @@ const auditServicePages = [
     heroPrimaryLabel: "提交事故窗口",
     outcomesTitle: "把一团日志变成可验证的故障链",
     outcomesIntro: "从第一处状态偏离开始，而不是从最终损失倒推一个听起来合理的故事。",
-    purchaseSnapshot: [["适合问题", "重复下单、漏单、撤单残留、仓位漂移、重启恢复或任务卡死。"], ["诊断范围", "一个已知事故窗口及其直接关联账户和执行链路。"], ["交付周期", "证据齐备后通常 3–7 个工作日。"], ["规划预算", "USD 2,000 起；跨系统事故先做范围评估。"]],
+    purchaseSnapshot: [["适合问题", "重复下单、漏单、撤单残留、仓位漂移、重启恢复或任务卡死。"], ["诊断范围", "一个已知事故窗口及其直接关联账户和执行链路。"], ["交付周期", "证据齐备后通常 3–7 个工作日。"], ["规划预算", "USD 3,000 起；跨系统事故先做范围评估。"]],
     purchaseNote: "若事故仍在持续，客户应先按自身应急流程暂停或降级系统；本服务默认不是即时接管或 7×24 应急值守。",
     customerOutcomes: [["统一时间线", "校正时区与时钟偏差，把关键事件排成一条链。"], ["状态转换核对", "逐步检查意图、请求、确认、成交、撤单、重试和恢复。"], ["根因实验", "用回放、日志查询或只读数据验证主要假设。"], ["防复发清单", "把修复点转成回归测试、告警和操作 runbook。"]],
     fit: ["事故有相对明确的起止窗口和受影响账户。", "日志、数据库状态或交易所订单成交至少保留一部分。", "需要独立视角验证根因和防复发措施。"],
@@ -395,7 +396,7 @@ const auditServicePages = [
     heroPrimaryLabel: "评估监控基线",
     outcomesTitle: "监控的目标是让异常有证据、有级别、有负责人",
     outcomesIntro: "每条告警都要能回答发生了什么、影响谁、先做什么，以及何时升级。",
-    purchaseSnapshot: [["前置条件", "先完成基线审计，确认账户、状态源、风险口径和已知差异。"], ["首期范围", "一个系统、一个交易场所和一组明确账户。"], ["监控内容", "健康、订单成交、持仓余额、任务状态、风险边界和数据新鲜度。"], ["服务边界", "检查频率、通知渠道、服务时段和响应责任逐项书面约定。"]],
+    purchaseSnapshot: [["前置条件", "先完成基线审计，确认账户、状态源、风险口径和已知差异。"], ["首期范围", "一个系统、一个交易场所和一组明确账户。"], ["监控内容", "健康、订单成交、持仓余额、任务状态、风险边界和数据新鲜度。"], ["规划预算", "USD 2,000/月起；检查频率、通知渠道、服务时段和响应责任逐项约定。"]],
     purchaseNote: "持续监控不默认包含 7×24 人工响应、自动修复或生产变更。先定义告警事实和客户处置流程，再讨论值守。",
     customerOutcomes: [["事实基线", "确认每个账户和状态源的权威口径、更新时间和容差。"], ["分级检查", "区分服务不可用、状态漂移、风险越界、数据陈旧和普通运营事件。"], ["低噪声告警", "每条告警包含证据、影响范围、建议动作和去重 / 恢复条件。"], ["责任闭环", "定义确认、升级、关闭和复盘所需的负责人及证据。"]],
     fit: ["账户、策略或交易场所数量增加，人工对账容易漏。", "已经有日志和告警，但噪声高、状态不可信或无人闭环。", "希望先从一个系统建立监控基线，再逐步扩展。"],
@@ -427,7 +428,7 @@ const auditServicePagesEn = [
     heroSecondaryLabel: "Review audit outputs",
     outcomesTitle: "Receive a reproducible evidence chain, not a generic score",
     outcomesIntro: "Every material conclusion states its source, confidence, unknowns and next validation action.",
-    purchaseSnapshot: [["Best fit", "Live systems with unexplained account drift, weak incident evidence or inconsistent multi-account risk state."], ["Initial scope", "One venue, one strategy or execution chain, and one incident or discrepancy window."], ["Delivery window", "Seven business days after required evidence and read-only access are ready."], ["Planning budget", "From USD 2,000; complex systems start with scope freezing."]],
+    purchaseSnapshot: [["Best fit", "Live systems with unexplained account drift, weak incident evidence or inconsistent multi-account risk state."], ["Initial scope", "One venue, one strategy or execution chain, and one incident or discrepancy window."], ["Delivery window", "Seven business days after required evidence and read-only access are ready."], ["Planning budget", "From USD 2,500; complex systems start with scope freezing."]],
     purchaseNote: "The first conversation needs masked samples only. Before work starts, accounts, window, data sources, outputs and exclusions are confirmed in writing.",
     customerOutcomes: [["Four-layer reconciliation", "Align strategy and deployment, internal state, venue execution and real account truth."], ["Discrepancy matrix", "Classify missing, duplicate, delayed or conflicting state by object, time, source and impact."], ["Root cause with confidence", "Separate proven findings, likely hypotheses and evidence gaps before production code changes."], ["Remediation priority", "Turn findings into P0 / P1 / P2 actions, validation methods, owners and rollback points."]],
     fit: ["Orders, fills, positions or balances disagree with internal system records.", "The team has seen duplicate orders, missing orders, restart failures or distorted multi-account exposure.", "Existing monitoring reports symptoms but cannot explain root cause or remediation order."],
@@ -456,7 +457,7 @@ const auditServicePagesEn = [
     heroPrimaryLabel: "Send the incident window",
     outcomesTitle: "Turn fragmented evidence into a testable failure chain",
     outcomesIntro: "Start from the first state divergence instead of inventing a story backwards from the final loss.",
-    purchaseSnapshot: [["Best fit", "Duplicate or missing orders, stale open orders, position drift, restart recovery or stuck jobs."], ["Diagnosis scope", "One known incident window and its directly affected accounts and execution chain."], ["Delivery window", "Usually three to seven business days after evidence is complete."], ["Planning budget", "From USD 2,000; cross-system incidents are scoped first."]],
+    purchaseSnapshot: [["Best fit", "Duplicate or missing orders, stale open orders, position drift, restart recovery or stuck jobs."], ["Diagnosis scope", "One known incident window and its directly affected accounts and execution chain."], ["Delivery window", "Usually three to seven business days after evidence is complete."], ["Planning budget", "From USD 3,000; cross-system incidents are scoped first."]],
     purchaseNote: "If the incident is ongoing, the customer should use its own pause or degradation process first. This service is not immediate takeover or 24/7 emergency response by default.",
     customerOutcomes: [["Unified timeline", "Normalize timezone and clock drift across system and venue evidence."], ["State-transition review", "Trace intent, request, acknowledgement, fill, cancel, retry and recovery."], ["Root-cause tests", "Use replay, log queries or read-only data to test the main hypotheses."], ["Prevention plan", "Translate fixes into regression cases, alerts and an operator runbook."]],
     fit: ["The incident has a reasonably defined window and affected accounts.", "At least some logs, database state or venue execution history remain available.", "The team needs an independent root-cause and prevention review."],
@@ -485,7 +486,7 @@ const auditServicePagesEn = [
     heroPrimaryLabel: "Assess a monitoring baseline",
     outcomesTitle: "Make every exception evidence-backed, prioritized and owned",
     outcomesIntro: "Every alert should explain what happened, who is affected, what to do first and when to escalate.",
-    purchaseSnapshot: [["Prerequisite", "Baseline audit confirming accounts, authoritative sources, risk definitions and known differences."], ["Initial scope", "One system, one venue and one defined account group."], ["Coverage", "Health, orders and fills, positions and balances, job state, risk limits and data freshness."], ["Service boundary", "Check frequency, channels, service hours and response ownership are agreed line by line."]],
+    purchaseSnapshot: [["Prerequisite", "Baseline audit confirming accounts, authoritative sources, risk definitions and known differences."], ["Initial scope", "One system, one venue and one defined account group."], ["Coverage", "Health, orders and fills, positions and balances, job state, risk limits and data freshness."], ["Planning budget", "From USD 2,000/month; frequency, channels, service hours and response ownership are agreed line by line."]],
     purchaseNote: "Ongoing monitoring does not include 24/7 human response, automatic repair or production changes by default. Define alert facts and the customer response process before discussing on-call coverage.",
     customerOutcomes: [["Account-truth baseline", "Define authoritative sources, refresh time and tolerance for every monitored account."], ["Tiered checks", "Separate service outage, state drift, risk breach, stale data and routine operations."], ["Low-noise alerts", "Include evidence, impact, recommended action, deduplication and recovery conditions."], ["Ownership loop", "Define acknowledgement, escalation, closure and postmortem evidence."]],
     fit: ["Account, strategy or venue count has outgrown manual reconciliation.", "Existing alerts are noisy, state is untrusted or incidents have no owner.", "The team wants to prove one monitoring baseline before expanding."],
@@ -754,7 +755,7 @@ const servicePages = [
     faq: [
       ["Alpaca paper trading 可以先验证吗？", "可以，通常建议先用 paper trading 验证订单和风控流程。"],
       ["可以把研究脚本接进来吗？", "可以，但需要先整理输出信号格式、频率和风险边界。"],
-      ["是否支持后台面板？", "可以作为 5000 美金或 10000 美金档的扩展范围评估。"],
+      ["是否支持后台面板？", "可以作为 10000 美金或 20000 美金档的扩展范围评估。"],
       ["REST 和 WebSocket 都需要吗？", "通常 REST 用于请求和查询，WebSocket 用于订单状态和行情事件监听，具体按项目范围决定。"],
       ["Alpaca 数据权限会影响执行吗？", "会。行情数据权限、延迟、交易时段和资产类别会影响信号验证与订单决策。"],
       ["Alpaca paper 和 live 环境怎么验收？", "先用 paper trading 验证信号解析、风控拒绝、订单状态和告警，再评估是否切到 live 小范围灰度。"]
@@ -995,7 +996,7 @@ const servicePages = [
     purchaseSnapshot: [
       ["Best fit", "A defined trading, financial data, reconciliation, risk or operations workflow with named users and source systems."],
       ["Initial scope", "One priority workflow, one primary integration and a written acceptance path before broader platform work."],
-      ["Planning budget", "From USD 2,000 for a bounded API starter; larger workflow and private-infrastructure projects are scoped separately."],
+      ["Planning budget", "From USD 4,000 for a bounded API starter; production workflows start at USD 10,000 and private infrastructure at USD 20,000."],
       ["Delivery window", "Confirmed after API access, data ownership, security boundaries, dependencies and acceptance tests are reviewed."]
     ],
     purchaseNote: "A scoped estimate requires the target users, current workflow, source systems, API or data access, control requirements and acceptance criteria. Credentials are not needed for the first discussion.",
@@ -1360,7 +1361,7 @@ const servicePages = [
     intro: "An order acknowledgement is not proof that a trading system remains correct after retries, partial fills or a WebSocket disconnect. For strategy owners with defined rules, we build a Hyperliquid execution workflow that can identify duplicate intent, recover order and position state, pause on uncertainty and show operators what needs review.",
     serviceType: "Custom Hyperliquid trading bot development",
     llmsLabel: "Custom Hyperliquid trading bot development",
-    lastModified: hyperliquidCheckedDate,
+    lastModified: pricingContentDate,
     ogImage: hyperliquidSocialImage,
     buyerIntentVersion: 1,
     buyerAudience: "Strategy owners or small trading teams with written entry, exit, sizing and risk rules.",
@@ -1373,7 +1374,7 @@ const servicePages = [
     outcomesIntro: "Bring defined trading rules and failure examples; receive an execution system with recoverable state, operator controls and acceptance evidence.",
     purchaseSnapshot: [
       ["Best fit", "Strategy owners or small trading teams with written entry, exit, sizing and risk rules."],
-      ["Planning budget", "USD 5,000-10,000+ for a production-oriented execution workflow."],
+      ["Planning budget", "From USD 10,000 for a production-oriented execution workflow; private team infrastructure starts at USD 20,000."],
       ["Typical delivery window", "About 4-8 weeks after rules, access and acceptance cases are ready."],
       ["Send first", "A masked rule outline, instruments, order types, sizing and risk limits."]
     ],
@@ -1422,7 +1423,7 @@ const servicePages = [
       ["What happens when the WebSocket disconnects?", "The runtime detects the gap, reconnects, processes the new snapshot and backfills required account or order state through the info endpoint before normal routing resumes."],
       ["Do you need my main wallet private key?", "No. The production design should use the smallest suitable API/agent-wallet scope, while the customer keeps main-wallet control. Exact approval and revocation procedures are documented and tested."],
       ["Can the system trade for a subaccount or vault?", "Yes when the official account model and customer permissions support the workflow. Signing remains tied to the authorized master or agent model, and vault/subaccount state is reconciled separately."],
-      ["How much does custom Hyperliquid bot development cost?", "A narrow API or connector assessment can start near the USD 2,000 package. A production-oriented bot with execution state, risk controls, monitoring and private deployment typically starts around USD 5,000; multi-strategy or team infrastructure is usually USD 10,000+."],
+      ["How much does custom Hyperliquid bot development cost?", "A bounded API feasibility assessment starts at USD 2,000. A scoped API starter starts at USD 4,000, a production execution system at USD 10,000+, and multi-strategy or team infrastructure at USD 20,000+."],
       ["How long does a Hyperliquid bot project take?", "A defined single-workflow build commonly plans around 4-8 weeks after the trading rules, permissions and acceptance cases are ready. Broader dashboards, multiple strategies or account models require a phased estimate."],
       ["Does the service include a profitable strategy?", "No. You provide the execution rules and risk boundaries. Software acceptance is based on deterministic behavior, logs, controls and recovery tests, not returns."]
     ],
@@ -1440,12 +1441,12 @@ const servicePages = [
     breadcrumb: "TradingView to Hyperliquid Automation",
     eyebrow: "Paid Integration Service · For Existing TradingView Alerts",
     title: "TradingView to Hyperliquid Automation Service | Cost and Delivery",
-    description: "Connect existing TradingView alerts to Hyperliquid. Scoped projects start around USD 2,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.",
+    description: "Connect existing TradingView alerts to Hyperliquid. Scoped projects start at USD 4,000 for webhook validation, duplicate protection, risk checks, alerts and source delivery.",
     h1: "Connect Your TradingView Alerts to Hyperliquid",
     intro: "For traders who already have usable Pine Script alerts and want a developer to own the webhook, execution and failure-handling work. You send one real alert example; we scope the safest route to a testable Hyperliquid workflow.",
     serviceType: "TradingView to Hyperliquid automation development",
     llmsLabel: "TradingView to Hyperliquid automation",
-    lastModified: hyperliquidCheckedDate,
+    lastModified: pricingContentDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
     buyerIntentVersion: 1,
@@ -1459,7 +1460,7 @@ const servicePages = [
     outcomesIntro: "The project starts with an alert you already understand and ends with a workflow you can observe, pause and operate.",
     purchaseSnapshot: [
       ["Best fit", "Traders with working Pine Script alerts and explicit order and risk rules."],
-      ["Planning budget", "USD 2,000-5,000+ for one scoped alert-to-execution workflow."],
+      ["Planning budget", "From USD 4,000 for one scoped alert-to-execution workflow; production scope starts at USD 10,000."],
       ["Typical delivery window", "About 2-4 weeks when the alert format and acceptance cases are ready."],
       ["Send first", "One masked alert payload, intended order action, sizing rule and block conditions."]
     ],
@@ -1504,7 +1505,7 @@ const servicePages = [
       ["How do you avoid duplicate orders?", "The workflow validates a durable signal identifier, strategy, instrument, action and time window before it creates a new order intent."],
       ["What happens when an alert cannot be executed?", "The system records the reason, sends an alert, and can fail closed instead of silently retrying an ambiguous action."],
       ["Do you need my main wallet private key?", "No. The design uses the smallest suitable trading authorization while the customer retains main-wallet and withdrawal control."],
-      ["How much does TradingView to Hyperliquid automation cost?", "A clearly defined single-alert workflow can fit the USD 2,000 starter range. More order types, state reconciliation, dashboards or multi-strategy routing usually move into the USD 5,000+ execution package."],
+      ["How much does TradingView to Hyperliquid automation cost?", "A clearly defined single-alert workflow starts at USD 4,000. More order types, state reconciliation, dashboards or multi-strategy routing usually move into the USD 10,000+ execution package."],
       ["How long does the integration take?", "A scoped workflow commonly plans around 2-4 weeks after we receive a real alert example, order behavior, risk limits and deployment access. Ambiguous Pine logic or multiple strategies require a separate discovery phase."],
       ["What should I send for an initial assessment?", "Send one masked alert example, the intended order, position-sizing rule, risk limits, instruments and preferred deployment environment."]
     ],
@@ -1521,12 +1522,12 @@ const servicePages = [
     breadcrumb: "Hyperliquid Systems for Trading Teams",
     eyebrow: "Custom Engineering · For Trading and Product Teams",
     title: "Hyperliquid Trading System for Teams | Risk and Private Deployment",
-    description: "Customer-controlled Hyperliquid execution systems for trading firms, treasuries and product teams, with shared risk controls, audit logs and private deployment. From USD 10,000.",
+    description: "Customer-controlled Hyperliquid execution systems for trading firms, treasuries and product teams, with shared risk controls, audit logs and private deployment. From USD 20,000.",
     h1: "Build a Hyperliquid Execution System Your Team Can Operate",
     intro: "For trading firms, digital-asset teams and fintech product teams that have outgrown one-off scripts. We turn strategies, roles, limits and exception handling into a controlled execution service deployed under company ownership.",
     serviceType: "Hyperliquid execution system development for trading teams",
     llmsLabel: "Hyperliquid execution systems for trading teams",
-    lastModified: hyperliquidCheckedDate,
+    lastModified: pricingContentDate,
     ogImage: hyperliquidSocialImage,
     platformDetailSlug: "hyperliquid-api-trading-bot-development",
     buyerIntentVersion: 1,
@@ -1540,7 +1541,7 @@ const servicePages = [
     outcomesIntro: "The goal is not more automation for its own sake. It is controlled execution that operators can understand, pause and recover.",
     purchaseSnapshot: [
       ["Best fit", "Trading firms, treasuries or fintech teams with multiple strategies, accounts or operators."],
-      ["Planning budget", "USD 10,000+ for a phased, company-controlled execution system."],
+      ["Planning budget", "USD 20,000+ for a phased, company-controlled execution system."],
       ["Delivery approach", "A scoped first operating slice, followed by agreed expansion phases."],
       ["Send first", "A workflow map covering roles, accounts, strategies, limits and incident ownership."]
     ],
@@ -1585,7 +1586,7 @@ const servicePages = [
       ["Can operators approve orders manually?", "Yes. Approval points, pause controls and exception review can be included when fully automatic routing is not appropriate."],
       ["Do you provide a dashboard?", "A focused operator dashboard can be included in the Execution System or Private Infrastructure scope when the team needs shared state and controls."],
       ["Who controls the infrastructure and keys?", "The customer controls the hosting, main wallet and credential lifecycle. The runtime receives only the smallest permissions required for the agreed workflow."],
-      ["How much does a Hyperliquid trading system for a team cost?", "A company-controlled execution system normally starts in the USD 10,000+ private-infrastructure range. The estimate depends on strategy count, accounts, operator roles, dashboards, approval points, monitoring and deployment requirements."],
+      ["How much does a Hyperliquid trading system for a team cost?", "A company-controlled execution system normally starts in the USD 20,000+ private-infrastructure range. The estimate depends on strategy count, accounts, operator roles, dashboards, approval points, monitoring and deployment requirements."],
       ["How long does a team system take to deliver?", "We first scope one operable slice and its acceptance path. A focused first phase can often be planned in 6-10 weeks, while multiple strategies, dashboards and integrations are delivered as separately accepted phases."],
       ["How is the project accepted?", "Acceptance is based on agreed workflows, controls, logs, failure recovery and handoff—not trading returns."]
     ],
@@ -1636,7 +1637,7 @@ const faqPage = {
   intro: "这里集中回答客户在咨询前最常问的问题。所有回答都以技术开发和系统交付为边界，不构成投资建议。",
   questions: [
     ["你们是卖策略还是做系统开发？", "我们做自动交易系统和交易 API 定制开发，不出售收益承诺型策略，不代管资金，也不替客户做投资判断。"],
-    ["交付包为什么是 2000 / 5000 / 10000 美金三档？", "2000 美金通常适合 API Starter Package，5000 美金适合 Execution System Package，10000 美金适合 Private Infrastructure Package。最终范围以输入条件、交付物和验收清单为准。"],
+    ["公开价格如何划分？", "边界清楚的 API 可行性评估固定 2000 美金；API Starter Package 4000 美金起，Execution System Package 10000 美金起，Private Infrastructure Package 20000 美金起。最终范围以输入条件、交付物和验收清单为准。"],
     ["TradingView Webhook 自动化需要什么资料？", "需要 Alert 文案、信号变量、品种、周期、方向、仓位规则、止损止盈和异常处理方式。"],
     ["券商 API 项目前最需要确认什么？", "需要确认账户 API 权限、地区限制、订单类型、交易品种、数据权限和是否有测试环境。"],
     ["你们会接触客户资金吗？", "不会。我们建议使用最小权限 API Key，不需要提现权限，不代管账户或资金。"],
@@ -2834,7 +2835,7 @@ const contactPage = {
     "交易规则：入场、出场、仓位、止损止盈、撤单和异常处理。",
     "部署要求：客户服务器、VPS、Docker、日志、告警、后台或权限系统。",
     "目标交付包：API Starter、Execution System 或 Private Infrastructure。",
-    "预算档位：2000 / 5000 / 10000 美金起，或说明还在评估阶段。"
+    "正式付费服务最低 USD 2,000；交付包为 4000 / 10000 / 20000 美金起。"
   ],
   briefTemplate: [
     "项目目标：",
@@ -2876,7 +2877,7 @@ const englishContactPage = {
     "Workflow rules: submit, cancel, position, limits, failure handling and reconciliation.",
     "Deployment needs: customer cloud, VPS, Docker, logs, alerts, dashboard or access controls.",
     "Expected package: API Starter, Execution System or Private Infrastructure.",
-    "Planning budget: from USD 2,000 / 5,000 / 10,000, or state that scope is still under review."
+    "Paid work starts at USD 2,000; delivery packages start at USD 4,000 / 10,000 / 20,000."
   ],
   briefTemplate: [
     "Project objective:",
@@ -3991,7 +3992,7 @@ ${page.ogImage ? `  <meta property="og:image" content="${site}${page.ogImage}">
         <a href="#faq">FAQ</a>
         <a href="${contactHrefFor(page)}">${english ? "Contact" : "联系"}</a>
       </nav>
-      <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">${(page.factStrip || (english ? ["Packages: USD 2,000 / 5,000 / 10,000+", "Source delivery", "Private deployment", "No custody"] : ["交付包：2000 / 5000 / 10000 美金起", "源码交付", "私有部署", "不代管资金"])).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+      <div class="fact-strip" aria-label="${english ? "Delivery packages and service boundaries" : "项目交付包和服务边界"}">${(page.factStrip || (english ? ["Packages: USD 4,000 / 10,000 / 20,000+", "Source delivery", "Private deployment", "No custody"] : ["交付包：4000 / 10000 / 20000 美金起", "源码交付", "私有部署", "不代管资金"])).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
     </section>
 
 ${buyerIntentSummarySection(page)}${buyerSnapshotSection(page)}
@@ -4351,11 +4352,13 @@ function leadBriefForm(language = "zh-CN") {
         <label>${english ? "Planning budget" : "预算档位"}
           <select name="budget" data-brief-label="Budget range">
             <option value="">${english ? "Select one" : "请选择"}</option>
-            ${option("API Starter Package - 2000 美金起", "API Starter Package — from USD 2,000")}
-            ${option("Execution System Package - 5000 美金起", "Execution System Package — from USD 5,000")}
-            ${option("Private Infrastructure Package - 10000 美金起", "Private Infrastructure Package — from USD 10,000")}
-            ${option("Read-only audit / diagnosis - 2000 美金起", "Read-only audit / diagnosis — from USD 2,000")}
-            ${option("Ongoing monitoring - audit 后报价", "Ongoing monitoring — scoped after audit")}
+            ${option("API 可行性评估 - 2000 美金固定价", "API feasibility assessment — USD 2,000 fixed")}
+            ${option("API Starter Package - 4000 美金起", "API Starter Package — from USD 4,000")}
+            ${option("Execution System Package - 10000 美金起", "Execution System Package — from USD 10,000")}
+            ${option("Private Infrastructure Package - 20000 美金起", "Private Infrastructure Package — from USD 20,000")}
+            ${option("7天只读一致性审计 - 2500 美金起", "7-day read-only consistency audit — from USD 2,500")}
+            ${option("生产事故诊断 - 3000 美金起", "Production incident diagnosis — from USD 3,000")}
+            ${option("持续监控 - 2000 美金/月起", "Ongoing monitoring — from USD 2,000/month")}
             ${option("还在评估", "Still evaluating")}
           </select>
         </label>
@@ -5594,7 +5597,9 @@ ${exchangeFeeComparisonPages.map((page) => `- ${page.h1}: ${canonical(page.slug)
 - Public engineering notes: ${engineeringNotesUrl}
 - LinkedIn profile: ${linkedinProfileUrl}
 - Service regions: Hong Kong, Singapore, Taiwan, United States, and other remote-friendly regions.
-- Delivery packages: API Starter Package (2000 美金起), Execution System Package (5000 美金起), Private Infrastructure Package (10000 美金起), depending on scope.
+- Minimum paid engagement: USD 2,000 for a bounded API feasibility assessment.
+- Delivery packages: API Starter Package (4000 美金起), Execution System Package (10000 美金起), Private Infrastructure Package (20000 美金起), depending on scope.
+- Audit services: 7-day read-only consistency audit from USD 2,500; production incident diagnosis from USD 3,000; ongoing monitoring from USD 2,000/month after a baseline audit.
 - Deliverables may include source code, configuration examples, deployment documentation, logging, alerts, risk checks, and remote handoff.
 - Each core service page includes an AI-citable factual summary, required input checklist, API key permission guidance, delivery package breakdown, acceptance checklist, and at least five topic-specific FAQ entries.
 - We do not provide investment advice, signals, stock recommendations, managed accounts, custody, withdrawal permissions, or profit promises.
