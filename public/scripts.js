@@ -179,15 +179,15 @@ function applyBriefQueryState(form) {
     "Multi-account trading monitoring": "Multi-account trading monitoring"
   };
   const budgetTypes = {
-    "API Starter Package": "API Starter Package - 2000 美金起",
-    "Execution System Package": "Execution System Package - 5000 美金起",
-    "Private Infrastructure Package": "Private Infrastructure Package - 10000 美金起",
-    "7天只读一致性审计": "Read-only audit / diagnosis - 2000 美金起",
-    "生产事故诊断": "Read-only audit / diagnosis - 2000 美金起",
-    "持续监控基线": "Ongoing monitoring - audit 后报价",
-    "7-Day Read-Only Consistency Audit": "Read-only audit / diagnosis - 2000 美金起",
-    "Production Incident Diagnosis": "Read-only audit / diagnosis - 2000 美金起",
-    "Ongoing Monitoring Baseline": "Ongoing monitoring - audit 后报价"
+    "API Starter Package": "API Starter Package - 4000 美金起",
+    "Execution System Package": "Execution System Package - 10000 美金起",
+    "Private Infrastructure Package": "Private Infrastructure Package - 20000 美金起",
+    "7天只读一致性审计": "7天只读一致性审计 - 2500 美金起",
+    "生产事故诊断": "生产事故诊断 - 3000 美金起",
+    "持续监控基线": "持续监控 - 2000 美金/月起",
+    "7-Day Read-Only Consistency Audit": "7天只读一致性审计 - 2500 美金起",
+    "Production Incident Diagnosis": "生产事故诊断 - 3000 美金起",
+    "Ongoing Monitoring Baseline": "持续监控 - 2000 美金/月起"
   };
   const projectType = projectTypes[params.get("project")];
   const budget = budgetTypes[params.get("package")];

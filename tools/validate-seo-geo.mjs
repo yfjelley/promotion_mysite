@@ -9,7 +9,7 @@ const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-9689
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const currentScriptHref = "/scripts.js?v=20260721-brief-attribution-en";
 const contentDate = "2026-07-21";
-const llmsUpdatedAt = "2026-07-23";
+const llmsUpdatedAt = "2026-07-25";
 const errors = [];
 
 function walk(dir) {
@@ -42,6 +42,33 @@ function fileForPath(pathname) {
 
 function requireText(label, value, needle) {
   if (!value.includes(needle)) errors.push(`${label}: missing ${needle.replaceAll("\n", " ")}`);
+}
+
+function forbidText(label, value, needle) {
+  if (value.includes(needle)) errors.push(`${label}: contains retired text ${needle.replaceAll("\n", " ")}`);
+}
+
+function validatePaidOfferFloor(label, value) {
+  for (const match of value.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let schema;
+    try {
+      schema = JSON.parse(match[1]);
+    } catch {
+      continue;
+    }
+
+    const visit = (node) => {
+      if (!node || typeof node !== "object") return;
+      const types = Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]];
+      const price = Number(node.price);
+      if (types.includes("Offer") && Number.isFinite(price) && price > 0 && price < 2000) {
+        errors.push(`${label}: paid Offer price ${price} is below the USD 2,000 public floor`);
+      }
+      Object.values(node).forEach(visit);
+    };
+
+    visit(schema);
+  }
 }
 
 function readServiceManifest() {
@@ -204,11 +231,48 @@ for (const [route, title] of searchSnippetExpectations) {
 const contactHtml = readFileSync(join(publicDir, "contact", "index.html"), "utf8");
 requireText("contact/index.html", contactHtml, "必填项只有项目类型、想解决的问题和联系方式");
 requireText("contact/index.html", contactHtml, "不要发送账户密码、提现权限或完整 API Secret");
+[
+  "API 可行性评估 - 2000 美金固定价",
+  "API Starter Package - 4000 美金起",
+  "Execution System Package - 10000 美金起",
+  "Private Infrastructure Package - 20000 美金起",
+  "7天只读一致性审计 - 2500 美金起",
+  "生产事故诊断 - 3000 美金起",
+  "持续监控 - 2000 美金/月起"
+].forEach((needle) => requireText("contact/index.html", contactHtml, needle));
+[
+  "API Starter Package - 2000 美金起",
+  "Execution System Package - 5000 美金起",
+  "Private Infrastructure Package - 10000 美金起",
+  "Read-only audit / diagnosis - 2000 美金起"
+].forEach((needle) => forbidText("contact/index.html", contactHtml, needle));
 const englishContactHtml = readFileSync(join(publicDir, "en", "contact", "index.html"), "utf8");
 requireText("en/contact/index.html", englishContactHtml, "Structured project brief");
 requireText("en/contact/index.html", englishContactHtml, "Send project brief securely");
 requireText("en/contact/index.html", englishContactHtml, 'data-lang="en"');
 requireText("en/contact/index.html", englishContactHtml, currentScriptHref);
+[
+  "API feasibility assessment — USD 2,000 fixed",
+  "API Starter Package — from USD 4,000",
+  "Execution System Package — from USD 10,000",
+  "Private Infrastructure Package — from USD 20,000",
+  "7-day read-only consistency audit — from USD 2,500",
+  "Production incident diagnosis — from USD 3,000",
+  "Ongoing monitoring — from USD 2,000/month"
+].forEach((needle) => requireText("en/contact/index.html", englishContactHtml, needle));
+
+const pricingPageExpectations = new Map([
+  ["/", ["4000 美金起", "10000 美金起", "20000 美金起"]],
+  ["/fintech-software-development/", ["From USD 4,000", "USD 10,000", "USD 20,000"]],
+  ["/hyperliquid-api-trading-bot-development/", ["USD 2,000", "USD 4,000", "USD 10,000+", "USD 20,000+"]],
+  ["/trading-system-consistency-audit/", ["USD 2,500 起", "USD 3,000 起", "USD 2,000/月起"]],
+  ["/trading-system-incident-diagnosis-service/", ["From USD 2,500", "From USD 3,000", "From USD 2,000/month"]]
+]);
+
+for (const [route, needles] of pricingPageExpectations) {
+  const html = readFileSync(fileForPath(route), "utf8");
+  needles.forEach((needle) => requireText(`${route} pricing`, html, needle));
+}
 
 for (const [asset, needle] of requiredIconTextAssets) {
   const assetPath = join(publicDir, asset);
@@ -246,6 +310,7 @@ for (const file of pddjfHtmlFiles) {
   const route = routeFor(file);
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1] || "";
   const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || "";
+  validatePaidOfferFloor(rel, html);
 
   if ([...title].length > 70) errors.push(`${rel}: title exceeds 70 characters (${[...title].length})`);
   if ([...description].length > 180) errors.push(`${rel}: description exceeds 180 characters (${[...description].length})`);
@@ -421,7 +486,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260721-quant-development-zh"',
+  'const ASSET_RELEASE = "20260725-pddjf-pricing-floor"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
@@ -502,9 +567,16 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
   "Technical articles",
   engineeringNotesUrl,
   linkedinProfileUrl,
-  "2000 美金",
-  "5000 美金",
+  "Minimum paid engagement: USD 2,000",
+  "API Starter Package (4000 美金起)",
+  "Execution System Package (10000 美金起)",
+  "Private Infrastructure Package (20000 美金起)",
+  "7-day read-only consistency audit from USD 2,500",
+  "production incident diagnosis from USD 3,000",
+  "ongoing monitoring from USD 2,000/month",
+  "4000 美金",
   "10000 美金",
+  "20000 美金",
   "We do not provide investment advice"
 ].forEach((needle) => requireText("llms.txt", llms, needle));
 
