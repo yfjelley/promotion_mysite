@@ -550,10 +550,10 @@ const servicePages = [
       ["这是 TradingView Webhook automation developer 服务吗？", "是。范围是把客户已有 Alert 和规则接入可验证的 Webhook、风控、订单路由、日志和告警链路，不提供策略信号或收益承诺。"]
     ],
     related: [
-      ["/risk-engine/", "风控引擎开发"],
+      ["/articles/tradingview-webhook-strategy-automation/", "TradingView Webhook 技术实现"],
+      ["/broker-api/ibkr/", "IBKR API 自动化"],
       ["/exchange-api-trading-bot-development/", "交易所 API 自动化"],
-      ["/private-deployment/", "私有化部署"],
-      ["/zh/custom-trading-software-development/", "定制量化交易软件开发"]
+      ["/risk-engine/", "风控引擎开发"]
     ]
   },
   {
@@ -607,6 +607,7 @@ const servicePages = [
     ],
     related: [
       ["/tradingview-webhook-automation/", "TradingView Webhook"],
+      ["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"],
       ["/risk-engine/", "风控引擎"],
       ["/case-studies/", "匿名案例"]
     ]
@@ -658,10 +659,10 @@ const servicePages = [
       ["IBKR 常见错误怎么处理？", "会把连接断开、权限不足、数据订阅缺失、订单类型不支持和交易时段限制归类到日志，并配置告警或暂停规则。"]
     ],
     related: [
-      ["/zh/custom-trading-software-development/", "定制量化交易软件开发"],
+      ["/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/", "IBKR TWS 与 Client Portal 对比"],
+      ["/tradingview-webhook-automation/", "TradingView Webhook 自动化"],
       ["/broker/api/", "券商 API 总览"],
-      ["/fix-api-order-routing/", "FIX API 订单路由"],
-      ["/broker-api/alpaca/", "Alpaca API 自动化"]
+      ["/fix-api-order-routing/", "FIX API 订单路由"]
     ]
   },
   {
@@ -710,6 +711,8 @@ const servicePages = [
       ["Schwab API 最容易卡在哪里？", "常见卡点是应用审核、OAuth 授权、账户范围不可见、订单权限不足和接口返回字段变化。"]
     ],
     related: [
+      ["/articles/schwab-api-token-refresh-runbook/", "Schwab Token Refresh Runbook"],
+      ["/articles/schwab-trader-api-oauth-automation-checklist/", "Schwab OAuth 自动化清单"],
       ["/broker/api/", "券商 API 总览"],
       ["/broker-api/ibkr/", "IBKR API 自动化"],
       ["/risk-engine/", "风控引擎"]

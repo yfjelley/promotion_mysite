@@ -531,6 +531,28 @@ for (const loc of locs) {
   if (!existsSync(target)) errors.push(`sitemap loc has no file: ${loc}`);
 }
 
+for (const [pathname, requiredLinks] of [
+  [
+    "/tradingview-webhook-automation/",
+    ["/articles/tradingview-webhook-strategy-automation/", "/broker-api/ibkr/"]
+  ],
+  [
+    "/exchange-api-trading-bot-development/",
+    ["/tradingview-webhook-automation/", "/zh/tools/crypto-exchange-fee-calculator/"]
+  ],
+  [
+    "/broker-api/ibkr/",
+    ["/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/", "/tradingview-webhook-automation/"]
+  ],
+  [
+    "/broker-api/schwab/",
+    ["/articles/schwab-api-token-refresh-runbook/", "/articles/schwab-trader-api-oauth-automation-checklist/"]
+  ]
+]) {
+  const html = readFileSync(fileForPath(pathname), "utf8");
+  requiredLinks.forEach((href) => requireText(pathname, html, `href="${href}"`));
+}
+
 const robots = readFileSync(join(publicDir, "robots.txt"), "utf8");
 [
   "User-agent: *",
