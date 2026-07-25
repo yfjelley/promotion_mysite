@@ -486,7 +486,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260721-quant-development-zh"',
+  'const ASSET_RELEASE = "20260725-pddjf-pricing-floor"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
