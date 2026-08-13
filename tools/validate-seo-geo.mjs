@@ -204,6 +204,9 @@ if (existsSync(customTradingSoftwareFile)) {
   requireText("custom trading software development page", customTradingSoftwareHtml, "Trading AI Agent Development");
   requireText("custom trading software development page", customTradingSoftwareHtml, "Human approval workflow");
   requireText("custom trading software development page", customTradingSoftwareHtml, "Deterministic risk and permissions");
+  requireText("custom trading software development page", customTradingSoftwareHtml, "What a custom trading software development company should deliver");
+  requireText("custom trading software development page", customTradingSoftwareHtml, "How much does custom trading software development cost?");
+  requireText("custom trading software development page", customTradingSoftwareHtml, "View the IBKR path");
   requireText("custom trading software development page", customTradingSoftwareHtml, currentScriptHref);
 }
 
@@ -233,10 +236,12 @@ for (const [route, title] of searchSnippetExpectations) {
 }
 
 for (const [route, needles] of [
-  ["custom-trading-software-development", ["We design and build custom trading platforms", "order-state reconciliation"]],
-  ["ibkr-api-automation-developer", ["IBKR API automation for account owners", "IB Gateway or Client Portal integration"]],
+  ["custom-trading-software-development", ["We design and build custom trading platforms", "order-state reconciliation", "USD 4,000", "2-4 weeks", "4-8 weeks"]],
+  ["ibkr-api-automation-developer", ["IBKR API automation for account owners", "IB Gateway or Client Portal integration", "/en/contact/?project=ibkr-api-automation-developer", "Hire an IBKR API developer for a workflow your team can operate", "How much does IBKR API development cost?"]],
   ["articles/ibkr-tws-gateway-vs-client-portal", ['href="/ibkr-api-automation-developer/"', "IBKR API 自动化开发服务"]],
   ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", ['href="/ibkr-api-automation-developer/"', "IBKR API automation development"]],
+  ["articles/schwab-api-token-refresh-runbook", ['href="/custom-trading-software-development/"', "Custom trading software development"]],
+  ["articles/how-we-prevent-duplicate-tradingview-webhook-orders", ['href="/tradingview-webhook-developer/"', 'href="/custom-trading-software-development/"']],
   ["tools/crypto-exchange-fee-calculator", ["Crypto Exchange Fees Calculator for Maker, Taker and VIP Costs", "separates complete public VIP ladders from base-rate references"]]
 ]) {
   const html = readFileSync(join(publicDir, route, "index.html"), "utf8");
@@ -438,8 +443,9 @@ for (const file of pddjfHtmlFiles) {
     const expectedBuyerHeading = buyerPositioningExpectations.get(routeFor(file));
     if (expectedBuyerHeading) {
       const heroHtml = html.match(/<section class="content-hero[^"]*"[\s\S]*?<\/section>/i)?.[0] ?? "";
+      const heroVisibleText = heroHtml.replace(/<[^>]+>/g, " ");
       requireText(rel, heroHtml, `<h1>${expectedBuyerHeading}</h1>`);
-      if (/\bdeveloper\b/i.test(heroHtml)) {
+      if (/\bdeveloper\b/i.test(heroVisibleText)) {
         errors.push(`${rel}: buyer-facing hero still uses developer positioning`);
       }
     }

@@ -64,7 +64,13 @@ if (existsSync(pagePath)) {
     "FAQPage",
     "/data/exchange-fees.json",
     "Full public ladder",
-    "Base rate verified"
+    "Base rate verified",
+    "Crawlable default scenario",
+    "At $10M monthly volume, OKX is lowest among the complete public ladders",
+    "OKX",
+    "VIP 2",
+    "$2,130",
+    "?v=10000000&amp;m=70&amp;a=0&amp;api=0"
   ].forEach((needle) => requireValue(html.includes(needle), `generated page: missing ${needle}`));
   [
     "Effective rate (bps)",
@@ -84,6 +90,9 @@ if (existsSync(zhPagePath)) {
     "30 天手续费对比",
     "来源与计算方法",
     "如何正确理解对比结果",
+    "可抓取默认场景",
+    "月成交量 1000 万美元时，完整公开等级中 OKX 模型手续费最低",
+    "$2,130",
     "有效费率（bps）",
     "查看图表数据表",
     `hreflang="en" href="https://pddjf.com/tools/crypto-exchange-fee-calculator/"`,

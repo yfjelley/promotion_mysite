@@ -918,6 +918,27 @@ const servicePages = [
     contactProject: "custom-trading-software-development",
     heroPrimaryLabel: "Get a project fit assessment",
     heroSecondaryLabel: "See what you receive",
+    heroSecondaryHref: "#project-paths",
+    outcomesTitle: "What a custom trading software development company should deliver",
+    outcomesIntro: "A credible build turns documented trading rules into controlled execution, operating evidence and a source-code handoff—not another opaque trading bot.",
+    purchaseSnapshot: [
+      ["Best fit", "Strategy owners, trading teams and fintech operators with documented rules, signal inputs and acceptance cases."],
+      ["Planning budget", "From USD 4,000 for one bounded API workflow; production execution systems start at USD 10,000 and private team infrastructure at USD 20,000."],
+      ["Typical delivery window", "About 2-4 weeks for a bounded integration or 4-8 weeks for a production workflow after access, rules and acceptance cases are ready."],
+      ["Send first", "A masked workflow outline covering signals, APIs, instruments, order actions, risk limits and the preferred deployment environment."]
+    ],
+    purchaseNote: "Planning ranges are not fixed quotes. Multiple strategies, accounts, dashboards, FIX connectivity or incomplete API access require a phased estimate.",
+    customerOutcomes: [
+      ["Workflow contract", "Document signals, API capabilities, state transitions, permissions, failure handling and acceptance tests before implementation."],
+      ["Controlled trading engine", "Route order intent through validation, idempotency, risk limits, operator controls and explicit order-state handling."],
+      ["Operational evidence", "Make submits, rejects, partial fills, reconnects and reconciliation visible through logs, alerts and replayable tests."],
+      ["Private handoff", "Deliver source code, configuration examples, deployment files, rollback steps and an operator runbook for customer-controlled infrastructure."]
+    ],
+    projectPaths: [
+      ["IBKR API automation", "Build an account-owner-controlled IBKR workflow for orders, positions, rebalancing, risk checks and reconciliation.", "/ibkr-api-automation-developer/", "View the IBKR path"],
+      ["TradingView execution", "Turn existing alerts into validated order intent with duplicate protection, risk decisions, routing and failure alerts.", "/tradingview-webhook-developer/", "View the TradingView path"],
+      ["FIX order routing", "Turn confirmed counterparty access into an operable FIX session, order lifecycle, recovery and audit workflow.", "/fix-api-order-routing-developer/", "View the FIX path"]
+    ],
     agentDevelopment: {
       eyebrow: "Trading Agent Engineering",
       title: "Trading AI Agent Development for Controlled Trading Workflows",
@@ -969,6 +990,9 @@ const servicePages = [
       ["What is tested before deployment?", "Tests can cover validation, duplicate events, submits, cancels, rejects, partial fills, disconnects, reconnects, position sync, manual pause, alerts, restart and rollback."],
       ["Do I receive the source code?", "Yes. The agreed delivery package can include source code, configuration examples, deployment files, test evidence, an operations runbook and remote handoff."],
       ["Can the system run in my own cloud account or VPS?", "Yes. Private deployment can target a customer-controlled cloud account, VPS or server when the environment and operational responsibilities are defined."],
+      ["Can you develop a custom trading engine?", "Yes. A scoped trading engine can normalize signals, validate order intent, apply deterministic risk rules, manage order state, reconcile positions and expose operator controls. The exact scope depends on the APIs, instruments and acceptance cases."],
+      ["How much does custom trading software development cost?", "A bounded API workflow starts at USD 4,000. Production execution systems start at USD 10,000, while multi-interface or team infrastructure starts at USD 20,000. Final pricing follows a written scope and acceptance path."],
+      ["How long does custom trading platform development take?", "A bounded integration commonly plans around 2-4 weeks. A production workflow commonly plans around 4-8 weeks after rules, API access and acceptance cases are ready; broader platforms are delivered in phases."],
       ["How is a trading AI agent different from a conventional trading bot?", "A trading agent can use controlled context, call approved tools and coordinate multi-step workflows, while a conventional bot usually executes fixed rules. Both still need deterministic risk checks, permissions, logs and pause controls."],
       ["Will the trading agent place orders autonomously?", "A project can begin in read-only, recommendation or simulation mode. Order access depends on the written scope, API permissions, deterministic risk checks and approval policy; high-risk actions can require human confirmation."],
       ["Do you provide signals, account management or guaranteed returns?", "No. SignalCraft Labs implements customer-defined workflows and does not provide signals, investment advice, custody, managed accounts or return promises."]
@@ -1145,8 +1169,30 @@ const servicePages = [
     buyerIntentVersion: 1,
     buyerAudience: "IBKR account owners, portfolio operators and trading teams with defined order or rebalancing rules.",
     buyerProblem: "Replace repetitive manual IBKR workflows and incomplete scripts with controlled execution, position sync and visible exception handling.",
+    contactProject: "ibkr-api-automation-developer",
     heroPrimaryLabel: "Discuss your IBKR workflow",
     heroSecondaryLabel: "Review the delivery scope",
+    heroSecondaryHref: "#project-paths",
+    outcomesTitle: "Hire an IBKR API developer for a workflow your team can operate",
+    outcomesIntro: "The project should prove the session, order, position and recovery behavior your account needs, then leave your team with source code and a documented operating path.",
+    purchaseSnapshot: [
+      ["Best fit", "IBKR account owners and trading teams with confirmed or pending API access, defined instruments and explicit order or portfolio rules."],
+      ["Planning budget", "From USD 4,000 for one bounded IBKR API workflow; production order and position systems start at USD 10,000."],
+      ["Typical delivery window", "About 2-4 weeks for a bounded workflow after account permissions, session choice and acceptance cases are ready."],
+      ["Send first", "Account region and type, intended API path, instruments, order types, data needs, risk limits and deployment preference—without credentials."]
+    ],
+    purchaseNote: "Multiple accounts, portfolio-wide reconciliation, operator dashboards or uncertain account permissions are scoped as separate phases.",
+    customerOutcomes: [
+      ["Account readiness", "Confirm account permissions, market data, order support, session constraints and the smallest testable IBKR workflow."],
+      ["Order-state control", "Handle submit, cancel, reject, partial fill, execution reports and position synchronization with stable identifiers."],
+      ["Recovery evidence", "Test reconnect, session expiry, restart and stale-state paths before expanding order permissions."],
+      ["Customer-controlled handoff", "Deliver source, configuration, logs, alerts, deployment notes and a runbook without taking control of the account."]
+    ],
+    projectPaths: [
+      ["Choose the IBKR API path", "Compare TWS API through Trader Workstation or IB Gateway with Client Portal Web API session and authentication constraints.", "/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/", "Read the API comparison"],
+      ["Design the broader trading system", "Place IBKR inside a controlled workflow with signal inputs, risk decisions, reconciliation and private deployment.", "/custom-trading-software-development/", "View the platform scope"],
+      ["Prepare order reconciliation", "Define order identifiers, execution reports, position truth and exception ownership before production rollout.", "/articles/broker-api-order-reconciliation-checklist/", "Use the reconciliation checklist"]
+    ],
     fit: [
       "You have or are preparing an Interactive Brokers account with relevant API access.",
       "You need order routing, position sync, portfolio workflow automation or execution logs.",
@@ -1179,6 +1225,8 @@ const servicePages = [
       ["Should I use IB Gateway or Client Portal?", "It depends on the execution workflow, session requirements, operations model, data needs and account constraints."],
       ["Can you automate portfolio rebalancing?", "Yes, if target weights, cash constraints, account scope, order rules and human confirmation requirements are clear."],
       ["What should be tested before going live?", "Connection stability, order types, cancel flow, rejects, trading hours, position sync, execution reports and audit logs."],
+      ["How much does IBKR API development cost?", "A bounded single-workflow integration starts at USD 4,000. Production order, position and reconciliation systems start at USD 10,000; broader multi-account or operator infrastructure is scoped separately."],
+      ["How long does an IBKR API automation project take?", "A bounded workflow commonly plans around 2-4 weeks after account permissions, the API path, instruments, order types and acceptance cases are confirmed."],
       ["Do you manage my IBKR account?", "No. The customer controls the account, credentials, funding, API permissions and final trading decisions."],
       ["Can this be privately deployed?", "Yes. Delivery can include source code, environment configuration, deployment documentation and a runbook."]
     ],
@@ -1915,6 +1963,10 @@ const articlePages = [
       "A max-position breach is rejected with a visible risk reason.",
       "Manual pause blocks new order routing before the API call.",
       "The client can review event ID, duplicate status, risk decision and alert delivery."
+    ],
+    related: [
+      ["TradingView webhook automation development", "/tradingview-webhook-developer/"],
+      ["Custom trading software development", "/custom-trading-software-development/"]
     ],
     references: [
       officialReferenceLinks[0],
@@ -2676,7 +2728,8 @@ const articlePages = [
     related: [
       ["Schwab broker API integration", "/broker-api/schwab/"],
       ["Schwab Trader API OAuth automation checklist", "/articles/schwab-trader-api-oauth-automation-checklist/"],
-      ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"]
+      ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"],
+      ["Custom trading software development", "/custom-trading-software-development/"]
     ],
     sections: [
       {
@@ -4555,6 +4608,33 @@ function exchangeFeeToolHtml(page) {
       <ul>${sources.map((source) => `<li><a href="${source.url}" rel="nofollow noopener" target="_blank">${escapeHtml(source.label)}</a><span>${t.checked} ${escapeHtml(source.checkedDate)}</span></li>`).join("")}</ul>
     </article>`;
   }).join("");
+  const defaultScenario = { volume: 10000000, makerShare: 70, takerShare: 30, assets: 0, apiShare: 0 };
+  const defaultScenarioCurrency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const defaultScenarioRows = exchangeFeeData.exchanges
+    .filter((exchange) => exchange.coverage === "full")
+    .map((exchange) => {
+      const eligibleTiers = exchange.tiers.filter((tier) => (
+        defaultScenario.volume >= tier.minVolume
+        && (!Number.isFinite(tier.minApiShareForVolume) || defaultScenario.apiShare >= tier.minApiShareForVolume)
+        && (!Number.isFinite(tier.maxApiShareForVolume) || defaultScenario.apiShare <= tier.maxApiShareForVolume)
+      ));
+      const tier = eligibleTiers.at(-1) || exchange.tiers[0];
+      const blendedPercent = ((tier.maker * defaultScenario.makerShare) + (tier.taker * defaultScenario.takerShare)) / 100;
+      return {
+        exchange: exchange.name,
+        tier: tier.name,
+        blendedBps: blendedPercent * 100,
+        cost: defaultScenario.volume * blendedPercent / 100
+      };
+    })
+    .sort((left, right) => left.cost - right.cost);
+  const defaultScenarioWinner = defaultScenarioRows[0];
+  const defaultScenarioTableRows = defaultScenarioRows.map((row) => `<tr>
+      <th scope="row">${escapeHtml(row.exchange)}</th>
+      <td>${escapeHtml(row.tier)}</td>
+      <td>${row.blendedBps.toFixed(2)} bps</td>
+      <td>${defaultScenarioCurrency.format(row.cost)}</td>
+    </tr>`).join("");
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -4628,6 +4708,14 @@ function exchangeFeeToolHtml(page) {
         <span><strong>0</strong> ${t.noKeys}</span>
         <span><strong>${escapeHtml(exchangeFeeData.lastVerified)}</strong> ${t.verified}</span>
       </div>
+    </section>
+
+    <section id="default-fee-scenario" class="section fee-comparison-summary" aria-labelledby="default-fee-scenario-title">
+      <p class="eyebrow">${zh ? "可抓取默认场景" : "Crawlable default scenario"}</p>
+      <h2 id="default-fee-scenario-title">${zh ? `月成交量 1000 万美元时，完整公开等级中 ${escapeHtml(defaultScenarioWinner.exchange)} 模型手续费最低` : `At $10M monthly volume, ${escapeHtml(defaultScenarioWinner.exchange)} is lowest among the complete public ladders`}</h2>
+      <p>${zh ? `假设资产余额为 0、API 交易占比不超过 20%、Maker / Taker 为 70% / 30%，${escapeHtml(defaultScenarioWinner.exchange)} ${escapeHtml(defaultScenarioWinner.tier)} 的 30 天手续费约为 ${defaultScenarioCurrency.format(defaultScenarioWinner.cost)}。以下静态表仅比较拥有完整公开等级的交易所；只有基础费率的交易所不会混入排名。` : `With zero qualifying assets, API share at 20% or less, and a 70% / 30% maker/taker mix, ${escapeHtml(defaultScenarioWinner.exchange)} ${escapeHtml(defaultScenarioWinner.tier)} models to about ${defaultScenarioCurrency.format(defaultScenarioWinner.cost)} in 30-day execution fees. This static table compares only exchanges with complete public ladders; base-rate-only references are not mixed into the ranking.`}</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>${zh ? "交易所" : "Exchange"}</th><th>${zh ? "估算等级" : "Estimated tier"}</th><th>${zh ? "混合费率" : "Blended rate"}</th><th>${zh ? "30 天手续费" : "30-day fee"}</th></tr></thead><tbody>${defaultScenarioTableRows}</tbody></table></div>
+      <p><a href="?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "在计算器中打开这个场景" : "Open this scenario in the calculator"}</a> · ${zh ? "费率数据核验日期" : "Fee dataset checked"}: ${escapeHtml(exchangeFeeData.lastVerified)}</p>
     </section>
 
     <section class="fee-tool-shell" data-exchange-fee-tool data-data-url="/data/exchange-fees.json" data-lang="${page.lang}">
