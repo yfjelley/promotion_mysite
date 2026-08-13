@@ -24,9 +24,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pddjf.com/og-image.png">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="stylesheet" href="/styles.css?v=20260805-contact-cta">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
+  <script src="/scripts.js?v=20260805-x-pixel-v1" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -129,12 +129,21 @@
       <p class="eyebrow">Project Brief</p>
       <h1>Tell us which workflow you need to improve</h1>
       <p class="hero-lede">Start with three items: the project type, the business or execution problem, and your preferred contact method. API access, budget, deployment and timeline can remain undecided at this stage. Do not send passwords, withdrawal permissions or complete API secrets.</p>
-      <div class="fact-strip" aria-label="Service boundaries"><span>Technical engineering</span><span>No custody</span><span>Source handoff</span><span>Remote collaboration</span></div>
+      <div class="hero-actions">
+        <a class="button primary" href="#project-brief" data-contact="contact_hero_start_brief">Start the 60-second brief</a>
+        <a class="button secondary" href="/case-studies/" data-contact="contact_hero_cases">Review anonymous cases</a>
+      </div>
+      <div class="fact-strip" aria-label="Service boundaries"><span>3 required fields</span><span>Initial reply within 1 business day</span><span>Paid work from USD 2,000</span><span>No password or complete API secret</span></div>
     </section>
     <section class="section content-band"><div class="answer-grid contact-brief-grid">
-      <article>
+      <article id="project-brief">
         <h3>Structured project brief</h3>
         <p>Only the project type, the problem and your contact method are required. Other fields are optional. We normally reply with an initial fit assessment within one business day and never need an account password, withdrawal permission or complete API secret for this step.</p>
+        <div class="brief-qualifier-strip" aria-label="Brief qualification summary">
+          <span><strong>3 required</strong><small>about 60 seconds</small></span>
+          <span><strong>1 business day</strong><small>initial fit reply</small></span>
+          <span><strong>USD 2,000+</strong><small>paid engagements</small></span>
+        </div>
         <form class="brief-form" method="post" action="/api/brief" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="en">
       <input type="hidden" name="lang" value="en">
       <label class="form-trap" aria-hidden="true">Leave this field empty

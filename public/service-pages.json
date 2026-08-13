@@ -95,7 +95,7 @@
     {
       "label": "Custom Trading Software & Platform Development",
       "url": "https://pddjf.com/custom-trading-software-development/",
-      "summary": "Custom trading software and Trading AI Agent Development for teams that need API integration, human approvals, risk checks, source delivery and private deployment."
+      "summary": "Custom trading platform and software development for trading teams that need broker or exchange APIs, risk controls, reconciliation, source code and private deployment."
     },
     {
       "label": "Fintech Software Development Services",
@@ -110,7 +110,7 @@
     {
       "label": "IBKR Trading Automation Service",
       "url": "https://pddjf.com/ibkr-api-automation-developer/",
-      "summary": "Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment."
+      "summary": "IBKR API automation development for order routing, portfolio workflows, position sync, risk checks, execution reports and private deployment."
     },
     {
       "label": "FIX Order Routing System Development",
@@ -197,7 +197,7 @@
       "summary": "TradingView Webhook 防重复下单需要稳定 event_id、时间窗口、冷却规则、幂等订单路由、风控拒绝日志和上线前回放测试。"
     },
     {
-      "label": "IBKR TWS API 和 Client Portal Web API 怎么选",
+      "label": "IBKR TWS API 与 Client Portal Web API 怎么选",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "summary": "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。"
     },

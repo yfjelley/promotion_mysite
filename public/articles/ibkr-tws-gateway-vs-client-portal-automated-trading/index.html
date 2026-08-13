@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IBKR TWS API vs Client Portal for Automated Trading</title>
+  <title>IBKR TWS API vs Client Portal Web API | Automation Guide</title>
   <meta name="description" content="Compare the TWS API through Trader Workstation or IB Gateway with Client Portal Web API, including authentication, sessions, order routing, market data and acceptance tests.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">
@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
+  <script src="/scripts.js?v=20260805-x-pixel-v1" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -109,7 +109,7 @@
         "@id": "https://pddjf.com/#organization"
       },
       "datePublished": "2026-07-07",
-      "dateModified": "2026-07-21",
+      "dateModified": "2026-08-13",
       "inLanguage": "en",
       "about": [
         "Trading API automation",
@@ -173,6 +173,10 @@
         <ul class="check-list"><li>Account region, account type and API access are confirmed.</li><li>Target instruments, order types, market data and trading hours are known.</li><li>The deployment model is clear: local machine, VPS, customer cloud or supervised process.</li><li>Reconnect, session expiry, rejects, cancel flow and position sync are tested.</li><li>Manual pause, order limits, audit logs and handoff documentation are part of the scope.</li></ul>
       </section>
       <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/ibkr-api-automation-developer/">IBKR API automation development</a></li><li><a href="/broker/api/">Broker API automation overview</a></li></ul>
+      </section>
+      <section>
         <h2>References</h2>
         <p class="article-fact-check">Official platform facts checked: 2026-07-21</p>
         <div class="reference-list">
@@ -199,7 +203,7 @@
         <a href="/articles/broker-api-order-reconciliation-checklist/">Read article</a>
       </article><article>
         <p class="eyebrow">IBKR API</p>
-        <h3>IBKR TWS API 和 Client Portal Web API 怎么选</h3>
+        <h3>IBKR TWS API 与 Client Portal Web API 怎么选</h3>
         <p>IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
         <a href="/articles/ibkr-tws-gateway-vs-client-portal/">Read article</a>
       </article>

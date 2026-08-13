@@ -121,14 +121,17 @@ If old immutable Pages deployment hashes must also be closed after they were
 created with an earlier Worker bundle, configure a Cloudflare account-level Bulk
 Redirect from `*.promotion-mysite.pages.dev` to `https://pddjf.com/`.
 
-## Google Ads tracking
+## Paid acquisition tracking
 
 The site loads the existing Google Ads and GA4 tags, but it only reports the Ads
 conversion when a visitor clicks or copies a contact method, or successfully
 submits the validated project Brief. The Brief handler emits the GA4
 `contact_submit` event and waits for the Google Ads conversion callback (with a
 short timeout fallback) before opening the visitor's email client. Page views
-are not counted as leads.
+are not counted as leads. Google `gclid`, Meta `fbclid`, UTM fields, the original
+landing page and the referrer survive the hop to the Brief form and are stored
+with the qualified submission. A Meta Pixel or Conversions API event must not be
+enabled until a real dataset exists in the owning Meta business portfolio.
 
 Run the focused conversion regression test with:
 

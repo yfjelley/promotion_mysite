@@ -79,7 +79,8 @@ for (const [label, path, language, counterpart] of [
 for (const [label, slug, needles] of [
   ["custom bot service", "hyperliquid-api-trading-bot-development", [
     "When Your Hyperliquid Bot Reconnects, Are Orders and Positions Still in Sync?",
-    "USD 5,000-10,000+",
+    "USD 10,000+",
+    "USD 20,000+",
     "About 4-8 weeks",
     "How much does custom Hyperliquid bot development cost?",
     "project=hyperliquid-api-trading-bot-development",
@@ -92,7 +93,8 @@ for (const [label, slug, needles] of [
   ]],
   ["TradingView service", "tradingview-to-hyperliquid-automation", [
     "Connect Your TradingView Alerts to Hyperliquid",
-    "USD 2,000-5,000+",
+    "USD 4,000",
+    "USD 10,000+",
     "About 2-4 weeks",
     "How much does TradingView to Hyperliquid automation cost?",
     "project=tradingview-to-hyperliquid-automation",
@@ -104,7 +106,7 @@ for (const [label, slug, needles] of [
   ["team service", "hyperliquid-trading-system-for-teams", [
     "Build a Hyperliquid Execution System Your Team Can Operate",
     "Trading firms, treasuries or fintech teams",
-    "USD 10,000+",
+    "USD 20,000+",
     "How much does a Hyperliquid trading system for a team cost?",
     "project=hyperliquid-trading-system-for-teams",
     "Team workflow",

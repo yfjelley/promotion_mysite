@@ -24,9 +24,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://pddjf.com/og-image.png">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="stylesheet" href="/styles.css?v=20260805-contact-cta">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
+  <script src="/scripts.js?v=20260805-x-pixel-v1" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -129,12 +129,21 @@
       <p class="eyebrow">Project Brief</p>
       <h1>先说清楚你想解决的问题</h1>
       <p class="hero-lede">首次联系只需三项：选择项目类型、说明最想解决的业务或执行问题、留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交；不要发送账户密码、提现权限或完整 API Secret。</p>
-      <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
+      <div class="hero-actions">
+        <a class="button primary" href="#project-brief" data-contact="contact_hero_start_brief">用 60 秒提交 Brief</a>
+        <a class="button secondary" href="/case-studies/" data-contact="contact_hero_cases">先看匿名案例</a>
+      </div>
+      <div class="fact-strip" aria-label="服务边界"><span>3 项必填</span><span>1 个工作日内初步回复</span><span>正式付费服务 USD 2,000 起</span><span>无需账户密码或完整 API Secret</span></div>
     </section>
     <section class="section content-band"><div class="answer-grid contact-brief-grid">
-      <article>
+      <article id="project-brief">
         <h3>结构化 Brief 表单</h3>
         <p>必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。</p>
+        <div class="brief-qualifier-strip" aria-label="项目 Brief 筛选摘要">
+          <span><strong>3 项必填</strong><small>约 60 秒完成</small></span>
+          <span><strong>1 个工作日</strong><small>初步适配回复</small></span>
+          <span><strong>USD 2,000 起</strong><small>正式付费服务</small></span>
+        </div>
         <form class="brief-form" method="post" action="/api/brief" data-mailto-brief data-brief-endpoint="/api/brief" data-contact="structured_brief_submit" data-lang="zh-CN">
       <input type="hidden" name="lang" value="zh-CN">
       <label class="form-trap" aria-hidden="true">请勿填写此字段

@@ -1,7 +1,7 @@
 const PRIMARY_HOST = "pddjf.com";
 const PAGES_PREVIEW_HOST = "promotion-mysite.pages.dev";
 const PDDJF_CANONICAL_HOSTS = new Set(["www.pddjf.com"]);
-const ASSET_RELEASE = "20260725-pddjf-pricing-floor";
+const ASSET_RELEASE = "20260813-organic-ctr";
 const BRIEF_API_PATH = "/api/brief";
 const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
@@ -57,6 +57,7 @@ const SECURITY_HEADERS = {
 
 const STATIC_ASSET_PATTERN = /\.(?:css|js|svg|png|jpe?g|webp|ico|woff2?)$/i;
 const STATIC_ASSET_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
+const CONTACT_INDEX_CONTROL_PATHS = new Set(["/contact/", "/en/contact/"]);
 const HTML_CACHE_BUST_PATHS = new Set([
   "/",
   "/terms",
@@ -251,6 +252,8 @@ async function handleBriefSubmission(request, env, url) {
     "utm_term",
     "utm_content",
     "gclid",
+    "fbclid",
+    "twclid",
     "project",
     "package",
     "landing_page",
@@ -299,6 +302,15 @@ function withSecurityHeaders(response, status = response.status, assetPath = "")
   }
 
   return withHeaders;
+}
+
+function withContactQueryIndexControl(response, url) {
+  if (!CONTACT_INDEX_CONTROL_PATHS.has(url.pathname) || !url.search) return response;
+
+  const controlledResponse = new Response(response.body, response);
+  controlledResponse.headers.set("X-Robots-Tag", "noindex, follow");
+  controlledResponse.headers.set("Cache-Control", "private, no-store");
+  return controlledResponse;
 }
 
 async function fetchAsset(env, request, pathname, statusOverride) {
@@ -369,7 +381,8 @@ export default {
 
     const releaseAssetPath = HTML_RELEASE_ASSETS.get(url.pathname);
     if (releaseAssetPath) {
-      return fetchAsset(env, request, releaseAssetPath);
+      const response = await fetchAsset(env, request, releaseAssetPath);
+      return withContactQueryIndexControl(response, url);
     }
 
     const assetUrl = new URL(request.url);
@@ -377,6 +390,6 @@ export default {
       assetUrl.searchParams.set("__release", ASSET_RELEASE);
     }
     const response = await env.ASSETS.fetch(new Request(assetUrl, request));
-    return withSecurityHeaders(response, response.status, url.pathname);
+    return withContactQueryIndexControl(withSecurityHeaders(response, response.status, url.pathname), url);
   }
 };

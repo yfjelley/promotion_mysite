@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IBKR TWS API vs Client Portal | 自动交易接入对比</title>
-  <meta name="description" content="对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。">
+  <title>IBKR TWS API vs Client Portal Web API | 接入与会话对比</title>
+  <meta name="description" content="对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/">
   <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/">
@@ -14,8 +14,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta property="og:title" content="IBKR TWS API 和 Client Portal Web API 怎么选">
-  <meta property="og:description" content="对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。">
+  <meta property="og:title" content="IBKR TWS API 与 Client Portal Web API 怎么选">
+  <meta property="og:description" content="对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/">
   <meta property="og:image" content="https://pddjf.com/og-image.png">
@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260721-brief-attribution-en" defer></script>
+  <script src="/scripts.js?v=20260805-x-pixel-v1" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -68,8 +68,8 @@
       "@type": "TechArticle",
       "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/#webpage",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
-      "name": "IBKR TWS API 和 Client Portal Web API 怎么选",
-      "description": "对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。",
+      "name": "IBKR TWS API 与 Client Portal Web API 怎么选",
+      "description": "对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。",
       "isPartOf": {
         "@id": "https://pddjf.com/#website"
       },
@@ -99,8 +99,8 @@
     {
       "@type": "TechArticle",
       "@id": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/#article",
-      "headline": "IBKR TWS API 和 Client Portal Web API 怎么选",
-      "description": "对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。",
+      "headline": "IBKR TWS API 与 Client Portal Web API 怎么选",
+      "description": "对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "author": {
         "@id": "https://pddjf.com/#organization"
@@ -109,7 +109,7 @@
         "@id": "https://pddjf.com/#organization"
       },
       "datePublished": "2026-07-07",
-      "dateModified": "2026-07-21",
+      "dateModified": "2026-08-13",
       "inLanguage": "zh-CN",
       "about": [
         "Trading API automation",
@@ -149,7 +149,7 @@
       <span>IBKR TWS API 与 Client Portal</span>
     </nav>
       <p class="eyebrow">IBKR API</p>
-      <h1>IBKR TWS API 和 Client Portal Web API 怎么选</h1>
+      <h1>IBKR TWS API 与 Client Portal Web API 怎么选</h1>
       <p class="hero-lede">TWS API 需要连接到正在运行的 Trader Workstation 或 IB Gateway；个人账户的 Client Portal Web API 通常依赖本机 Client Portal Gateway 和浏览器认证。最终选择仍取决于账户权限、订单类型、认证方式、部署环境和可执行的验收路径。</p>
       <div class="fact-strip" aria-label="服务边界"><span>技术开发服务</span><span>不代管资金</span><span>源码和文档交付</span><span>远程协作</span></div>
     </section>
@@ -171,6 +171,10 @@
       <section>
         <h2>IBKR 项目评估资料</h2>
         <ul class="check-list"><li>账户地区、账户类型和 API 权限状态。</li><li>目标品种、订单类型、交易时段和数据订阅。</li><li>是否接受本机 TWS、IB Gateway 或 Client Portal Gateway 的认证和运行约束。</li><li>是否需要人工确认、组合再平衡或多账户流程。</li><li>上线前如何验证拒单、断线、撤单和持仓同步。</li></ul>
+      </section>
+      <section>
+        <h2>相关实施路径</h2>
+        <ul class="check-list"><li><a href="/ibkr-api-automation-developer/">IBKR API 自动化开发服务</a></li><li><a href="/broker/api/">券商 API 自动化概览</a></li></ul>
       </section>
       <section>
         <h2>参考资料</h2>

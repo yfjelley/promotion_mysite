@@ -5,6 +5,8 @@ const ADS_LEAD_CURRENCY = "USD";
 const GA_ID = "G-390F8PHDES";
 const LINKEDIN_PARTNER_ID = "";
 const LINKEDIN_LEAD_CONVERSION_ID = "";
+const X_PIXEL_ID = "qt4nt";
+const X_LEAD_EVENT_ID = "tw-qt4nt-qt4nv";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
@@ -32,6 +34,32 @@ function loadGoogleTag() {
 window.addEventListener("load", () => {
   window.setTimeout(loadGoogleTag, 6500);
 }, { once: true });
+
+function installXPixel() {
+  if (!window.twq) {
+    window.twq = function twq() {
+      if (window.twq.exe) window.twq.exe.apply(window.twq, arguments);
+      else window.twq.queue.push(arguments);
+    };
+    window.twq.version = "1.1";
+    window.twq.queue = [];
+  }
+
+  if (!window.twq.signalCraftConfigured) {
+    window.twq("config", X_PIXEL_ID);
+    window.twq.signalCraftConfigured = true;
+  }
+
+  if (!document.querySelector('script[data-x-pixel-loader]')) {
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://static.ads-twitter.com/uwt.js";
+    script.dataset.xPixelLoader = "true";
+    document.head.appendChild(script);
+  }
+}
+
+installXPixel();
 
 function installLinkedInInsightTag() {
   if (!LINKEDIN_PARTNER_ID) return;
@@ -76,17 +104,17 @@ function reportLinkedInLead() {
   window.lintrk("track", { conversion_id: Number(LINKEDIN_LEAD_CONVERSION_ID) });
 }
 
+function reportXLead() {
+  if (typeof window.twq !== "function") return;
+  window.twq("event", X_LEAD_EVENT_ID, {});
+}
+
 function reportContactClick(method, isLead = false, eventCallback) {
   gtag("event", "contact_click", {
     method,
     event_category: isLead ? "lead" : "engagement",
     lead_action: isLead ? "external_contact" : "internal_cta",
   });
-
-  if (isLead) {
-    reportAdsLead(method, eventCallback);
-    reportLinkedInLead();
-  }
 }
 
 function reportBriefSubmit(method, eventCallback) {
@@ -97,6 +125,7 @@ function reportBriefSubmit(method, eventCallback) {
   });
   reportAdsLead(method, eventCallback);
   reportLinkedInLead();
+  reportXLead();
 }
 
 function briefFields(form) {
@@ -105,8 +134,8 @@ function briefFields(form) {
     .filter(([name, value]) => name && value));
 }
 
-const TRACKING_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "project", "package"];
-const ATTRIBUTION_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+const TRACKING_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "twclid", "project", "package"];
+const ATTRIBUTION_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "twclid"];
 const TRACKING_STORAGE_KEY = "signalcraft_brief_attribution_v1";
 
 function trackingParamsFromSearch(search = window.location.search) {

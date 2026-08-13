@@ -2081,6 +2081,41 @@ h3 {
   margin-top: 18px;
 }
 
+#project-brief {
+  scroll-margin-top: 24px;
+}
+
+.brief-qualifier-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 18px 0 4px;
+}
+
+.brief-qualifier-strip span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 11px 9px;
+  border: 1px solid rgba(7, 139, 123, 0.18);
+  border-radius: 8px;
+  background: #f2fbf9;
+  text-align: center;
+}
+
+.brief-qualifier-strip strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.brief-qualifier-strip small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
 .form-trap {
   position: absolute !important;
   inline-size: 1px !important;

@@ -15,10 +15,10 @@ Last updated: 2026-07-25
 - Alpaca API automation: https://pddjf.com/broker-api/alpaca/ — Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - FIX API order routing: https://pddjf.com/fix-api-order-routing/ — FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
 - 量化交易软件与交易平台开发: https://pddjf.com/zh/custom-trading-software-development/ — 量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。
-- Custom Trading Software & Platform Development: https://pddjf.com/custom-trading-software-development/ — Custom trading software and Trading AI Agent Development for teams that need API integration, human approvals, risk checks, source delivery and private deployment.
+- Custom Trading Software & Platform Development: https://pddjf.com/custom-trading-software-development/ — Custom trading platform and software development for trading teams that need broker or exchange APIs, risk controls, reconciliation, source code and private deployment.
 - Fintech Software Development Services: https://pddjf.com/fintech-software-development/ — Fintech software development services for trading, financial data, risk and operations teams that need reliable integrations, audit trails, source delivery and private deployment.
 - TradingView Alert Automation Service: https://pddjf.com/tradingview-webhook-developer/ — Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
-- IBKR Trading Automation Service: https://pddjf.com/ibkr-api-automation-developer/ — Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
+- IBKR Trading Automation Service: https://pddjf.com/ibkr-api-automation-developer/ — IBKR API automation development for order routing, portfolio workflows, position sync, risk checks, execution reports and private deployment.
 - FIX Order Routing System Development: https://pddjf.com/fix-api-order-routing-developer/ — Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
 - 自动交易风控系统服务: https://pddjf.com/risk-engine/ — 为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。
 - Private deployment: https://pddjf.com/private-deployment/ — 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。
@@ -121,10 +121,10 @@ Last updated: 2026-07-25
 - https://pddjf.com/broker-api/alpaca/ — Alpaca API automation: Alpaca API 自动交易系统开发，覆盖 REST/WebSocket 接入、订单状态同步、风控校验、日志告警和私有化部署。
 - https://pddjf.com/fix-api-order-routing/ — FIX API order routing: FIX API 订单路由系统开发，覆盖会话管理、订单消息、执行回报、风控校验、日志审计和私有化部署。
 - https://pddjf.com/zh/custom-trading-software-development/ — 量化交易软件与交易平台开发: 量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。
-- https://pddjf.com/custom-trading-software-development/ — Custom Trading Software & Platform Development: Custom trading software and Trading AI Agent Development for teams that need API integration, human approvals, risk checks, source delivery and private deployment.
+- https://pddjf.com/custom-trading-software-development/ — Custom Trading Software & Platform Development: Custom trading platform and software development for trading teams that need broker or exchange APIs, risk controls, reconciliation, source code and private deployment.
 - https://pddjf.com/fintech-software-development/ — Fintech Software Development Services: Fintech software development services for trading, financial data, risk and operations teams that need reliable integrations, audit trails, source delivery and private deployment.
 - https://pddjf.com/tradingview-webhook-developer/ — TradingView Alert Automation Service: Turn existing TradingView alerts into controlled broker or exchange execution with duplicate prevention, risk checks, logs and private deployment.
-- https://pddjf.com/ibkr-api-automation-developer/ — IBKR Trading Automation Service: Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.
+- https://pddjf.com/ibkr-api-automation-developer/ — IBKR Trading Automation Service: IBKR API automation development for order routing, portfolio workflows, position sync, risk checks, execution reports and private deployment.
 - https://pddjf.com/fix-api-order-routing-developer/ — FIX Order Routing System Development: Build a FIX order routing system around an approved counterparty connection, with order-state control, execution reports, recovery, audit logs and UAT support.
 - https://pddjf.com/risk-engine/ — 自动交易风控系统服务: 为现有自动下单或半自动交易流程补上仓位限制、价格保护、只减仓、限频、人工暂停、异常告警和审计日志。
 - https://pddjf.com/private-deployment/ — Private deployment: 自动交易系统私有化部署服务，覆盖源码交付、VPS/Docker 部署、配置密钥、日志告警、备份和运行文档。

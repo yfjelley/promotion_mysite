@@ -7,9 +7,17 @@ assert.match(script, /"fintech-software-development": "Fintech software developm
 const listeners = new Map();
 const timers = [];
 const requests = [];
+const loadedScripts = [];
 const sessionValues = new Map();
 const status = { textContent: "" };
 const submitButton = { textContent: "Send project brief securely", disabled: false };
+let contactClick;
+const contactLink = {
+  dataset: { contact: "email", leadContact: "true" },
+  addEventListener(type, callback) {
+    if (type === "click") contactClick = callback;
+  }
+};
 const briefLink = {
   href: "/en/contact/?project=custom-trading-software-development",
   getAttribute(name) {
@@ -72,9 +80,9 @@ const window = {
   dataLayer: [],
   isSecureContext: true,
   location: {
-    href: "https://pddjf.com/custom-trading-software-development/?gclid=test-click-id&utm_source=google&utm_medium=cpc&utm_campaign=quant-trading-development&project=custom-trading-software-development&package=Execution%20System%20Package",
+    href: "https://pddjf.com/custom-trading-software-development/?gclid=test-click-id&fbclid=test-meta-click-id&twclid=test-x-click-id&utm_source=google&utm_medium=cpc&utm_campaign=quant-trading-development&project=custom-trading-software-development&package=Execution%20System%20Package",
     origin: "https://pddjf.com",
-    search: "?gclid=test-click-id&utm_source=google&utm_medium=cpc&utm_campaign=quant-trading-development&project=custom-trading-software-development&package=Execution%20System%20Package"
+    search: "?gclid=test-click-id&fbclid=test-meta-click-id&twclid=test-x-click-id&utm_source=google&utm_medium=cpc&utm_campaign=quant-trading-development&project=custom-trading-software-development&package=Execution%20System%20Package"
   },
   sessionStorage: {
     getItem(key) {
@@ -96,6 +104,14 @@ const window = {
 const document = {
   referrer: "https://www.google.com/",
   documentElement: { lang: "en" },
+  head: {
+    appendChild(element) {
+      loadedScripts.push(element);
+    }
+  },
+  createElement() {
+    return { dataset: {} };
+  },
   addEventListener(type, callback) {
     listeners.set(type, callback);
   },
@@ -104,6 +120,7 @@ const document = {
   },
   querySelectorAll(selector) {
     if (selector === "form[data-mailto-brief]") return [form];
+    if (selector === "[data-contact]:not([data-copy]):not([data-copy-target])") return [contactLink];
     if (selector === "a[href]") return [briefLink];
     return [];
   }
@@ -130,8 +147,26 @@ runInNewContext(script, {
 });
 
 listeners.get("DOMContentLoaded")();
+assert.equal(
+  loadedScripts.some((element) => element.src === "https://static.ads-twitter.com/uwt.js" && element.dataset.xPixelLoader === "true"),
+  true,
+  "X Pixel base script should load"
+);
+assert.equal(
+  window.twq.queue.some((entry) => Array.from(entry)[0] === "config" && Array.from(entry)[1] === "qt4nt"),
+  true,
+  "X Pixel should configure the account pixel"
+);
+contactClick();
+assert.equal(
+  window.dataLayer.filter((entry) => entry[0] === "event" && entry[1] === "conversion").length,
+  0,
+  "external contact clicks must not count as stored-inquiry conversions"
+);
 assert.match(briefLink.href, /^\/en\/contact\/\?project=custom-trading-software-development&/);
 assert.match(briefLink.href, /gclid=test-click-id/);
+assert.match(briefLink.href, /fbclid=test-meta-click-id/);
+assert.match(briefLink.href, /twclid=test-x-click-id/);
 assert.match(briefLink.href, /utm_source=google/);
 assert.match(briefLink.href, /utm_medium=cpc/);
 assert.match(briefLink.href, /utm_campaign=quant-trading-development/);
@@ -152,6 +187,8 @@ assert.equal(payload.fields.projectType, "Custom trading software development");
 assert.equal(payload.fields.budget, "Execution System Package - 10000 美金起");
 assert.equal(payload.fields.contactMethod, "buyer@example.com");
 assert.equal(payload.tracking.gclid, "test-click-id");
+assert.equal(payload.tracking.fbclid, "test-meta-click-id");
+assert.equal(payload.tracking.twclid, "test-x-click-id");
 assert.equal(payload.tracking.utm_source, "google");
 assert.equal(payload.tracking.utm_medium, "cpc");
 assert.equal(payload.tracking.utm_campaign, "quant-trading-development");
@@ -175,4 +212,8 @@ assert.equal(adsConversion[2].currency, "USD");
 assert.equal(adsConversion[2].event_callback, undefined);
 assert.equal(adsConversion[2].event_timeout, undefined);
 
-console.log("Ads conversion test ok: tagged landing attribution survives the Brief hop and storage precedes GA4 + Ads lead events");
+const xLead = window.twq.queue.find((entry) => Array.from(entry)[0] === "event");
+assert.ok(xLead, "stored Brief submission should emit the X Lead event");
+assert.equal(Array.from(xLead)[1], "tw-qt4nt-qt4nv");
+
+console.log("Ads conversion test ok: Google, Meta and X attribution survives the Brief hop and stored inquiry emits Google + X lead events");

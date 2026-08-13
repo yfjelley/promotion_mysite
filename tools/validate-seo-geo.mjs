@@ -7,7 +7,8 @@ const site = "https://pddjf.com";
 const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engineering-notes";
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
-const currentScriptHref = "/scripts.js?v=20260721-brief-attribution-en";
+const contactStylesheetHref = "/styles.css?v=20260805-contact-cta";
+const currentScriptHref = "/scripts.js?v=20260805-x-pixel-v1";
 const contentDate = "2026-07-21";
 const llmsUpdatedAt = "2026-07-25";
 const errors = [];
@@ -129,12 +130,15 @@ const customTradingSoftwareFile = join(publicDir, "custom-trading-software-devel
 const customTradingSoftwareZhFile = join(publicDir, "zh", "custom-trading-software-development", "index.html");
 const fintechSoftwareFile = join(publicDir, "fintech-software-development", "index.html");
 const searchSnippetExpectations = new Map([
-  ["custom-trading-software-development", "Custom Trading Software Development | SignalCraft Labs"],
+  ["custom-trading-software-development", "Custom Trading Software &amp; Platform Development | SignalCraft"],
   ["fintech-software-development", "Fintech Software Development Services | SignalCraft Labs"],
   ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
   ["broker-api/ibkr", "IBKR API 自动交易开发 | 解决断线、会话过期与订单状态失真"],
   ["hyperliquid-api-trading-bot-development", "Hyperliquid Bot Development | Duplicate Order and State Recovery"],
-  ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS API vs Client Portal | 自动交易接入对比"]
+  ["ibkr-api-automation-developer", "IBKR API Automation Developer | Orders, Risk &amp; Deployment"],
+  ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS API vs Client Portal Web API | 接入与会话对比"],
+  ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "IBKR TWS API vs Client Portal Web API | Automation Guide"],
+  ["tools/crypto-exchange-fee-calculator", "Crypto Fees Calculator | Compare Exchange Futures Fees"]
 ]);
 const bilingualArticleRoutes = new Set([
   "/articles/tradingview-webhook-duplicate-orders/",
@@ -156,7 +160,7 @@ const buyerPositioningExpectations = new Map([
   ["/zh/custom-trading-software-development/", "量化交易软件与交易平台定制开发"],
   ["/fintech-software-development/", "Fintech Software Development for Trading, Data and Operations"],
   ["/tradingview-webhook-developer/", "Turn TradingView Alerts Into Controlled Order Execution"],
-  ["/ibkr-api-automation-developer/", "Automate Your IBKR Trading Workflow"],
+  ["/ibkr-api-automation-developer/", "IBKR API Automation for Orders, Risk and Position Sync"],
   ["/fix-api-order-routing-developer/", "Build a FIX Order Routing System Your Team Can Operate"],
   ["/trading-system-consistency-audit/", "7天定位订单、成交、持仓为什么对不上"]
 ]);
@@ -228,9 +232,25 @@ for (const [route, title] of searchSnippetExpectations) {
   requireText(`${route}/index.html`, html, `<title>${title}</title>`);
 }
 
+for (const [route, needles] of [
+  ["custom-trading-software-development", ["We design and build custom trading platforms", "order-state reconciliation"]],
+  ["ibkr-api-automation-developer", ["IBKR API automation for account owners", "IB Gateway or Client Portal integration"]],
+  ["articles/ibkr-tws-gateway-vs-client-portal", ['href="/ibkr-api-automation-developer/"', "IBKR API 自动化开发服务"]],
+  ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", ['href="/ibkr-api-automation-developer/"', "IBKR API automation development"]],
+  ["tools/crypto-exchange-fee-calculator", ["Crypto Exchange Fees Calculator for Maker, Taker and VIP Costs", "separates complete public VIP ladders from base-rate references"]]
+]) {
+  const html = readFileSync(join(publicDir, route, "index.html"), "utf8");
+  needles.forEach((needle) => requireText(`${route}/index.html`, html, needle));
+}
+
 const contactHtml = readFileSync(join(publicDir, "contact", "index.html"), "utf8");
 requireText("contact/index.html", contactHtml, "必填项只有项目类型、想解决的问题和联系方式");
 requireText("contact/index.html", contactHtml, "不要发送账户密码、提现权限或完整 API Secret");
+requireText("contact/index.html", contactHtml, "用 60 秒提交 Brief");
+requireText("contact/index.html", contactHtml, "/styles.css?v=20260805-contact-cta");
+requireText("contact/index.html", contactHtml, 'href="#project-brief"');
+requireText("contact/index.html", contactHtml, 'id="project-brief"');
+requireText("contact/index.html", contactHtml, "正式付费服务 USD 2,000 起");
 [
   "API 可行性评估 - 2000 美金固定价",
   "API Starter Package - 4000 美金起",
@@ -251,6 +271,11 @@ requireText("en/contact/index.html", englishContactHtml, "Structured project bri
 requireText("en/contact/index.html", englishContactHtml, "Send project brief securely");
 requireText("en/contact/index.html", englishContactHtml, 'data-lang="en"');
 requireText("en/contact/index.html", englishContactHtml, currentScriptHref);
+requireText("en/contact/index.html", englishContactHtml, "Start the 60-second brief");
+requireText("en/contact/index.html", englishContactHtml, "/styles.css?v=20260805-contact-cta");
+requireText("en/contact/index.html", englishContactHtml, 'href="#project-brief"');
+requireText("en/contact/index.html", englishContactHtml, 'id="project-brief"');
+requireText("en/contact/index.html", englishContactHtml, "Paid work from USD 2,000");
 [
   "API feasibility assessment — USD 2,000 fixed",
   "API Starter Package — from USD 4,000",
@@ -339,7 +364,10 @@ for (const file of pddjfHtmlFiles) {
   if (!is404) {
     requireText(rel, html, 'class="skip-link"');
     requireText(rel, html, 'id="main-content"');
-    if (!html.includes(currentStylesheetHref)) {
+    const expectedStylesheetHref = ["/contact/", "/en/contact/"].includes(route)
+      ? contactStylesheetHref
+      : currentStylesheetHref;
+    if (!html.includes(expectedStylesheetHref)) {
       errors.push(`${rel}: missing current stylesheet asset URL`);
     }
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
@@ -486,7 +514,7 @@ const publicScript = readFileSync(join(publicDir, "scripts.js"), "utf8");
 
 const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
 [
-  'const ASSET_RELEASE = "20260725-pddjf-pricing-floor"',
+  'const ASSET_RELEASE = "20260813-organic-ctr"',
   '["/contact/", "/__release/20260719-buyer-conversion/contact.html"]',
   '["/fintech-software-development/", "/__release/20260721-fintech-development/fintech-software-development.html"]',
   '["/tradingview-webhook-automation/", "/__release/20260720-tradingview-pain/tradingview-webhook-automation.html"]',
@@ -501,6 +529,13 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   'const HTML_CACHE_BUST_PATHS = new Set([\n  "/",\n  "/terms",\n  "/disclaimer",\n  "/delivery-policy",\n  "/contact/",\n  "/en/contact/",\n  "/custom-trading-software-development/",\n  "/zh/custom-trading-software-development/",\n  "/broker-api/ibkr/",\n  "/hyperliquid-api-trading-bot-development/",\n  "/trading-system-consistency-audit/",\n  "/trading-system-incident-diagnosis/",\n  "/multi-account-trading-monitoring/",\n  "/trading-system-consistency-audit-service/",\n  "/trading-system-incident-diagnosis-service/",\n  "/multi-account-trading-monitoring-service/"',
   '["/en/contact", "/en/contact/"]',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
+].forEach((needle) => requireText("public/_worker.js", worker, needle));
+
+[
+  'const CONTACT_INDEX_CONTROL_PATHS = new Set(["/contact/", "/en/contact/"])',
+  'function withContactQueryIndexControl(response, url)',
+  'controlledResponse.headers.set("X-Robots-Tag", "noindex, follow")',
+  'return withContactQueryIndexControl(response, url)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
 
 for (const [canonicalFile, releaseFile] of [
@@ -623,9 +658,20 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
   "fee_tool_source_click",
   "source_host: new URL(link.href).hostname",
   "gclid",
+  "fbclid",
+  "twclid",
+  'const X_PIXEL_ID = "qt4nt"',
+  'const X_LEAD_EVENT_ID = "tw-qt4nt-qt4nv"',
+  "https://static.ads-twitter.com/uwt.js",
+  "reportXLead()",
   "function decorateBriefLinks()",
   'window.sessionStorage?.setItem'
 ].forEach((needle) => requireText("scripts.js", scripts, needle));
+
+const contactClickReporter = scripts.match(/function reportContactClick\([\s\S]*?\n}\n\nfunction reportBriefSubmit/)?.[0] || "";
+if (contactClickReporter.includes("reportAdsLead(")) {
+  errors.push("scripts.js: contact clicks must not emit stored-inquiry Ads conversions");
+}
 
 for (const entry of serviceManifest.coreServiceUrls) {
   if (!entry || typeof entry !== "object") {

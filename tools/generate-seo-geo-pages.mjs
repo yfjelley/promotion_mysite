@@ -16,7 +16,7 @@ const llmsUpdatedAt = "2026-07-25";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
-const scriptHref = "/scripts.js?v=20260721-brief-attribution-en";
+const scriptHref = "/scripts.js?v=20260805-x-pixel-v1";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
@@ -902,13 +902,14 @@ const servicePages = [
   {
     slug: "custom-trading-software-development",
     lang: "en",
+    lastModified: "2026-08-13",
     counterpartSlug: "zh/custom-trading-software-development",
     breadcrumb: "Custom Trading Software & Platform Development",
     eyebrow: "For Strategy Owners and Trading Teams",
-    title: "Custom Trading Software Development | SignalCraft Labs",
-    description: "Custom trading software and Trading AI Agent Development for teams that need API integration, human approvals, risk checks, source delivery and private deployment.",
+    title: "Custom Trading Software & Platform Development | SignalCraft",
+    description: "Custom trading platform and software development for trading teams that need broker or exchange APIs, risk controls, reconciliation, source code and private deployment.",
     h1: "Custom Trading Software and Platform Development for Teams",
-    intro: "We build custom trading software for strategy owners, trading teams and fintech operators with documented workflows: API integration, controlled execution, risk checks, reconciliation and private handoff. Customers retain control of accounts, credentials and trading decisions.",
+    intro: "We design and build custom trading platforms for strategy owners, trading teams and fintech operators. A typical delivery connects broker or exchange APIs to controlled execution, risk checks, order-state reconciliation, monitoring and a private source-code handoff. Customers retain control of accounts, credentials and trading decisions.",
     serviceType: "Custom trading software and trading platform development services",
     llmsLabel: "Custom Trading Software & Platform Development",
     buyerIntentVersion: 1,
@@ -1131,13 +1132,14 @@ const servicePages = [
   {
     slug: "ibkr-api-automation-developer",
     lang: "en",
+    lastModified: "2026-08-13",
     platformDetailSlug: "broker-api/ibkr",
     breadcrumb: "IBKR Trading Automation",
     eyebrow: "For IBKR Account Owners and Trading Teams",
-    title: "IBKR Trading Automation Service | Orders, Risk Checks and Private Deployment",
-    description: "Automate a defined IBKR trading or portfolio workflow with order routing, position sync, risk checks, execution reports and private deployment.",
-    h1: "Automate Your IBKR Trading Workflow",
-    intro: "For IBKR account owners and trading teams that have defined order or portfolio rules but need a reliable way to execute, reconcile and monitor them without repetitive manual work.",
+    title: "IBKR API Automation Developer | Orders, Risk & Deployment",
+    description: "IBKR API automation development for order routing, portfolio workflows, position sync, risk checks, execution reports and private deployment.",
+    h1: "IBKR API Automation for Orders, Risk and Position Sync",
+    intro: "We build IBKR API automation for account owners and trading teams with defined order, portfolio or rebalancing rules. The delivery can cover IB Gateway or Client Portal integration, order-state reconciliation, risk controls, operational logs and private deployment without outsourcing account control.",
     serviceType: "IBKR trading automation for account owners and trading teams",
     llmsLabel: "IBKR Trading Automation Service",
     buyerIntentVersion: 1,
@@ -1756,11 +1758,12 @@ const articlePages = [
   },
   {
     slug: "articles/ibkr-tws-gateway-vs-client-portal",
+    dateModified: "2026-08-13",
     breadcrumb: "IBKR TWS API 与 Client Portal",
     eyebrow: "IBKR API",
-    title: "IBKR TWS API vs Client Portal | 自动交易接入对比",
-    description: "对比通过 Trader Workstation 或 IB Gateway 运行的 TWS API 与 Client Portal Web API，包括认证、会话、订单能力、部署运维和自动交易验收路径。",
-    h1: "IBKR TWS API 和 Client Portal Web API 怎么选",
+    title: "IBKR TWS API vs Client Portal Web API | 接入与会话对比",
+    description: "对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。",
+    h1: "IBKR TWS API 与 Client Portal Web API 怎么选",
     intro: "TWS API 需要连接到正在运行的 Trader Workstation 或 IB Gateway；个人账户的 Client Portal Web API 通常依赖本机 Client Portal Gateway 和浏览器认证。最终选择仍取决于账户权限、订单类型、认证方式、部署环境和可执行的验收路径。",
     summary: "IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。",
     sections: [
@@ -1787,6 +1790,10 @@ const articlePages = [
       "是否接受本机 TWS、IB Gateway 或 Client Portal Gateway 的认证和运行约束。",
       "是否需要人工确认、组合再平衡或多账户流程。",
       "上线前如何验证拒单、断线、撤单和持仓同步。"
+    ],
+    related: [
+      ["IBKR API 自动化开发服务", "/ibkr-api-automation-developer/"],
+      ["券商 API 自动化概览", "/broker/api/"]
     ],
     references: [
       ibkrTwsReference,
@@ -1917,9 +1924,10 @@ const articlePages = [
   {
     slug: "articles/ibkr-tws-gateway-vs-client-portal-automated-trading",
     lang: "en",
+    dateModified: "2026-08-13",
     breadcrumb: "IBKR TWS API vs Client Portal",
     eyebrow: "IBKR API",
-    title: "IBKR TWS API vs Client Portal for Automated Trading | Authentication and Sessions",
+    title: "IBKR TWS API vs Client Portal Web API | Automation Guide",
     description: "Compare the TWS API through Trader Workstation or IB Gateway with Client Portal Web API, including authentication, sessions, order routing, market data and acceptance tests.",
     h1: "IBKR TWS API vs Client Portal Web API for Automated Trading",
     intro: "The right IBKR automation path depends on the order workflow, account permissions, session model, data needs, operations environment and acceptance tests. The API name alone is not enough.",
@@ -1948,6 +1956,10 @@ const articlePages = [
       "The deployment model is clear: local machine, VPS, customer cloud or supervised process.",
       "Reconnect, session expiry, rejects, cancel flow and position sync are tested.",
       "Manual pause, order limits, audit logs and handoff documentation are part of the scope."
+    ],
+    related: [
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["Broker API automation overview", "/broker/api/"]
     ],
     references: [
       ibkrTwsReference,
@@ -2832,6 +2844,10 @@ const contactPage = {
   description: "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
   h1: "先说清楚你想解决的问题",
   intro: "首次联系只需三项：选择项目类型、说明最想解决的业务或执行问题、留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交；不要发送账户密码、提现权限或完整 API Secret。",
+  heroPrimaryLabel: "用 60 秒提交 Brief",
+  heroSecondaryLabel: "先看匿名案例",
+  heroSecondaryHref: "/case-studies/",
+  factStrip: ["3 项必填", "1 个工作日内初步回复", "正式付费服务 USD 2,000 起", "无需账户密码或完整 API Secret"],
   checklist: [
     "信号来源：TradingView Alert、研究脚本、人工确认还是组合规则。",
     "接口平台：券商 API、交易所 API、FIX、REST/WebSocket 或内部系统。",
@@ -2874,6 +2890,10 @@ const englishContactPage = {
   description: "Send SignalCraft Labs a structured project brief for custom trading software, fintech development, API integrations, risk controls or private deployment.",
   h1: "Tell us which workflow you need to improve",
   intro: "Start with three items: the project type, the business or execution problem, and your preferred contact method. API access, budget, deployment and timeline can remain undecided at this stage. Do not send passwords, withdrawal permissions or complete API secrets.",
+  heroPrimaryLabel: "Start the 60-second brief",
+  heroSecondaryLabel: "Review anonymous cases",
+  heroSecondaryHref: "/case-studies/",
+  factStrip: ["3 required fields", "Initial reply within 1 business day", "Paid work from USD 2,000", "No password or complete API secret"],
   checklist: [
     "Signal source: TradingView alert, research code, manual approval or a combined rules engine.",
     "Target interface: broker API, exchange API, FIX, REST/WebSocket or an internal system.",
@@ -2949,12 +2969,13 @@ const riskDisclaimerPage = {
 
 const exchangeFeeToolPage = {
   slug: "tools/crypto-exchange-fee-calculator",
+  lastModified: "2026-08-13",
   breadcrumb: "Crypto Exchange Fee Calculator",
   eyebrow: "Fee Intelligence · Updated July 15, 2026",
-  title: "Crypto Exchange Fee Calculator | Compare Futures VIP Fees",
-  description: "Compare Binance, OKX, Bybit, Bitget, MEXC and Gate perpetual futures fees. Estimate VIP tier, blended fee, monthly cost and the gap to the next tier.",
-  h1: "Crypto Exchange VIP Fee Calculator",
-  intro: "Turn public VIP schedules into a cost estimate for your actual maker/taker mix. Compare six major exchanges, see the next tier gap, and inspect every source behind the result.",
+  title: "Crypto Fees Calculator | Compare Exchange Futures Fees",
+  description: "Compare Binance, OKX, Bybit, Bitget, MEXC and Gate futures fees. Calculate maker/taker cost, estimated VIP tier and the volume gap to the next tier.",
+  h1: "Crypto Exchange Fees Calculator for Maker, Taker and VIP Costs",
+  intro: "Enter your 30-day volume, maker/taker mix and qualifying assets to estimate exchange trading fees. The calculator separates complete public VIP ladders from base-rate references and links every modeled rate to its official source.",
   lang: "en"
 };
 
@@ -4394,9 +4415,14 @@ function contactHtml(page) {
   const english = isEnglish(page);
   const schema = { "@context": "https://schema.org", "@graph": baseGraph(page, "ContactPage") };
   const body = `<div class="answer-grid contact-brief-grid">
-      <article>
+      <article id="project-brief">
         <h3>${english ? "Structured project brief" : "结构化 Brief 表单"}</h3>
         <p>${english ? "Only the project type, the problem and your contact method are required. Other fields are optional. We normally reply with an initial fit assessment within one business day and never need an account password, withdrawal permission or complete API secret for this step." : "必填项只有项目类型、想解决的问题和联系方式。其他资料都可选填；提交成功后，我们通常会在 1 个工作日内先回复适配判断，不要求提供账户密码、提现权限或完整 API Secret。"}</p>
+        <div class="brief-qualifier-strip" aria-label="${english ? "Brief qualification summary" : "项目 Brief 筛选摘要"}">
+          <span><strong>${english ? "3 required" : "3 项必填"}</strong><small>${english ? "about 60 seconds" : "约 60 秒完成"}</small></span>
+          <span><strong>${english ? "1 business day" : "1 个工作日"}</strong><small>${english ? "initial fit reply" : "初步适配回复"}</small></span>
+          <span><strong>${english ? "USD 2,000+" : "USD 2,000 起"}</strong><small>${english ? "paid engagements" : "正式付费服务"}</small></span>
+        </div>
         ${leadBriefForm(page.lang)}
       </article>
       <article>
@@ -5469,7 +5495,13 @@ function infoPageHtml(page, active, body, schema, includeCta = true) {
   const counterpartLanguage = english ? "zh-CN" : "en";
   const englishUrl = english ? url : counterpartSlug ? canonical(counterpartSlug) : url;
   const cta = includeCta ? `\n    ${ctaBlock(page.lang)}` : "";
-  const pageScriptHref = [contactPage.slug, englishContactPage.slug].includes(page.slug) ? contactScriptHref : scriptHref;
+  const isContactPage = [contactPage.slug, englishContactPage.slug].includes(page.slug);
+  const pageScriptHref = isContactPage ? contactScriptHref : scriptHref;
+  const pageStylesheetHref = isContactPage ? "/styles.css?v=20260805-contact-cta" : stylesheetHref;
+  const contactHeroActions = isContactPage ? `<div class="hero-actions">
+        <a class="button primary" href="#project-brief" data-contact="contact_hero_start_brief">${escapeHtml(page.heroPrimaryLabel)}</a>
+        <a class="button secondary" href="${page.heroSecondaryHref}" data-contact="contact_hero_cases">${escapeHtml(page.heroSecondaryLabel)}</a>
+      </div>` : "";
   return `<!DOCTYPE html>
 <html lang="${page.lang || "zh-CN"}">
 <head>
@@ -5488,7 +5520,7 @@ ${counterpartSlug ? `  <link rel="alternate" hreflang="${currentLanguage}" href=
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta name="theme-color" content="#07111f">
-  <link rel="stylesheet" href="${stylesheetHref}">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
   <script src="${pageScriptHref}" defer></script>
   ${jsonLd(schema)}
@@ -5502,7 +5534,7 @@ ${counterpartSlug ? `  <link rel="alternate" hreflang="${currentLanguage}" href=
       <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
       <h1>${escapeHtml(page.h1)}</h1>
       <p class="hero-lede">${escapeHtml(page.intro)}</p>
-      <div class="fact-strip" aria-label="${english ? "Service boundaries" : "服务边界"}">${(english ? ["Technical engineering", "No custody", "Source handoff", "Remote collaboration"] : ["技术开发服务", "不代管资金", "源码和文档交付", "远程协作"]).map((item) => `<span>${item}</span>`).join("")}</div>
+${contactHeroActions ? `      ${contactHeroActions}\n` : ""}      <div class="fact-strip" aria-label="${english ? "Service boundaries" : "服务边界"}">${(page.factStrip || (english ? ["Technical engineering", "No custody", "Source handoff", "Remote collaboration"] : ["技术开发服务", "不代管资金", "源码和文档交付", "远程协作"])).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
     </section>
     <section class="section content-band">${body}</section>
 ${cta}
@@ -5541,7 +5573,7 @@ writePublicFile(join(publicDir, "data", "hyperliquid-fees.json"), JSON.stringify
 
 const sitemapUrls = [
   ["/", "weekly", "1.0"],
-  ["/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
+  ["/tools/crypto-exchange-fee-calculator/", "weekly", "0.95", exchangeFeeToolPage.lastModified],
   ["/zh/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
   ["/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
   ["/zh/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
