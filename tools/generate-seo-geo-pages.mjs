@@ -825,8 +825,8 @@ const servicePages = [
     counterpartSlug: "custom-trading-software-development",
     breadcrumb: "量化交易软件开发",
     eyebrow: "面向策略负责人和交易团队",
-    title: "量化交易软件开发与交易平台定制 | SignalCraft Labs",
-    description: "量化交易软件开发、AI 交易智能体开发和交易平台定制服务，覆盖券商与交易所 API、人工审批、风险控制、对账监控、源码交付和私有化部署。",
+    title: "量化交易软件开发与交易平台定制开发服务 | SignalCraft Labs",
+    description: "专业量化交易软件开发公司与交易平台定制服务，覆盖券商/交易所 API 路由、风控引擎、持仓对账、AI 交易智能体、源码交付与私有化部署。",
     h1: "量化交易软件与交易平台定制开发",
     intro: "为已有策略规则、信号来源或交易流程的团队建设可控、可测试、可交接的交易软件。项目可覆盖券商与交易所 API、订单状态、风险控制、对账、监控告警、源码交付和客户自有环境部署。账户、密钥、资金和最终交易决策始终由客户控制。",
     serviceType: "量化交易软件开发、交易平台定制和自动化交易系统开发服务",
@@ -902,12 +902,12 @@ const servicePages = [
   {
     slug: "custom-trading-software-development",
     lang: "en",
-    lastModified: "2026-08-13",
+    lastModified: "2026-08-22",
     counterpartSlug: "zh/custom-trading-software-development",
     breadcrumb: "Custom Trading Software & Platform Development",
     eyebrow: "For Strategy Owners and Trading Teams",
-    title: "Custom Trading Software & Platform Development | SignalCraft",
-    description: "Custom trading platform and software development for trading teams that need broker or exchange APIs, risk controls, reconciliation, source code and private deployment.",
+    title: "Custom Trading Software & Platform Services | SignalCraft",
+    description: "Custom trading software development company & platform services for teams. Broker & exchange APIs, risk engine, reconciliation, source code & private deployment.",
     h1: "Custom Trading Software and Platform Development for Teams",
     intro: "We design and build custom trading platforms for strategy owners, trading teams and fintech operators. A typical delivery connects broker or exchange APIs to controlled execution, risk checks, order-state reconciliation, monitoring and a private source-code handoff. Customers retain control of accounts, credentials and trading decisions.",
     serviceType: "Custom trading software and trading platform development services",
@@ -1799,6 +1799,12 @@ const articlePages = [
       "交易接口不可用时进入暂停或人工处理流程。",
       "客户能看到事件日志、拒单原因和重启方式。"
     ],
+    related: [
+      ["TradingView Webhook 自动化服务", "/tradingview-webhook-automation/"],
+      ["量化交易软件开发与交易平台定制", "/zh/custom-trading-software-development/"],
+      ["交易系统一致性对账审计", "/trading-system-consistency-audit/"],
+      ["生产事故诊断服务", "/trading-system-incident-diagnosis/"]
+    ],
     references: [
       officialReferenceLinks[0],
       ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs 公开脱敏 demo，展示去重、权限校验和风控拒绝日志。"]
@@ -1840,7 +1846,9 @@ const articlePages = [
       "上线前如何验证拒单、断线、撤单和持仓同步。"
     ],
     related: [
+      ["量化交易软件开发与交易平台定制", "/zh/custom-trading-software-development/"],
       ["IBKR API 自动化开发服务", "/ibkr-api-automation-developer/"],
+      ["交易系统一致性对账审计", "/trading-system-consistency-audit/"],
       ["券商 API 自动化概览", "/broker/api/"]
     ],
     references: [
@@ -2010,7 +2018,9 @@ const articlePages = [
       "Manual pause, order limits, audit logs and handoff documentation are part of the scope."
     ],
     related: [
+      ["Custom trading software development", "/custom-trading-software-development/"],
       ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["Trading system consistency audit", "/trading-system-consistency-audit-service/"],
       ["Broker API automation overview", "/broker/api/"]
     ],
     references: [
@@ -3025,10 +3035,10 @@ const exchangeFeeToolPage = {
   lastModified: "2026-08-13",
   breadcrumb: "Crypto Exchange Fee Calculator",
   eyebrow: "Fee Intelligence · Updated July 15, 2026",
-  title: "Crypto Fees Calculator | Compare Exchange Futures Fees",
-  description: "Compare Binance, OKX, Bybit, Bitget, MEXC and Gate futures fees. Calculate maker/taker cost, estimated VIP tier and the volume gap to the next tier.",
-  h1: "Crypto Exchange Fees Calculator for Maker, Taker and VIP Costs",
-  intro: "Enter your 30-day volume, maker/taker mix and qualifying assets to estimate exchange trading fees. The calculator separates complete public VIP ladders from base-rate references and links every modeled rate to its official source.",
+  title: "Crypto Fees Calculator | Compare Futures Fees & VIP Rates",
+  description: "Calculate and compare Binance, OKX, Bybit, Bitget, MEXC and Gate futures fees, maker/taker costs, public VIP rates and the volume gap to the next tier.",
+  h1: "Crypto Fees Calculator: Compare Futures Fees and VIP Costs",
+  intro: "Compare public exchange futures fees from your 30-day volume, maker/taker mix and qualifying assets. The calculator estimates trading costs and VIP rates, separates complete public ladders from base-rate references, and links every model to its official source.",
   lang: "en"
 };
 
@@ -4560,7 +4570,7 @@ function exchangeFeeToolHtml(page) {
     methodology: "仅使用全球公开费率表。系统根据 30 天衍生品成交量或资产余额路径估算可达到的最高等级，并应用已公布的 API 交易占比条件。完整等级交易所单独排名，仅有基础费率的交易所作为参考，不混入排名。计算器不会读取账户，也不包含活动、返佣、平台币折扣、特定交易对例外、强平费、资金费率或当地实体规则。",
     excludedTitle: "未计入项目：", excluded: "资金费率、买卖价差、滑点、强平费、返佣或平台币折扣、做市商计划、当地实体限制及账户专属活动。大额迁移成交量前，请在交易所账户内确认最终费率。",
     faq: "常见问题", faqTitle: "如何正确理解对比结果",
-    ctaEyebrow: "需要账户级精确路由？", ctaTitle: "把费率表变成可执行的路由策略", ctaCopy: "我们提供交易所 API 执行、订单路由、风控与监控开发，不托管资金，也不需要提现权限。", ctaPrimary: "查看交易所 API 开发", ctaSecondary: "提交项目 Brief",
+    ctaEyebrow: "需要费率对账与私有执行系统？", ctaTitle: "把费率模型接入私有量化执行与风控路由", ctaCopy: "我们为交易团队定制多账户费率对账、跨所订单路由、风控引擎与私有化部署。源码交付，不托管资金。", ctaPrimary: "定制量化交易软件开发", ctaSecondary: "7天只读对账审计",
     checked: "核验日期", coverageFull: "完整公开等级", coverageBase: "已验证基础费率"
   } : {
     skip: "Skip to main content", active: "Fee tool", switchLabel: "Language", switchHref: chineseUrl, switchText: "中文",
@@ -4573,7 +4583,7 @@ function exchangeFeeToolHtml(page) {
     evidence: "Evidence, not mystery math", sources: "Sources and methodology", download: "Download dataset (JSON)", methodology: exchangeFeeData.methodology,
     excludedTitle: "What is excluded:", excluded: "funding payments, spread, slippage, liquidation fees, referral or token discounts, market-maker programs, local entity restrictions and account-specific promotions. Always confirm the final rate inside your exchange account before routing volume.",
     faq: "FAQ", faqTitle: "How to read this comparison",
-    ctaEyebrow: "Need account-exact routing logic?", ctaTitle: "Turn fee schedules into an execution policy", ctaCopy: "We build exchange API execution, routing, risk controls and monitoring. No custody and no withdrawal permissions.", ctaPrimary: "Explore exchange API engineering", ctaSecondary: "Send a project brief",
+    ctaEyebrow: "Need fee reconciliation & private execution?", ctaTitle: "Connect fee models to custom execution & risk routing", ctaCopy: "We engineer multi-exchange order routing, fee reconciliation, pre-trade risk engines and private deployments for trading teams. Full source delivery.", ctaPrimary: "Custom Trading Software Scope", ctaSecondary: "7-Day Consistency Audit",
     checked: "Checked", coverageFull: "Full public ladder", coverageBase: "Base rate verified"
   };
   const faqs = zh ? [
@@ -4786,7 +4796,7 @@ function exchangeFeeToolHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${t.ctaEyebrow}</p><h2>${t.ctaTitle}</h2><p>${t.ctaCopy}</p></div>
-      <div class="hero-actions"><a class="button primary" href="/exchange-api-trading-bot-development/" data-contact="fee_tool_exchange_api">${t.ctaPrimary}</a><a class="button secondary" href="/contact/" data-contact="fee_tool_brief">${t.ctaSecondary}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${zh ? "/zh/custom-trading-software-development/" : "/custom-trading-software-development/"}" data-contact="fee_tool_custom_trading">${t.ctaPrimary}</a><a class="button secondary" href="${zh ? "/trading-system-consistency-audit/" : "/trading-system-consistency-audit-service/"}" data-contact="fee_tool_audit">${t.ctaSecondary}</a></div>
     </section>
   </main>
   ${footer(page.lang)}

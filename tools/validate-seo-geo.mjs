@@ -130,7 +130,7 @@ const customTradingSoftwareFile = join(publicDir, "custom-trading-software-devel
 const customTradingSoftwareZhFile = join(publicDir, "zh", "custom-trading-software-development", "index.html");
 const fintechSoftwareFile = join(publicDir, "fintech-software-development", "index.html");
 const searchSnippetExpectations = new Map([
-  ["custom-trading-software-development", "Custom Trading Software &amp; Platform Development | SignalCraft"],
+  ["custom-trading-software-development", "Custom Trading Software &amp; Platform Services | SignalCraft"],
   ["fintech-software-development", "Fintech Software Development Services | SignalCraft Labs"],
   ["tradingview-webhook-automation", "TradingView 信号自动下单 | 减少盯盘、漏单与重复下单"],
   ["broker-api/ibkr", "IBKR API 自动交易开发 | 解决断线、会话过期与订单状态失真"],
@@ -138,7 +138,7 @@ const searchSnippetExpectations = new Map([
   ["ibkr-api-automation-developer", "IBKR API Automation Developer | Orders, Risk &amp; Deployment"],
   ["articles/ibkr-tws-gateway-vs-client-portal", "IBKR TWS API vs Client Portal Web API | 接入与会话对比"],
   ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "IBKR TWS API vs Client Portal Web API | Automation Guide"],
-  ["tools/crypto-exchange-fee-calculator", "Crypto Fees Calculator | Compare Exchange Futures Fees"]
+  ["tools/crypto-exchange-fee-calculator", "Crypto Fees Calculator | Compare Futures Fees &amp; VIP Rates"]
 ]);
 const bilingualArticleRoutes = new Set([
   "/articles/tradingview-webhook-duplicate-orders/",
@@ -242,7 +242,7 @@ for (const [route, needles] of [
   ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", ['href="/ibkr-api-automation-developer/"', "IBKR API automation development"]],
   ["articles/schwab-api-token-refresh-runbook", ['href="/custom-trading-software-development/"', "Custom trading software development"]],
   ["articles/how-we-prevent-duplicate-tradingview-webhook-orders", ['href="/tradingview-webhook-developer/"', 'href="/custom-trading-software-development/"']],
-  ["tools/crypto-exchange-fee-calculator", ["Crypto Exchange Fees Calculator for Maker, Taker and VIP Costs", "separates complete public VIP ladders from base-rate references"]]
+  ["tools/crypto-exchange-fee-calculator", ["Crypto Fees Calculator: Compare Futures Fees and VIP Costs", "separates complete public ladders from base-rate references"]]
 ]) {
   const html = readFileSync(join(publicDir, route, "index.html"), "utf8");
   needles.forEach((needle) => requireText(`${route}/index.html`, html, needle));
