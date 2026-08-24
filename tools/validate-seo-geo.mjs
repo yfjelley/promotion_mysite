@@ -528,7 +528,9 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   '["/risk-engine/", "/__release/20260719-buyer-conversion/risk-engine.html"]',
   'const BRIEF_API_PATH = "/api/brief"',
   'return handleBriefSubmission(request, env, url)',
-  'BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`',
+  'const briefKey = `brief:${BRIEF_SITE}:${receivedAt}:${id}`',
+  'await env.BRIEF_SUBMISSIONS.put(briefKey, JSON.stringify(record)',
+  'env.BRIEF_NOTIFIER.fetch(new Request("https://brief-notifier.internal/notify"',
   'contentType.startsWith("application/x-www-form-urlencoded")',
   'new URLSearchParams(rawBody)',
   'briefHtmlResponse(body, status, responseLanguage)',
@@ -536,6 +538,13 @@ const worker = readFileSync(join(publicDir, "_worker.js"), "utf8");
   '["/en/contact", "/en/contact/"]',
   'assetUrl.searchParams.set("__release", ASSET_RELEASE)'
 ].forEach((needle) => requireText("public/_worker.js", worker, needle));
+
+const wranglerConfig = readFileSync(join(root, "wrangler.toml"), "utf8");
+[
+  '[[services]]',
+  'binding = "BRIEF_NOTIFIER"',
+  'service = "promotion-mysite-brief-notifier"'
+].forEach((needle) => requireText("wrangler.toml", wranglerConfig, needle));
 
 [
   'const CONTACT_INDEX_CONTROL_PATHS = new Set(["/contact/", "/en/contact/"])',

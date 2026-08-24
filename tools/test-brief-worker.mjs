@@ -20,7 +20,17 @@ function mockKv() {
 }
 
 const kv = mockKv();
-const env = { BRIEF_SUBMISSIONS: kv };
+const sentEmails = [];
+const env = {
+  BRIEF_SUBMISSIONS: kv,
+  BRIEF_NOTIFIER: {
+    async fetch(request) {
+      const message = await request.json();
+      sentEmails.push(message);
+      return Response.json({ ok: true, messageId: `test-message-${sentEmails.length}` });
+    }
+  }
+};
 
 const jsonResponse = await workerModule.default.fetch(new Request("https://pddjf.com/api/brief", {
   method: "POST",
@@ -70,6 +80,13 @@ const records = [...kv.values.entries()]
   .map(([, value]) => JSON.parse(value));
 assert.equal(records.length, 2);
 assert.equal(records.some((record) => record.qualification === "native_form"), true);
+assert.equal(records.every((record) => record.notification?.status === "sent"), true);
+assert.equal(sentEmails.length, 2);
+assert.equal(sentEmails.every((message) => message.to === "yfjelley@gmail.com"), true);
+assert.equal(sentEmails.every((message) => message.from.email === "brief@pddjf.com"), true);
+assert.equal(sentEmails[0].replyTo, "buyer@example.com");
+assert.match(sentEmails[0].subject, /^\[PDDJF Brief\] [a-f0-9]{8} · TradingView webhook automation$/);
+assert.match(sentEmails[0].text, /Prevent duplicate orders and preserve an audit trail\./);
 
 const invalidNativeResponse = await workerModule.default.fetch(new Request("https://pddjf.com/api/brief", {
   method: "POST",
@@ -84,5 +101,39 @@ const invalidNativeResponse = await workerModule.default.fetch(new Request("http
 assert.equal(invalidNativeResponse.status, 400);
 assert.match(invalidNativeResponse.headers.get("content-type") || "", /^text\/html/);
 assert.match(await invalidNativeResponse.text(), /项目 Brief 未提交/);
+
+const failureKv = mockKv();
+const failureResponse = await workerModule.default.fetch(new Request("https://pddjf.com/api/brief", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Origin": "https://pddjf.com",
+    "CF-Connecting-IP": "192.0.2.13"
+  },
+  body: JSON.stringify({
+    site: "pddjf",
+    qualification: "structured_brief_v1",
+    fields: {
+      projectType: "Risk dashboard",
+      contactMethod: "WeChat test-only",
+      riskBoundary: "Verify that a temporary notification outage does not reject the stored brief."
+    }
+  })
+}), {
+  BRIEF_SUBMISSIONS: failureKv,
+  BRIEF_NOTIFIER: {
+    async fetch() {
+      return Response.json({ ok: false, code: "E_TEMPORARY", error: "temporary email outage" }, { status: 503 });
+    }
+  }
+});
+
+assert.equal(failureResponse.status, 201);
+assert.equal((await failureResponse.json()).ok, true);
+const failureRecord = [...failureKv.values.entries()]
+  .filter(([key]) => key.startsWith("brief:pddjf:"))
+  .map(([, value]) => JSON.parse(value))[0];
+assert.equal(failureRecord.notification.status, "failed");
+assert.equal(failureRecord.notification.code, "E_TEMPORARY");
 
 console.log("PDDJF brief worker tests passed");

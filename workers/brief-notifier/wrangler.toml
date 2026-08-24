@@ -1,0 +1,9 @@
+name = "promotion-mysite-brief-notifier"
+main = "src/index.js"
+compatibility_date = "2026-08-24"
+workers_dev = false
+
+[[send_email]]
+name = "EMAIL"
+destination_address = "yfjelley@gmail.com"
+allowed_sender_addresses = ["brief@pddjf.com"]

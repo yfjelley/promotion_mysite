@@ -7,6 +7,8 @@ const BRIEF_SITE = "pddjf";
 const BRIEF_TTL_SECONDS = 60 * 60 * 24 * 180;
 const BRIEF_RATE_LIMIT_SECONDS = 60;
 const BRIEF_FIELD_LIMIT = 2000;
+const BRIEF_NOTIFICATION_TO = "yfjelley@gmail.com";
+const BRIEF_NOTIFICATION_FROM = "brief@pddjf.com";
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -160,6 +162,75 @@ function cleanRecord(value, allowedKeys) {
     .filter(([, fieldValue]) => fieldValue));
 }
 
+function briefNotificationText(record) {
+  const fieldLabels = {
+    projectType: "项目类型",
+    contactMethod: "联系方式",
+    riskBoundary: "业务或执行问题",
+    signalSource: "信号来源",
+    apiPlatform: "API 平台",
+    permissionStatus: "权限状态",
+    budget: "预算档位",
+    deploymentTarget: "部署环境",
+    timeline: "期望时间线",
+    notes: "补充说明"
+  };
+  const fieldLines = Object.entries(fieldLabels)
+    .filter(([key]) => record.fields[key])
+    .map(([key, label]) => `${label}: ${record.fields[key]}`);
+  const trackingLines = Object.entries(record.tracking || {})
+    .map(([key, value]) => `${key}: ${value}`);
+
+  return [
+    "SignalCraft Labs 收到一份新的项目 Brief。",
+    "",
+    `编号: ${record.id}`,
+    `接收时间: ${record.receivedAt}`,
+    `适配分类: ${record.qualification || "未分类"}`,
+    "",
+    ...fieldLines,
+    ...(trackingLines.length ? ["", "来源信息:", ...trackingLines] : []),
+    "",
+    "此邮件由 pddjf.com 的生产 Brief 表单自动发送。"
+  ].join("\n");
+}
+
+function replyAddressFor(record) {
+  const candidate = cleanString(record.fields?.contactMethod, 320);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate) ? candidate : "contact@pddjf.com";
+}
+
+async function sendBriefNotification(env, record) {
+  if (!env.BRIEF_NOTIFIER?.fetch) {
+    return { status: "not_configured" };
+  }
+
+  const shortId = record.id.slice(0, 8);
+  const response = await env.BRIEF_NOTIFIER.fetch(new Request("https://brief-notifier.internal/notify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      to: BRIEF_NOTIFICATION_TO,
+      from: { email: BRIEF_NOTIFICATION_FROM, name: "SignalCraft Labs Briefs" },
+      replyTo: replyAddressFor(record),
+      subject: `[PDDJF Brief] ${shortId} · ${cleanString(record.fields.projectType, 120)}`,
+      text: briefNotificationText(record)
+    })
+  }));
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.ok) {
+    const error = new Error(cleanString(result.error, 300) || `HTTP ${response.status}`);
+    error.code = cleanString(result.code, 100) || "BRIEF_NOTIFICATION_FAILED";
+    throw error;
+  }
+
+  return {
+    status: "sent",
+    messageId: cleanString(result?.messageId, 200),
+    sentAt: new Date().toISOString()
+  };
+}
+
 async function briefRateKey(request) {
   const address = request.headers.get("CF-Connecting-IP") || "unknown";
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${BRIEF_SITE}:${address}`));
@@ -282,10 +353,31 @@ async function handleBriefSubmission(request, env, url) {
     }
   };
 
+  const briefKey = `brief:${BRIEF_SITE}:${receivedAt}:${id}`;
   await env.BRIEF_SUBMISSIONS.put(rateKey, receivedAt, { expirationTtl: BRIEF_RATE_LIMIT_SECONDS });
-  await env.BRIEF_SUBMISSIONS.put(`brief:${BRIEF_SITE}:${receivedAt}:${id}`, JSON.stringify(record), {
+  await env.BRIEF_SUBMISSIONS.put(briefKey, JSON.stringify(record), {
     expirationTtl: BRIEF_TTL_SECONDS
   });
+
+  try {
+    record.notification = await sendBriefNotification(env, record);
+  } catch (error) {
+    record.notification = {
+      status: "failed",
+      code: cleanString(error?.code, 100),
+      message: cleanString(error?.message, 300),
+      failedAt: new Date().toISOString()
+    };
+    console.error("brief_notification_failed", id, record.notification.code, record.notification.message);
+  }
+
+  try {
+    await env.BRIEF_SUBMISSIONS.put(briefKey, JSON.stringify(record), {
+      expirationTtl: BRIEF_TTL_SECONDS
+    });
+  } catch (error) {
+    console.error("brief_notification_status_persist_failed", id, cleanString(error?.message, 300));
+  }
 
   return respond({ ok: true, id, receivedAt }, 201);
 }
