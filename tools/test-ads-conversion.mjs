@@ -206,7 +206,7 @@ assert.equal(gaSubmit[2].method, "structured_brief_submit");
 
 const adsConversion = window.dataLayer.find((entry) => entry[0] === "event" && entry[1] === "conversion");
 assert.ok(adsConversion, "stored Brief submission should emit a Google Ads conversion event");
-assert.equal(adsConversion[2].send_to, "AW-975458180/i_t6CKjS6pwYEISfkdED");
+assert.equal(adsConversion[2].send_to, "AW-975458180/nb0cCNOI5-sYEISfkdED");
 assert.equal(adsConversion[2].value, 100);
 assert.equal(adsConversion[2].currency, "USD");
 assert.equal(adsConversion[2].event_callback, undefined);

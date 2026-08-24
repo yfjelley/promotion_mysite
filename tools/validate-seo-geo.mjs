@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const contactStylesheetHref = "/styles.css?v=20260805-contact-cta";
-const currentScriptHref = "/scripts.js?v=20260805-x-pixel-v1";
+const currentScriptHref = "/scripts.js?v=20260824-ads-submit-v1";
 const contentDate = "2026-07-21";
 const llmsUpdatedAt = "2026-07-25";
 const errors = [];
@@ -646,7 +646,7 @@ const llms = readFileSync(join(publicDir, "llms.txt"), "utf8");
 const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
 [
   "const ADS_ID = \"AW-975458180\"",
-  "const ADS_CONVERSION = \"AW-975458180/i_t6CKjS6pwYEISfkdED\"",
+  "const ADS_CONVERSION = \"AW-975458180/nb0cCNOI5-sYEISfkdED\"",
   "function reportAdsLead(method, eventCallback)",
   "event.event_callback = eventCallback",
   "event.event_timeout = 1200",

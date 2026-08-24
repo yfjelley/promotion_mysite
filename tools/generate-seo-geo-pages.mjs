@@ -16,7 +16,7 @@ const llmsUpdatedAt = "2026-07-25";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
-const scriptHref = "/scripts.js?v=20260805-x-pixel-v1";
+const scriptHref = "/scripts.js?v=20260824-ads-submit-v1";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
