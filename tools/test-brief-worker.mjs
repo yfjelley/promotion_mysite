@@ -73,7 +73,33 @@ const nativeResponse = await workerModule.default.fetch(new Request("https://pdd
 assert.equal(nativeResponse.status, 201);
 assert.match(nativeResponse.headers.get("content-type") || "", /^text\/html/);
 assert.match(nativeResponse.headers.get("content-security-policy") || "", /default-src 'none'/);
-assert.match(await nativeResponse.text(), /Project brief received/);
+assert.match(nativeResponse.headers.get("content-security-policy") || "", /script-src 'nonce-[a-f0-9]+'/);
+assert.match(nativeResponse.headers.get("content-security-policy") || "", /https:\/\/www\.googletagmanager\.com/);
+const nativeHtml = await nativeResponse.text();
+assert.match(nativeHtml, /Project brief received/);
+assert.match(nativeHtml, /AW-975458180\/nb0cCNOI5-sYEISfkdED/);
+assert.match(nativeHtml, /transaction_id/);
+
+const honeypotNativeResponse = await workerModule.default.fetch(new Request("https://pddjf.com/api/brief", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Origin": "https://pddjf.com",
+    "Referer": "https://pddjf.com/contact/",
+    "CF-Connecting-IP": "192.0.2.14"
+  },
+  body: new URLSearchParams({
+    lang: "zh-CN",
+    website: "https://spam.example",
+    projectType: "TradingView webhook automation",
+    contactMethod: "spam@example.com",
+    riskBoundary: "Automated honeypot submission"
+  })
+}), env);
+
+assert.equal(honeypotNativeResponse.status, 201);
+const honeypotNativeHtml = await honeypotNativeResponse.text();
+assert.doesNotMatch(honeypotNativeHtml, /AW-975458180\/nb0cCNOI5-sYEISfkdED/);
 
 const records = [...kv.values.entries()]
   .filter(([key]) => key.startsWith("brief:pddjf:"))
@@ -100,7 +126,9 @@ const invalidNativeResponse = await workerModule.default.fetch(new Request("http
 
 assert.equal(invalidNativeResponse.status, 400);
 assert.match(invalidNativeResponse.headers.get("content-type") || "", /^text\/html/);
-assert.match(await invalidNativeResponse.text(), /项目 Brief 未提交/);
+const invalidNativeHtml = await invalidNativeResponse.text();
+assert.match(invalidNativeHtml, /项目 Brief 未提交/);
+assert.doesNotMatch(invalidNativeHtml, /AW-975458180\/nb0cCNOI5-sYEISfkdED/);
 
 const failureKv = mockKv();
 const failureResponse = await workerModule.default.fetch(new Request("https://pddjf.com/api/brief", {

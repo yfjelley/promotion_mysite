@@ -9,6 +9,10 @@ const BRIEF_RATE_LIMIT_SECONDS = 60;
 const BRIEF_FIELD_LIMIT = 2000;
 const BRIEF_NOTIFICATION_TO = "yfjelley@gmail.com";
 const BRIEF_NOTIFICATION_FROM = "brief@pddjf.com";
+const GOOGLE_ADS_ID = "AW-975458180";
+const GOOGLE_ADS_CONVERSION = "AW-975458180/nb0cCNOI5-sYEISfkdED";
+const GOOGLE_ADS_LEAD_VALUE = 100.0;
+const GOOGLE_ADS_LEAD_CURRENCY = "USD";
 
 const PATH_REDIRECTS = new Map([
   ["/index.html", "/"],
@@ -114,6 +118,10 @@ function jsonResponse(body, status = 200) {
 function briefHtmlResponse(body, status = 200, language = "zh-CN") {
   const english = language === "en";
   const success = body.ok === true;
+  const storedSubmission = success && body.id && body.id !== "accepted";
+  const scriptNonce = storedSubmission
+    ? crypto.randomUUID().replaceAll("-", "")
+    : "";
   const title = success
     ? english ? "Project brief received" : "项目 Brief 已收到"
     : english ? "Project brief was not submitted" : "项目 Brief 未提交";
@@ -130,6 +138,24 @@ function briefHtmlResponse(body, status = 200, language = "zh-CN") {
   const reference = success && body.id && body.id !== "accepted"
     ? `<p class="reference">${english ? "Reference" : "提交编号"}: <code>${String(body.id).replace(/[^a-zA-Z0-9-]/g, "")}</code></p>`
     : "";
+  const adsConversion = storedSubmission
+    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}"></script>
+  <script nonce="${scriptNonce}">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "${GOOGLE_ADS_ID}");
+    gtag("event", "conversion", {
+      send_to: "${GOOGLE_ADS_CONVERSION}",
+      value: ${GOOGLE_ADS_LEAD_VALUE},
+      currency: "${GOOGLE_ADS_LEAD_CURRENCY}",
+      transaction_id: "${String(body.id).replace(/[^a-zA-Z0-9-]/g, "")}"
+    });
+  </script>`
+    : "";
+  const contentSecurityPolicy = storedSubmission
+    ? `default-src 'none'; script-src 'nonce-${scriptNonce}' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src https://www.google-analytics.com https://www.googleadservices.com https://googleads.g.doubleclick.net; img-src https://www.googleadservices.com https://googleads.g.doubleclick.net; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'`
+    : "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'";
   const html = `<!doctype html>
 <html lang="${english ? "en" : "zh-CN"}">
 <head>
@@ -138,6 +164,7 @@ function briefHtmlResponse(body, status = 200, language = "zh-CN") {
   <meta name="robots" content="noindex,nofollow">
   <title>${title}</title>
   <style>body{margin:0;background:#07111f;color:#e9f4f1;font:16px/1.6 system-ui,sans-serif}main{max-width:680px;margin:12vh auto;padding:40px;border:1px solid #245b53;border-radius:20px;background:#0d1d2a}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.1}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}a{display:inline-block;padding:12px 18px;border-radius:999px;background:#078b7b;color:white;text-decoration:none}a+ a{background:transparent;border:1px solid #3e746b}.reference{color:#9fc4bd}code{color:#c8f7ec}</style>
+  ${adsConversion}
 </head>
 <body><main><p>SignalCraft Labs</p><h1>${title}</h1><p>${message}</p>${reference}<div class="actions"><a href="${homeHref}">${backLabel}</a><a href="mailto:contact@pddjf.com">${emailLabel}</a></div></main></body>
 </html>`;
@@ -146,7 +173,7 @@ function briefHtmlResponse(body, status = 200, language = "zh-CN") {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-store",
-      "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
+      "Content-Security-Policy": contentSecurityPolicy
     }
   }), status, BRIEF_API_PATH);
 }
