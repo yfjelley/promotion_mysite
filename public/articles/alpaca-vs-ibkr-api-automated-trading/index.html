@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alpaca vs IBKR API for Automated Trading</title>
+  <meta name="description" content="Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/">
+
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Alpaca vs IBKR API for Automated Trading: Choose by Operating Model, Not by Brand">
+  <meta property="og:description" content="Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/#webpage",
+      "url": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/",
+      "name": "Alpaca vs IBKR API for Automated Trading: Choose by Operating Model, Not by Brand",
+      "description": "Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Alpaca vs IBKR API",
+          "item": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/#article",
+      "headline": "Alpaca vs IBKR API for Automated Trading: Choose by Operating Model, Not by Brand",
+      "description": "Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.",
+      "url": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/en/contact/">Contact</a>
+      <a class="nav-cta" href="/en/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Alpaca vs IBKR API</span>
+    </nav>
+      <p class="eyebrow">Broker API</p>
+      <h1>Alpaca vs IBKR API for Automated Trading: Choose by Operating Model, Not by Brand</h1>
+      <p class="hero-lede">Alpaca and Interactive Brokers are often compared on commissions or asset coverage, but for an automated system the decisive difference is the operating model: how you authenticate, what has to stay running, how sessions expire and how you recover after a restart. This note compares the two on those terms.</p>
+      <div class="fact-strip" aria-label="Service boundaries"><span>Technical engineering</span><span>No custody</span><span>Source handoff</span><span>Remote collaboration</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">Alpaca offers key-based REST and streaming access with a paper environment; IBKR access runs through TWS or IB Gateway sessions or the Client Portal and Web API paths with their own login and reauthentication constraints. Choose by the operating model your team can run every day.</p>
+      <section>
+        <h2>Access model and what must stay running</h2>
+        <p>Alpaca exposes REST and streaming endpoints authenticated with API keys, and a separate paper environment with its own keys, so a headless service can run without a desktop session. IBKR's TWS API requires a running Trader Workstation or IB Gateway with a logged-in session, while the Client Portal path relies on a local gateway and browser authentication with periodic reauthentication; the newer unified Web API has its own account and use-case constraints. Your runbook must state who keeps that session alive.</p>
+        <ul class="check-list"><li>Alpaca: key rotation, paper and live separation, streaming reconnect.</li><li>IBKR: session ownership, daily restart and reauthentication handling.</li><li>Both: no withdrawal or funding permissions for the automation identity.</li></ul>
+      </section><section>
+        <h2>Order and data coverage per account</h2>
+        <p>Asset classes, order types, extended-hours rules and market data entitlements depend on the account and region, not only on the broker. Confirm each instrument, order type and data subscription against the account you will actually trade, then record what the paper or test environment does and does not simulate.</p>
+        <ul class="check-list"><li>List instruments and order types per account, then test each one.</li><li>Record data subscriptions and their cost as part of scope.</li><li>Note where paper trading differs from live fills and rejections.</li></ul>
+      </section><section>
+        <h2>Acceptance and restart path</h2>
+        <p>For both brokers the acceptance file should show a normal order, a rejection, a cancel, a partial fill, a disconnect during an open order and a restart with open orders. The restart case is where the two differ most: an Alpaca service reconnects with keys, while an IBKR service may need a session to be restored before reconciliation can even begin.</p>
+        <ul class="check-list"><li>Write the reconnect and reauthentication steps into the runbook.</li><li>Reconcile open orders, fills and positions after every restart.</li><li>Keep a manual pause and a reduce-only mode on both brokers.</li></ul>
+      </section>
+      <section>
+        <h2>Broker API selection checklist</h2>
+        <ul class="check-list"><li>The team can operate the daily session or key rotation model the broker requires.</li><li>Instruments, order types and data entitlements are confirmed per account.</li><li>Paper or test environment limits are written down.</li><li>Restart reconciliation and reauthentication steps are tested.</li><li>Permissions exclude withdrawals and funding actions.</li></ul>
+      </section>
+      <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/broker-api/alpaca/">Alpaca broker API integration</a></li><li><a href="/ibkr-api-automation-developer/">IBKR API automation development</a></li><li><a href="/articles/alpaca-api-paper-to-live-checklist/">Alpaca API paper to live checklist</a></li><li><a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">IBKR TWS API vs Client Portal automation guide</a></li></ul>
+      </section>
+      <section>
+        <h2>References</h2>
+        <p class="article-fact-check">Official platform facts checked: 2026-07-21</p>
+        <div class="reference-list">
+      <a href="https://docs.alpaca.markets/us/" rel="noopener" target="_blank"><strong>Alpaca Docs</strong><span>Alpaca 官方 API 文档入口。</span></a><a href="https://ibkrcampus.com/campus/ibkr-api-page/twsapi-doc/" rel="noopener" target="_blank"><strong>IBKR TWS API documentation</strong><span>IBKR 官方 TWS API 文档，说明 TWS API 通过 Trader Workstation 或 IB Gateway 运行。</span></a><a href="https://ibkrcampus.com/campus/ibkr-api-page/cpapi-v1/" rel="noopener" target="_blank"><strong>IBKR Client Portal Web API v1.0</strong><span>IBKR 官方 Client Portal Gateway 文档，覆盖同机认证、会话和每日重新认证限制。</span></a><a href="https://ibkrcampus.com/campus/ibkr-api-page/webapi-doc/" rel="noopener" target="_blank"><strong>IBKR unified Web API</strong><span>IBKR 当前统一 Web API 文档；OAuth 2.0 仍标注为 beta，账户和用例适用性需要逐项确认。</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>Related technical articles</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">Alpaca API</p>
+        <h3>Alpaca API Paper to Live Checklist</h3>
+        <p>An Alpaca API paper-to-live checklist should verify key separation, base URLs, data permissions, order types, market hours, order status streams, risk limits, logs and manual pause behavior.</p>
+        <a href="/articles/alpaca-api-paper-to-live-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS API vs Client Portal Web API for Automated Trading</h3>
+        <p>IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests.</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Alpaca API</p>
+        <h3>Alpaca WebSocket Order Status Reconciliation</h3>
+        <p>Alpaca WebSocket order status reconciliation should combine streaming updates, REST backfill, stable order IDs, reconnect handling, partial-fill states, exception queues and audit logs.</p>
+        <a href="/articles/alpaca-order-status-reconciliation/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Schwab API</p>
+        <h3>Schwab API Token Refresh Runbook</h3>
+        <p>A Schwab API token refresh runbook should document OAuth ownership, token storage, expiry alerts, refresh failure handling, reauthorization, pause behavior and credential rotation.</p>
+        <a href="/articles/schwab-api-token-refresh-runbook/">Read article</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">Send the brief first, then we assess the right package</h2>
+        <p>Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul>
+          <li>Signal and trading rules</li>
+          <li>API platform and permission status</li>
+          <li>Risk, alert and deployment requirements</li>
+          <li>Target package and budget band</li>
+        </ul>
+        <a class="button primary" href="/contact/" data-contact="content_structured_brief">Send a structured brief</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom trading software for teams</a>
+      <a href="/tradingview-webhook-developer/">TradingView alert automation</a>
+      <a href="/ibkr-api-automation-developer/">IBKR trading automation</a>
+      <a href="/fix-api-order-routing-developer/">FIX order routing system</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/en/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/en/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

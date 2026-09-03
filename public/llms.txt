@@ -45,7 +45,7 @@ Last updated: 2026-07-25
 - Bybit vs OKX VIP Fees: https://pddjf.com/compare/bybit-vs-okx-vip-fees/ — Compare Bybit and OKX futures VIP maker/taker fees at $1M, $10M and $100M monthly volume, including Bybit standard and Pro API paths.
 - Bybit 与 OKX VIP 手续费对比: https://pddjf.com/zh/compare/bybit-vs-okx-vip-fees/ — 对比 Bybit 与 OKX 在月成交量 100 万、1000 万和 1 亿美元时的合约 VIP Maker/Taker 费率，并区分 Bybit 标准与高 API Pro 路径。
 - Bitget vs Binance Futures Fees: https://pddjf.com/compare/bitget-vs-binance-futures-fees/ — Compare Bitget and Binance USDT perpetual maker/taker fees at $1M, $10M and $100M monthly volume, with public VIP ladders, base-rate references and official sources.
-- Bitget 与 币安 合约手续费对比: https://pddjf.com/zh/compare/bitget-vs-binance-futures-fees/ — 对比 Bitget 与 币安 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。
+- Bitget 与币安合约手续费对比: https://pddjf.com/zh/compare/bitget-vs-binance-futures-fees/ — 对比 Bitget 与 币安 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。
 - Binance vs MEXC Futures Fees: https://pddjf.com/compare/binance-vs-mexc-futures-fees/ — Compare Binance and MEXC USDT perpetual maker/taker fees at $1M, $10M and $100M monthly volume, with public VIP ladders, base-rate references and official sources.
 - 币安与 MEXC 合约手续费对比: https://pddjf.com/zh/compare/binance-vs-mexc-futures-fees/ — 对比 币安 与 MEXC 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。
 - Binance vs Gate Futures Fees: https://pddjf.com/compare/binance-vs-gate-futures-fees/ — Compare Binance and Gate USDT perpetual maker/taker fees at $1M, $10M and $100M monthly volume, with public VIP ladders, base-rate references and official sources.

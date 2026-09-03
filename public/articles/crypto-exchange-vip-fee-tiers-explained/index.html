@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypto Exchange VIP Fee Tiers Explained</title>
+  <meta name="description" content="How crypto exchange VIP fee tiers work: 30-day volume, asset floors, API-share rules and maker/taker mix, plus how to model the real monthly cost before choosing a venue.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/">
+
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Crypto Exchange VIP Fee Tiers Explained for Automated Traders">
+  <meta property="og:description" content="How crypto exchange VIP fee tiers work: 30-day volume, asset floors, API-share rules and maker/taker mix, plus how to model the real monthly cost before choosing a venue.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/#webpage",
+      "url": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/",
+      "name": "Crypto Exchange VIP Fee Tiers Explained for Automated Traders",
+      "description": "How crypto exchange VIP fee tiers work: 30-day volume, asset floors, API-share rules and maker/taker mix, plus how to model the real monthly cost before choosing a venue.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "VIP Fee Tiers Explained",
+          "item": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/#article",
+      "headline": "Crypto Exchange VIP Fee Tiers Explained for Automated Traders",
+      "description": "How crypto exchange VIP fee tiers work: 30-day volume, asset floors, API-share rules and maker/taker mix, plus how to model the real monthly cost before choosing a venue.",
+      "url": "https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/en/contact/">Contact</a>
+      <a class="nav-cta" href="/en/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>VIP Fee Tiers Explained</span>
+    </nav>
+      <p class="eyebrow">Exchange fees</p>
+      <h1>Crypto Exchange VIP Fee Tiers Explained for Automated Traders</h1>
+      <p class="hero-lede">VIP tables look like a simple ladder, but the tier you actually land on depends on rules that differ by venue: trailing volume windows, asset balance floors, whether API-driven volume counts fully, and how maker rebates interact with your order mix. This note explains the moving parts and how to model your own number.</p>
+      <div class="fact-strip" aria-label="Service boundaries"><span>Technical engineering</span><span>No custody</span><span>Source handoff</span><span>Remote collaboration</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">A VIP tier is set by trailing volume, asset balance floors and sometimes API-share rules; the real cost depends on your maker and taker mix, so model the blended fee for your own flow before choosing an exchange.</p>
+      <section>
+        <h2>What moves you between tiers</h2>
+        <p>Most venues use a trailing 30-day volume window, and several also require a minimum asset balance to unlock each tier. Some ladders treat API-heavy flow differently, either by capping how much of the qualifying volume can come from API orders or by routing API-heavy accounts to a separate professional track. Read the footnotes on the official fee page, because the headline table rarely shows these conditions.</p>
+        <ul class="check-list"><li>Check the volume window and whether spot and derivatives count separately.</li><li>Check asset balance floors for each tier.</li><li>Check API-share rules if most of your volume is automated.</li></ul>
+      </section><section>
+        <h2>Your maker and taker mix matters more than the tier label</h2>
+        <p>Two accounts on the same tier can pay very different fees. A market-making style flow that is mostly maker may collect rebates on high tiers, while a signal-driven flow that crosses the spread pays taker on almost every fill. The blended fee is the tier's maker rate weighted by your maker share plus the taker rate weighted by your taker share, applied to monthly notional.</p>
+        <ul class="check-list"><li>Measure your real maker and taker share from fills, not from strategy intent.</li><li>Model 100/0, 70/30 and 0/100 mixes to see the range.</li><li>Compare venues at your own volume, not at the top of the ladder.</li></ul>
+      </section><section>
+        <h2>Model the number and verify it on the account</h2>
+        <p>Use the public ladder to estimate the monthly cost at your volume and mix, then confirm the tier and rates shown inside the account, because promotions, regional rules and referral discounts change the effective rate. Re-check after each month closes; a tier drop can cost more than a strategy tweak saves.</p>
+        <ul class="check-list"><li>Estimate with the public ladder, then verify inside the account.</li><li>Track the volume gap to the next tier as an operational metric.</li><li>Log the effective fee per fill so reconciliation can catch rate changes.</li></ul>
+      </section>
+      <section>
+        <h2>Fee tier verification checklist</h2>
+        <ul class="check-list"><li>Volume window, asset floors and API-share rules are read from the official fee page.</li><li>Maker and taker share is measured from actual fills.</li><li>Blended monthly cost is modeled at your own volume for each candidate venue.</li><li>The tier and rates shown in the account match the model within expectations.</li><li>Effective fee per fill is logged and reviewed monthly.</li></ul>
+      </section>
+      <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a></li><li><a href="/compare/binance-vs-okx-futures-fees/">Binance vs OKX futures fees</a></li><li><a href="/compare/bybit-vs-okx-vip-fees/">Bybit vs OKX VIP fees</a></li><li><a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a></li></ul>
+      </section>
+      <section>
+        <h2>References</h2>
+        <p class="article-fact-check">Official platform facts checked: 2026-07-21</p>
+        <div class="reference-list">
+      <a href="https://www.okx.com/docs-v5/en/" rel="noopener" target="_blank"><strong>OKX API documentation</strong><span>Official OKX V5 API reference for authentication, trading, account and WebSocket endpoints.</span></a><a href="https://bybit-exchange.github.io/docs/v5/intro" rel="noopener" target="_blank"><strong>Bybit API documentation</strong><span>Official Bybit V5 API reference for authentication, order, position and WebSocket endpoints.</span></a><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" rel="noopener" target="_blank"><strong>Hyperliquid fees</strong><span>Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula.</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>Related technical articles</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">Exchange API</p>
+        <h3>OKX vs Bybit API for Automated Trading: What to Verify Before You Route Orders</h3>
+        <p>Compare OKX and Bybit for automation by API key scoping, position and margin modes, client order ID rules, partial fill reporting, rate limits, private stream behavior and restart reconciliation, then verify each item against the official docs and a small live test.</p>
+        <a href="/articles/okx-vs-bybit-api-automated-trading-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">TradingView Webhook</p>
+        <h3>TradingView Webhook to Binance Futures: A Signal-to-Order Workflow With Safety Checks</h3>
+        <p>A safe TradingView to Binance futures workflow authenticates and deduplicates each alert, maps symbol and quantity explicitly, reads leverage and margin mode from the account, applies reduce-only and price protection rules, monitors order status and reconciles after every restart.</p>
+        <a href="/articles/tradingview-webhook-to-binance-futures-order-workflow/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Exchange API</p>
+        <h3>Binance API Trading Bot Risk Checklist</h3>
+        <p>A Binance API trading bot risk checklist should review API key permissions, product scope, rate limits, order filters, position limits, idempotency, logs, alerts and key rotation.</p>
+        <a href="/articles/binance-api-trading-bot-risk-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">API Safety</p>
+        <h3>API Key Permission Safety for Trading Bots</h3>
+        <p>Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+        <a href="/articles/trading-bot-api-key-permission-safety/">Read article</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">Send the brief first, then we assess the right package</h2>
+        <p>Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul>
+          <li>Signal and trading rules</li>
+          <li>API platform and permission status</li>
+          <li>Risk, alert and deployment requirements</li>
+          <li>Target package and budget band</li>
+        </ul>
+        <a class="button primary" href="/contact/" data-contact="content_structured_brief">Send a structured brief</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom trading software for teams</a>
+      <a href="/tradingview-webhook-developer/">TradingView alert automation</a>
+      <a href="/ibkr-api-automation-developer/">IBKR trading automation</a>
+      <a href="/fix-api-order-routing-developer/">FIX order routing system</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/en/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/en/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

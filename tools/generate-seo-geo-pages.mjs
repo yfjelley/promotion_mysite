@@ -3460,7 +3460,11 @@ function buildGenericComparisonPages() {
   const ids = ["binance", "okx", "bybit", "bitget", "mexc", "gate"];
   const existing = new Set(exchangeFeeComparisonPages.map((page) => [page.exchangeA, page.exchangeB].sort().join("|")));
   const zhNames = { binance: "币安", okx: "OKX", bybit: "Bybit", bitget: "Bitget", mexc: "MEXC", gate: "Gate" };
-  const zhPair = (l, r) => `${zhNames[l.id]}${/^[A-Za-z]/.test(zhNames[l.id]) ? " 与 " : "与 "}${zhNames[r.id]}`;
+  // Chinese typography: a space only where a Latin token meets its neighbour.
+  const zhJoin = (tokens) => tokens.reduce((out, token, index) => (
+    index === 0 ? token : `${out}${/[A-Za-z0-9]$/.test(out) || /^[A-Za-z0-9]/.test(token) ? " " : ""}${token}`
+  ), "");
+  const zhTitle = (l, r, suffix) => zhJoin([zhNames[l.id], "与", zhNames[r.id], suffix]);
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const checkedDateFor = (exchange) => {
     const dates = [exchange.source?.checkedDate, ...((exchange.sources || []).map((source) => source.checkedDate))].filter(Boolean).sort();
@@ -3509,11 +3513,11 @@ function buildGenericComparisonPages() {
       pages.push({
         slug: `zh/${slugBase}`,
         counterpartSlug: slugBase,
-        breadcrumb: `${zhPair(left, right)} 合约手续费对比`,
+        breadcrumb: zhTitle(left, right, "合约手续费对比"),
         eyebrow: `交易所手续费对比 · ${year} 年 ${month} 月 ${day} 日复核`,
-        title: `${zhPair(left, right)} 合约手续费对比：100 万至 1 亿美元场景`,
+        title: zhTitle(left, right, "合约手续费对比：100 万至 1 亿美元场景"),
         description: `对比 ${zhNames[left.id]} 与 ${zhNames[right.id]} 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。`,
-        h1: `${zhPair(left, right)} 合约手续费对比`,
+        h1: zhTitle(left, right, "合约手续费对比"),
         intro: zhIntro,
         lang: "zh-CN",
         lastModified: "2026-09-03",

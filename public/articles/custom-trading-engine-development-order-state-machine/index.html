@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom Trading Engine Development</title>
+  <meta name="description" content="Custom trading engine development notes: define the order state machine, make submission idempotent, reconcile with the venue after every gap and keep a replayable audit log.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/">
+
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Custom Trading Engine Development: The Order State Machine Comes First">
+  <meta property="og:description" content="Custom trading engine development notes: define the order state machine, make submission idempotent, reconcile with the venue after every gap and keep a replayable audit log.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/#webpage",
+      "url": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/",
+      "name": "Custom Trading Engine Development: The Order State Machine Comes First",
+      "description": "Custom trading engine development notes: define the order state machine, make submission idempotent, reconcile with the venue after every gap and keep a replayable audit log.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Trading Engine Order State Machine",
+          "item": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/#article",
+      "headline": "Custom Trading Engine Development: The Order State Machine Comes First",
+      "description": "Custom trading engine development notes: define the order state machine, make submission idempotent, reconcile with the venue after every gap and keep a replayable audit log.",
+      "url": "https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/en/contact/">Contact</a>
+      <a class="nav-cta" href="/en/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Trading Engine Order State Machine</span>
+    </nav>
+      <p class="eyebrow">Custom trading engine</p>
+      <h1>Custom Trading Engine Development: The Order State Machine Comes First</h1>
+      <p class="hero-lede">A trading engine is a state machine with money attached. Before latency, before strategy plugins, before dashboards, the engine needs an explicit set of order states, the events that move between them, and a rule for what happens when the venue and the engine disagree.</p>
+      <div class="fact-strip" aria-label="Service boundaries"><span>Technical engineering</span><span>No custody</span><span>Source handoff</span><span>Remote collaboration</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">Custom trading engine development should start with an explicit order state machine, idempotent submission keyed by client order ID, venue reconciliation after every gap and an audit log that can be replayed.</p>
+      <section>
+        <h2>Write the states and the transitions</h2>
+        <p>A minimal engine tracks intent, submitted, acknowledged, partially filled, filled, cancel requested, cancelled, rejected and unknown. Unknown is not a failure state; it is the honest state after a timeout or a disconnect, and it must block new risk until the venue answers. Each transition should name the event that caused it and the venue evidence behind it.</p>
+        <ul class="check-list"><li>Keep an explicit unknown state instead of guessing after a timeout.</li><li>Store venue order ID, client order ID and the last venue message for every order.</li><li>Treat a rejected order as a normal, logged outcome with a reason code.</li></ul>
+      </section><section>
+        <h2>Make submission idempotent</h2>
+        <p>Every submission should carry a client order ID derived from the signal, so a retry after a network error cannot create a second position. Before resubmitting, the engine queries the venue for that client order ID. Duplicate detection belongs in the engine, not in the strategy, and it should be tested with replayed signals.</p>
+        <ul class="check-list"><li>Derive client order IDs from strategy, symbol, action and signal time.</li><li>Query the venue by client order ID before any retry.</li><li>Log duplicates as accepted-but-not-resent, never silently dropped.</li></ul>
+      </section><section>
+        <h2>Reconcile and record</h2>
+        <p>After a restart, a reconnect or a rate-limit pause, the engine should pull open orders, recent fills and positions from the venue and compare them with local state. Mismatches pause routing and raise an alert. The audit log records intent, decision, venue request, venue response and reconciliation result with timestamps an operator can read without the developer.</p>
+        <ul class="check-list"><li>Reconcile open orders, fills and positions after every gap.</li><li>Fail closed on unresolved mismatches.</li><li>Keep audit fields stable so reports and support cases can replay them.</li></ul>
+      </section>
+      <section>
+        <h2>Trading engine acceptance checklist</h2>
+        <ul class="check-list"><li>Order states and transitions are documented with venue evidence for each.</li><li>A replayed signal produces one order and one logged duplicate decision.</li><li>A timeout leaves the order in unknown and blocks new risk until resolved.</li><li>Restart reconciliation compares open orders, fills and positions with the venue.</li><li>Audit logs answer what was intended, what was sent, what the venue said and what changed.</li></ul>
+      </section>
+      <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/custom-trading-software-development/">Custom trading software development</a></li><li><a href="/articles/broker-api-order-reconciliation-checklist/">Broker API order reconciliation checklist</a></li><li><a href="/articles/fix-api-execution-report-audit-log-design/">FIX execution report audit log design</a></li><li><a href="/trading-system-consistency-audit-service/">Trading system consistency audit</a></li></ul>
+      </section>
+      <section>
+        <h2>References</h2>
+        <p class="article-fact-check">Official platform facts checked: 2026-07-21</p>
+        <div class="reference-list">
+      <a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-api-information" rel="noopener" target="_blank"><strong>Binance Developer Docs</strong><span>Binance 官方开发者文档入口，覆盖 REST API 基础信息、限制和接口行为。</span></a><a href="https://fixtrading.org/standards/fix-protocol/" rel="noopener" target="_blank"><strong>FIX Trading Community</strong><span>FIX Trading Community 的 FIX Protocol 标准介绍。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes" rel="noopener" target="_blank"><strong>Webhook dry-run demo</strong><span>SignalCraft Labs public demo of idempotent order preparation, permission checks and risk rejection logs.</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>Related technical articles</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">Custom trading platform</p>
+        <h3>Custom Trading Platform Development: Scope Checklist Before You Hire</h3>
+        <p>Before hiring a custom trading platform development company, write down venues and APIs, signal sources, order types, risk limits, reconciliation rules, deployment target, acceptance evidence and the handover package.</p>
+        <a href="/articles/custom-trading-platform-development-scope-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Buyer Checklist</p>
+        <h3>Hire a Trading API Developer: Scope Checklist</h3>
+        <p>Before hiring a trading API developer, define the signal source, target broker or exchange API, permission state, order flow, risk controls, logs, deployment target, budget tier and acceptance owner.</p>
+        <a href="/articles/hire-trading-api-developer-scope-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">Risk Controls</p>
+        <h3>自动交易系统上线前的风控验收清单</h3>
+        <p>自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。</p>
+        <a href="/articles/automated-trading-risk-acceptance-checklist/">Read article</a>
+      </article><article>
+        <p class="eyebrow">FIX API</p>
+        <h3>FIX API 订单回报和审计日志设计</h3>
+        <p>FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。</p>
+        <a href="/articles/fix-api-execution-report-audit-log-design/">Read article</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">Send the brief first, then we assess the right package</h2>
+        <p>Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul>
+          <li>Signal and trading rules</li>
+          <li>API platform and permission status</li>
+          <li>Risk, alert and deployment requirements</li>
+          <li>Target package and budget band</li>
+        </ul>
+        <a class="button primary" href="/contact/" data-contact="content_structured_brief">Send a structured brief</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom trading software for teams</a>
+      <a href="/tradingview-webhook-developer/">TradingView alert automation</a>
+      <a href="/ibkr-api-automation-developer/">IBKR trading automation</a>
+      <a href="/fix-api-order-routing-developer/">FIX order routing system</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/en/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/en/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

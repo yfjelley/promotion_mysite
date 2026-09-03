@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bitget 与 Gate 合约手续费对比：100 万至 1 亿美元场景</title>
+  <meta name="description" content="对比 Bitget 与 Gate 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/">
+  <link rel="alternate" hreflang="en" href="https://pddjf.com/compare/bitget-vs-gate-futures-fees/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/">
+  <link rel="alternate" hreflang="x-default" href="https://pddjf.com/compare/bitget-vs-gate-futures-fees/">
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Bitget 与 Gate 合约手续费对比">
+  <meta property="og:description" content="对比 Bitget 与 Gate 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy&scope=fee-comparison-20260720">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/#webpage",
+      "url": "https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/",
+      "name": "Bitget 与 Gate 合约手续费对比",
+      "description": "对比 Bitget 与 Gate 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Bitget 与 Gate 合约手续费对比",
+          "item": "https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://pddjf.com/zh/compare/bitget-vs-gate-futures-fees/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "1000 万美元月成交量时，Bitget 还是 Gate 手续费更低？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "在资产余额为 0、API 占比不超过 20%、70% Maker / 30% Taker 的模型里，1000 万美元月成交量时 Bitget VIP 2 约为 $2,320，Gate VIP 0 约为 $2,900。其中基础参考一列不代表该交易所对所有账户的真实费率。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么有的列写着“基础参考”？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "表示该交易所在本次复核中只公开了基础费率，完整 VIP 阶梯未向未登录访问者展示。本页不会用搜索摘要、旧截图或第三方聚合表补齐未知等级。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Maker 占比为什么影响这么大？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "费用 = 成交量 ×（Maker 费率 × Maker 占比 + Taker 费率 × Taker 占比）。同一等级下，全部 Maker 与全部 Taker 的成本可能相差数倍；应使用自己成交记录里的真实比例。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "API 占比条件是什么意思？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bitget 的部分等级对 API 交易占比设有条件，本页场景只使用 API 占比不超过 20% 的标准路径。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "本页是否包含资金费率和滑点？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、平台币折扣、活动或账户专属费率。"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs 首页">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/#products">数字产品</a>
+      <a href="/#services">定制工程</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/#packages">交付包</a>
+      <a href="/articles/">资料</a>
+      <a aria-current="page" href="/zh/tools/crypto-exchange-fee-calculator/">费率工具</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+      <a class="nav-cta" href="/contact/" data-contact="nav_contact">提交 Brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      <nav class="breadcrumb" aria-label="面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <span>Bitget 与 Gate 合约手续费对比</span>
+    </nav>
+      <div class="fee-language-switch" aria-label="语言"><a href="https://pddjf.com/compare/bitget-vs-gate-futures-fees/" lang="en">English</a></div>
+      <p class="eyebrow">交易所手续费对比 · 2026 年 7 月 15 日复核</p>
+      <h1>Bitget 与 Gate 合约手续费对比</h1>
+      <p class="hero-lede">只比较官方资料能够支持的 USDT 合约执行费率。Bitget 提供完整 VIP 阶梯；本次复核时 Gate 公共页面未向未登录访问者展示完整阶梯，因此其已核验基础费率仅作参考，不推算 VIP 费率。</p>
+      <div class="fee-hero-proof" aria-label="对比范围">
+        <span><strong>USDT</strong>永续合约范围</span>
+        <span><strong>70 / 30</strong>Maker / Taker</span>
+        <span><strong>2026-07-15</strong>官方资料复核</span>
+        <span><strong>1 / 2</strong>完整公开阶梯</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">先看结论</p>
+      <h2 id="comparison-verdict-title">Bitget 可按公开阶梯建模；Gate 的 VIP 仍未知</h2>
+      <p>在资产余额为 0、API 占比不超过 20%、70% Maker / 30% Taker 的模型里，1000 万美元月成交量时 Bitget VIP 2 约为 $2,320，Gate VIP 0 约为 $2,900。其中基础参考一列不代表该交易所对所有账户的真实费率。</p>
+      <aside class="fee-limitations"><strong>重要限制：</strong> 本页只使用官方公开页面在复核日期可见的数字。交易所官方页面通常也提示实际费率可能因地区、账户类型和活动而异，迁移成交量前应在自己的账户费率页确认。</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">月成交量场景</p>
+      <h2 id="scenario-title">100 万、1000 万与 1 亿美元手续费</h2>
+      <p>主表假设资产余额为 0、API 交易占比不超过 20%、Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>30 天成交量</th><th>Bitget</th><th>Gate</th><th>如何解读</th></tr></thead><tbody><tr>
+      <th scope="row">$1M</th>
+      <td><strong>VIP 0</strong><span>0.02% / 0.06%</span><span>$320 模型估算</span></td>
+      <td><strong>VIP 0</strong><span>0.02% / 0.05%</span><span>$290 基础参考</span></td>
+      <td>Bitget 按公开成交量门槛进入 VIP 0。 Gate 只有已核验的基础费率，完整 VIP 阶梯未公开显示，因此不能据此断言账户级胜负。</td>
+    </tr><tr>
+      <th scope="row">$10M</th>
+      <td><strong>VIP 2</strong><span>0.016% / 0.04%</span><span>$2,320 模型估算</span></td>
+      <td><strong>VIP 0</strong><span>0.02% / 0.05%</span><span>$2,900 基础参考</span></td>
+      <td>Bitget 按公开成交量门槛进入 VIP 2。 Gate 只有已核验的基础费率，完整 VIP 阶梯未公开显示，因此不能据此断言账户级胜负。</td>
+    </tr><tr>
+      <th scope="row">$100M</th>
+      <td><strong>VIP 5</strong><span>0.01% / 0.032%</span><span>$16,600 模型估算</span></td>
+      <td><strong>VIP 0</strong><span>0.02% / 0.05%</span><span>$29,000 基础参考</span></td>
+      <td>Bitget 按公开成交量门槛进入 VIP 5。 Gate 只有已核验的基础费率，完整 VIP 阶梯未公开显示，因此不能据此断言账户级胜负。</td>
+    </tr></tbody></table></div>
+      <div class="hero-actions fee-preset-actions"><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=1000000&amp;m=70&amp;a=0&amp;api=0">计算 $1M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=10000000&amp;m=70&amp;a=0&amp;api=0">计算 $10M · 70/30</a><a class="button secondary compact" href="/zh/tools/crypto-exchange-fee-calculator/?v=100000000&amp;m=70&amp;a=0&amp;api=0">计算 $100M · 70/30</a></div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">订单类型比例会改变 1000 万美元场景</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>成交结构</th><th>Bitget</th><th>Gate</th></tr></thead><tbody><tr><th scope="row">全部 Maker · 100/0</th><td>$1,600 · VIP 2</td><td>$2,000 · VIP 0</td></tr><tr><th scope="row">默认混合 · 70/30</th><td>$2,320 · VIP 2</td><td>$2,900 · VIP 0</td></tr><tr><th scope="row">全部 Taker · 0/100</th><td>$4,000 · VIP 2</td><td>$5,000 · VIP 0</td></tr></tbody></table></div>
+      <p>更高 Maker 占比会降低模型手续费，但 Maker 订单不保证成交；评估执行场所时还需考虑成交概率、价差、滑点和资金费率。</p>
+    </section>
+
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="ladder-bitget">
+      <p class="eyebrow">Full standard ladder</p><h2 id="ladder-bitget">Bitget 公开费率阶梯</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>30 天成交量</th><th>资产门槛</th><th>API 占比条件</th><th>Maker / Taker</th></tr></thead><tbody><tr>
+      <th scope="row">VIP 0</th>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>0.02% / 0.06%</td>
+    </tr><tr>
+      <th scope="row">VIP 1</th>
+      <td>$5M+</td>
+      <td>$30K+</td>
+      <td>—</td>
+      <td>0.019% / 0.06%</td>
+    </tr><tr>
+      <th scope="row">VIP 2</th>
+      <td>$10M+</td>
+      <td>$50K+</td>
+      <td>—</td>
+      <td>0.016% / 0.04%</td>
+    </tr><tr>
+      <th scope="row">VIP 3</th>
+      <td>$20M+</td>
+      <td>$250K+</td>
+      <td>—</td>
+      <td>0.014% / 0.037%</td>
+    </tr><tr>
+      <th scope="row">VIP 4</th>
+      <td>$50M+</td>
+      <td>$750K+</td>
+      <td>—</td>
+      <td>0.012% / 0.035%</td>
+    </tr><tr>
+      <th scope="row">VIP 5</th>
+      <td>$100M+</td>
+      <td>$2M+</td>
+      <td>—</td>
+      <td>0.01% / 0.032%</td>
+    </tr><tr>
+      <th scope="row">VIP 6</th>
+      <td>$300M+</td>
+      <td>$5M+</td>
+      <td>≤20%</td>
+      <td>0.008% / 0.03%</td>
+    </tr><tr>
+      <th scope="row">VIP 7</th>
+      <td>$1B+</td>
+      <td>$10M+</td>
+      <td>≤20%</td>
+      <td>0% / 0.02%</td>
+    </tr></tbody></table></div>
+      <p class="tool-notice">Bitget PRO market-maker groups use a separate schedule and are not included.</p>
+    </section>
+    <section class="section fee-ladder-section comparison-ladder" aria-labelledby="ladder-gate">
+      <p class="eyebrow">Base rate verified</p><h2 id="ladder-gate">Gate 已核验基础费率</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>等级</th><th>30 天成交量</th><th>资产门槛</th><th>API 占比条件</th><th>Maker / Taker</th></tr></thead><tbody><tr>
+      <th scope="row">VIP 0</th>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>0.02% / 0.05%</td>
+    </tr></tbody></table></div>
+      <p class="tool-notice warning">Gate publishes pair-group and VIP adjustments across multiple surfaces. Only the base schedule is modeled here to avoid mixing incompatible tables. 未公开的等级不会用第三方数据补齐。</p>
+    </section>
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">官方一手资料</p><h2>来源、产品范围与核验日期</h2>
+      <div class="fee-source-grid comparison-sources"><article><div class="fee-source-head"><h3>Bitget</h3><span class="coverage-badge">Full standard ladder</span></div><p>范围: Futures standard VIP. 核验 2026-07-15 · 生效 2025-07-01.</p><p><a href="https://www.bitget.com/support/articles/12560603830277" rel="nofollow noopener" target="_blank">Bitget VIP fee rates and thresholds</a></p></article><article><div class="fee-source-head"><h3>Gate</h3><span class="coverage-badge base-only">Base rate verified</span></div><p>范围: USDT futures base schedule. 核验 2026-07-15 · 更新 2026-04-09.</p><p><a href="https://www.gate.com/pt/announcements/article/50390" rel="nofollow noopener" target="_blank">Gate futures fee adjustment</a></p></article><article><div class="fee-source-head"><h3>Gate</h3><span class="coverage-badge base-only">Base rate verified</span></div><p>范围: USDT futures base schedule. 核验 2026-07-15.</p><p><a href="https://www.gate.com/de/blog/101880/gate-vip-program-fee-structure-benefits-cost-optimization-trading-discounts-promotions" rel="nofollow noopener" target="_blank">Gate VIP program overview</a></p></article></div>
+      <aside class="fee-limitations"><strong>未覆盖：</strong> 资金费率、价差、滑点、强平费、返佣、平台币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在自己的账户中确认。</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>正确使用这份对比</h2>
+      <div class="fee-faq-list"><details><summary>1000 万美元月成交量时，Bitget 还是 Gate 手续费更低？</summary><p>在资产余额为 0、API 占比不超过 20%、70% Maker / 30% Taker 的模型里，1000 万美元月成交量时 Bitget VIP 2 约为 $2,320，Gate VIP 0 约为 $2,900。其中基础参考一列不代表该交易所对所有账户的真实费率。</p></details><details><summary>为什么有的列写着“基础参考”？</summary><p>表示该交易所在本次复核中只公开了基础费率，完整 VIP 阶梯未向未登录访问者展示。本页不会用搜索摘要、旧截图或第三方聚合表补齐未知等级。</p></details><details><summary>Maker 占比为什么影响这么大？</summary><p>费用 = 成交量 ×（Maker 费率 × Maker 占比 + Taker 费率 × Taker 占比）。同一等级下，全部 Maker 与全部 Taker 的成本可能相差数倍；应使用自己成交记录里的真实比例。</p></details><details><summary>API 占比条件是什么意思？</summary><p>Bitget 的部分等级对 API 交易占比设有条件，本页场景只使用 API 占比不超过 20% 的标准路径。</p></details><details><summary>本页是否包含资金费率和滑点？</summary><p>不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、平台币折扣、活动或账户专属费率。</p></details></div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">继续核验</p><h2>在计算器中输入自己的成交量，并查看相关对比</h2><p>计算器会把完整公开阶梯与仅基础参考分开显示；先确认自己适用的产品、地区和账户费率，再决定是否迁移成交量。</p></div>
+      <div class="hero-actions"><a class="button primary" href="/zh/tools/crypto-exchange-fee-calculator/?v=10000000&amp;m=70&amp;a=0&amp;api=0">打开 1000 万美元场景</a><a class="button secondary" href="/zh/compare/bitget-vs-binance-futures-fees/">Bitget 与币安合约手续费对比</a><a class="button secondary" href="/zh/compare/binance-vs-gate-futures-fees/">币安与 Gate 合约手续费对比</a><a class="button secondary" href="/zh/compare/okx-vs-bitget-futures-fees/">OKX 与 Bitget 合约手续费对比</a><a class="button secondary" href="/zh/compare/okx-vs-gate-futures-fees/">OKX 与 Gate 合约手续费对比</a><a class="button secondary" href="/exchange-api-trading-bot-development/">交易所 API 开发</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
+    <nav aria-label="服务页导航">
+      <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
+      <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom Trading Software</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/exchange-api-trading-bot-development/">交易所 API</a>
+      <a href="/broker/api/">券商 API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/broker-api/schwab/">Schwab API</a>
+      <a href="/broker-api/alpaca/">Alpaca API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/tradingview-webhook-developer/">TradingView 自动化</a>
+      <a href="/ibkr-api-automation-developer/">IBKR 自动化</a>
+      <a href="/fix-api-order-routing-developer/">FIX 路由系统</a>
+      <a href="/risk-engine/">风控引擎</a>
+      <a href="/private-deployment/">私有部署</a>
+      <a href="/articles/">技术文章</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/case-studies/">案例</a>
+      <a href="/about/">关于</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <nav aria-label="政策页导航">
+      <a href="/terms">服务条款</a>
+      <a href="/risk-disclaimer/">风险免责声明</a>
+      <a href="/disclaimer">免责声明</a>
+      <a href="/delivery-policy">交付边界</a>
+      <a href="/privacy">隐私政策</a>
+    </nav>
+    <p>仅提供技术开发服务，不构成投资建议，不代管资金，不承诺交易收益。</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="移动端快捷联系">
+    <a href="/contact/" data-contact="mobile_contact">项目 Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">复制微信</button>
+  </div>
+</body>
+</html>
