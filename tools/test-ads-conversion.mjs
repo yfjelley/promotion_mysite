@@ -158,10 +158,14 @@ assert.equal(
   "X Pixel should configure the account pixel"
 );
 contactClick();
+const contactConversions = window.dataLayer.filter((entry) => entry[0] === "event" && entry[1] === "conversion");
+assert.equal(contactConversions.length, 1, "a lead contact click should emit exactly one contact-click Ads conversion");
+assert.equal(contactConversions[0][2].send_to, "AW-975458180/JwqyCN_Cqe0cEISfkdED", "contact clicks must use the contact-click label, not the stored-inquiry one");
+contactClick();
 assert.equal(
   window.dataLayer.filter((entry) => entry[0] === "event" && entry[1] === "conversion").length,
-  0,
-  "external contact clicks must not count as stored-inquiry conversions"
+  1,
+  "repeated clicks on the same contact method must not emit duplicate contact conversions"
 );
 assert.match(briefLink.href, /^\/en\/contact\/\?project=custom-trading-software-development&/);
 assert.match(briefLink.href, /gclid=test-click-id/);
@@ -204,7 +208,7 @@ const gaSubmit = window.dataLayer.find((entry) => entry[0] === "event" && entry[
 assert.ok(gaSubmit, "stored Brief submission should emit the GA4 contact_submit event");
 assert.equal(gaSubmit[2].method, "structured_brief_submit");
 
-const adsConversion = window.dataLayer.find((entry) => entry[0] === "event" && entry[1] === "conversion");
+const adsConversion = window.dataLayer.find((entry) => entry[0] === "event" && entry[1] === "conversion" && entry[2]?.send_to === "AW-975458180/nb0cCNOI5-sYEISfkdED");
 assert.ok(adsConversion, "stored Brief submission should emit a Google Ads conversion event");
 assert.equal(adsConversion[2].send_to, "AW-975458180/nb0cCNOI5-sYEISfkdED");
 assert.equal(adsConversion[2].value, 100);

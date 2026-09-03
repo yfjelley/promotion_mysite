@@ -16,7 +16,7 @@ const llmsUpdatedAt = "2026-07-25";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
-const scriptHref = "/scripts.js?v=20260903-ads-tag-eager";
+const scriptHref = "/scripts.js?v=20260903-ads-contact-v1";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
@@ -2906,7 +2906,7 @@ const contactPage = {
   title: "提交项目 Brief | SignalCraft Labs 交付包评估",
   description: "提交项目 Brief，让 SignalCraft Labs 评估交易自动化数字产品、API 集成、Webhook 执行、风控监控和私有化部署交付包。",
   h1: "先说清楚你想解决的问题",
-  intro: "首次联系只需三项：选择项目类型、说明最想解决的业务或执行问题、留下联系方式。API 权限、预算、部署方式和时间线不确定也可以先提交；不要发送账户密码、提现权限或完整 API Secret。",
+  intro: "首次联系只需两项：选择项目类型、留下联系方式；想解决的业务或执行问题可以顺手写一句，也可以留到沟通时再说。API 权限、预算、部署方式和时间线不确定也可以先提交；不要发送账户密码、提现权限或完整 API Secret。",
   heroPrimaryLabel: "用 60 秒提交 Brief",
   heroSecondaryLabel: "先看匿名案例",
   heroSecondaryHref: "/case-studies/",
@@ -4414,8 +4414,8 @@ function leadBriefForm(language = "zh-CN") {
           <input name="contactMethod" data-brief-label="Preferred contact method" autocomplete="email" required placeholder="${english ? "Email / WeChat / Telegram" : "邮箱 / 微信 / Telegram"}">
         </label>
       </div>
-      <label>${english ? "Business or execution problem" : "想解决的业务或执行问题"}
-        <textarea name="riskBoundary" data-brief-label="Business or execution problem" required placeholder="${english ? "For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure." : "例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"}"></textarea>
+      <label>${english ? "Business or execution problem (optional)" : "想解决的业务或执行问题（选填）"}
+        <textarea name="riskBoundary" data-brief-label="Business or execution problem" placeholder="${english ? "For example: manual execution, inconsistent positions, duplicate orders after restart, or alerts that do not explain the failure." : "例如：系统与真实持仓对不上、重启后重复下单、现有告警无法解释根因，或 TradingView 信号仍需手工下单。"}"></textarea>
       </label>
       <details class="brief-optional">
         <summary>${english ? "Add optional project details" : "补充可选资料（平台、权限、预算与时间）"}</summary>

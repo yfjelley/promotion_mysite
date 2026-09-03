@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const contactStylesheetHref = "/styles.css?v=20260805-contact-cta";
-const currentScriptHref = "/scripts.js?v=20260903-ads-tag-eager";
+const currentScriptHref = "/scripts.js?v=20260903-ads-contact-v1";
 const contentDate = "2026-07-21";
 const llmsUpdatedAt = "2026-07-25";
 const errors = [];
@@ -480,10 +480,13 @@ for (const file of pddjfHtmlFiles) {
 
     const briefFormHtml = html.match(/<form class="brief-form"[\s\S]*?<\/form>/i)?.[0] ?? "";
     const requiredFieldCount = (briefFormHtml.match(/\srequired(?:\s|>)/g) ?? []).length;
-    if (requiredFieldCount !== 3) {
-      errors.push(`${rel}: first-contact form must have exactly 3 required fields, found ${requiredFieldCount}`);
+    if (requiredFieldCount !== 2) {
+      errors.push(`${rel}: first-contact form must have exactly 2 required fields, found ${requiredFieldCount}`);
     }
-    ["projectType", "riskBoundary", "contactMethod"].forEach((name) => {
+    if (/name="riskBoundary"[^>]*\srequired(?:\s|>)/.test(briefFormHtml)) {
+      errors.push(`${rel}: riskBoundary must stay optional so the first contact only needs a project type and a contact method`);
+    }
+    ["projectType", "contactMethod"].forEach((name) => {
       if (!new RegExp(`name="${name}"[^>]*\\srequired(?:\\s|>)`).test(briefFormHtml)) {
         errors.push(`${rel}: ${name} must remain required`);
       }
@@ -656,6 +659,9 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
 [
   "const ADS_ID = \"AW-975458180\"",
   "const ADS_CONVERSION = \"AW-975458180/nb0cCNOI5-sYEISfkdED\"",
+  "const ADS_CONTACT_CONVERSION = \"AW-975458180/JwqyCN_Cqe0cEISfkdED\"",
+  "function reportAdsContact(method)",
+  "if (isLead) reportAdsContact(method);",
   "function reportAdsLead(method, eventCallback)",
   "event.event_callback = eventCallback",
   "event.event_timeout = 1200",

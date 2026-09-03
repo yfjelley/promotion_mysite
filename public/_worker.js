@@ -342,7 +342,7 @@ async function handleBriefSubmission(request, env, url) {
     "riskBoundary",
     "notes"
   ]);
-  if (!fields.projectType || !fields.contactMethod || !fields.riskBoundary) {
+  if (!fields.projectType || !fields.contactMethod) {
     return respond({ ok: false, error: "required_fields_missing" }, 400);
   }
 

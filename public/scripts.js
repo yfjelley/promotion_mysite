@@ -1,5 +1,7 @@
 const ADS_ID = "AW-975458180";
 const ADS_CONVERSION = "AW-975458180/nb0cCNOI5-sYEISfkdED";
+const ADS_CONTACT_CONVERSION = "AW-975458180/JwqyCN_Cqe0cEISfkdED";
+const ADS_CONTACT_VALUE = 20.0;
 const ADS_LEAD_VALUE = 100.0;
 const ADS_LEAD_CURRENCY = "USD";
 const GA_ID = "G-390F8PHDES";
@@ -98,6 +100,22 @@ function reportAdsLead(method, eventCallback) {
   gtag("event", "conversion", event);
 }
 
+// Lead contact clicks (email, Telegram, WeChat copy) are a lighter, more frequent
+// signal than a stored Brief. They report to the separate "联系方式点击" Google Ads
+// conversion so the stored-inquiry conversion stays clean. One report per method per page.
+const reportedContactMethods = new Set();
+function reportAdsContact(method) {
+  const key = String(method || "contact");
+  if (reportedContactMethods.has(key)) return;
+  reportedContactMethods.add(key);
+  gtag("event", "conversion", {
+    send_to: ADS_CONTACT_CONVERSION,
+    value: ADS_CONTACT_VALUE,
+    currency: ADS_LEAD_CURRENCY,
+    lead_method: key,
+  });
+}
+
 function reportLinkedInLead() {
   if (!LINKEDIN_LEAD_CONVERSION_ID || typeof window.lintrk !== "function") return;
   window.lintrk("track", { conversion_id: Number(LINKEDIN_LEAD_CONVERSION_ID) });
@@ -114,6 +132,7 @@ function reportContactClick(method, isLead = false, eventCallback) {
     event_category: isLead ? "lead" : "engagement",
     lead_action: isLead ? "external_contact" : "internal_cta",
   });
+  if (isLead) reportAdsContact(method);
 }
 
 function reportBriefSubmit(method, eventCallback) {
