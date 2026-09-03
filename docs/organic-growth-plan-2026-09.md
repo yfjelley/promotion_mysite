@@ -18,28 +18,44 @@ Baseline from Search Console, 2026-06-01 to 2026-08-31: 8 clicks, 2,420 impressi
 - /articles/alpaca-vs-ibkr-api-automated-trading/ — broker comparison long tail
 - /articles/tradingview-webhook-to-binance-futures-order-workflow/ — tradingview webhook binance futures
 
-## Topic queue (next 20, in priority order)
+## Published 2026-09-03 (batch 2, IBKR cluster)
 
-1. IBKR API order status reconciliation after disconnect (ibkr api order status)
-2. IB Gateway auto-restart and daily reauthentication runbook (ib gateway restart)
-3. Schwab Trader API rate limits and order placement checklist (schwab api trading)
-4. Alpaca streaming reconnect and missed trade update recovery
-5. Binance futures API position mode and reduce-only mistakes
-6. OKX API client order ID rules and partial fill reporting
-7. Bybit unified account API: position and margin mode checks for bots
-8. Hyperliquid API wallet permissions and subaccount routing checklist
-9. TradingView alert JSON payload template with versioning (tradingview webhook json)
-10. TradingView webhook to OKX futures order workflow
-11. TradingView webhook to Bybit order workflow
-12. FIX 4.4 session logon, heartbeat and sequence reset runbook
-13. Trading bot VPS deployment: Docker, secrets and log rotation
-14. How to read exchange fee tiers when most volume is API-driven
-15. Binance vs Bybit API for automated trading checklist
-16. Broker API paper trading vs live: what paper does not simulate
-17. Multi-account trading monitoring: reconciliation cadence and alerts
-18. Trading system incident review template
-19. Crypto exchange API key rotation runbook
-20. Custom trading platform development cost: what drives the quote
+The IBKR queries already sit at positions 11-20, the closest cluster to page one. These four articles interlink with each other and with the existing IBKR pages so the cluster has internal depth rather than four isolated pages.
+
+- /articles/ibkr-api-order-status-reconciliation-after-disconnect/ — query: ibkr api order status
+- /articles/ib-gateway-auto-restart-daily-reauthentication-runbook/ — query: ib gateway restart
+- /articles/ibkr-api-pacing-violations-market-data-limits/ — queries: ibkr pacing violation, market data lines
+- /articles/ibkr-paper-trading-vs-live-account-api-differences/ — query: ibkr paper trading vs live
+
+## Internal linking (2026-09-03)
+
+The 30 comparison pages and both calculators had no path from the homepage; only the sitemap and the calculator page linked them. Fixed by adding a comparison hub and linking it from the highest-authority pages.
+
+- New hub: /compare/ and /zh/compare/, listing every comparison for that language plus both calculators, with ItemList structured data.
+- Homepage: new "公开费率工具与交易所手续费对比" section linking the hub, both calculators and three comparisons, plus two footer entries.
+- Sitewide footer on generated pages: hub added to both the Chinese and English footer link sets.
+- Header nav left unchanged; it is a non-wrapping flex row and a ninth item would overflow on desktop.
+
+## Topic queue (next 18, in priority order)
+
+1. Schwab Trader API rate limits and order placement checklist (schwab api trading)
+2. Alpaca streaming reconnect and missed trade update recovery
+3. Binance futures API position mode and reduce-only mistakes
+4. OKX API client order ID rules and partial fill reporting
+5. Bybit unified account API: position and margin mode checks for bots
+6. Hyperliquid API wallet permissions and subaccount routing checklist
+7. TradingView alert JSON payload template with versioning (tradingview webhook json)
+8. TradingView webhook to OKX futures order workflow
+9. TradingView webhook to Bybit order workflow
+10. FIX 4.4 session logon, heartbeat and sequence reset runbook
+11. Trading bot VPS deployment: Docker, secrets and log rotation
+12. How to read exchange fee tiers when most volume is API-driven
+13. Binance vs Bybit API for automated trading checklist
+14. Broker API paper trading vs live: what paper does not simulate
+15. Multi-account trading monitoring: reconciliation cadence and alerts
+16. Trading system incident review template
+17. Crypto exchange API key rotation runbook
+18. Custom trading platform development cost: what drives the quote
 
 ## Compare and tool expansion
 

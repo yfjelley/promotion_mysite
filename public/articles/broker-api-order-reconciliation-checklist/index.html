@@ -181,25 +181,25 @@
         <h2>Related technical articles</h2>
         <div class="article-card-grid">
       <article>
-        <p class="eyebrow">IBKR API</p>
-        <h3>IBKR TWS API vs Client Portal Web API for Automated Trading</h3>
-        <p>IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests.</p>
-        <a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">Read article</a>
+        <p class="eyebrow">Risk Controls</p>
+        <h3>Automated Trading Strategy Risk Checklist</h3>
+        <p>An automated trading strategy risk checklist should validate API permissions, manual pause, max position, duplicate signals, market hours, alerts, rollback and operator handoff.</p>
+        <a href="/articles/automated-trading-strategy-risk-checklist/">Read article</a>
       </article><article>
-        <p class="eyebrow">IBKR API</p>
-        <h3>IBKR API Strategy Execution</h3>
-        <p>IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.</p>
-        <a href="/articles/ibkr-api-strategy-execution/">Read article</a>
+        <p class="eyebrow">Failure Modes</p>
+        <h3>Common Automated Trading Strategy Failure Points</h3>
+        <p>Common automated trading strategy failure points include duplicate signals, repainting, stale position state, API rejects, reconnect gaps, partial fills, missing pause controls and weak audit logs.</p>
+        <a href="/articles/common-automated-strategy-failure-points/">Read article</a>
       </article><article>
-        <p class="eyebrow">TradingView + IBKR</p>
-        <h3>TradingView Webhook to IBKR Order Workflow</h3>
-        <p>A TradingView webhook to IBKR order workflow should define payload fields, IBKR connection mode, account permissions, order preview, risk gates, duplicate handling and audit logs.</p>
-        <a href="/articles/tradingview-webhook-to-ibkr-order-workflow/">Read article</a>
+        <p class="eyebrow">API Safety</p>
+        <h3>API Key Permission Safety for Trading Bots</h3>
+        <p>Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+        <a href="/articles/trading-bot-api-key-permission-safety/">Read article</a>
       </article><article>
-        <p class="eyebrow">IBKR API</p>
-        <h3>IBKR TWS API 与 Client Portal Web API 怎么选</h3>
-        <p>IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
-        <a href="/articles/ibkr-tws-gateway-vs-client-portal/">Read article</a>
+        <p class="eyebrow">Risk Controls</p>
+        <h3>自动交易系统上线前的风控验收清单</h3>
+        <p>自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。</p>
+        <a href="/articles/automated-trading-risk-acceptance-checklist/">Read article</a>
       </article>
     </div>
       </section>
@@ -232,6 +232,7 @@
   <footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
+      <a href="/compare/">Exchange fee comparisons</a>
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
       <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
       <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>

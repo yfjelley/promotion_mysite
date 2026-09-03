@@ -350,6 +350,26 @@
       "label": "TradingView Webhook to Binance Futures: A Signal-to-Order Workflow With Safety Checks",
       "url": "https://pddjf.com/articles/tradingview-webhook-to-binance-futures-order-workflow/",
       "summary": "A safe TradingView to Binance futures workflow authenticates and deduplicates each alert, maps symbol and quantity explicitly, reads leverage and margin mode from the account, applies reduce-only and price protection rules, monitors order status and reconciles after every restart."
+    },
+    {
+      "label": "IBKR API Order Status Reconciliation After a Disconnect",
+      "url": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/",
+      "summary": "After an IBKR disconnect, rebuild state from working orders, terminal orders and executions, compare positions per instrument, and keep routing paused while any order is still unknown."
+    },
+    {
+      "label": "IB Gateway Restart and Reauthentication Runbook",
+      "url": "https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/",
+      "summary": "Plan IB Gateway restarts as a scheduled outage: publish the window, define what happens to signals during it, gate routing behind an explicit readiness check and reconcile before resuming."
+    },
+    {
+      "label": "IBKR API Pacing Violations and Market Data Limits",
+      "url": "https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/",
+      "summary": "Treat IBKR message pacing, historical data pacing and market data line allowances as design inputs: budget every request through one queue, cache reference data, and alert instead of trading on stale quotes."
+    },
+    {
+      "label": "IBKR Paper Trading vs Live Account: API Differences",
+      "url": "https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/",
+      "summary": "Use an IBKR paper account to accept workflow, permission and error handling tests; verify instruments, order types and market data per account; then go live at reduced size with tightened limits and a tested pause."
     }
   ]
 }

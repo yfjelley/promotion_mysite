@@ -3168,6 +3168,202 @@ const articlePages = [
       officialReferenceLinks[5],
       ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public demo of deduplication, permission checks and risk rejection logs."]
     ]
+  },
+  {
+    slug: "articles/ibkr-api-order-status-reconciliation-after-disconnect",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "IBKR Order Status After a Disconnect",
+    eyebrow: "IBKR API",
+    title: "IBKR API Order Status Reconciliation After a Disconnect",
+    description: "Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.",
+    h1: "IBKR API Order Status Reconciliation After a Disconnect",
+    intro: "A reconnected client starts with an empty picture of the account, not a corrected one. Everything that happened during the gap has to be re-read from the broker before the strategy is allowed to send another order.",
+    summary: "After an IBKR disconnect, rebuild state from working orders, terminal orders and executions, compare positions per instrument, and keep routing paused while any order is still unknown.",
+    sections: [
+      {
+        title: "A reconnect does not replay what you missed",
+        body: "The TWS API delivers order status and execution callbacks over a live socket. Events that fire while the client is disconnected are not queued for later delivery, so silence after a reconnect proves nothing. Treat the broker as the source of truth and rebuild state explicitly instead of trusting the last local snapshot.",
+        bullets: ["Silence after a reconnect is not evidence that nothing filled.", "Rebuild from broker requests, not from the last known local state.", "Keep routing paused until the rebuild finishes and matches."]
+      },
+      {
+        title: "Rebuild from working orders, terminal orders and executions",
+        body: "IBKR exposes separate requests for orders that are still working, orders that reached a terminal state and fills that already happened. Each answers a different question, so a reconciliation built on only one of them will miss a case. Client identity also matters: orders are associated with the client that placed them, and the available requests differ in whether they return orders from every client or only the current one.",
+        bullets: ["Read working orders, terminal orders and executions separately, then merge them by the broker's permanent identifier.", "Record which client placed each order so a restarted process can claim its own working orders.", "Executions and commission reports are only returned for a recent window, so persist them locally as they arrive."]
+      },
+      {
+        title: "Resolve differences before the strategy resumes",
+        body: "Reconciliation should end in a decision, not a report. Every local order must land in one of a small set of states: confirmed filled, confirmed working, confirmed cancelled or unknown. Unknown is the only state that must block trading, because that is where a duplicate order or an unhedged position gets created.",
+        bullets: ["Compare position quantity per instrument, not only order-by-order status.", "Send unknown orders to an operator alert with the order reference and the last known local state.", "Log the reconciliation result with a timestamp so the audit trail explains why routing resumed."]
+      }
+    ],
+    checklistTitle: "Reconnect reconciliation checklist",
+    checklist: [
+      "The client re-requests a valid next order identifier before sending any new order.",
+      "Working orders, terminal orders and executions are all re-read after a reconnect.",
+      "Local order records store the broker's permanent identifiers, not only local ones.",
+      "Position quantities are compared against the account, instrument by instrument.",
+      "Routing stays paused while any order is unknown, and an operator is alerted."
+    ],
+    related: [
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["Broker API order reconciliation checklist", "/articles/broker-api-order-reconciliation-checklist/"],
+      ["IB Gateway restart and reauthentication runbook", "/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/"],
+      ["Trading system consistency audit", "/trading-system-consistency-audit-service/"]
+    ],
+    references: [
+      ibkrTwsReference,
+      ibkrOperationsReference,
+      officialReferenceLinks[1],
+      ["Broker order reconciliation demo", `${engineeringNotesUrl}/blob/master/demos/broker-order-reconciliation/README.md`, "SignalCraft Labs public demo that reconciles orders after a restart and pauses routing when a state is unknown."]
+    ]
+  },
+  {
+    slug: "articles/ib-gateway-auto-restart-daily-reauthentication-runbook",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "IB Gateway Restart Runbook",
+    eyebrow: "IBKR API",
+    title: "IB Gateway Restart and Reauthentication Runbook",
+    description: "An operations runbook for IB Gateway sessions: scheduled restarts, periodic reauthentication, readiness checks and the reconciliation step before automated routing resumes.",
+    h1: "IB Gateway Restart and Reauthentication Runbook",
+    intro: "The hard part of running an IBKR automation is not the API. It is that the host application holds an authenticated session which will end on a schedule, so the system has to be designed around a planned outage rather than a permanent connection.",
+    summary: "Plan IB Gateway restarts as a scheduled outage: publish the window, define what happens to signals during it, gate routing behind an explicit readiness check and reconcile before resuming.",
+    sections: [
+      {
+        title: "The login step is the constraint, not the API",
+        body: "The TWS API connects to a running Trader Workstation or IB Gateway process, and that process is authenticated through its own interface. A fully headless login is not a supported path, so the design has to accept a session that ends on a schedule. Confirm the current restart and reauthentication intervals in IBKR's operations documentation for the platform and account actually in use.",
+        bullets: ["Treat the restart window as a planned outage, not an incident.", "Verify the applicable restart and reauthentication intervals against current official documentation.", "Third-party supervision tools sit outside IBKR support; if one is used it belongs to the customer's operational risk, not to the delivery scope."]
+      },
+      {
+        title: "Make the restart window explicit in the system",
+        body: "The trading process should know when the host application is expected to be unavailable. Before the window, stop accepting new signals and let working orders reach a defined state. During the window, queue or reject incoming signals with a logged reason. After the window, reconnect, resubscribe and reconcile before routing resumes.",
+        bullets: ["Publish the restart schedule as configuration, not as tribal knowledge.", "Queue or reject signals during the window with a logged reason instead of dropping them silently.", "Alert when a reconnect has not succeeded within the expected recovery time."]
+      },
+      {
+        title: "Reconnected is not the same as ready",
+        body: "A socket can be connected before the account data behind it is usable. The process should call itself ready only after it holds a valid order identifier, current account and position data, the market data subscriptions its instruments need and a completed reconciliation. Until then it stays in a warm-up state that refuses to route.",
+        bullets: ["Gate routing behind an explicit readiness check with named conditions.", "Re-establish order identifier sequencing and market data subscriptions after every restart.", "Record readiness transitions in the same log stream as orders so incidents can be replayed."]
+      }
+    ],
+    checklistTitle: "Restart window checklist",
+    checklist: [
+      "The restart schedule and expected downtime are documented and configured.",
+      "Signals arriving during the window are handled by a defined rule and logged.",
+      "Reconnect restores order identifier sequencing, account data and subscriptions.",
+      "Reconciliation runs after every restart, before routing resumes.",
+      "Monitoring alerts when the process is not ready within the expected recovery time."
+    ],
+    related: [
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["IBKR order status reconciliation after a disconnect", "/articles/ibkr-api-order-status-reconciliation-after-disconnect/"],
+      ["Private deployment and handover", "/private-deployment/"],
+      ["Trading bot VPS and Docker runbook", "/articles/trading-bot-private-deployment-vps-docker-runbook/"]
+    ],
+    references: [
+      ibkrOperationsReference,
+      ibkrTwsReference,
+      officialReferenceLinks[1],
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/ibkr-api-pacing-violations-market-data-limits",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "IBKR Pacing and Market Data Limits",
+    eyebrow: "IBKR API",
+    title: "IBKR API Pacing Violations and Market Data Limits",
+    description: "How IBKR message pacing, historical data limits and market data line allowances shape an automated client, with request budgeting, caching, backoff and acceptance tests.",
+    h1: "IBKR API Pacing Violations and Market Data Limits",
+    intro: "Rate limits are part of the interface, not an edge case. A client that ignores them gets throttled during exactly the market conditions in which it is busiest, and the failure usually looks like missing data rather than an obvious error.",
+    summary: "Treat IBKR message pacing, historical data pacing and market data line allowances as design inputs: budget every request through one queue, cache reference data, and alert instead of trading on stale quotes.",
+    sections: [
+      {
+        title: "Pacing limits are part of the interface",
+        body: "The TWS API documents rate constraints on messages and on historical data requests, and each account has a limited number of simultaneous streaming market data lines. Read the current limits from the official documentation for the account in use, record them in the project notes with the date they were checked, and treat them as a design input rather than something to discover in production.",
+        bullets: ["Check the documented message rate, historical data pacing rules and market data line allowance for the account in use.", "Assume limits apply per connection and plan the number of clients accordingly.", "Expect pacing problems to surface as API error messages, so log them with the request that caused them."]
+      },
+      {
+        title: "Budget requests through a single queue",
+        body: "Pacing logic scattered across strategy code is impossible to reason about. One request queue that owns the rate budget is easier to test and easier to fix. Reference and historical data should be fetched once and cached, streaming subscriptions should be shared across strategies, and every request path should degrade into a queue rather than into a retry storm.",
+        bullets: ["Route all API requests through one queue that enforces the rate budget.", "Cache contract details and historical series instead of re-requesting them on every restart.", "Back off after a pacing error rather than retrying immediately."]
+      },
+      {
+        title: "Market data lines decide how many instruments you can watch",
+        body: "Streaming quotes consume a limited allowance, and a scanner or a multi-instrument strategy can exhaust it quickly. The system needs an explicit policy for which instruments hold a live subscription, which fall back to periodic snapshots and what happens when the allowance is reached.",
+        bullets: ["Keep a subscription registry with an eviction rule instead of subscribing on demand.", "Separate instruments that need streaming quotes from those that only need snapshots.", "Alert when a subscription is refused rather than letting the strategy trade on stale data."]
+      }
+    ],
+    checklistTitle: "Rate limit acceptance checklist",
+    checklist: [
+      "Documented pacing and market data limits are recorded in project notes with a check date.",
+      "All API requests pass through a queue that enforces a rate budget.",
+      "Reference and historical data are cached across restarts.",
+      "The subscription count is tracked, with an eviction rule and an alert on refusal.",
+      "Pacing errors trigger backoff and are logged with the originating request."
+    ],
+    related: [
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["IBKR order status reconciliation after a disconnect", "/articles/ibkr-api-order-status-reconciliation-after-disconnect/"],
+      ["IB Gateway restart and reauthentication runbook", "/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/"],
+      ["Custom trading software development", "/custom-trading-software-development/"]
+    ],
+    references: [
+      ibkrTwsReference,
+      officialReferenceLinks[1],
+      ibkrOperationsReference,
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
+  },
+  {
+    slug: "articles/ibkr-paper-trading-vs-live-account-api-differences",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "IBKR Paper vs Live Account",
+    eyebrow: "IBKR API",
+    title: "IBKR Paper Trading vs Live Account: API Differences",
+    description: "What an IBKR paper account proves before live automation and what it cannot, covering simulated fills, market data, permissions and a controlled reduced-size go-live.",
+    h1: "IBKR Paper Trading vs Live Account: API Differences",
+    intro: "A paper account is the right place to prove that a workflow is correct and the wrong place to conclude anything about execution quality. Knowing which claims survive the move to a live account is the difference between a controlled go-live and a surprise.",
+    summary: "Use an IBKR paper account to accept workflow, permission and error handling tests; verify instruments, order types and market data per account; then go live at reduced size with tightened limits and a tested pause.",
+    sections: [
+      {
+        title: "Paper proves the workflow, not the execution",
+        body: "A paper account can demonstrate that signals become orders, that rejects are handled, that reconnects recover state and that logs are complete. It cannot establish fill quality. Simulated fills do not reproduce queue position, partial fill patterns, borrow availability or how a book behaves under stress.",
+        bullets: ["Accept workflow, permission and error handling tests in paper.", "Do not accept slippage, fill rate or capacity conclusions from paper results.", "Write down what remains unproven when paper testing ends."]
+      },
+      {
+        title: "Account, data and permission differences",
+        body: "A paper account is a separate account with its own credentials, its own permissions and its own market data situation. Instruments, order types and trading permissions available in a live account are not automatically available in paper, and market data behaviour can differ. Verify each of these against the accounts rather than assuming parity.",
+        bullets: ["Confirm the instruments and order types the strategy needs are enabled in both accounts.", "Check what market data the client actually receives in paper, including whether it is delayed.", "Keep credentials per environment and never let paper and live configurations share a secret."]
+      },
+      {
+        title: "Cross to live with size, not with hope",
+        body: "The transition should be a controlled procedure: reduced size, tightened risk limits, a defined observation period and a rollback a human can trigger. The first live session is a test with real money and deserves the same evidence standard as any other acceptance step.",
+        bullets: ["Go live at minimum size with position and daily loss limits tightened.", "Compare the first live sessions against paper for order acceptance, rejects and reconciliation.", "Keep a documented manual pause that stops routing without stopping the process."]
+      }
+    ],
+    checklistTitle: "Paper to live checklist",
+    checklist: [
+      "The environment is selectable by configuration, with separate credentials and separate logs.",
+      "Instruments, order types and permissions are confirmed in both accounts.",
+      "Market data differences between paper and live are documented.",
+      "A reduced-size observation period and its exit criteria are agreed before go-live.",
+      "A manual pause and a rollback path are tested before the first live session."
+    ],
+    related: [
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["Alpaca paper to live checklist", "/articles/alpaca-api-paper-to-live-checklist/"],
+      ["IBKR order status reconciliation after a disconnect", "/articles/ibkr-api-order-status-reconciliation-after-disconnect/"],
+      ["Automated trading risk acceptance checklist", "/articles/automated-trading-risk-acceptance-checklist/"]
+    ],
+    references: [
+      ibkrTwsReference,
+      officialReferenceLinks[1],
+      ibkrOperationsReference,
+      ["IBKR platform notes", `${engineeringNotesUrl}/blob/master/docs/platform-notes.md`, "SignalCraft Labs public notes for platform integration evaluation."]
+    ]
   }
 ];
 
@@ -3533,6 +3729,32 @@ function buildGenericComparisonPages() {
 
 exchangeFeeComparisonPages.push(...buildGenericComparisonPages());
 
+const exchangeFeeCompareIndexPage = {
+  slug: "compare",
+  counterpartSlug: "zh/compare",
+  breadcrumb: "Exchange Fee Comparisons",
+  eyebrow: "Exchange fee comparison hub",
+  title: "Crypto Exchange Futures Fee Comparisons | Official Sources",
+  description: "Every published futures fee comparison for Binance, OKX, Bybit, Bitget, MEXC and Gate, with $1M to $100M scenarios, public VIP ladders and official sources.",
+  h1: "Crypto Exchange Futures Fee Comparisons",
+  intro: "Each comparison models public USDT perpetual maker and taker costs at $1M, $10M and $100M monthly volume. Exchanges with a complete public VIP ladder are modelled tier by tier; exchanges without one stay base-rate references, and every number links back to the official page and the date it was checked.",
+  lang: "en",
+  lastModified: "2026-09-03"
+};
+
+const exchangeFeeCompareIndexPageZh = {
+  slug: "zh/compare",
+  counterpartSlug: "compare",
+  breadcrumb: "交易所手续费对比",
+  eyebrow: "交易所手续费对比总览",
+  title: "交易所合约手续费对比总览 | 官方来源与场景测算",
+  description: "币安、OKX、Bybit、Bitget、MEXC、Gate 的全部合约手续费对比页，覆盖月成交量 100 万至 1 亿美元场景、公开 VIP 阶梯、基础费率参考与官方来源核验日期。",
+  h1: "交易所合约手续费对比总览",
+  intro: "每个对比页都按月成交量 100 万、1000 万和 1 亿美元三个场景测算 USDT 永续合约的 Maker/Taker 成本。有完整公开 VIP 阶梯的交易所按等级建模，只有基础费率的交易所标注为参考，所有数字都对应官方页面和复核日期。",
+  lang: "zh-CN",
+  lastModified: "2026-09-03"
+};
+
 const allGeneratedPages = [
   ...servicePages,
   faqPage,
@@ -3548,6 +3770,8 @@ const allGeneratedPages = [
   exchangeFeeToolPageZh,
   hyperliquidFeeToolPage,
   hyperliquidFeeToolPageZh,
+  exchangeFeeCompareIndexPage,
+  exchangeFeeCompareIndexPageZh,
   ...exchangeFeeComparisonPages
 ];
 
@@ -3563,6 +3787,7 @@ const navLinks = [
 ];
 
 const footerServiceLinks = [
+  ["/zh/compare/", "交易所费率对比"],
   ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"],
   ["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"],
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
@@ -3598,6 +3823,7 @@ const navLinksEn = [
 ];
 
 const footerServiceLinksEn = [
+  ["/compare/", "Exchange fee comparisons"],
   ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
   ["/hyperliquid-api-trading-bot-development/", "Custom Hyperliquid trading bot"],
   ["/tradingview-to-hyperliquid-automation/", "TradingView to Hyperliquid"],
@@ -4366,7 +4592,8 @@ const articleClusters = [
   ["articles/okx-vs-bybit-api-automated-trading-checklist", "articles/crypto-exchange-vip-fee-tiers-explained", "articles/tradingview-webhook-to-binance-futures-order-workflow", "articles/binance-api-trading-bot-risk-checklist", "articles/trading-bot-api-key-permission-safety"],
   ["articles/alpaca-vs-ibkr-api-automated-trading", "articles/alpaca-api-paper-to-live-checklist", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/alpaca-order-status-reconciliation", "articles/schwab-api-token-refresh-runbook"],
   ["articles/tradingview-webhook-duplicate-orders", "articles/how-we-prevent-duplicate-tradingview-webhook-orders", "articles/tradingview-webhook-strategy-automation", "articles/tradingview-alert-payload-template", "articles/tradingview-webhook-to-ibkr-order-workflow"],
-  ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-strategy-execution", "articles/tradingview-webhook-to-ibkr-order-workflow", "articles/broker-api-order-reconciliation-checklist"],
+  ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-order-status-reconciliation-after-disconnect", "articles/ib-gateway-auto-restart-daily-reauthentication-runbook", "articles/ibkr-api-strategy-execution", "articles/tradingview-webhook-to-ibkr-order-workflow"],
+  ["articles/ibkr-api-order-status-reconciliation-after-disconnect", "articles/ib-gateway-auto-restart-daily-reauthentication-runbook", "articles/ibkr-api-pacing-violations-market-data-limits", "articles/ibkr-paper-trading-vs-live-account-api-differences", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading"],
   ["articles/automated-trading-risk-acceptance-checklist", "articles/automated-trading-strategy-risk-checklist", "articles/common-automated-strategy-failure-points", "articles/trading-bot-api-key-permission-safety", "articles/broker-api-order-reconciliation-checklist"],
   ["articles/fix-api-execution-report-audit-log-design", "articles/fix-api-order-routing-execution-reports-audit-logs", "articles/fix-api-uat-checklist-before-production", "articles/fix-api-certificate-network-allowlist-checklist"],
   ["articles/alpaca-api-paper-to-live-checklist", "articles/alpaca-order-status-reconciliation", "articles/schwab-trader-api-oauth-automation-checklist", "articles/schwab-api-token-refresh-runbook", "articles/broker-api-order-reconciliation-checklist"],
@@ -5764,6 +5991,48 @@ function bybitOkxComparisonHtml(page) {
 </html>`;
 }
 
+function exchangeFeeCompareIndexHtml(page) {
+  const english = isEnglish(page);
+  const prefix = english ? "compare/" : "zh/compare/";
+  const entries = exchangeFeeComparisonPages
+    .filter((entry) => entry.slug.startsWith(prefix))
+    .slice()
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "CollectionPage"),
+      {
+        "@type": "ItemList",
+        "@id": `${canonical(page.slug)}#comparisons`,
+        "name": page.h1,
+        "itemListElement": entries.map((entry, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "url": canonical(entry.slug),
+          "name": entry.h1
+        }))
+      }
+    ]
+  };
+  const cards = entries.map((entry) => `<article>
+        <p class="eyebrow">${escapeHtml(entry.eyebrow)}</p>
+        <h3>${escapeHtml(entry.h1)}</h3>
+        <p>${escapeHtml(entry.description)}</p>
+        <a href="${routeForSlug(entry.slug)}">${english ? "Open comparison" : "查看对比"}</a>
+      </article>`).join("");
+  const calculators = english
+    ? [["/tools/crypto-exchange-fee-calculator/", "Crypto exchange VIP fee calculator"], ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"]]
+    : [["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"], ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"]];
+  const body = `<div class="article-card-grid">${cards}</div>
+    <section class="embedded-section">
+      <h2>${english ? "Run the numbers on your own volume" : "用自己的成交量测算"}</h2>
+      <p>${english ? "The comparison pages use fixed $1M, $10M and $100M scenarios. The calculators take a 30-day volume, a maker and taker mix and qualifying assets, then show the distance to the next public tier." : "对比页使用 100 万、1000 万和 1 亿美元三个固定场景。计算器可以按你自己的 30 天成交量、Maker/Taker 比例和持仓资产测算，并显示距离下一档公开等级还差多少。"}</p>
+      <ul class="check-list">${calculators.map(([href, label]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join("")}</ul>
+    </section>`;
+  return infoPageHtml(page, english ? "Fee tool" : "费率工具", body, schema);
+}
+
 function genericExchangeComparisonHtml(page) {
   const zh = page.lang === "zh-CN";
   const url = canonical(page.slug);
@@ -6267,6 +6536,8 @@ writePublicFile(pagePath(exchangeFeeToolPage.slug), exchangeFeeToolHtml(exchange
 writePublicFile(pagePath(exchangeFeeToolPageZh.slug), exchangeFeeToolHtml(exchangeFeeToolPageZh));
 writePublicFile(pagePath(hyperliquidFeeToolPage.slug), hyperliquidFeeToolHtml(hyperliquidFeeToolPage));
 writePublicFile(pagePath(hyperliquidFeeToolPageZh.slug), hyperliquidFeeToolHtml(hyperliquidFeeToolPageZh));
+writePublicFile(pagePath(exchangeFeeCompareIndexPage.slug), exchangeFeeCompareIndexHtml(exchangeFeeCompareIndexPage));
+writePublicFile(pagePath(exchangeFeeCompareIndexPageZh.slug), exchangeFeeCompareIndexHtml(exchangeFeeCompareIndexPageZh));
 for (const page of exchangeFeeComparisonPages) {
   writePublicFile(pagePath(page.slug), exchangeFeeComparisonHtml(page));
 }
@@ -6279,6 +6550,8 @@ const sitemapUrls = [
   ["/zh/tools/crypto-exchange-fee-calculator/", "weekly", "0.95"],
   ["/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
   ["/zh/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
+  ["/compare/", "weekly", "0.9", exchangeFeeCompareIndexPage.lastModified],
+  ["/zh/compare/", "weekly", "0.9", exchangeFeeCompareIndexPageZh.lastModified],
   ...exchangeFeeComparisonPages.map((page) => [routeForSlug(page.slug), "weekly", "0.85", page.lastModified]),
   ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],

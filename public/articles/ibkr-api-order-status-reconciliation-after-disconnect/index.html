@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IBKR API Order Status Reconciliation After a Disconnect</title>
+  <meta name="description" content="Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/">
+
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="IBKR API Order Status Reconciliation After a Disconnect">
+  <meta property="og:description" content="Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/">
+  <meta property="og:image" content="https://pddjf.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pddjf.com/og-image.png">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://pddjf.com/#organization",
+      "name": "SignalCraft Labs",
+      "url": "https://pddjf.com",
+      "logo": "https://pddjf.com/favicon.svg",
+      "email": "contact@pddjf.com",
+      "sameAs": [
+        "https://t.me/yf16881",
+        "https://github.com/yfjelley",
+        "https://github.com/yfjelley/signalcraft-labs-engineering-notes",
+        "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@pddjf.com",
+        "availableLanguage": [
+          "zh-CN",
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://pddjf.com/#website",
+      "url": "https://pddjf.com",
+      "name": "SignalCraft Labs",
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/#webpage",
+      "url": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/",
+      "name": "IBKR API Order Status Reconciliation After a Disconnect",
+      "description": "Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.",
+      "isPartOf": {
+        "@id": "https://pddjf.com/#website"
+      },
+      "about": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://pddjf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "IBKR Order Status After a Disconnect",
+          "item": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/#article",
+      "headline": "IBKR API Order Status Reconciliation After a Disconnect",
+      "description": "Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.",
+      "url": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en",
+      "about": [
+        "Trading API automation",
+        "Webhook automation",
+        "Risk controls",
+        "Private deployment"
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="content-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SignalCraft Labs home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SignalCraft Labs</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/#products">Products</a>
+      <a href="/#services">Custom Engineering</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/#packages">Packages</a>
+      <a href="/articles/">Articles</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Fee tool</a>
+      <a href="/about/">About</a>
+      <a href="/en/contact/">Contact</a>
+      <a class="nav-cta" href="/en/contact/" data-contact="nav_contact">Send brief</a>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="content-hero compact">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>IBKR Order Status After a Disconnect</span>
+    </nav>
+      <p class="eyebrow">IBKR API</p>
+      <h1>IBKR API Order Status Reconciliation After a Disconnect</h1>
+      <p class="hero-lede">A reconnected client starts with an empty picture of the account, not a corrected one. Everything that happened during the gap has to be re-read from the broker before the strategy is allowed to send another order.</p>
+      <div class="fact-strip" aria-label="Service boundaries"><span>Technical engineering</span><span>No custody</span><span>Source handoff</span><span>Remote collaboration</span></div>
+    </section>
+    <section class="section content-band"><article class="technical-article">
+      <p class="article-summary">After an IBKR disconnect, rebuild state from working orders, terminal orders and executions, compare positions per instrument, and keep routing paused while any order is still unknown.</p>
+      <section>
+        <h2>A reconnect does not replay what you missed</h2>
+        <p>The TWS API delivers order status and execution callbacks over a live socket. Events that fire while the client is disconnected are not queued for later delivery, so silence after a reconnect proves nothing. Treat the broker as the source of truth and rebuild state explicitly instead of trusting the last local snapshot.</p>
+        <ul class="check-list"><li>Silence after a reconnect is not evidence that nothing filled.</li><li>Rebuild from broker requests, not from the last known local state.</li><li>Keep routing paused until the rebuild finishes and matches.</li></ul>
+      </section><section>
+        <h2>Rebuild from working orders, terminal orders and executions</h2>
+        <p>IBKR exposes separate requests for orders that are still working, orders that reached a terminal state and fills that already happened. Each answers a different question, so a reconciliation built on only one of them will miss a case. Client identity also matters: orders are associated with the client that placed them, and the available requests differ in whether they return orders from every client or only the current one.</p>
+        <ul class="check-list"><li>Read working orders, terminal orders and executions separately, then merge them by the broker's permanent identifier.</li><li>Record which client placed each order so a restarted process can claim its own working orders.</li><li>Executions and commission reports are only returned for a recent window, so persist them locally as they arrive.</li></ul>
+      </section><section>
+        <h2>Resolve differences before the strategy resumes</h2>
+        <p>Reconciliation should end in a decision, not a report. Every local order must land in one of a small set of states: confirmed filled, confirmed working, confirmed cancelled or unknown. Unknown is the only state that must block trading, because that is where a duplicate order or an unhedged position gets created.</p>
+        <ul class="check-list"><li>Compare position quantity per instrument, not only order-by-order status.</li><li>Send unknown orders to an operator alert with the order reference and the last known local state.</li><li>Log the reconciliation result with a timestamp so the audit trail explains why routing resumed.</li></ul>
+      </section>
+      <section>
+        <h2>Reconnect reconciliation checklist</h2>
+        <ul class="check-list"><li>The client re-requests a valid next order identifier before sending any new order.</li><li>Working orders, terminal orders and executions are all re-read after a reconnect.</li><li>Local order records store the broker's permanent identifiers, not only local ones.</li><li>Position quantities are compared against the account, instrument by instrument.</li><li>Routing stays paused while any order is unknown, and an operator is alerted.</li></ul>
+      </section>
+      <section>
+        <h2>Related implementation paths</h2>
+        <ul class="check-list"><li><a href="/ibkr-api-automation-developer/">IBKR API automation development</a></li><li><a href="/articles/broker-api-order-reconciliation-checklist/">Broker API order reconciliation checklist</a></li><li><a href="/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/">IB Gateway restart and reauthentication runbook</a></li><li><a href="/trading-system-consistency-audit-service/">Trading system consistency audit</a></li></ul>
+      </section>
+      <section>
+        <h2>References</h2>
+        <p class="article-fact-check">Official platform facts checked: 2026-07-21</p>
+        <div class="reference-list">
+      <a href="https://ibkrcampus.com/campus/ibkr-api-page/twsapi-doc/" rel="noopener" target="_blank"><strong>IBKR TWS API documentation</strong><span>IBKR 官方 TWS API 文档，说明 TWS API 通过 Trader Workstation 或 IB Gateway 运行。</span></a><a href="https://ibkrcampus.com/campus/ibkr-api-page/third-party-connections/" rel="noopener" target="_blank"><strong>IBKR third-party connection guidance</strong><span>IBKR 官方运行说明，覆盖登录、自动重启、周期性重新认证和 headless 限制。</span></a><a href="https://www.interactivebrokers.com/campus/ibkr-api-page/ibkr-api-home/" rel="noopener" target="_blank"><strong>IBKR API documentation</strong><span>Interactive Brokers 官方 API 文档入口，覆盖 TWS API、Web API、Excel API 和 FIX。</span></a><a href="https://github.com/yfjelley/signalcraft-labs-engineering-notes/blob/master/demos/broker-order-reconciliation/README.md" rel="noopener" target="_blank"><strong>Broker order reconciliation demo</strong><span>SignalCraft Labs public demo that reconciles orders after a restart and pauses routing when a state is unknown.</span></a>
+    </div>
+      </section>
+      <section>
+        <h2>Related technical articles</h2>
+        <div class="article-card-grid">
+      <article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS API vs Client Portal Web API for Automated Trading</h3>
+        <p>IBKR TWS API and Client Portal Web API should be compared by host application, authentication model, session lifecycle, account permissions, order types, deployment constraints and acceptance tests.</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IB Gateway Restart and Reauthentication Runbook</h3>
+        <p>Plan IB Gateway restarts as a scheduled outage: publish the window, define what happens to signals during it, gate routing behind an explicit readiness check and reconcile before resuming.</p>
+        <a href="/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR API Strategy Execution</h3>
+        <p>IBKR API strategy execution should start with account permissions and acceptance tests, then add order routing, position sync, risk limits, reject handling, logs and staged rollout.</p>
+        <a href="/articles/ibkr-api-strategy-execution/">Read article</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR TWS API 与 Client Portal Web API 怎么选</h3>
+        <p>IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
+        <a href="/articles/ibkr-tws-gateway-vs-client-portal/">Read article</a>
+      </article>
+    </div>
+      </section>
+    </article></section>
+
+    <section class="contact content-cta" aria-labelledby="content-contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Project Brief</p>
+        <h2 id="content-contact-title">Send the brief first, then we assess the right package</h2>
+        <p>Share the signal source, API platform, account permissions, instruments, order types, sizing, risk rules and deployment target. A first feasibility reply usually follows within one business day when the brief is complete.</p>
+        <div class="contact-row">
+          <a href="mailto:contact@pddjf.com" data-contact="content_email" data-lead-contact="true">contact@pddjf.com</a>
+          <button type="button" data-copy="btc1688" data-contact="content_wechat_copy">Copy WeChat btc1688</button>
+          <a href="https://t.me/yf16881" data-contact="content_telegram" data-lead-contact="true">Telegram @yf16881</a>
+        </div>
+        <p class="copy-status" aria-live="polite"></p>
+      </div>
+      <div class="contact-card">
+        <strong>Assessment inputs</strong>
+        <ul>
+          <li>Signal and trading rules</li>
+          <li>API platform and permission status</li>
+          <li>Risk, alert and deployment requirements</li>
+          <li>Target package and budget band</li>
+        </ul>
+        <a class="button primary" href="/contact/" data-contact="content_structured_brief">Send a structured brief</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
+    <nav aria-label="Service page navigation">
+      <a href="/compare/">Exchange fee comparisons</a>
+      <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
+      <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
+      <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>
+      <a href="/hyperliquid-trading-system-for-teams/">Hyperliquid systems for teams</a>
+      <a href="/tools/crypto-exchange-fee-calculator/">Crypto exchange fee calculator</a>
+      <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
+      <a href="/custom-trading-software-development/">Custom trading software for teams</a>
+      <a href="/tradingview-webhook-developer/">TradingView alert automation</a>
+      <a href="/ibkr-api-automation-developer/">IBKR trading automation</a>
+      <a href="/fix-api-order-routing-developer/">FIX order routing system</a>
+      <a href="/tradingview-webhook-automation/">TradingView Webhook</a>
+      <a href="/broker/api/">Broker API</a>
+      <a href="/broker-api/ibkr/">IBKR API</a>
+      <a href="/fix-api-order-routing/">FIX API</a>
+      <a href="/risk-engine/">Risk engine</a>
+      <a href="/private-deployment/">Private deployment</a>
+      <a href="/articles/">Articles</a>
+      <a href="/case-studies/">Case studies</a>
+      <a href="/en/contact/">Contact</a>
+    </nav>
+    <nav aria-label="Policy page navigation">
+      <a href="/terms">Terms</a>
+      <a href="/risk-disclaimer/">Risk disclaimer</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/delivery-policy">Delivery policy</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+    <p>Technical software development only. No investment advice, custody, managed accounts or return promises.</p>
+  </footer>
+
+  <div class="mobile-contact-bar" role="group" aria-label="Mobile quick contact">
+    <a href="/en/contact/" data-contact="mobile_contact">Brief</a>
+    <button type="button" data-copy="btc1688" data-contact="mobile_wechat_copy">Copy WeChat</button>
+  </div>
+</body>
+</html>

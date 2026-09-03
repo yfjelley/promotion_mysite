@@ -605,6 +605,70 @@
       "datePublished": "2026-07-07",
       "dateModified": "2026-09-03",
       "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/#article",
+      "headline": "IBKR API Order Status Reconciliation After a Disconnect",
+      "description": "Rebuild IBKR order and position state after a TWS API disconnect using working orders, terminal orders and executions, before automated routing is allowed to resume.",
+      "url": "https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/#article",
+      "headline": "IB Gateway Restart and Reauthentication Runbook",
+      "description": "An operations runbook for IB Gateway sessions: scheduled restarts, periodic reauthentication, readiness checks and the reconciliation step before automated routing resumes.",
+      "url": "https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/#article",
+      "headline": "IBKR API Pacing Violations and Market Data Limits",
+      "description": "How IBKR message pacing, historical data limits and market data line allowances shape an automated client, with request budgeting, caching, backoff and acceptance tests.",
+      "url": "https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/#article",
+      "headline": "IBKR Paper Trading vs Live Account: API Differences",
+      "description": "What an IBKR paper account proves before live automation and what it cannot, covering simulated fills, market data, permissions and a controlled reduced-size go-live.",
+      "url": "https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/",
+      "author": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://pddjf.com/#organization"
+      },
+      "datePublished": "2026-07-07",
+      "dateModified": "2026-09-03",
+      "inLanguage": "en"
     }
   ]
 }
@@ -802,6 +866,26 @@
         <h3>TradingView Webhook to Binance Futures: A Signal-to-Order Workflow With Safety Checks</h3>
         <p>A safe TradingView to Binance futures workflow authenticates and deduplicates each alert, maps symbol and quantity explicitly, reads leverage and margin mode from the account, applies reduce-only and price protection rules, monitors order status and reconciles after every restart.</p>
         <a href="/articles/tradingview-webhook-to-binance-futures-order-workflow/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR API Order Status Reconciliation After a Disconnect</h3>
+        <p>After an IBKR disconnect, rebuild state from working orders, terminal orders and executions, compare positions per instrument, and keep routing paused while any order is still unknown.</p>
+        <a href="/articles/ibkr-api-order-status-reconciliation-after-disconnect/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IB Gateway Restart and Reauthentication Runbook</h3>
+        <p>Plan IB Gateway restarts as a scheduled outage: publish the window, define what happens to signals during it, gate routing behind an explicit readiness check and reconcile before resuming.</p>
+        <a href="/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR API Pacing Violations and Market Data Limits</h3>
+        <p>Treat IBKR message pacing, historical data pacing and market data line allowances as design inputs: budget every request through one queue, cache reference data, and alert instead of trading on stale quotes.</p>
+        <a href="/articles/ibkr-api-pacing-violations-market-data-limits/">阅读文章</a>
+      </article><article>
+        <p class="eyebrow">IBKR API</p>
+        <h3>IBKR Paper Trading vs Live Account: API Differences</h3>
+        <p>Use an IBKR paper account to accept workflow, permission and error handling tests; verify instruments, order types and market data per account; then go live at reduced size with tightened limits and a tested pause.</p>
+        <a href="/articles/ibkr-paper-trading-vs-live-account-api-differences/">阅读文章</a>
       </article>
     </div>
     <section class="embedded-section">
@@ -839,6 +923,7 @@
   <footer class="site-footer">
     <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
+      <a href="/zh/compare/">交易所费率对比</a>
       <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
       <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
       <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>

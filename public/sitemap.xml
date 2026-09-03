@@ -31,6 +31,18 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/compare/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/compare/binance-vs-okx-futures-fees/</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -566,6 +578,30 @@
   </url>
   <url>
     <loc>https://pddjf.com/articles/tradingview-webhook-to-binance-futures-order-workflow/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
