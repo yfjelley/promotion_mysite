@@ -17,6 +17,10 @@ gtag("js", new Date());
 gtag("config", ADS_ID);
 gtag("config", GA_ID);
 
+// Load gtag.js eagerly. Google Ads conversion tracking (and the "set up website
+// conversion tracking" promotion) needs the tag to register on every ad click;
+// the previous deferred loader (first interaction or 6.5 s after load) missed
+// most paid visits, so the account recorded almost no tag hits and no conversions.
 let googleTagLoaded = false;
 function loadGoogleTag() {
   if (googleTagLoaded || document.querySelector('script[data-google-tag-loader]')) return;
@@ -28,12 +32,7 @@ function loadGoogleTag() {
   document.head.appendChild(script);
 }
 
-["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
-  window.addEventListener(eventName, loadGoogleTag, { once: true, passive: true });
-});
-window.addEventListener("load", () => {
-  window.setTimeout(loadGoogleTag, 6500);
-}, { once: true });
+loadGoogleTag();
 
 function installXPixel() {
   if (!window.twq) {

@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const contactStylesheetHref = "/styles.css?v=20260805-contact-cta";
-const currentScriptHref = "/scripts.js?v=20260824-ads-submit-v1";
+const currentScriptHref = "/scripts.js?v=20260903-ads-tag-eager";
 const contentDate = "2026-07-21";
 const llmsUpdatedAt = "2026-07-25";
 const errors = [];
@@ -682,6 +682,14 @@ const scripts = readFileSync(join(publicDir, "scripts.js"), "utf8");
   "function decorateBriefLinks()",
   'window.sessionStorage?.setItem'
 ].forEach((needle) => requireText("scripts.js", scripts, needle));
+
+// The Google tag must load eagerly: Ads conversion tracking needs the tag to
+// register on every paid visit, and the deferred loader (interaction / 6.5 s
+// timer) previously left the account with almost no tag hits.
+requireText("scripts.js", scripts, "\nloadGoogleTag();\n");
+if (/setTimeout\(loadGoogleTag|addEventListener\("(pointerdown|keydown|touchstart)", loadGoogleTag/.test(scripts)) {
+  errors.push("scripts.js: Google tag must not be deferred behind interaction or a timer");
+}
 
 const contactClickReporter = scripts.match(/function reportContactClick\([\s\S]*?\n}\n\nfunction reportBriefSubmit/)?.[0] || "";
 if (contactClickReporter.includes("reportAdsLead(")) {
