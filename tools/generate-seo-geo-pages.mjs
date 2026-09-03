@@ -4588,12 +4588,12 @@ const articleAlternateSlugs = new Map([
 ]);
 
 const articleClusters = [
+  ["articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-order-status-reconciliation-after-disconnect", "articles/ib-gateway-auto-restart-daily-reauthentication-runbook", "articles/ibkr-api-pacing-violations-market-data-limits", "articles/ibkr-paper-trading-vs-live-account-api-differences"],
   ["articles/custom-trading-platform-development-scope-checklist", "articles/custom-trading-engine-development-order-state-machine", "articles/hire-trading-api-developer-scope-checklist", "articles/automated-trading-risk-acceptance-checklist", "articles/fix-api-execution-report-audit-log-design"],
   ["articles/okx-vs-bybit-api-automated-trading-checklist", "articles/crypto-exchange-vip-fee-tiers-explained", "articles/tradingview-webhook-to-binance-futures-order-workflow", "articles/binance-api-trading-bot-risk-checklist", "articles/trading-bot-api-key-permission-safety"],
-  ["articles/alpaca-vs-ibkr-api-automated-trading", "articles/alpaca-api-paper-to-live-checklist", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/alpaca-order-status-reconciliation", "articles/schwab-api-token-refresh-runbook"],
+  ["articles/alpaca-vs-ibkr-api-automated-trading", "articles/alpaca-api-paper-to-live-checklist", "articles/ibkr-paper-trading-vs-live-account-api-differences", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/alpaca-order-status-reconciliation", "articles/schwab-api-token-refresh-runbook"],
   ["articles/tradingview-webhook-duplicate-orders", "articles/how-we-prevent-duplicate-tradingview-webhook-orders", "articles/tradingview-webhook-strategy-automation", "articles/tradingview-alert-payload-template", "articles/tradingview-webhook-to-ibkr-order-workflow"],
   ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-order-status-reconciliation-after-disconnect", "articles/ib-gateway-auto-restart-daily-reauthentication-runbook", "articles/ibkr-api-strategy-execution", "articles/tradingview-webhook-to-ibkr-order-workflow"],
-  ["articles/ibkr-api-order-status-reconciliation-after-disconnect", "articles/ib-gateway-auto-restart-daily-reauthentication-runbook", "articles/ibkr-api-pacing-violations-market-data-limits", "articles/ibkr-paper-trading-vs-live-account-api-differences", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading"],
   ["articles/automated-trading-risk-acceptance-checklist", "articles/automated-trading-strategy-risk-checklist", "articles/common-automated-strategy-failure-points", "articles/trading-bot-api-key-permission-safety", "articles/broker-api-order-reconciliation-checklist"],
   ["articles/fix-api-execution-report-audit-log-design", "articles/fix-api-order-routing-execution-reports-audit-logs", "articles/fix-api-uat-checklist-before-production", "articles/fix-api-certificate-network-allowlist-checklist"],
   ["articles/alpaca-api-paper-to-live-checklist", "articles/alpaca-order-status-reconciliation", "articles/schwab-trader-api-oauth-automation-checklist", "articles/schwab-api-token-refresh-runbook", "articles/broker-api-order-reconciliation-checklist"],
@@ -5397,7 +5397,7 @@ function exchangeFeeToolHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${t.ctaEyebrow}</p><h2>${t.ctaTitle}</h2><p>${t.ctaCopy}</p></div>
-      <div class="hero-actions"><a class="button primary" href="${zh ? "/zh/custom-trading-software-development/" : "/custom-trading-software-development/"}" data-contact="fee_tool_custom_trading">${t.ctaPrimary}</a><a class="button secondary" href="${zh ? "/trading-system-consistency-audit/" : "/trading-system-consistency-audit-service/"}" data-contact="fee_tool_audit">${t.ctaSecondary}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${zh ? "/zh/custom-trading-software-development/" : "/custom-trading-software-development/"}" data-contact="fee_tool_custom_trading">${t.ctaPrimary}</a><a class="button secondary" href="${zh ? "/trading-system-consistency-audit/" : "/trading-system-consistency-audit-service/"}" data-contact="fee_tool_audit">${t.ctaSecondary}</a><a class="button secondary" href="${zh ? "/zh/compare/" : "/compare/"}">${zh ? "全部 15 组对比" : "All 15 comparisons"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
@@ -5762,7 +5762,7 @@ function binanceBybitComparisonHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${zh ? "继续核验" : "Continue the comparison"}</p><h2>${zh ? "在计算器中切换 API 占比，并查看上一组对比" : "Switch API share in the calculator and inspect the prior pair"}</h2><p>${zh ? "计算器会把完整公开阶梯与仅基础参考分开显示；先确认自己适用的产品、地区和账户费率，再决定是否迁移成交量。" : "The calculator separates full public ladders from base-rate-only references. Confirm the applicable product, region and account fee before routing volume."}</p></div>
-      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 1 亿美元 Pro 场景" : "Open the $100M Pro scenario"}</a><a class="button secondary" href="${previousComparisonPath}">${zh ? "查看 Binance vs OKX" : "View Binance vs OKX"}</a><a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API engineering"}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 1 亿美元 Pro 场景" : "Open the $100M Pro scenario"}</a><a class="button secondary" href="${previousComparisonPath}">${zh ? "查看 Binance vs OKX" : "View Binance vs OKX"}</a><a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API engineering"}</a><a class="button secondary" href="${zh ? "/zh/compare/" : "/compare/"}">${zh ? "全部 15 组对比" : "All 15 comparisons"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
@@ -5983,7 +5983,7 @@ function bybitOkxComparisonHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${zh ? "使用完整计算器" : "Use the full calculator"}</p><h2>${zh ? "带入成交量、Maker 占比、资产与 API 占比" : "Bring your volume, maker share, assets and API share"}</h2><p>${zh ? "在现有工具中切换标准或 Pro 路径，并回看前两组对比，避免把不同资格口径当成相同等级。" : "Use the existing tool to switch standard or Pro routes, and review the first two comparisons without treating different qualification systems as equivalent tiers."}</p></div>
-      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 1 亿美元 Pro 场景" : "Open the $100M Pro scenario"}</a><a class="button secondary" href="${binanceBybitPath}">${zh ? "查看 Binance vs Bybit" : "View Binance vs Bybit"}</a><a class="button secondary" href="${binanceOkxPath}">${zh ? "查看 Binance vs OKX" : "View Binance vs OKX"}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=100000000&amp;m=70&amp;a=0&amp;api=21">${zh ? "打开 1 亿美元 Pro 场景" : "Open the $100M Pro scenario"}</a><a class="button secondary" href="${binanceBybitPath}">${zh ? "查看 Binance vs Bybit" : "View Binance vs Bybit"}</a><a class="button secondary" href="${binanceOkxPath}">${zh ? "查看 Binance vs OKX" : "View Binance vs OKX"}</a><a class="button secondary" href="${zh ? "/zh/compare/" : "/compare/"}">${zh ? "全部 15 组对比" : "All 15 comparisons"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
@@ -6254,7 +6254,7 @@ function genericExchangeComparisonHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${zh ? "继续核验" : "Continue the comparison"}</p><h2>${zh ? "在计算器中输入自己的成交量，并查看相关对比" : "Enter your own volume in the calculator and inspect related pairs"}</h2><p>${zh ? "计算器会把完整公开阶梯与仅基础参考分开显示；先确认自己适用的产品、地区和账户费率，再决定是否迁移成交量。" : "The calculator separates complete public ladders from base-rate references; confirm your product, region and account rates before moving volume."}</p></div>
-      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a>${relatedComparisons}<a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API development"}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a>${relatedComparisons}<a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API development"}</a><a class="button secondary" href="${zh ? "/zh/compare/" : "/compare/"}">${zh ? "全部 15 组对比" : "All 15 comparisons"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
@@ -6444,7 +6444,7 @@ function exchangeFeeComparisonHtml(page) {
 
     <section class="fee-tool-cta">
       <div><p class="eyebrow">${zh ? "使用完整计算器" : "Use the full calculator"}</p><h2>${zh ? "带入成交量、Maker 占比和资产余额" : "Bring your volume, maker share and asset balance"}</h2><p>${zh ? "在现有工具中调整参数并比较完整公开阶梯；基础费率来源仍会与可排名交易所分开显示。" : "Adjust the assumptions in the existing tool. Full public ladders remain ranked separately from base-rate-only references."}</p></div>
-      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a><a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API engineering"}</a></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a><a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API engineering"}</a><a class="button secondary" href="${zh ? "/zh/compare/" : "/compare/"}">${zh ? "全部 15 组对比" : "All 15 comparisons"}</a></div>
     </section>
   </main>
   ${footer(page.lang)}
