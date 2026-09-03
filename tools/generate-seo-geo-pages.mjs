@@ -3456,6 +3456,79 @@ const exchangeFeeComparisonPages = [
   }
 ];
 
+function buildGenericComparisonPages() {
+  const ids = ["binance", "okx", "bybit", "bitget", "mexc", "gate"];
+  const existing = new Set(exchangeFeeComparisonPages.map((page) => [page.exchangeA, page.exchangeB].sort().join("|")));
+  const zhNames = { binance: "币安", okx: "OKX", bybit: "Bybit", bitget: "Bitget", mexc: "MEXC", gate: "Gate" };
+  const zhPair = (l, r) => `${zhNames[l.id]}${/^[A-Za-z]/.test(zhNames[l.id]) ? " 与 " : "与 "}${zhNames[r.id]}`;
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const checkedDateFor = (exchange) => {
+    const dates = [exchange.source?.checkedDate, ...((exchange.sources || []).map((source) => source.checkedDate))].filter(Boolean).sort();
+    return dates[dates.length - 1] || exchangeFeeData.lastVerified;
+  };
+  const pages = [];
+  for (let i = 0; i < ids.length; i += 1) {
+    for (let j = i + 1; j < ids.length; j += 1) {
+      const key = [ids[i], ids[j]].sort().join("|");
+      if (existing.has(key)) continue;
+      // Put the exchange with the deeper public ladder on the left so the scenario column reads naturally.
+      const a = exchangeFeeData.exchanges.find((exchange) => exchange.id === ids[i]);
+      const b = exchangeFeeData.exchanges.find((exchange) => exchange.id === ids[j]);
+      const [left, right] = a.coverage === "base-only" && b.coverage === "full" ? [b, a] : [a, b];
+      const checked = [checkedDateFor(left), checkedDateFor(right)].sort().pop();
+      const [year, month, day] = checked.split("-").map(Number);
+      const slugBase = `compare/${left.id}-vs-${right.id}-futures-fees`;
+      const fullBoth = left.coverage === "full" && right.coverage === "full";
+      const baseBoth = left.coverage === "base-only" && right.coverage === "base-only";
+      const enIntro = fullBoth
+        ? `A source-bounded comparison of two complete public USDT futures fee ladders. ${left.name} and ${right.name} both publish volume and asset thresholds, so each scenario models the published tier reached by derivatives volume alone.`
+        : baseBoth
+          ? `A source-bounded comparison of two public base rates. Neither ${left.name} nor ${right.name} exposed a complete unauthenticated VIP ladder during this review, so both columns stay base references and the page explains what would have to be verified inside each account.`
+          : `A source-bounded comparison of public USDT futures execution fees. ${left.name} publishes a complete VIP ladder; ${right.name}'s public page did not expose a complete unauthenticated ladder during this review, so its verified base rate stays a reference rather than a VIP estimate.`;
+      const zhIntro = fullBoth
+        ? `只比较两家官方资料能够支持的完整 USDT 合约费率阶梯。${zhNames[left.id]} 与 ${zhNames[right.id]} 都公开了成交量和资产门槛，因此每个场景只按衍生品成交量推算已公布的等级。`
+        : baseBoth
+          ? `只比较两家官方公开的基础费率。本次复核时 ${zhNames[left.id]} 与 ${zhNames[right.id]} 都未向未登录访问者展示完整 VIP 阶梯，因此两列都只是基础参考，页面会说明需要在账户内确认的项目。`
+          : `只比较官方资料能够支持的 USDT 合约执行费率。${zhNames[left.id]} 提供完整 VIP 阶梯；本次复核时 ${zhNames[right.id]} 公共页面未向未登录访问者展示完整阶梯，因此其已核验基础费率仅作参考，不推算 VIP 费率。`;
+      pages.push({
+        slug: slugBase,
+        counterpartSlug: `zh/${slugBase}`,
+        breadcrumb: `${left.name} vs ${right.name} Futures Fees`,
+        eyebrow: `Exchange fee comparison · Checked ${monthNames[month - 1]} ${day}, ${year}`,
+        title: `${left.name} vs ${right.name} Futures Fees: $1M to $100M Comparison`,
+        description: `Compare ${left.name} and ${right.name} USDT perpetual maker/taker fees at $1M, $10M and $100M monthly volume, with public VIP ladders, base-rate references and official sources.`,
+        h1: `${left.name} vs ${right.name} Futures Fees`,
+        intro: enIntro,
+        lang: "en",
+        lastModified: "2026-09-03",
+        checkedDate: checked,
+        generic: true,
+        exchangeA: left.id,
+        exchangeB: right.id
+      });
+      pages.push({
+        slug: `zh/${slugBase}`,
+        counterpartSlug: slugBase,
+        breadcrumb: `${zhPair(left, right)} 合约手续费对比`,
+        eyebrow: `交易所手续费对比 · ${year} 年 ${month} 月 ${day} 日复核`,
+        title: `${zhPair(left, right)} 合约手续费对比：100 万至 1 亿美元场景`,
+        description: `对比 ${zhNames[left.id]} 与 ${zhNames[right.id]} 在月成交量 100 万、1000 万和 1 亿美元时的 USDT 永续合约 Maker/Taker 费率、公开 VIP 阶梯、基础费率参考与官方来源。`,
+        h1: `${zhPair(left, right)} 合约手续费对比`,
+        intro: zhIntro,
+        lang: "zh-CN",
+        lastModified: "2026-09-03",
+        checkedDate: checked,
+        generic: true,
+        exchangeA: left.id,
+        exchangeB: right.id
+      });
+    }
+  }
+  return pages;
+}
+
+exchangeFeeComparisonPages.push(...buildGenericComparisonPages());
+
 const allGeneratedPages = [
   ...servicePages,
   faqPage,
@@ -5687,7 +5760,237 @@ function bybitOkxComparisonHtml(page) {
 </html>`;
 }
 
+function genericExchangeComparisonHtml(page) {
+  const zh = page.lang === "zh-CN";
+  const url = canonical(page.slug);
+  const pageStylesheetHref = `${stylesheetHref}&scope=fee-comparison-20260720`;
+  const alternateUrl = canonical(page.counterpartSlug);
+  const englishUrl = zh ? alternateUrl : url;
+  const chineseUrl = zh ? url : alternateUrl;
+  const left = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeA);
+  const right = exchangeFeeData.exchanges.find((exchange) => exchange.id === page.exchangeB);
+  const makerShare = 70;
+  const takerShare = 30;
+  const scenarios = [1000000, 10000000, 100000000];
+  const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  const compactUsd = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+  const scenarioLabel = (volume) => `$${volume / 1000000}M`;
+  const percent = (value) => `${value.toFixed(3).replace(/0+$/, "").replace(/\.$/, "")}%`;
+  const standardTiers = (exchange) => exchange.tiers.filter((tier) => !Number.isFinite(tier.minApiShareForVolume));
+  const apiTiers = (exchange) => exchange.tiers.filter((tier) => Number.isFinite(tier.minApiShareForVolume));
+  const hasApiShareRule = (exchange) => exchange.tiers.some((tier) => Number.isFinite(tier.maxApiShareForVolume) || Number.isFinite(tier.minApiShareForVolume));
+  const tierForVolume = (exchange, volume) => standardTiers(exchange).reduce((selected, tier) => (volume >= tier.minVolume ? tier : selected), exchange.tiers[0]);
+  const estimate = (tier, volume, maker = makerShare, taker = takerShare) => volume * ((tier.maker * maker + tier.taker * taker) / 100) / 100;
+  const isFull = (exchange) => exchange.coverage === "full";
+  const zhName = { binance: "币安", okx: "OKX", bybit: "Bybit", bitget: "Bitget", mexc: "MEXC", gate: "Gate" };
+  const name = (exchange) => (zh ? zhName[exchange.id] || exchange.name : exchange.name);
+  const costLabel = (exchange) => (isFull(exchange) ? (zh ? "模型估算" : "modeled estimate") : (zh ? "基础参考" : "base reference"));
+  const sourcesOf = (exchange) => (exchange.sources || (exchange.source ? [exchange.source] : []));
+  const checkedOf = (exchange) => sourcesOf(exchange).map((source) => source.checkedDate).filter(Boolean).sort().pop() || exchangeFeeData.lastVerified;
+  const boundaryFor = (volume) => {
+    const parts = [];
+    for (const exchange of [left, right]) {
+      if (!isFull(exchange)) {
+        parts.push(zh
+          ? `${name(exchange)} 只有已核验的基础费率，完整 VIP 阶梯未公开显示，因此不能据此断言账户级胜负。`
+          : `${name(exchange)} has only a verified base rate; its complete VIP ladder is not publicly exposed, so the gap is not an account-level verdict.`);
+      } else {
+        const tier = tierForVolume(exchange, volume);
+        const apiNote = Number.isFinite(tier.maxApiShareForVolume)
+          ? (zh ? `（成交量路径要求 API 占比不超过 ${tier.maxApiShareForVolume}%）` : ` (volume route requires API share at ${tier.maxApiShareForVolume}% or less)`)
+          : "";
+        parts.push(zh
+          ? `${name(exchange)} 按公开成交量门槛进入 ${tier.name}${apiNote}。`
+          : `${name(exchange)} reaches published ${tier.name} by volume alone${apiNote}.`);
+      }
+    }
+    if (volume === 1000000 && isFull(left) && isFull(right)) {
+      parts.push(zh ? "入门等级差异来自公布的基础费率；实际账户活动、地区和折扣仍可能改变结果。" : "Entry-tier differences come from published base rates; account promotions, region and discounts can still change the result.");
+    }
+    return parts.join(" ");
+  };
+  const scenarioRows = scenarios.map((volume) => {
+    const leftTier = tierForVolume(left, volume);
+    const rightTier = tierForVolume(right, volume);
+    return `<tr>
+      <th scope="row">${scenarioLabel(volume)}</th>
+      <td><strong>${escapeHtml(leftTier.name)}</strong><span>${percent(leftTier.maker)} / ${percent(leftTier.taker)}</span><span>${usd.format(estimate(leftTier, volume))} ${costLabel(left)}</span></td>
+      <td><strong>${escapeHtml(rightTier.name)}</strong><span>${percent(rightTier.maker)} / ${percent(rightTier.taker)}</span><span>${usd.format(estimate(rightTier, volume))} ${costLabel(right)}</span></td>
+      <td>${escapeHtml(boundaryFor(volume))}</td>
+    </tr>`;
+  }).join("");
+  const mixRows = [
+    [100, 0, zh ? "全部 Maker" : "All maker"],
+    [70, 30, zh ? "默认混合" : "Default mix"],
+    [0, 100, zh ? "全部 Taker" : "All taker"]
+  ].map(([maker, taker, label]) => {
+    const volume = 10000000;
+    const leftTier = tierForVolume(left, volume);
+    const rightTier = tierForVolume(right, volume);
+    return `<tr><th scope="row">${escapeHtml(label)} · ${maker}/${taker}</th><td>${usd.format(estimate(leftTier, volume, maker, taker))} · ${escapeHtml(leftTier.name)}</td><td>${usd.format(estimate(rightTier, volume, maker, taker))} · ${escapeHtml(rightTier.name)}</td></tr>`;
+  }).join("");
+  const ladderTable = (exchange) => {
+    const rows = standardTiers(exchange).map((tier) => `<tr>
+      <th scope="row">${escapeHtml(tier.name)}</th>
+      <td>${tier.minVolume ? `$${compactUsd.format(tier.minVolume)}+` : "—"}</td>
+      <td>${tier.minAssets ? `$${compactUsd.format(tier.minAssets)}+` : "—"}</td>
+      <td>${Number.isFinite(tier.maxApiShareForVolume) ? `≤${tier.maxApiShareForVolume}%` : "—"}</td>
+      <td>${percent(tier.maker)} / ${percent(tier.taker)}</td>
+    </tr>`).join("");
+    const api = apiTiers(exchange);
+    const apiRows = api.map((tier) => `<tr>
+      <th scope="row">${escapeHtml(tier.name)}</th>
+      <td>$${compactUsd.format(tier.minVolume)}+</td>
+      <td>—</td>
+      <td>&gt;${tier.minApiShareForVolume - 1}%</td>
+      <td>${percent(tier.maker)} / ${percent(tier.taker)}${tier.rateScope ? ` <small>(${escapeHtml(tier.rateScope)})</small>` : ""}</td>
+    </tr>`).join("");
+    const heading = isFull(exchange)
+      ? (zh ? `${name(exchange)} 公开费率阶梯` : `${name(exchange)} published fee ladder`)
+      : (zh ? `${name(exchange)} 已核验基础费率` : `${name(exchange)} verified base rate`);
+    const note = isFull(exchange)
+      ? escapeHtml(exchange.note || "")
+      : (zh ? `${escapeHtml(exchange.note || "")} 未公开的等级不会用第三方数据补齐。` : `${escapeHtml(exchange.note || "")} Unknown tiers are not backfilled from third-party tables.`);
+    return `<section class="section fee-ladder-section comparison-ladder" aria-labelledby="ladder-${exchange.id}">
+      <p class="eyebrow">${escapeHtml(exchange.coverageLabel)}</p><h2 id="ladder-${exchange.id}">${escapeHtml(heading)}</h2>
+      <div class="fee-table-scroll"><table class="fee-ladder-table"><thead><tr><th>${zh ? "等级" : "Tier"}</th><th>${zh ? "30 天成交量" : "30-day volume"}</th><th>${zh ? "资产门槛" : "Asset floor"}</th><th>${zh ? "API 占比条件" : "API-share rule"}</th><th>Maker / Taker</th></tr></thead><tbody>${rows}${apiRows}</tbody></table></div>
+      <p class="tool-notice${isFull(exchange) ? "" : " warning"}">${note}</p>
+    </section>`;
+  };
+  const verdictTitle = isFull(left) && isFull(right)
+    ? (zh ? `两家都可按公开阶梯建模，差异取决于成交量和 Maker 占比` : `Both ladders can be modeled; the gap depends on volume and maker share`)
+    : !isFull(left) && !isFull(right)
+      ? (zh ? `两家目前只能按基础费率比较` : `Both exchanges can only be compared at their base rates for now`)
+      : (zh ? `${name(left)} 可按公开阶梯建模；${name(right)} 的 VIP 仍未知` : `Model ${name(left)} from its ladder; keep ${name(right)} VIP unknown`);
+  const leftTen = tierForVolume(left, 10000000);
+  const rightTen = tierForVolume(right, 10000000);
+  const verdictBody = zh
+    ? `在资产余额为 0、API 占比不超过 20%、70% Maker / 30% Taker 的模型里，1000 万美元月成交量时 ${name(left)} ${leftTen.name} 约为 ${usd.format(estimate(leftTen, 10000000))}，${name(right)} ${rightTen.name} 约为 ${usd.format(estimate(rightTen, 10000000))}。${isFull(left) && isFull(right) ? "两边都来自公开阶梯，但地区、折扣、返佣和账户专属费率仍可能改变结果。" : "其中基础参考一列不代表该交易所对所有账户的真实费率。"}`
+    : `With zero qualifying assets, API share at 20% or less and a 70% maker / 30% taker mix, $10M of monthly volume models to about ${usd.format(estimate(leftTen, 10000000))} on ${name(left)} ${leftTen.name} and about ${usd.format(estimate(rightTen, 10000000))} on ${name(right)} ${rightTen.name}. ${isFull(left) && isFull(right) ? "Both figures come from published ladders, but region, discounts, referrals and account-specific rates can still change the outcome." : "The base-reference column does not represent that exchange's real rate for every account."}`;
+  const apiRuleText = [left, right].filter(hasApiShareRule).map((exchange) => (zh
+    ? `${name(exchange)} 的部分等级对 API 交易占比设有条件，本页场景只使用 API 占比不超过 20% 的标准路径。`
+    : `${name(exchange)} attaches API-share conditions to some tiers; these scenarios use the standard path with API share at 20% or less.`)).join(" ");
+  const faqs = zh ? [
+    [`1000 万美元月成交量时，${name(left)} 还是 ${name(right)} 手续费更低？`, `${verdictBody}`],
+    ["为什么有的列写着“基础参考”？", "表示该交易所在本次复核中只公开了基础费率，完整 VIP 阶梯未向未登录访问者展示。本页不会用搜索摘要、旧截图或第三方聚合表补齐未知等级。"],
+    ["Maker 占比为什么影响这么大？", "费用 = 成交量 ×（Maker 费率 × Maker 占比 + Taker 费率 × Taker 占比）。同一等级下，全部 Maker 与全部 Taker 的成本可能相差数倍；应使用自己成交记录里的真实比例。"],
+    ["API 占比条件是什么意思？", apiRuleText || "本页两家交易所的公开阶梯没有按 API 占比区分路径，但仍应在账户内确认适用的等级和地区规则。"],
+    ["本页是否包含资金费率和滑点？", "不包含。场景只计算 Maker/Taker 执行手续费，不包括资金费率、价差、滑点、强平费、返佣、平台币折扣、活动或账户专属费率。"]
+  ] : [
+    [`Which is cheaper at $10M monthly volume, ${name(left)} or ${name(right)}?`, `${verdictBody}`],
+    ["Why do some columns say base reference?", "It means the exchange only exposed a base rate during this review and did not show a complete VIP ladder to unauthenticated visitors. Unknown tiers are not backfilled from search snippets, old screenshots or third-party tables."],
+    ["Why does the maker share change the result so much?", "Cost = volume × (maker rate × maker share + taker rate × taker share). On the same tier, an all-maker flow and an all-taker flow can differ several times over, so use the real mix from your own fills."],
+    ["What does the API-share rule mean?", apiRuleText || "Neither published ladder on this page splits its path by API share, but the applicable tier and regional rules should still be confirmed inside the account."],
+    ["Does this comparison include funding and slippage?", "No. Scenarios cover maker/taker execution fees only. Funding, spread, slippage, liquidation fees, referrals, token discounts, promotions and account-specific rates are excluded."]
+  ];
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "WebPage"),
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        "mainEntity": faqs.map(([question, answer]) => ({ "@type": "Question", "name": question, "acceptedAnswer": { "@type": "Answer", "text": answer } }))
+      }
+    ]
+  };
+  const toolPath = zh ? "/zh/tools/crypto-exchange-fee-calculator/" : "/tools/crypto-exchange-fee-calculator/";
+  const calculatorCtas = scenarios.map((volume) => `<a class="button secondary compact" href="${toolPath}?v=${volume}&amp;m=${makerShare}&amp;a=0&amp;api=0">${zh ? "计算" : "Open"} ${scenarioLabel(volume)} · 70/30</a>`).join("");
+  const relatedComparisons = exchangeFeeComparisonPages
+    .filter((other) => other.lang === page.lang && other.slug !== page.slug && (other.exchangeA === left.id || other.exchangeB === left.id || other.exchangeA === right.id || other.exchangeB === right.id))
+    .slice(0, 4)
+    .map((other) => `<a class="button secondary" href="/${other.slug}/">${escapeHtml(other.h1)}</a>`).join("");
+  const sourceCards = [left, right].map((exchange) => sourcesOf(exchange).map((source) => `<article><div class="fee-source-head"><h3>${escapeHtml(name(exchange))}</h3><span class="coverage-badge${isFull(exchange) ? "" : " base-only"}">${escapeHtml(exchange.coverageLabel)}</span></div><p>${zh ? "范围" : "Scope"}: ${escapeHtml(exchange.pairScope)}. ${zh ? "核验" : "Checked"} ${escapeHtml(source.checkedDate || exchangeFeeData.lastVerified)}${source.effectiveDate ? ` · ${zh ? "生效" : "effective"} ${escapeHtml(source.effectiveDate)}` : ""}${source.updatedDate ? ` · ${zh ? "更新" : "updated"} ${escapeHtml(source.updatedDate)}` : ""}.</p><p><a href="${source.url}" rel="nofollow noopener" target="_blank">${escapeHtml(source.label)}</a></p></article>`).join("")).join("");
+
+  return `<!DOCTYPE html>
+<html lang="${page.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="${url}">
+  <link rel="alternate" hreflang="en" href="${englishUrl}">
+  <link rel="alternate" hreflang="zh-CN" href="${chineseUrl}">
+  <link rel="alternate" hreflang="x-default" href="${englishUrl}">
+  ${faviconLinks()}
+  <meta property="og:title" content="${escapeHtml(page.h1)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta name="theme-color" content="#07111f">
+  <link rel="stylesheet" href="${pageStylesheetHref}">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
+  <script src="${scriptHref}" defer></script>
+  ${jsonLd(schema)}
+</head>
+<body class="content-page fee-tool-page fee-comparison-page">
+  <a class="skip-link" href="#main-content">${zh ? "跳到主要内容" : "Skip to main content"}</a>
+  ${header(zh ? "费率工具" : "Fee tool", page.lang)}
+  <main id="main-content">
+    <section class="content-hero fee-tool-hero">
+      ${breadcrumbs(page)}
+      <div class="fee-language-switch" aria-label="${zh ? "语言" : "Language"}"><a href="${alternateUrl}" lang="${zh ? "en" : "zh-CN"}">${zh ? "English" : "中文"}</a></div>
+      <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
+      <h1>${escapeHtml(page.h1)}</h1>
+      <p class="hero-lede">${escapeHtml(page.intro)}</p>
+      <div class="fee-hero-proof" aria-label="${zh ? "对比范围" : "Comparison scope"}">
+        <span><strong>USDT</strong>${zh ? "永续合约范围" : "perpetual scope"}</span>
+        <span><strong>70 / 30</strong>${zh ? "Maker / Taker" : "maker / taker"}</span>
+        <span><strong>${escapeHtml(page.checkedDate)}</strong>${zh ? "官方资料复核" : "source recheck"}</span>
+        <span><strong>${isFull(left) && isFull(right) ? "2 / 2" : (isFull(left) || isFull(right) ? "1 / 2" : "0 / 2")}</strong>${zh ? "完整公开阶梯" : "complete public ladders"}</span>
+      </div>
+    </section>
+
+    <section class="section fee-comparison-summary" aria-labelledby="comparison-verdict-title">
+      <p class="eyebrow">${zh ? "先看结论" : "Decision boundary"}</p>
+      <h2 id="comparison-verdict-title">${escapeHtml(verdictTitle)}</h2>
+      <p>${escapeHtml(verdictBody)}</p>
+      <aside class="fee-limitations"><strong>${zh ? "重要限制：" : "Important limit:"}</strong> ${zh ? "本页只使用官方公开页面在复核日期可见的数字。交易所官方页面通常也提示实际费率可能因地区、账户类型和活动而异，迁移成交量前应在自己的账户费率页确认。" : "This page uses only figures visible on the official public pages on the recheck date. Exchanges also state that actual rates can vary by region, account type and promotions, so confirm on your own account fee page before moving volume."}</aside>
+    </section>
+
+    <section class="section fee-scenario-section" aria-labelledby="scenario-title">
+      <p class="eyebrow">${zh ? "月成交量场景" : "Monthly volume scenarios"}</p>
+      <h2 id="scenario-title">${zh ? "100 万、1000 万与 1 亿美元手续费" : "$1M, $10M and $100M fee scenarios"}</h2>
+      <p>${zh ? "主表假设资产余额为 0、API 交易占比不超过 20%、Maker/Taker 为 70% / 30%。费用 = 成交量 ×（Maker 费率 × 70% + Taker 费率 × 30%）。" : "The main table assumes zero qualifying assets, API trading share at 20% or less, and a 70% / 30% maker/taker mix. Cost = volume × (maker rate × 70% + taker rate × 30%)."}</p>
+      <div class="fee-table-scroll"><table class="fee-comparison-table"><thead><tr><th>${zh ? "30 天成交量" : "30-day volume"}</th><th>${escapeHtml(name(left))}</th><th>${escapeHtml(name(right))}</th><th>${zh ? "如何解读" : "How to read it"}</th></tr></thead><tbody>${scenarioRows}</tbody></table></div>
+      <div class="hero-actions fee-preset-actions">${calculatorCtas}</div>
+    </section>
+
+    <section class="section fee-mix-section" aria-labelledby="mix-title">
+      <p class="eyebrow">Maker / Taker</p>
+      <h2 id="mix-title">${zh ? "订单类型比例会改变 1000 万美元场景" : "Order mix changes the $10M scenario"}</h2>
+      <div class="fee-table-scroll"><table class="fee-comparison-table compact"><thead><tr><th>${zh ? "成交结构" : "Execution mix"}</th><th>${escapeHtml(name(left))}</th><th>${escapeHtml(name(right))}</th></tr></thead><tbody>${mixRows}</tbody></table></div>
+      <p>${zh ? "更高 Maker 占比会降低模型手续费，但 Maker 订单不保证成交；评估执行场所时还需考虑成交概率、价差、滑点和资金费率。" : "A higher maker share lowers modeled fees, but maker orders are not guaranteed to fill. Venue selection must also consider fill probability, spread, slippage and funding."}</p>
+    </section>
+
+    ${ladderTable(left)}
+    ${ladderTable(right)}
+
+    <section class="section fee-method-section" id="sources">
+      <p class="eyebrow">${zh ? "官方一手资料" : "Official primary sources"}</p><h2>${zh ? "来源、产品范围与核验日期" : "Sources, product scope and check dates"}</h2>
+      <div class="fee-source-grid comparison-sources">${sourceCards}</div>
+      <aside class="fee-limitations"><strong>${zh ? "未覆盖：" : "Excluded:"}</strong> ${zh ? "资金费率、价差、滑点、强平费、返佣、平台币折扣、活动、做市商计划、当地实体规则和账户专属费率。迁移成交量前必须在自己的账户中确认。" : "Funding, spread, slippage, liquidation fees, referrals, token discounts, promotions, market-maker programs, local-entity rules and account-specific rates. Confirm inside your own account before moving volume."}</aside>
+    </section>
+
+    <section class="section fee-faq-section" id="faq">
+      <p class="eyebrow">FAQ</p><h2>${zh ? "正确使用这份对比" : "How to use this comparison"}</h2>
+      <div class="fee-faq-list">${faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}</div>
+    </section>
+
+    <section class="fee-tool-cta">
+      <div><p class="eyebrow">${zh ? "继续核验" : "Continue the comparison"}</p><h2>${zh ? "在计算器中输入自己的成交量，并查看相关对比" : "Enter your own volume in the calculator and inspect related pairs"}</h2><p>${zh ? "计算器会把完整公开阶梯与仅基础参考分开显示；先确认自己适用的产品、地区和账户费率，再决定是否迁移成交量。" : "The calculator separates complete public ladders from base-rate references; confirm your product, region and account rates before moving volume."}</p></div>
+      <div class="hero-actions"><a class="button primary" href="${toolPath}?v=10000000&amp;m=70&amp;a=0&amp;api=0">${zh ? "打开 1000 万美元场景" : "Open the $10M scenario"}</a>${relatedComparisons}<a class="button secondary" href="/exchange-api-trading-bot-development/">${zh ? "交易所 API 开发" : "Exchange API development"}</a></div>
+    </section>
+  </main>
+  ${footer(page.lang)}
+</body>
+</html>`;
+}
+
 function exchangeFeeComparisonHtml(page) {
+  if (page.generic) return genericExchangeComparisonHtml(page);
   if (page.exchangeA === "bybit" && page.exchangeB === "okx") return bybitOkxComparisonHtml(page);
   if (page.exchangeB === "bybit") return binanceBybitComparisonHtml(page);
   const zh = page.lang === "zh-CN";
