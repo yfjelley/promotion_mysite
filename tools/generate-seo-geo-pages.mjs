@@ -59,6 +59,9 @@ const ibkrOperationsReference = ["IBKR third-party connection guidance", "https:
 const ibkrClientPortalReference = ["IBKR Client Portal Web API v1.0", "https://ibkrcampus.com/campus/ibkr-api-page/cpapi-v1/", "IBKR 官方 Client Portal Gateway 文档，覆盖同机认证、会话和每日重新认证限制。"];
 const ibkrWebApiReference = ["IBKR unified Web API", "https://ibkrcampus.com/campus/ibkr-api-page/webapi-doc/", "IBKR 当前统一 Web API 文档；OAuth 2.0 仍标注为 beta，账户和用例适用性需要逐项确认。"];
 
+const okxApiReference = ["OKX API documentation", "https://www.okx.com/docs-v5/en/", "Official OKX V5 API reference for authentication, trading, account and WebSocket endpoints."];
+const bybitApiReference = ["Bybit API documentation", "https://bybit-exchange.github.io/docs/v5/intro", "Official Bybit V5 API reference for authentication, order, position and WebSocket endpoints."];
+
 const hyperliquidReferenceLinks = [
   ["Hyperliquid fees", "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees", "Official 14-day weighted-volume tiers, staking discounts, maker rebates and developer fee formula."],
   ["Hyperliquid exchange endpoint", "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint", "Official order, cancel, TWAP, API wallet, subaccount and vault action reference."],
@@ -2874,6 +2877,297 @@ const articlePages = [
       "Rate limits, stale state, signing failure and unresolved mismatches produce alerts and fail closed."
     ],
     references: hyperliquidReferenceLinks
+  },
+  {
+    slug: "articles/custom-trading-platform-development-scope-checklist",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "Custom Trading Platform Scope Checklist",
+    eyebrow: "Custom trading platform",
+    title: "Custom Trading Platform Development Scope Checklist | Before You Hire",
+    description: "Custom trading platform development scope checklist: venues and APIs, signal sources, order types, risk limits, reconciliation, acceptance evidence and handover before you hire.",
+    h1: "Custom Trading Platform Development: Scope Checklist Before You Hire",
+    intro: "Most custom trading platform quotes go wrong before the first line of code, because the buyer and the developer are picturing different systems. This checklist lists the decisions that fix the scope: which venues, which order types, what the platform must refuse to do, and what evidence proves it works.",
+    summary: "Before hiring a custom trading platform development company, write down venues and APIs, signal sources, order types, risk limits, reconciliation rules, deployment target, acceptance evidence and the handover package.",
+    sections: [
+      {
+        title: "Name the venues, accounts and APIs first",
+        body: "A platform that routes to IBKR behaves differently from one that routes to Binance, OKX, Bybit, Alpaca or Hyperliquid. Each venue has its own session model, permission scopes, order semantics, sandbox availability and reporting. The scope should list every venue, the account type, the API permissions the client will grant and whether a paper or testnet environment exists for acceptance.",
+        bullets: ["List venues, account types and the exact API products, not just the broker or exchange name.", "State whether withdrawal permissions stay disabled and who owns the API keys.", "Confirm paper, testnet or small-size live testing before full-size routing."]
+      },
+      {
+        title: "Define the order state machine and the refusal rules",
+        body: "The valuable part of a custom platform is not the button that sends an order; it is the list of things the platform refuses to do. Maximum position, maximum order size, allowed sessions, duplicate-signal handling, price protection, reduce-only mode and a manual pause switch should be written as rules with expected log output before development starts.",
+        bullets: ["Write each order state and the events that move it forward or fail it.", "Write each refusal rule as an input, an expected decision and a log line.", "Decide what happens after a restart before the first order is placed."]
+      },
+      {
+        title: "Ask for evidence, not features",
+        body: "Feature lists are easy to write and hard to verify. Acceptance should be a set of replayable cases: a normal signal, a duplicate, an oversized order, a venue rejection, a disconnect during a fill and a restart with open orders. Source code, deployment notes, a runbook and the log fields an operator will read belong in the scope as deliverables.",
+        bullets: ["Ask for the acceptance cases in the proposal, not after delivery.", "Ask which logs and reconciliation outputs the operator sees daily.", "Ask what is excluded: strategy research, capital, market data fees and venue onboarding are common exclusions."]
+      }
+    ],
+    checklistTitle: "Scope checklist to send with your brief",
+    checklist: [
+      "Venues, account types, API permissions and test environments are listed.",
+      "Signal sources, order types, quantity model and position limits are written down.",
+      "Refusal rules, pause switch and restart behavior have expected log output.",
+      "Acceptance cases cover normal, duplicate, oversized, rejected, disconnected and restarted paths.",
+      "Deliverables name source code, deployment notes, runbook, log fields and support boundary."
+    ],
+    related: [
+      ["Custom trading software development", "/custom-trading-software-development/"],
+      ["Hire a trading API developer: scope checklist", "/articles/hire-trading-api-developer-scope-checklist/"],
+      ["Automated trading risk acceptance checklist", "/articles/automated-trading-risk-acceptance-checklist/"],
+      ["Private deployment and handover", "/private-deployment/"]
+    ],
+    references: [
+      officialReferenceLinks[1],
+      officialReferenceLinks[3],
+      officialReferenceLinks[5],
+      ["Acceptance checklist notes", `${engineeringNotesUrl}/blob/master/docs/acceptance-checklist.md`, "SignalCraft Labs public acceptance checklist for automated trading delivery."]
+    ]
+  },
+  {
+    slug: "articles/custom-trading-engine-development-order-state-machine",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "Trading Engine Order State Machine",
+    eyebrow: "Custom trading engine",
+    title: "Custom Trading Engine Development | Order State Machine, Idempotency and Audit",
+    description: "Custom trading engine development notes: define the order state machine, make submission idempotent, reconcile with the venue after every gap and keep a replayable audit log.",
+    h1: "Custom Trading Engine Development: The Order State Machine Comes First",
+    intro: "A trading engine is a state machine with money attached. Before latency, before strategy plugins, before dashboards, the engine needs an explicit set of order states, the events that move between them, and a rule for what happens when the venue and the engine disagree.",
+    summary: "Custom trading engine development should start with an explicit order state machine, idempotent submission keyed by client order ID, venue reconciliation after every gap and an audit log that can be replayed.",
+    sections: [
+      {
+        title: "Write the states and the transitions",
+        body: "A minimal engine tracks intent, submitted, acknowledged, partially filled, filled, cancel requested, cancelled, rejected and unknown. Unknown is not a failure state; it is the honest state after a timeout or a disconnect, and it must block new risk until the venue answers. Each transition should name the event that caused it and the venue evidence behind it.",
+        bullets: ["Keep an explicit unknown state instead of guessing after a timeout.", "Store venue order ID, client order ID and the last venue message for every order.", "Treat a rejected order as a normal, logged outcome with a reason code."]
+      },
+      {
+        title: "Make submission idempotent",
+        body: "Every submission should carry a client order ID derived from the signal, so a retry after a network error cannot create a second position. Before resubmitting, the engine queries the venue for that client order ID. Duplicate detection belongs in the engine, not in the strategy, and it should be tested with replayed signals.",
+        bullets: ["Derive client order IDs from strategy, symbol, action and signal time.", "Query the venue by client order ID before any retry.", "Log duplicates as accepted-but-not-resent, never silently dropped."]
+      },
+      {
+        title: "Reconcile and record",
+        body: "After a restart, a reconnect or a rate-limit pause, the engine should pull open orders, recent fills and positions from the venue and compare them with local state. Mismatches pause routing and raise an alert. The audit log records intent, decision, venue request, venue response and reconciliation result with timestamps an operator can read without the developer.",
+        bullets: ["Reconcile open orders, fills and positions after every gap.", "Fail closed on unresolved mismatches.", "Keep audit fields stable so reports and support cases can replay them."]
+      }
+    ],
+    checklistTitle: "Trading engine acceptance checklist",
+    checklist: [
+      "Order states and transitions are documented with venue evidence for each.",
+      "A replayed signal produces one order and one logged duplicate decision.",
+      "A timeout leaves the order in unknown and blocks new risk until resolved.",
+      "Restart reconciliation compares open orders, fills and positions with the venue.",
+      "Audit logs answer what was intended, what was sent, what the venue said and what changed."
+    ],
+    related: [
+      ["Custom trading software development", "/custom-trading-software-development/"],
+      ["Broker API order reconciliation checklist", "/articles/broker-api-order-reconciliation-checklist/"],
+      ["FIX execution report audit log design", "/articles/fix-api-execution-report-audit-log-design/"],
+      ["Trading system consistency audit", "/trading-system-consistency-audit-service/"]
+    ],
+    references: [
+      officialReferenceLinks[1],
+      officialReferenceLinks[5],
+      officialReferenceLinks[4],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public demo of idempotent order preparation, permission checks and risk rejection logs."]
+    ]
+  },
+  {
+    slug: "articles/okx-vs-bybit-api-automated-trading-checklist",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "OKX vs Bybit API Checklist",
+    eyebrow: "Exchange API",
+    title: "OKX vs Bybit API for Automated Trading | Order Semantics, Limits and Reconciliation",
+    description: "OKX vs Bybit API for automated trading: key scopes, position and margin modes, client order IDs, partial fills, rate limits, private streams and reconciliation checks.",
+    h1: "OKX vs Bybit API for Automated Trading: What to Verify Before You Route Orders",
+    intro: "Fee tables are the easy part of an OKX vs Bybit decision. For an automated system the harder questions are how each venue scopes API keys, how it represents positions and margin, how it reports partial fills and what happens to your order state when a WebSocket stream drops. This checklist lists what to verify on each venue before real size.",
+    summary: "Compare OKX and Bybit for automation by API key scoping, position and margin modes, client order ID rules, partial fill reporting, rate limits, private stream behavior and restart reconciliation, then verify each item against the official docs and a small live test.",
+    sections: [
+      {
+        title: "Scope the keys and confirm account modes",
+        body: "Both venues let you create API keys with limited permissions and IP allowlists; withdrawal permission should never be enabled for a trading bot. Both also expose account-level modes that change order behavior, such as position mode and margin mode. The engine must read the account's actual configuration at startup instead of assuming it, because a mismatch turns a hedge into a flip.",
+        bullets: ["Create trade-only keys with IP allowlists and record who owns them.", "Read position mode, margin mode and leverage from the account before the first order.", "Keep test keys and production keys in separate secret stores."]
+      },
+      {
+        title: "Verify order semantics with small live orders",
+        body: "Client order ID format and uniqueness rules, reduce-only handling, time-in-force options, price precision, minimum size and how partial fills are reported all differ between OKX and Bybit and change between API versions. The safe path is a scripted test that places, amends, partially fills and cancels small orders and records every venue response for the acceptance file.",
+        bullets: ["Test client order ID reuse and duplicate submission on each venue.", "Confirm rounding rules for price and size per instrument.", "Record how each venue reports partial fills, cancels and rejections."]
+      },
+      {
+        title: "Plan for limits, streams and gaps",
+        body: "Both venues publish per-endpoint rate limits and offer private WebSocket channels for orders and positions. Your engine should treat a rate-limit response as a pause with backoff, treat a stream gap as an unknown state and reconcile open orders and positions by REST after any reconnect. The reconciliation path is the same on both venues; only the endpoints differ.",
+        bullets: ["Back off on rate-limit responses and log them as operational events.", "Reconcile orders and positions after every reconnect or restart.", "Alert on unresolved mismatches instead of continuing to route."]
+      }
+    ],
+    checklistTitle: "OKX and Bybit pre-routing checklist",
+    checklist: [
+      "API keys are trade-only, IP-allowlisted and owned by the account holder.",
+      "Position mode, margin mode and leverage are read from the account, not assumed.",
+      "Small live tests recorded place, amend, partial fill, cancel and reject responses.",
+      "Rate-limit and stream-gap handling pause routing and reconcile by REST.",
+      "Fee tier and funding assumptions are checked against the official pages before sizing."
+    ],
+    related: [
+      ["Exchange API trading bot development", "/exchange-api-trading-bot-development/"],
+      ["Bybit vs OKX VIP fees", "/compare/bybit-vs-okx-vip-fees/"],
+      ["Binance API trading bot risk checklist", "/articles/binance-api-trading-bot-risk-checklist/"],
+      ["Trading bot API key permission safety", "/articles/trading-bot-api-key-permission-safety/"]
+    ],
+    references: [
+      okxApiReference,
+      bybitApiReference,
+      ["API key permission notes", `${engineeringNotesUrl}/blob/master/docs/api-key-permissions.md`, "SignalCraft Labs public notes for minimum API key permissions."]
+    ]
+  },
+  {
+    slug: "articles/crypto-exchange-vip-fee-tiers-explained",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "VIP Fee Tiers Explained",
+    eyebrow: "Exchange fees",
+    title: "Crypto Exchange VIP Fee Tiers Explained | Volume, Assets, API Share and Real Cost",
+    description: "How crypto exchange VIP fee tiers work: 30-day volume, asset floors, API-share rules and maker/taker mix, plus how to model the real monthly cost before choosing a venue.",
+    h1: "Crypto Exchange VIP Fee Tiers Explained for Automated Traders",
+    intro: "VIP tables look like a simple ladder, but the tier you actually land on depends on rules that differ by venue: trailing volume windows, asset balance floors, whether API-driven volume counts fully, and how maker rebates interact with your order mix. This note explains the moving parts and how to model your own number.",
+    summary: "A VIP tier is set by trailing volume, asset balance floors and sometimes API-share rules; the real cost depends on your maker and taker mix, so model the blended fee for your own flow before choosing an exchange.",
+    sections: [
+      {
+        title: "What moves you between tiers",
+        body: "Most venues use a trailing 30-day volume window, and several also require a minimum asset balance to unlock each tier. Some ladders treat API-heavy flow differently, either by capping how much of the qualifying volume can come from API orders or by routing API-heavy accounts to a separate professional track. Read the footnotes on the official fee page, because the headline table rarely shows these conditions.",
+        bullets: ["Check the volume window and whether spot and derivatives count separately.", "Check asset balance floors for each tier.", "Check API-share rules if most of your volume is automated."]
+      },
+      {
+        title: "Your maker and taker mix matters more than the tier label",
+        body: "Two accounts on the same tier can pay very different fees. A market-making style flow that is mostly maker may collect rebates on high tiers, while a signal-driven flow that crosses the spread pays taker on almost every fill. The blended fee is the tier's maker rate weighted by your maker share plus the taker rate weighted by your taker share, applied to monthly notional.",
+        bullets: ["Measure your real maker and taker share from fills, not from strategy intent.", "Model 100/0, 70/30 and 0/100 mixes to see the range.", "Compare venues at your own volume, not at the top of the ladder."]
+      },
+      {
+        title: "Model the number and verify it on the account",
+        body: "Use the public ladder to estimate the monthly cost at your volume and mix, then confirm the tier and rates shown inside the account, because promotions, regional rules and referral discounts change the effective rate. Re-check after each month closes; a tier drop can cost more than a strategy tweak saves.",
+        bullets: ["Estimate with the public ladder, then verify inside the account.", "Track the volume gap to the next tier as an operational metric.", "Log the effective fee per fill so reconciliation can catch rate changes."]
+      }
+    ],
+    checklistTitle: "Fee tier verification checklist",
+    checklist: [
+      "Volume window, asset floors and API-share rules are read from the official fee page.",
+      "Maker and taker share is measured from actual fills.",
+      "Blended monthly cost is modeled at your own volume for each candidate venue.",
+      "The tier and rates shown in the account match the model within expectations.",
+      "Effective fee per fill is logged and reviewed monthly."
+    ],
+    related: [
+      ["Crypto exchange fee calculator", "/tools/crypto-exchange-fee-calculator/"],
+      ["Binance vs OKX futures fees", "/compare/binance-vs-okx-futures-fees/"],
+      ["Bybit vs OKX VIP fees", "/compare/bybit-vs-okx-vip-fees/"],
+      ["Hyperliquid fee calculator", "/tools/hyperliquid-fee-calculator/"]
+    ],
+    references: [
+      okxApiReference,
+      bybitApiReference,
+      hyperliquidReferenceLinks[0]
+    ]
+  },
+  {
+    slug: "articles/alpaca-vs-ibkr-api-automated-trading",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "Alpaca vs IBKR API",
+    eyebrow: "Broker API",
+    title: "Alpaca vs IBKR API for Automated Trading | Access Model, Sessions and Acceptance",
+    description: "Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.",
+    h1: "Alpaca vs IBKR API for Automated Trading: Choose by Operating Model, Not by Brand",
+    intro: "Alpaca and Interactive Brokers are often compared on commissions or asset coverage, but for an automated system the decisive difference is the operating model: how you authenticate, what has to stay running, how sessions expire and how you recover after a restart. This note compares the two on those terms.",
+    summary: "Alpaca offers key-based REST and streaming access with a paper environment; IBKR access runs through TWS or IB Gateway sessions or the Client Portal and Web API paths with their own login and reauthentication constraints. Choose by the operating model your team can run every day.",
+    sections: [
+      {
+        title: "Access model and what must stay running",
+        body: "Alpaca exposes REST and streaming endpoints authenticated with API keys, and a separate paper environment with its own keys, so a headless service can run without a desktop session. IBKR's TWS API requires a running Trader Workstation or IB Gateway with a logged-in session, while the Client Portal path relies on a local gateway and browser authentication with periodic reauthentication; the newer unified Web API has its own account and use-case constraints. Your runbook must state who keeps that session alive.",
+        bullets: ["Alpaca: key rotation, paper and live separation, streaming reconnect.", "IBKR: session ownership, daily restart and reauthentication handling.", "Both: no withdrawal or funding permissions for the automation identity."]
+      },
+      {
+        title: "Order and data coverage per account",
+        body: "Asset classes, order types, extended-hours rules and market data entitlements depend on the account and region, not only on the broker. Confirm each instrument, order type and data subscription against the account you will actually trade, then record what the paper or test environment does and does not simulate.",
+        bullets: ["List instruments and order types per account, then test each one.", "Record data subscriptions and their cost as part of scope.", "Note where paper trading differs from live fills and rejections."]
+      },
+      {
+        title: "Acceptance and restart path",
+        body: "For both brokers the acceptance file should show a normal order, a rejection, a cancel, a partial fill, a disconnect during an open order and a restart with open orders. The restart case is where the two differ most: an Alpaca service reconnects with keys, while an IBKR service may need a session to be restored before reconciliation can even begin.",
+        bullets: ["Write the reconnect and reauthentication steps into the runbook.", "Reconcile open orders, fills and positions after every restart.", "Keep a manual pause and a reduce-only mode on both brokers."]
+      }
+    ],
+    checklistTitle: "Broker API selection checklist",
+    checklist: [
+      "The team can operate the daily session or key rotation model the broker requires.",
+      "Instruments, order types and data entitlements are confirmed per account.",
+      "Paper or test environment limits are written down.",
+      "Restart reconciliation and reauthentication steps are tested.",
+      "Permissions exclude withdrawals and funding actions."
+    ],
+    related: [
+      ["Alpaca broker API integration", "/broker-api/alpaca/"],
+      ["IBKR API automation development", "/ibkr-api-automation-developer/"],
+      ["Alpaca API paper to live checklist", "/articles/alpaca-api-paper-to-live-checklist/"],
+      ["IBKR TWS API vs Client Portal automation guide", "/articles/ibkr-tws-gateway-vs-client-portal-automated-trading/"]
+    ],
+    references: [
+      officialReferenceLinks[3],
+      ibkrTwsReference,
+      ibkrClientPortalReference,
+      ibkrWebApiReference
+    ]
+  },
+  {
+    slug: "articles/tradingview-webhook-to-binance-futures-order-workflow",
+    lang: "en",
+    dateModified: "2026-09-03",
+    breadcrumb: "TradingView Webhook to Binance Futures",
+    eyebrow: "TradingView Webhook",
+    title: "TradingView Webhook to Binance Futures | Signal-to-Order Workflow and Safety Checks",
+    description: "TradingView webhook to Binance futures workflow: payload design, authentication and deduplication, symbol and quantity mapping, reduce-only rules, monitoring and reconciliation.",
+    h1: "TradingView Webhook to Binance Futures: A Signal-to-Order Workflow With Safety Checks",
+    intro: "Connecting a TradingView alert to a Binance futures account takes an afternoon; making it safe to leave running takes a design. This walkthrough follows one signal from the alert payload through authentication, deduplication, order preparation, submission and monitoring, and names the check that belongs at each step.",
+    summary: "A safe TradingView to Binance futures workflow authenticates and deduplicates each alert, maps symbol and quantity explicitly, reads leverage and margin mode from the account, applies reduce-only and price protection rules, monitors order status and reconciles after every restart.",
+    sections: [
+      {
+        title: "Design the alert payload and the receiver",
+        body: "The alert message should carry only what the receiver needs to reconstruct intent: strategy name and version, symbol, side, action, quantity model and the bar or signal time. Secrets never travel in the payload. The receiver runs over HTTPS with a revocable endpoint token, validates the schema, derives an event ID and rejects duplicates and stale signals before touching the exchange.",
+        bullets: ["Version the payload so old alerts cannot trigger new logic.", "Derive event IDs from strategy, symbol, action and signal time.", "Reject duplicates, malformed payloads and signals outside the allowed age window."]
+      },
+      {
+        title: "Prepare the order from account facts",
+        body: "Symbol mapping, contract size, price and quantity precision, leverage and margin mode must come from the account and exchange metadata, not from the alert. Before submission, the engine checks maximum position, maximum order size, reduce-only rules for exit signals, price deviation from the mark and whether a manual pause is active. Every refusal is logged with a reason.",
+        bullets: ["Read exchange metadata and account mode at startup and after reconnects.", "Apply reduce-only to exits so a late signal cannot open a new position.", "Log risk decisions with reasons as normal, auditable outcomes."]
+      },
+      {
+        title: "Monitor, reconcile and hand over",
+        body: "After submission, order status arrives through the private stream and can be confirmed by REST. A timeout leaves the order in an unknown state that blocks new risk until resolved. After any restart or reconnect, the engine pulls open orders, fills and positions and compares them with local state. The operator receives alerts for rejections, mismatches and pauses, and a runbook explains how to resume.",
+        bullets: ["Confirm fills by REST when the stream is silent.", "Reconcile open orders and positions after every gap.", "Give the operator a pause switch, a status view and a resume checklist."]
+      }
+    ],
+    checklistTitle: "Webhook to futures go-live checklist",
+    checklist: [
+      "Alert payload is versioned, minimal and free of secrets.",
+      "Receiver authenticates, validates schema and deduplicates by event ID.",
+      "Leverage, margin mode, precision and limits are read from the account and metadata.",
+      "Reduce-only, price protection, max position and pause rules are tested with replayed signals.",
+      "Restart reconciliation and operator alerts are demonstrated before size increases."
+    ],
+    related: [
+      ["TradingView webhook development", "/tradingview-webhook-developer/"],
+      ["Exchange API trading bot development", "/exchange-api-trading-bot-development/"],
+      ["Binance API trading bot risk checklist", "/articles/binance-api-trading-bot-risk-checklist/"],
+      ["How we prevent duplicate TradingView webhook orders", "/articles/how-we-prevent-duplicate-tradingview-webhook-orders/"]
+    ],
+    references: [
+      officialReferenceLinks[0],
+      officialReferenceLinks[5],
+      ["Webhook dry-run demo", engineeringNotesUrl, "SignalCraft Labs public demo of deduplication, permission checks and risk rejection logs."]
+    ]
   }
 ];
 
@@ -3991,6 +4285,9 @@ const articleAlternateSlugs = new Map([
 ]);
 
 const articleClusters = [
+  ["articles/custom-trading-platform-development-scope-checklist", "articles/custom-trading-engine-development-order-state-machine", "articles/hire-trading-api-developer-scope-checklist", "articles/automated-trading-risk-acceptance-checklist", "articles/fix-api-execution-report-audit-log-design"],
+  ["articles/okx-vs-bybit-api-automated-trading-checklist", "articles/crypto-exchange-vip-fee-tiers-explained", "articles/tradingview-webhook-to-binance-futures-order-workflow", "articles/binance-api-trading-bot-risk-checklist", "articles/trading-bot-api-key-permission-safety"],
+  ["articles/alpaca-vs-ibkr-api-automated-trading", "articles/alpaca-api-paper-to-live-checklist", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/alpaca-order-status-reconciliation", "articles/schwab-api-token-refresh-runbook"],
   ["articles/tradingview-webhook-duplicate-orders", "articles/how-we-prevent-duplicate-tradingview-webhook-orders", "articles/tradingview-webhook-strategy-automation", "articles/tradingview-alert-payload-template", "articles/tradingview-webhook-to-ibkr-order-workflow"],
   ["articles/ibkr-tws-gateway-vs-client-portal", "articles/ibkr-tws-gateway-vs-client-portal-automated-trading", "articles/ibkr-api-strategy-execution", "articles/tradingview-webhook-to-ibkr-order-workflow", "articles/broker-api-order-reconciliation-checklist"],
   ["articles/automated-trading-risk-acceptance-checklist", "articles/automated-trading-strategy-risk-checklist", "articles/common-automated-strategy-failure-points", "articles/trading-bot-api-key-permission-safety", "articles/broker-api-order-reconciliation-checklist"],

@@ -391,6 +391,42 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/articles/custom-trading-platform-development-scope-checklist/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/custom-trading-engine-development-order-state-machine/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/okx-vs-bybit-api-automated-trading-checklist/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/crypto-exchange-vip-fee-tiers-explained/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/articles/tradingview-webhook-to-binance-futures-order-workflow/</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/about/</loc>
     <lastmod>2026-07-25</lastmod>
     <changefreq>monthly</changefreq>
