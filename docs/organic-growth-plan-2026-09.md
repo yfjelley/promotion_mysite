@@ -36,6 +36,18 @@ The 30 comparison pages and both calculators had no path from the homepage; only
 - Sitewide footer on generated pages: hub added to both the Chinese and English footer link sets.
 - Header nav left unchanged; it is a non-wrapping flex row and a ninth item would overflow on desktop.
 
+## Indexing status (2026-09-03)
+
+Sitemap resubmitted and re-read the same day; Google now reports 109 discovered URLs, up from 73. Manual indexing requests hit the daily quota after /compare/, so these five still need a request:
+
+- https://pddjf.com/zh/compare/
+- https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/
+- https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/
+- https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/
+- https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/
+
+The sitemap alone will get them crawled; the manual request only speeds it up. Search Console URL inspection, one at a time, quota permitting.
+
 ## Topic queue (next 18, in priority order)
 
 1. Schwab Trader API rate limits and order placement checklist (schwab api trading)
