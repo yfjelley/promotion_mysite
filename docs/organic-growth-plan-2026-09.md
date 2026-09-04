@@ -38,15 +38,15 @@ The 30 comparison pages and both calculators had no path from the homepage; only
 
 ## Indexing status (2026-09-03)
 
-Sitemap resubmitted and re-read the same day; Google now reports 109 discovered URLs, up from 73. Manual indexing requests hit the daily quota after /compare/, so these five still need a request:
+Sitemap resubmitted and re-read the same day; Google now reports 109 discovered URLs, up from 73. Manual indexing requests hit the daily quota after /compare/ on 2026-09-03. The quota is a rolling window, not a Pacific-midnight reset: still exhausted at 01:18 PDT on 2026-09-04, free again by about 20:00 CST that evening.
 
-- https://pddjf.com/zh/compare/
-- https://pddjf.com/articles/ibkr-api-order-status-reconciliation-after-disconnect/
+Requested on 2026-09-04: /zh/compare/ (already "discovered, not yet indexed" via the sitemap and the /compare/ link, so the new hub links work) and /articles/ibkr-api-order-status-reconciliation-after-disconnect/. Still not requested, in the sitemap and pushed to IndexNow, will be crawled without a request:
+
 - https://pddjf.com/articles/ib-gateway-auto-restart-daily-reauthentication-runbook/
 - https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/
 - https://pddjf.com/articles/ibkr-paper-trading-vs-live-account-api-differences/
 
-The sitemap alone will get them crawled; the manual request only speeds it up. Search Console URL inspection, one at a time, quota permitting.
+IndexNow (2026-09-04): key file hosted on both sites; all 109 pddjf URLs and 57 icojf URLs pushed, both 202 Accepted. Covers Bing, Yandex, Naver and the engines that read Bing's index (DuckDuckGo, Copilot, ChatGPT search).
 
 ## Topic queue (next 18, in priority order)
 
