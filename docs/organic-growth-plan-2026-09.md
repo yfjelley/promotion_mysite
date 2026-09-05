@@ -48,6 +48,14 @@ Requested on 2026-09-04: /zh/compare/ (already "discovered, not yet indexed" via
 
 IndexNow (2026-09-04): key file hosted on both sites; all 109 pddjf URLs and 57 icojf URLs pushed, both 202 Accepted. Covers Bing, Yandex, Naver and the engines that read Bing's index (DuckDuckGo, Copilot, ChatGPT search).
 
+## Fee data expansion and linkable assets (2026-09-05)
+
+- Added Kraken (17 futures tiers), KuCoin (VIP 0-12) and HTX (Prime 0-11) to `tools/exchange-fee-data.mjs`, each read from the official fee page on 2026-09-05 with the checked date recorded. XT was skipped: its site refuses the current region, so the schedule could not be verified. The calculator now lists nine venues.
+- Generic comparison pages now cover each new exchange against Binance, OKX and Bybit, plus Kraken vs KuCoin: ten new pairs, twenty pages, 25 comparisons in total. Pairs among the minor venues are deliberately not generated to avoid thin pages.
+- New linkable asset: /exchange-fee-changes/ and /zh/exchange-fee-changes/, a dated log of additions, changes and re-verifications with an official source per entry, plus /exchange-fee-changes/feed.xml (RSS). Add an entry whenever a schedule is added, changed or re-checked; the data lives in the `changelog` array of the fee data file. Monthly cadence: re-verify the nine schedules, log the result, push the sitemap to IndexNow.
+- Articles carry a byline (Feng Yang, LinkedIn and GitHub links) and a Person author in the TechArticle schema.
+- Sitemap is 131 URLs; all pushed to IndexNow on 2026-09-05 (202 Accepted). Google manual indexing not requested for these; the sitemap and hub links will surface them.
+
 ## Topic queue (next 18, in priority order)
 
 1. Schwab Trader API rate limits and order placement checklist (schwab api trading)
