@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,7 +103,17 @@
       "description": "FIX API 订单回报和审计日志设计指南，说明 ExecutionReport、Reject、会话序号、原始消息、标准化状态和上线验收。",
       "url": "https://pddjf.com/articles/fix-api-execution-report-audit-log-design/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "杨锋",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -155,6 +165,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">FIX API 订单路由应同时保存原始 FIX 消息和标准化状态，重点验收 ExecutionReport、Reject、序号恢复、断线重连、审计日志和 UAT 回放。</p>
+      <p class="article-fact-check">作者: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">杨锋</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>把 ExecutionReport 当成订单状态来源</h2>
         <p>NewOrderSingle 发出后，系统不能只看本地请求成功。订单状态应由 ExecutionReport、Reject、CancelReject 等回报驱动，并映射成内部统一状态。</p>
@@ -235,6 +246,7 @@
     <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
       <a href="/zh/compare/">交易所费率对比</a>
+      <a href="/zh/exchange-fee-changes/">费率变动记录</a>
       <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
       <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
       <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>

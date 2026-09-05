@@ -24,7 +24,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -101,7 +101,17 @@
       "description": "Alpaca vs IBKR API for automated trading: key-based REST and streaming versus TWS, IB Gateway and Client Portal sessions, paper environments, order coverage and acceptance.",
       "url": "https://pddjf.com/articles/alpaca-vs-ibkr-api-automated-trading/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "Feng Yang",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -153,6 +163,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">Alpaca offers key-based REST and streaming access with a paper environment; IBKR access runs through TWS or IB Gateway sessions or the Client Portal and Web API paths with their own login and reauthentication constraints. Choose by the operating model your team can run every day.</p>
+      <p class="article-fact-check">Written by: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">Feng Yang</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>Access model and what must stay running</h2>
         <p>Alpaca exposes REST and streaming endpoints authenticated with API keys, and a separate paper environment with its own keys, so a headless service can run without a desktop session. IBKR's TWS API requires a running Trader Workstation or IB Gateway with a logged-in session, while the Client Portal path relies on a local gateway and browser authentication with periodic reauthentication; the newer unified Web API has its own account and use-case constraints. Your runbook must state who keeps that session alive.</p>
@@ -237,6 +248,7 @@
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
       <a href="/compare/">Exchange fee comparisons</a>
+      <a href="/exchange-fee-changes/">Exchange fee change log</a>
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
       <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
       <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>

@@ -24,7 +24,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -101,7 +101,17 @@
       "description": "API key permission safety guidance for trading bot projects, covering read access, trade access, withdrawal exclusion, IP limits, rotation and handover.",
       "url": "https://pddjf.com/articles/trading-bot-api-key-permission-safety/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "Feng Yang",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -153,6 +163,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">Trading bot API keys should use minimum permissions: read access for evaluation, scoped trade access for execution, no withdrawal or transfer permission, IP limits where available and documented rotation steps.</p>
+      <p class="article-fact-check">Written by: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">Feng Yang</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>Separate read-only evaluation from live routing</h2>
         <p>Many projects can start with read-only permission to inspect balances, positions, open orders and account capability. Live trade permission should be added only after the workflow, risk limits, logs and acceptance tests are clear.</p>
@@ -233,6 +244,7 @@
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
       <a href="/compare/">Exchange fee comparisons</a>
+      <a href="/exchange-fee-changes/">Exchange fee change log</a>
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
       <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
       <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>

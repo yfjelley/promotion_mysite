@@ -16,7 +16,7 @@ const llmsUpdatedAt = "2026-07-25";
 const articleCatalogPublishedDate = "2026-07-07";
 const site = "https://pddjf.com";
 const stylesheetHref = "/styles.css?v=20260722-conversion-copy";
-const scriptHref = "/scripts.js?v=20260903-ads-contact-v1";
+const scriptHref = "/scripts.js?v=20260905-fee-expansion";
 const contactScriptHref = scriptHref;
 const releaseAssetDir = join(publicDir, "__release", "20260715-p2-ux-assets");
 const buyerReleaseAssetDir = join(publicDir, "__release", "20260719-buyer-conversion");
@@ -3522,11 +3522,11 @@ const riskDisclaimerPage = {
 
 const exchangeFeeToolPage = {
   slug: "tools/crypto-exchange-fee-calculator",
-  lastModified: "2026-08-13",
+  lastModified: "2026-09-05",
   breadcrumb: "Crypto Exchange Fee Calculator",
-  eyebrow: "Fee Intelligence · Updated July 15, 2026",
+  eyebrow: "Fee Intelligence · Updated September 5, 2026",
   title: "Crypto Fees Calculator | Compare Futures Fees & VIP Rates",
-  description: "Calculate and compare Binance, OKX, Bybit, Bitget, MEXC and Gate futures fees, maker/taker costs, public VIP rates and the volume gap to the next tier.",
+  description: "Calculate and compare Binance, OKX, Bybit, Bitget, MEXC, Gate, Kraken, KuCoin and HTX futures fees, maker/taker costs, public VIP rates and the gap to the next tier.",
   h1: "Crypto Fees Calculator: Compare Futures Fees and VIP Costs",
   intro: "Compare public exchange futures fees from your 30-day volume, maker/taker mix and qualifying assets. The calculator estimates trading costs and VIP rates, separates complete public ladders from base-rate references, and links every model to its official source.",
   lang: "en"
@@ -3535,11 +3535,11 @@ const exchangeFeeToolPage = {
 const exchangeFeeToolPageZh = {
   slug: "zh/tools/crypto-exchange-fee-calculator",
   breadcrumb: "交易所 VIP 费率计算器",
-  eyebrow: "费率情报 · 2026 年 7 月 15 日更新",
+  eyebrow: "费率情报 · 2026 年 9 月 5 日更新",
   title: "加密货币交易所手续费对比 | VIP 合约费率计算器",
-  description: "对比 Binance、OKX、Bybit、Bitget、MEXC 和 Gate 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。",
+  description: "对比 Binance、OKX、Bybit、Bitget、MEXC、Gate、Kraken、KuCoin 和 HTX 的合约手续费，估算 VIP 等级、Maker/Taker 混合费率、月成本及下一等级差距。",
   h1: "主流交易所 VIP 手续费计算器",
-  intro: "根据你的月成交量、Maker 占比和资产余额，把公开 VIP 费率表转换为真实成本估算。一次比较六家主流交易所，并查看每项结果的官方来源。",
+  intro: "根据你的月成交量、Maker 占比和资产余额，把公开 VIP 费率表转换为真实成本估算。一次比较九家主流交易所，并查看每项结果的官方来源。",
   lang: "zh-CN"
 };
 
@@ -3653,9 +3653,17 @@ const exchangeFeeComparisonPages = [
 ];
 
 function buildGenericComparisonPages() {
-  const ids = ["binance", "okx", "bybit", "bitget", "mexc", "gate"];
+  const ids = ["binance", "okx", "bybit", "bitget", "mexc", "gate", "kraken", "kucoin", "htx"];
+  const laterAdditions = new Set(["kraken", "kucoin", "htx"]);
+  const anchorPartners = new Set(["binance", "okx", "bybit"]);
+  // Exchanges added on 2026-09-05 only pair with the three anchor venues, plus Kraken vs KuCoin.
+  const pairAllowed = (x, y) => {
+    if (!laterAdditions.has(x) && !laterAdditions.has(y)) return true;
+    if ((x === "kraken" && y === "kucoin") || (x === "kucoin" && y === "kraken")) return true;
+    return (laterAdditions.has(x) && anchorPartners.has(y)) || (laterAdditions.has(y) && anchorPartners.has(x));
+  };
   const existing = new Set(exchangeFeeComparisonPages.map((page) => [page.exchangeA, page.exchangeB].sort().join("|")));
-  const zhNames = { binance: "币安", okx: "OKX", bybit: "Bybit", bitget: "Bitget", mexc: "MEXC", gate: "Gate" };
+  const zhNames = { binance: "币安", okx: "OKX", bybit: "Bybit", bitget: "Bitget", mexc: "MEXC", gate: "Gate", kraken: "Kraken", kucoin: "KuCoin", htx: "HTX" };
   // Chinese typography: a space only where a Latin token meets its neighbour.
   const zhJoin = (tokens) => tokens.reduce((out, token, index) => (
     index === 0 ? token : `${out}${/[A-Za-z0-9]$/.test(out) || /^[A-Za-z0-9]/.test(token) ? " " : ""}${token}`
@@ -3670,7 +3678,7 @@ function buildGenericComparisonPages() {
   for (let i = 0; i < ids.length; i += 1) {
     for (let j = i + 1; j < ids.length; j += 1) {
       const key = [ids[i], ids[j]].sort().join("|");
-      if (existing.has(key)) continue;
+      if (existing.has(key) || !pairAllowed(ids[i], ids[j])) continue;
       // Put the exchange with the deeper public ladder on the left so the scenario column reads naturally.
       const a = exchangeFeeData.exchanges.find((exchange) => exchange.id === ids[i]);
       const b = exchangeFeeData.exchanges.find((exchange) => exchange.id === ids[j]);
@@ -3700,7 +3708,7 @@ function buildGenericComparisonPages() {
         h1: `${left.name} vs ${right.name} Futures Fees`,
         intro: enIntro,
         lang: "en",
-        lastModified: "2026-09-03",
+        lastModified: checked > "2026-09-03" ? checked : "2026-09-03",
         checkedDate: checked,
         generic: true,
         exchangeA: left.id,
@@ -3716,7 +3724,7 @@ function buildGenericComparisonPages() {
         h1: zhTitle(left, right, "合约手续费对比"),
         intro: zhIntro,
         lang: "zh-CN",
-        lastModified: "2026-09-03",
+        lastModified: checked > "2026-09-03" ? checked : "2026-09-03",
         checkedDate: checked,
         generic: true,
         exchangeA: left.id,
@@ -3740,6 +3748,32 @@ const exchangeFeeCompareIndexPage = {
   intro: "Each comparison models public USDT perpetual maker and taker costs at $1M, $10M and $100M monthly volume. Exchanges with a complete public VIP ladder are modelled tier by tier; exchanges without one stay base-rate references, and every number links back to the official page and the date it was checked.",
   lang: "en",
   lastModified: "2026-09-03"
+};
+
+const exchangeFeeChangelogPage = {
+  slug: "exchange-fee-changes",
+  counterpartSlug: "zh/exchange-fee-changes",
+  breadcrumb: "Exchange Fee Changes",
+  eyebrow: "Fee change log · Updated September 5, 2026",
+  title: "Crypto Exchange Futures Fee Changes | Dated Log with Sources",
+  description: "A dated log of futures fee schedule changes and re-verifications for Binance, OKX, Bybit, Bitget, MEXC, Gate, Kraken, KuCoin and HTX, each entry linked to its official source.",
+  h1: "Crypto Exchange Futures Fee Change Log",
+  intro: "Every entry records what changed in a public futures fee schedule, or that we re-checked it and found it unchanged, with the date and the official page. It is the maintenance log behind the fee calculator and the comparison pages, published so that a fee number can always be traced to when it was last checked.",
+  lang: "en",
+  lastModified: "2026-09-05"
+};
+
+const exchangeFeeChangelogPageZh = {
+  slug: "zh/exchange-fee-changes",
+  counterpartSlug: "exchange-fee-changes",
+  breadcrumb: "交易所费率变动记录",
+  eyebrow: "费率变动记录 · 2026 年 9 月 5 日更新",
+  title: "交易所合约手续费变动记录 | 带日期与官方来源",
+  description: "币安、OKX、Bybit、Bitget、MEXC、Gate、Kraken、KuCoin、HTX 合约费率表的变动与复核记录，每条都标注日期并链接官方页面。",
+  h1: "交易所合约手续费变动记录",
+  intro: "每一条记录要么是公开合约费率表发生了变化，要么是我们复核后确认没有变化，都带日期和官方页面链接。这是费率计算器和对比页背后的维护日志，公开出来是为了让每个费率数字都能追溯到最近一次核验时间。",
+  lang: "zh-CN",
+  lastModified: "2026-09-05"
 };
 
 const exchangeFeeCompareIndexPageZh = {
@@ -3772,6 +3806,8 @@ const allGeneratedPages = [
   hyperliquidFeeToolPageZh,
   exchangeFeeCompareIndexPage,
   exchangeFeeCompareIndexPageZh,
+  exchangeFeeChangelogPage,
+  exchangeFeeChangelogPageZh,
   ...exchangeFeeComparisonPages
 ];
 
@@ -3788,6 +3824,7 @@ const navLinks = [
 
 const footerServiceLinks = [
   ["/zh/compare/", "交易所费率对比"],
+  ["/zh/exchange-fee-changes/", "费率变动记录"],
   ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"],
   ["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"],
   ["/crypto-asset-reporting/", "Crypto Asset Reporting"],
@@ -3824,6 +3861,7 @@ const navLinksEn = [
 
 const footerServiceLinksEn = [
   ["/compare/", "Exchange fee comparisons"],
+  ["/exchange-fee-changes/", "Exchange fee change log"],
   ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"],
   ["/hyperliquid-api-trading-bot-development/", "Custom Hyperliquid trading bot"],
   ["/tradingview-to-hyperliquid-automation/", "TradingView to Hyperliquid"],
@@ -4933,7 +4971,7 @@ function articleHtml(page) {
         "headline": page.h1,
         "description": page.description,
         "url": canonical(page.slug),
-        "author": { "@id": `${site}/#organization` },
+        "author": { "@type": "Person", "@id": `${site}/#person`, "name": english ? "Feng Yang" : "杨锋", "url": linkedinProfileUrl, "sameAs": [linkedinProfileUrl, githubProfileUrl], "worksFor": { "@id": `${site}/#organization` } },
         "publisher": { "@id": `${site}/#organization` },
         "datePublished": page.datePublished || articleCatalogPublishedDate,
         "dateModified": page.dateModified || auditContentDate,
@@ -4944,6 +4982,7 @@ function articleHtml(page) {
   };
   const body = `<article class="technical-article">
       <p class="article-summary">${escapeHtml(page.summary)}</p>
+      <p class="article-fact-check">${english ? "Written by" : "作者"}: <a href="${linkedinProfileUrl}" rel="noopener" target="_blank">${english ? "Feng Yang" : "杨锋"}</a>, SignalCraft Labs · <a href="${githubProfileUrl}" rel="noopener" target="_blank">GitHub</a></p>
       ${page.sections.map((section) => `<section>
         <h2>${escapeHtml(section.title)}</h2>
         <p>${escapeHtml(section.body)}</p>
@@ -5208,11 +5247,14 @@ function exchangeFeeToolHtml(page) {
     bitget: ["合约标准 VIP", "Bitget PRO 做市商分组采用独立费率表，未计入本模型。"],
     binance: ["USDⓈ-M 合约公开基础费率", "官方完整等级表由客户端动态渲染，且可能受账户折扣设置影响；在完整数据可稳定核验前，仅建模公开基础费率。"],
     mexc: ["公开标准永续合约费率", "官方资料显示标准 Maker 0%、Taker 0.02%，但地区、交易对及动态 M-Score VVIP 可能改变账户实际费率，因此不提供确定的下一等级。"],
-    gate: ["USDT 合约基础费率", "Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。"]
+    gate: ["USDT 合约基础费率", "Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。"],
+    kraken: ["Kraken 合约永续等级表", "等级按 30 天现货成交量、合约成交量或平台资产三者取优；本模型只采用合约成交量路径。Kraken 说明美国、加拿大和新西兰用户不能使用合约。"],
+    kucoin: ["USDT-M 合约 VIP 等级表", "等级也可通过持有 KCS、现货成交量或净借款达到；本模型只采用 30 天合约成交量路径和已公布的 VIP 5、VIP 8 净资产路径。KuCoin 说明部分币种实际费率可能不同。"],
+    htx: ["USDT 本位合约分组 1 Prime 等级表", "费率不含可选的 HTX 代币抵扣。Prime 等级也可通过现货成交量或持有 HTX 达到；本模型只采用合约成交量路径和前一日总资产路径。"]
   };
   const sourceCards = exchangeFeeData.exchanges.map((exchange) => {
     const sources = exchange.sources || [exchange.source];
-    const [scope, note] = zh ? sourceScopeZh[exchange.id] : [exchange.pairScope, exchange.note];
+    const [scope, note] = zh ? (sourceScopeZh[exchange.id] || [exchange.pairScope, exchange.note]) : [exchange.pairScope, exchange.note];
     return `<article>
       <div class="fee-source-head"><h3>${escapeHtml(exchange.name)}</h3><span class="coverage-badge ${exchange.coverage}">${escapeHtml(exchange.coverage === "full" ? t.coverageFull : t.coverageBase)}</span></div>
       <p>${escapeHtml(scope)}${zh ? "。" : ". "}${escapeHtml(note)}</p>
@@ -5991,6 +6033,88 @@ function bybitOkxComparisonHtml(page) {
 </html>`;
 }
 
+function exchangeFeeChangelogEntries() {
+  return [...exchangeFeeData.changelog].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+}
+
+function exchangeFeeChangelogHtml(page) {
+  const english = isEnglish(page);
+  const entries = exchangeFeeChangelogEntries();
+  const nameOf = (id) => exchangeFeeData.exchanges.find((exchange) => exchange.id === id)?.name || id;
+  const typeLabel = { added: english ? "Added" : "新增", verified: english ? "Re-verified" : "复核", changed: english ? "Changed" : "变更" };
+  const months = [];
+  for (const entry of entries) {
+    const month = entry.date.slice(0, 7);
+    let bucket = months.find((item) => item.month === month);
+    if (!bucket) { bucket = { month, items: [] }; months.push(bucket); }
+    bucket.items.push(entry);
+  }
+  const monthLabel = (month) => {
+    const [year, m] = month.split("-").map(Number);
+    return english ? `${["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][m - 1]} ${year}` : `${year} 年 ${m} 月`;
+  };
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      ...baseGraph(page, "CollectionPage"),
+      {
+        "@type": "ItemList",
+        "@id": `${canonical(page.slug)}#entries`,
+        "name": page.h1,
+        "itemListElement": entries.map((entry, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": `${entry.date} · ${nameOf(entry.exchange)} · ${typeLabel[entry.type]}`,
+          "url": entry.url
+        }))
+      }
+    ]
+  };
+  const body = `<section class="embedded-section">
+      <h2>${english ? "How to read this log" : "怎么读这份记录"}</h2>
+      <p>${english ? "Added means an exchange entered the dataset for the first time. Changed means the exchange published a new schedule or notice on that date. Re-verified means we compared the modeled ladder with the official page on that date and recorded the result. Every number in the calculator carries the date of the last such check." : "“新增”指该交易所首次进入数据集；“变更”指交易所在该日期发布了新费率表或公告；“复核”指我们在该日期把模型阶梯与官方页面逐项对照并记录结果。计算器里的每个数字都带有最近一次核验的日期。"}</p>
+      <ul class="check-list">
+        <li><a href="${english ? "/tools/crypto-exchange-fee-calculator/" : "/zh/tools/crypto-exchange-fee-calculator/"}">${english ? "Crypto exchange VIP fee calculator" : "交易所 VIP 费率计算器"}</a></li>
+        <li><a href="${english ? "/compare/" : "/zh/compare/"}">${english ? "All futures fee comparisons" : "全部合约手续费对比"}</a></li>
+        <li><a href="/data/exchange-fees.json">${english ? "Download the dataset (JSON)" : "下载数据集（JSON）"}</a></li>
+        <li><a href="/exchange-fee-changes/feed.xml">${english ? "RSS feed of this log" : "本记录的 RSS 订阅"}</a></li>
+      </ul>
+    </section>
+    ${months.map((bucket) => `<section class="embedded-section">
+      <h2>${monthLabel(bucket.month)}</h2>
+      <ul class="check-list">${bucket.items.map((entry) => `<li><strong>${entry.date} · ${escapeHtml(nameOf(entry.exchange))} · ${typeLabel[entry.type]}</strong>: ${escapeHtml(english ? entry.en : entry.zh)} <a href="${entry.url}" rel="noopener" target="_blank">${english ? "Official source" : "官方来源"}</a></li>`).join("")}</ul>
+    </section>`).join("\n    ")}`;
+  return infoPageHtml(page, english ? "Fee tool" : "费率工具", body, schema);
+}
+
+function exchangeFeeChangelogFeedXml() {
+  const entries = exchangeFeeChangelogEntries();
+  const nameOf = (id) => exchangeFeeData.exchanges.find((exchange) => exchange.id === id)?.name || id;
+  const typeLabel = { added: "Added", verified: "Re-verified", changed: "Changed" };
+  const xmlEscape = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const pageUrl = canonical(exchangeFeeChangelogPage.slug);
+  const items = entries.map((entry) => `    <item>
+      <title>${xmlEscape(`${entry.date} · ${nameOf(entry.exchange)} · ${typeLabel[entry.type]}`)}</title>
+      <link>${xmlEscape(entry.url)}</link>
+      <guid isPermaLink="false">${xmlEscape(`${entry.date}-${entry.exchange}-${entry.type}`)}</guid>
+      <pubDate>${new Date(`${entry.date}T00:00:00Z`).toUTCString()}</pubDate>
+      <description>${xmlEscape(entry.en)}</description>
+    </item>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${xmlEscape(exchangeFeeChangelogPage.h1)}</title>
+    <link>${pageUrl}</link>
+    <atom:link href="${site}/exchange-fee-changes/feed.xml" rel="self" type="application/rss+xml" />
+    <description>${xmlEscape(exchangeFeeChangelogPage.description)}</description>
+    <language>en</language>
+    <lastBuildDate>${new Date(`${exchangeFeeChangelogPage.lastModified}T00:00:00Z`).toUTCString()}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+}
+
 function exchangeFeeCompareIndexHtml(page) {
   const english = isEnglish(page);
   const prefix = english ? "compare/" : "zh/compare/";
@@ -6022,8 +6146,8 @@ function exchangeFeeCompareIndexHtml(page) {
         <a href="${routeForSlug(entry.slug)}">${english ? "Open comparison" : "查看对比"}</a>
       </article>`).join("");
   const calculators = english
-    ? [["/tools/crypto-exchange-fee-calculator/", "Crypto exchange VIP fee calculator"], ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"]]
-    : [["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"], ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"]];
+    ? [["/tools/crypto-exchange-fee-calculator/", "Crypto exchange VIP fee calculator"], ["/tools/hyperliquid-fee-calculator/", "Hyperliquid fee calculator"], ["/exchange-fee-changes/", "Exchange fee change log"]]
+    : [["/zh/tools/crypto-exchange-fee-calculator/", "交易所 VIP 费率计算器"], ["/zh/tools/hyperliquid-fee-calculator/", "Hyperliquid 手续费计算器"], ["/zh/exchange-fee-changes/", "费率变动记录"]];
   const body = `<div class="article-card-grid">${cards}</div>
     <section class="embedded-section">
       <h2>${english ? "Run the numbers on your own volume" : "用自己的成交量测算"}</h2>
@@ -6538,6 +6662,9 @@ writePublicFile(pagePath(hyperliquidFeeToolPage.slug), hyperliquidFeeToolHtml(hy
 writePublicFile(pagePath(hyperliquidFeeToolPageZh.slug), hyperliquidFeeToolHtml(hyperliquidFeeToolPageZh));
 writePublicFile(pagePath(exchangeFeeCompareIndexPage.slug), exchangeFeeCompareIndexHtml(exchangeFeeCompareIndexPage));
 writePublicFile(pagePath(exchangeFeeCompareIndexPageZh.slug), exchangeFeeCompareIndexHtml(exchangeFeeCompareIndexPageZh));
+writePublicFile(pagePath(exchangeFeeChangelogPage.slug), exchangeFeeChangelogHtml(exchangeFeeChangelogPage));
+writePublicFile(pagePath(exchangeFeeChangelogPageZh.slug), exchangeFeeChangelogHtml(exchangeFeeChangelogPageZh));
+writePublicFile(join(publicDir, "exchange-fee-changes", "feed.xml"), exchangeFeeChangelogFeedXml());
 for (const page of exchangeFeeComparisonPages) {
   writePublicFile(pagePath(page.slug), exchangeFeeComparisonHtml(page));
 }
@@ -6552,6 +6679,8 @@ const sitemapUrls = [
   ["/zh/tools/hyperliquid-fee-calculator/", "weekly", "0.95", hyperliquidCheckedDate],
   ["/compare/", "weekly", "0.9", exchangeFeeCompareIndexPage.lastModified],
   ["/zh/compare/", "weekly", "0.9", exchangeFeeCompareIndexPageZh.lastModified],
+  ["/exchange-fee-changes/", "weekly", "0.8", exchangeFeeChangelogPage.lastModified],
+  ["/zh/exchange-fee-changes/", "weekly", "0.8", exchangeFeeChangelogPageZh.lastModified],
   ...exchangeFeeComparisonPages.map((page) => [routeForSlug(page.slug), "weekly", "0.85", page.lastModified]),
   ["/crypto-asset-reporting/", "weekly", "0.95"],
   ["/broker/api/", "weekly", "0.9"],

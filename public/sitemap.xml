@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://pddjf.com/tools/crypto-exchange-fee-calculator/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -41,6 +41,18 @@
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/exchange-fee-changes/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/exchange-fee-changes/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pddjf.com/compare/binance-vs-okx-futures-fees/</loc>
@@ -115,6 +127,42 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/compare/kraken-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/kraken-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/kucoin-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/kucoin-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/htx-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/htx-vs-binance-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/compare/okx-vs-bitget-futures-fees/</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -147,6 +195,42 @@
   <url>
     <loc>https://pddjf.com/zh/compare/okx-vs-gate-futures-fees/</loc>
     <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/okx-vs-kraken-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/okx-vs-kraken-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/okx-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/okx-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/okx-vs-htx-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/okx-vs-htx-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -187,6 +271,42 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://pddjf.com/compare/bybit-vs-kraken-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/bybit-vs-kraken-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/bybit-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/bybit-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/bybit-vs-htx-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/bybit-vs-htx-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://pddjf.com/compare/bitget-vs-mexc-futures-fees/</loc>
     <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -219,6 +339,18 @@
   <url>
     <loc>https://pddjf.com/zh/compare/mexc-vs-gate-futures-fees/</loc>
     <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/compare/kraken-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pddjf.com/zh/compare/kraken-vs-kucoin-futures-fees/</loc>
+    <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>

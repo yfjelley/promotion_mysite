@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,7 +103,17 @@
       "description": "A FIX API order routing guide for automated strategies, covering session management, NewOrderSingle, ExecutionReport, Reject handling, sequence recovery and audit logs.",
       "url": "https://pddjf.com/articles/fix-api-order-routing-execution-reports-audit-logs/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "Feng Yang",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -155,6 +165,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">FIX API order routing for automated strategies needs session management, message mapping, ExecutionReport handling, raw message archives, normalized order state and UAT evidence.</p>
+      <p class="article-fact-check">Written by: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">Feng Yang</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>Define the session and message scope early</h2>
         <p>Before building order routing, the client and counterparty should confirm FIX version, SenderCompID, TargetCompID, heartbeat interval, sequence rules, test environment, certificates, allowlists and required message types.</p>
@@ -235,6 +246,7 @@
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
       <a href="/compare/">Exchange fee comparisons</a>
+      <a href="/exchange-fee-changes/">Exchange fee change log</a>
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
       <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
       <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>

@@ -8,7 +8,7 @@ const engineeringNotesUrl = "https://github.com/yfjelley/signalcraft-labs-engine
 const linkedinProfileUrl = "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/";
 const currentStylesheetHref = "/styles.css?v=20260722-conversion-copy";
 const contactStylesheetHref = "/styles.css?v=20260805-contact-cta";
-const currentScriptHref = "/scripts.js?v=20260903-ads-contact-v1";
+const currentScriptHref = "/scripts.js?v=20260905-fee-expansion";
 const contentDate = "2026-07-21";
 const llmsUpdatedAt = "2026-07-25";
 const errors = [];

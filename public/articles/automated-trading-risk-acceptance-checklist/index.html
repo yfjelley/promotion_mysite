@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,7 +103,17 @@
       "description": "自动交易系统上线前风控验收清单，覆盖 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警和灰度上线。",
       "url": "https://pddjf.com/articles/automated-trading-risk-acceptance-checklist/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "杨锋",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -155,6 +165,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">自动交易系统上线前应逐项验证 API Key 权限、暂停开关、最大仓位、重复信号、拒单日志、告警、回滚和灰度运行流程。</p>
+      <p class="article-fact-check">作者: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">杨锋</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>先定义不能下单的场景</h2>
         <p>风控验收从禁止条件开始。系统应在 API Key 权限不足、超过最大仓位、超过单笔数量、交易时段不匹配、价格偏离过大或人工暂停开启时拒绝下单。</p>
@@ -235,6 +246,7 @@
     <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
       <a href="/zh/compare/">交易所费率对比</a>
+      <a href="/zh/exchange-fee-changes/">费率变动记录</a>
       <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
       <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
       <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>

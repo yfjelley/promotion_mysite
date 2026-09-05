@@ -332,7 +332,10 @@ function initExchangeFeeTool() {
       bitget: "合约标准 VIP",
       binance: "USDⓈ-M 合约公开基础费率",
       mexc: "公开标准永续合约费率",
-      gate: "USDT 合约基础费率"
+      gate: "USDT 合约基础费率",
+      kraken: "Kraken 合约永续等级表",
+      kucoin: "USDT-M 合约 VIP 等级表",
+      htx: "USDT 本位合约分组 1 Prime 等级表"
     },
     notes: {
       okx: "分组 2 合约的 VIP 7 至 VIP 9 费率不同。",
@@ -340,7 +343,10 @@ function initExchangeFeeTool() {
       bitget: "Bitget PRO 做市商分组采用独立费率表，未计入本模型。",
       binance: "官方完整等级表由客户端动态渲染，且可能受账户折扣设置影响；在完整数据可稳定核验前，仅建模公开基础费率。",
       mexc: "公开标准永续费率为 Maker 0%、Taker 0.02%；地区、交易对和动态 M-Score VVIP 可能改变账户实际费率。",
-      gate: "Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。"
+      gate: "Gate 在多个页面发布交易对分组和 VIP 调整；为避免混合不兼容表格，本模型仅采用基础费率。",
+      kraken: "等级按 30 天现货成交量、合约成交量或平台资产三者取优；本模型只采用合约成交量路径。Kraken 说明美国、加拿大和新西兰用户不能使用合约。",
+      kucoin: "等级也可通过持有 KCS、现货成交量或净借款达到；本模型只采用 30 天合约成交量路径和已公布的 VIP 5、VIP 8 净资产路径。",
+      htx: "费率不含可选的 HTX 代币抵扣。Prime 等级也可通过现货成交量或持有 HTX 达到；本模型只采用合约成交量路径和前一日总资产路径。"
     }
   } : {
     noNext: "No deterministic public next tier", highest: "Highest modeled public tier", volumeMet: "volume route met", moreVolume: (value) => `${value} more volume`, assetMet: "asset route met", moreAssets: (value) => `${value} more assets`, or: " or ",

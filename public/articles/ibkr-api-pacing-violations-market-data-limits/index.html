@@ -24,7 +24,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -101,7 +101,17 @@
       "description": "How IBKR message pacing, historical data limits and market data line allowances shape an automated client, with request budgeting, caching, backoff and acceptance tests.",
       "url": "https://pddjf.com/articles/ibkr-api-pacing-violations-market-data-limits/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "Feng Yang",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -153,6 +163,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">Treat IBKR message pacing, historical data pacing and market data line allowances as design inputs: budget every request through one queue, cache reference data, and alert instead of trading on stale quotes.</p>
+      <p class="article-fact-check">Written by: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">Feng Yang</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>Pacing limits are part of the interface</h2>
         <p>The TWS API documents rate constraints on messages and on historical data requests, and each account has a limited number of simultaneous streaming market data lines. Read the current limits from the official documentation for the account in use, record them in the project notes with the date they were checked, and treat them as a design input rather than something to discover in production.</p>
@@ -237,6 +248,7 @@
     <p><strong>SignalCraft Labs</strong> trading automation digital products and custom engineering studio</p>
     <nav aria-label="Service page navigation">
       <a href="/compare/">Exchange fee comparisons</a>
+      <a href="/exchange-fee-changes/">Exchange fee change log</a>
       <a href="/tools/hyperliquid-fee-calculator/">Hyperliquid fee calculator</a>
       <a href="/hyperliquid-api-trading-bot-development/">Custom Hyperliquid trading bot</a>
       <a href="/tradingview-to-hyperliquid-automation/">TradingView to Hyperliquid</a>

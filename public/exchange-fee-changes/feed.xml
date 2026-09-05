@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crypto Exchange Futures Fee Change Log</title>
+    <link>https://pddjf.com/exchange-fee-changes/</link>
+    <atom:link href="https://pddjf.com/exchange-fee-changes/feed.xml" rel="self" type="application/rss+xml" />
+    <description>A dated log of futures fee schedule changes and re-verifications for Binance, OKX, Bybit, Bitget, MEXC, Gate, Kraken, KuCoin and HTX, each entry linked to its official source.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 05 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>2026-09-05 · Kraken · Added</title>
+      <link>https://www.kraken.com/features/fee-schedule</link>
+      <guid isPermaLink="false">2026-09-05-kraken-added</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Kraken Futures tier schedule added: 17 tiers from Tier 1 to Pro 5, verified on the official fee schedule page.</description>
+    </item>
+    <item>
+      <title>2026-09-05 · KuCoin · Added</title>
+      <link>https://www.kucoin.com/vip/privilege/fee</link>
+      <guid isPermaLink="false">2026-09-05-kucoin-added</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <description>KuCoin USDT-M futures VIP schedule added: VIP 0 to VIP 12 with 30-day futures-volume thresholds and the published net-asset routes.</description>
+    </item>
+    <item>
+      <title>2026-09-05 · HTX · Added</title>
+      <link>https://www.htx.com/fee/</link>
+      <guid isPermaLink="false">2026-09-05-htx-added</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <description>HTX USDT-margined futures Prime schedule added: Prime 0 to Prime 11, Group 1 rates without the HTX-token deduction.</description>
+    </item>
+    <item>
+      <title>2026-07-23 · OKX · Re-verified</title>
+      <link>https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees</link>
+      <guid isPermaLink="false">2026-07-23-okx-verified</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description>OKX VIP ladder re-checked against the official adjustment notice; no change from the April 8, 2026 schedule.</description>
+    </item>
+    <item>
+      <title>2026-07-23 · Bybit · Re-verified</title>
+      <link>https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program</link>
+      <guid isPermaLink="false">2026-07-23-bybit-verified</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Bybit standard VIP and Pro ladders re-checked against the help-center pages updated on May 26 and June 3, 2026.</description>
+    </item>
+    <item>
+      <title>2026-07-15 · Binance · Re-verified</title>
+      <link>https://www.binance.com/en/fee/futureFee</link>
+      <guid isPermaLink="false">2026-07-15-binance-verified</guid>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Binance USDⓈ-M base rate verified at 0.02% maker / 0.05% taker; the full ladder is client-rendered and stays a base-rate reference.</description>
+    </item>
+    <item>
+      <title>2026-07-15 · Bitget · Re-verified</title>
+      <link>https://www.bitget.com/support/articles/12560603830277</link>
+      <guid isPermaLink="false">2026-07-15-bitget-verified</guid>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Bitget standard VIP ladder verified against the schedule effective July 1, 2025.</description>
+    </item>
+    <item>
+      <title>2026-07-15 · MEXC · Re-verified</title>
+      <link>https://www.mexc.com/learn/article/mexc-fees-explained-complete-trading-futures-withdrawal-fees-guide/1</link>
+      <guid isPermaLink="false">2026-07-15-mexc-verified</guid>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+      <description>MEXC standard perpetual rate verified at 0% maker / 0.02% taker; VVIP uses a dynamic M-Score and is not modeled.</description>
+    </item>
+    <item>
+      <title>2026-07-15 · Gate · Re-verified</title>
+      <link>https://www.gate.com/pt/announcements/article/50390</link>
+      <guid isPermaLink="false">2026-07-15-gate-verified</guid>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Gate USDT futures base rate verified at 0.02% maker / 0.05% taker after the April 9, 2026 adjustment.</description>
+    </item>
+    <item>
+      <title>2026-06-03 · Bybit · Changed</title>
+      <link>https://www.bybit.com/en/help-center/article/Benefits-of-the-VIP-Program</link>
+      <guid isPermaLink="false">2026-06-03-bybit-changed</guid>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Bybit updated its VIP fee-rate help page (Pro tiers and top-72 USDT perpetual group rates).</description>
+    </item>
+    <item>
+      <title>2026-05-26 · Bybit · Changed</title>
+      <link>https://www.bybit.com/en/help-center/article/Introduction-to-Bybit-VIP-Program?category=bcaeae54c20e409dbc</link>
+      <guid isPermaLink="false">2026-05-26-bybit-changed</guid>
+      <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
+      <description>Bybit updated its VIP qualification thresholds page.</description>
+    </item>
+    <item>
+      <title>2026-04-09 · Gate · Changed</title>
+      <link>https://www.gate.com/pt/announcements/article/50390</link>
+      <guid isPermaLink="false">2026-04-09-gate-changed</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+      <description>Gate published a futures fee adjustment announcement.</description>
+    </item>
+    <item>
+      <title>2026-04-08 · OKX · Changed</title>
+      <link>https://www.okx.com/help/advance-notice-adjustment-to-vip-tier-and-future-fees</link>
+      <guid isPermaLink="false">2026-04-08-okx-changed</guid>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+      <description>OKX VIP tier and futures fee adjustment took effect.</description>
+    </item>
+    <item>
+      <title>2025-07-01 · Bitget · Changed</title>
+      <link>https://www.bitget.com/support/articles/12560603830277</link>
+      <guid isPermaLink="false">2025-07-01-bitget-changed</guid>
+      <pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate>
+      <description>Bitget VIP fee rates and thresholds schedule took effect.</description>
+    </item>
+  </channel>
+</rss>

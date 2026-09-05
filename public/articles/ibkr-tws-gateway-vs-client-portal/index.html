@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#07111f">
   <link rel="stylesheet" href="/styles.css?v=20260722-conversion-copy">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs information">
-  <script src="/scripts.js?v=20260903-ads-contact-v1" defer></script>
+  <script src="/scripts.js?v=20260905-fee-expansion" defer></script>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -103,7 +103,17 @@
       "description": "对比 IBKR TWS API 与 Client Portal Web API 的认证、会话、订单能力、部署运维和自动交易验收路径，并说明 TWS 与 IB Gateway 的关系。",
       "url": "https://pddjf.com/articles/ibkr-tws-gateway-vs-client-portal/",
       "author": {
-        "@id": "https://pddjf.com/#organization"
+        "@type": "Person",
+        "@id": "https://pddjf.com/#person",
+        "name": "杨锋",
+        "url": "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+        "sameAs": [
+          "https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/",
+          "https://github.com/yfjelley"
+        ],
+        "worksFor": {
+          "@id": "https://pddjf.com/#organization"
+        }
       },
       "publisher": {
         "@id": "https://pddjf.com/#organization"
@@ -155,6 +165,7 @@
     </section>
     <section class="section content-band"><article class="technical-article">
       <p class="article-summary">IBKR 接入选择应先确认账户权限、订单类型、会话稳定性、运行环境、数据订阅、错误处理和灰度验收，而不是按接口名称直接决定。</p>
+      <p class="article-fact-check">作者: <a href="https://www.linkedin.com/in/%E9%94%8B-%E6%9D%A8-968956116/" rel="noopener" target="_blank">杨锋</a>, SignalCraft Labs · <a href="https://github.com/yfjelley" rel="noopener" target="_blank">GitHub</a></p>
       <section>
         <h2>TWS API 通过 TWS 或 IB Gateway 运行</h2>
         <p>TWS API 是 TCP Socket 接口，必须连接到正在运行的 Trader Workstation 或 IB Gateway。两者对 API 客户端的能力基本相同；IB Gateway 更轻量，但仍需要图形界面登录，官方不支持无 GUI 的完全 headless 登录。</p>
@@ -239,6 +250,7 @@
     <p><strong>SignalCraft Labs</strong> 交易自动化数字产品与定制工程服务工作室</p>
     <nav aria-label="服务页导航">
       <a href="/zh/compare/">交易所费率对比</a>
+      <a href="/zh/exchange-fee-changes/">费率变动记录</a>
       <a href="/zh/tools/hyperliquid-fee-calculator/">Hyperliquid 手续费计算器</a>
       <a href="/zh/tools/crypto-exchange-fee-calculator/">交易所 VIP 费率计算器</a>
       <a href="/crypto-asset-reporting/">Crypto Asset Reporting</a>
