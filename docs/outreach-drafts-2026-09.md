@@ -99,3 +99,8 @@ Targets: awesome-quant, awesome-algorithmic-trading, awesome-crypto-trading-bots
 | Date | Target | Status | URL |
 |---|---|---|---|
 | 2026-09-03 | GitHub demo repo updated with broker reconciliation demo and article links | done | https://github.com/yfjelley/signalcraft-labs-engineering-notes |
+| 2026-09-05 | awesome-crypto-trading-bots (Miscellaneous tools) | PR #143 opened: fee calculator + webhook de-dup demo | https://github.com/botcrypto-io/awesome-crypto-trading-bots/pull/143 |
+| 2026-09-05 | awesome-systematic-trading | Issue #107 opened: fee schedules (Data Sources) + articles (Blogs) | https://github.com/paperswithbacktest/awesome-systematic-trading/issues/107 |
+| 2026-09-05 | awesome-quant (Trading & Backtesting) | PR #630 opened: engineering-notes demos; strict rules, acceptance uncertain | https://github.com/wilsonfreitas/awesome-quant/pull/630 |
+| 2026-09-05 | Reddit / Hacker News / Quant StackExchange | Not posted: no logged-in session in Chrome. Log in, then the drafts above can be posted one at a time with approval. | |
+| 2026-09-05 | icojf.com footer cross-link | Not done: validate-icojf-site.mjs line 130 forbids any pddjf.com / SignalCraft Labs mention (deliberate brand separation). Needs a decision to relax the rule. | |
